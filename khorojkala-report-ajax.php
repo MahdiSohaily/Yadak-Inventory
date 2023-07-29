@@ -1,11 +1,11 @@
 <?php
 require_once './php/db.php';
-global $jameitem;
-$jameitem = 0;
+global $jame_item;
+$jame_item = 0;
 global $invoice_number;
 $invoice_number = 0000;
-global $shakhes;
-$shakhes = 1;
+global $factor;
+$factor = 1;
 
 if (filter_has_var(INPUT_POST, 'submit_filter')) {
     $partNumber = empty($_POST['partNumber']) ? null : $_POST['partNumber']; // Assuming you're retrieving the value from a form
@@ -78,20 +78,20 @@ if (filter_has_var(INPUT_POST, 'submit_filter')) {
 ?>
             <tr>
                 <td class="invoice-spacer" colspan="18">
-                    جمع اقلام : <?php echo $jameitem;
-                                $jameitem = 0;
+                    جمع اقلام : <?php echo $jame_item;
+                                $jame_item = 0;
                                 ?>
                 </td>
             </tr>
 
         <?php
         }
-        $jameitem = $jameitem + $row["extqty"];
+        $jame_item = $jame_item + $row["extqty"];
 
 
         ?>
         <tr>
-            <td class="cell-shakhes "><?php echo $shakhes ?></td>
+            <td class="cell-shakhes "><?php echo $factor ?></td>
             <td class="cell-code "><?php echo '&nbsp;' . $row["partnumber"] ?></td>
             <td class="cell-brand cell-brand-<?php echo $row["brn"] ?> "><?php echo $row["brn"] ?></td>
             <td class="cell-des "><?php echo $row["des"] ?></td>
@@ -116,6 +116,6 @@ if (filter_has_var(INPUT_POST, 'submit_filter')) {
             <td><a id="<?php echo $row["exid"] ?>" class="edit-rec2">ویرایش<i class="fas fa-edit"></i></a></td>
         </tr>
 <?php
-        $shakhes = $shakhes + 1;
+        $factor = $factor + 1;
     }
 } // end while
