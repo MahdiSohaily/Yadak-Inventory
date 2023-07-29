@@ -66,7 +66,7 @@
 </style>
 <div>
     <div class="">
-        <form id="parent" method="post" action="./khorojkala-report-ajax.php" autocomplete="off">
+        <form id="parent" method="post" onsubmit="filterReport(e); return false" autocomplete="off">
             <div class="div1">
                 <input type="text" name="partNumber" id="partNumber">
                 <label for="partNumber">کد فنی</label>
@@ -177,7 +177,9 @@
 </div>
 
 <script>
-    function filterReport() {
+    function filterReport(e) {
+        e.preventDefault();
+
         const partNumber = document.getElementById('partNumber').value;
         const seller = document.getElementById('seller').value;
         const brand = document.getElementById('brand').value;
@@ -206,7 +208,6 @@
         axios.post("./khorojkala-report-ajax.php", params)
             .then(function(response) {
                 console.log(response);
-                elem.innerHTML = response.data;
             })
             .catch(function(error) {
                 console.log(error);
