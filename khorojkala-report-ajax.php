@@ -57,7 +57,9 @@ if (filter_has_var(INPUT_POST, 'submit_filter')) {
 
     $stmt->execute();
 
-    if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $number_of_rows = $stmt->fetchColumn();
+
+    if ($number_of_rows) {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $date = $row["exit_time"];
 
