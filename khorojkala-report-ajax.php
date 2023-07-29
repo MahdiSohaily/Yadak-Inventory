@@ -115,7 +115,8 @@ if (filter_has_var(INPUT_POST, 'submit_filter')) {
                 <td></td>
                 <td class="cell-stock "><?php echo $row["stn"] ?></td>
                 <td class="cell-user "><?php echo $row["usn"] ?></td>
-                <td><a id="<?php echo $row["exid"] ?>" class="edit-rec2">ویرایش<i class="fas fa-edit"></i></a></td>
+                <td><a
+                onclick="displayModal()" id="<?php echo $row["exid"] ?>" class="edit-rec2">ویرایش<i class="fas fa-edit"></i></a></td>
             </tr>
         <?php
             $factor = $factor + 1;
@@ -127,3 +128,12 @@ if (filter_has_var(INPUT_POST, 'submit_filter')) {
 <?php
     }
 } // end while
+?>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>
+            <iframe width="100%" height="370px" src=""></iframe>
+        </p>
+    </div>
+</div>
