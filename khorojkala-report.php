@@ -66,7 +66,7 @@
 </style>
 <div>
     <div class="">
-        <form id="parent" method="post" onsubmit="filterReport(e); return false" autocomplete="off">
+        <form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
             <div class="div1">
                 <input type="text" name="partNumber" id="partNumber">
                 <label for="partNumber">کد فنی</label>
@@ -177,8 +177,7 @@
 </div>
 
 <script>
-    function filterReport(e) {
-        e.preventDefault();
+    function filterReport() {
 
         const partNumber = document.getElementById('partNumber').value;
         const seller = document.getElementById('seller').value;
