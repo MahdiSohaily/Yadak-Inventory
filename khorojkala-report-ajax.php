@@ -1,5 +1,4 @@
 <?php
-require_once("header.php");
 require_once './php/db.php';
 global $jameitem;
 $jameitem = 0;
