@@ -64,13 +64,13 @@
         font-size: 14px !important;
     }
 
-    .updateModal {
+    #updateModal {
         display: flex;
         justify-content: center;
         align-items: center;
         position: fixed;
         inset: 0;
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.8);
         display: none;
     }
 
@@ -78,6 +78,18 @@
         background-color: white;
         border-radius: 10px;
         overflow: hidden;
+    }
+
+    .modalHeader {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+    }
+
+    #closeModal {
+        cursor: pointer;
+        color: red;
+        font-size: 18px;
     }
 </style>
 <div>
@@ -184,14 +196,20 @@
     </table>
 </div>
 
-<div class="updateModal">
+<div id="updateModal">
     <div class="modalContent">
-        <iframe width="1400" height="500" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
+        <div class="modalHeader">
+            <h2>ویرایش فاکتور خروجی</h2>
+            <i id="closeModal" class="fa fa-times" aria-hidden="true"></i>
+        </div>
+        <iframe id="updateModalIframe" width="1400" height="500" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
     </div>
 
 </div>
 
 <script>
+    const updateModal = document.getElementById('updateModal');
+
     function filterReport() {
         const partNumber = document.getElementById('partNumber').value === '' ? null : document.getElementById('partNumber').value;
         const seller = document.getElementById('seller').value === 'انتخاب فروشنده' ? null : document.getElementById('seller').value;
@@ -229,8 +247,10 @@
             });
     }
 
-    function displayModal() {
-        alert('hello');
+    function displayModal(element) {
+        id = element.getAttribute('id');
+        updateModal.style.display = 'flex';
+        updateModalIframe.src = './php/khorojkala-report-edit.php?q=' + id;
     }
 </script>
 
