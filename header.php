@@ -66,6 +66,7 @@ require_once './php/jdf.php';
     echo "<title>$title</title>";
 
     ?>
+    <script src="./js/assets/axios.js"></script>
 </head>
 
 <body>
