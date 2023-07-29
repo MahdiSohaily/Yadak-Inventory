@@ -178,16 +178,16 @@
 
 <script>
     function filterReport() {
-        const partNumber = document.getElementById('partNumber').value;
-        const seller = document.getElementById('seller').value;
-        const brand = document.getElementById('brand').value;
-        const pos1 = document.getElementById('pos1').value;
-        const pos2 = document.getElementById('pos2').value;
-        const stock = document.getElementById('stock').value;
-        const user = document.getElementById('user').value;
-        const invoice_number = document.getElementById('invoice_number').value;
-        const invoice_time = document.getElementById('invoice_time').value;
-        const exit_time = document.getElementById('exit_time').value;
+        const partNumber = document.getElementById('partNumber').value === '' ? null : document.getElementById('partNumber').value;
+        const seller = document.getElementById('seller').value === 'انتخاب فروشنده' ? null : document.getElementById('seller').value;
+        const brand = document.getElementById('brand').value === 'انتخاب برند جنس' ? null : document.getElementById('brand').value;
+        const pos1 = document.getElementById('pos1').value === '' ? null : document.getElementById('pos1').value;
+        const pos2 = document.getElementById('pos2').value === '' ? null : document.getElementById('pos2').value;
+        const stock = document.getElementById('stock').value === 'انتخاب انبار' ? null : document.getElementById('stock').value;
+        const user = document.getElementById('user').value === 'انتخاب کاربر' ? null : document.getElementById('user').value;
+        const invoice_number = document.getElementById('invoice_number').value === '' ? null : document.getElementById('invoice_number').value;
+        const invoice_time = document.getElementById('invoice_time').value === '' ? null : document.getElementById('invoice_time').value;
+        const exit_time = document.getElementById('exit_time').value === '' ? null : document.getElementById('exit_time').value;
 
 
         var params = new URLSearchParams();

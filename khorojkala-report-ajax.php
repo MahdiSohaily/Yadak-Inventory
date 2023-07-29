@@ -7,19 +7,20 @@ $invoice_number = 0000;
 global $factor;
 $factor = 1;
 
-print_r($_POST);
 if (filter_has_var(INPUT_POST, 'submit_filter')) {
-    $partNumber = empty($_POST['partNumber']) ? null : $_POST['partNumber']; // Assuming you're retrieving the value from a form
-    $seller_id = empty($_POST['seller']) ? null : $_POST['seller'];
-    $brand_id = empty($_POST['brand']) ? null : $_POST['brand'];
-    $pos1 = empty($_POST['pos1']) ? null : $_POST['pos1'];
-    $pos2 = empty($_POST['pos2']) ? null : $_POST['pos2'];
-    $stock_id = empty($_POST['stock']) ? null : $_POST['stock'];
-    $user_id = empty($_POST['user']) ? null : $_POST['user'];
-    $invoice_number = empty($_POST['invoice_number']) ? null : $_POST['invoice_number'];
-    $invoice_date = empty($_POST['invoice_time']) ? null : $_POST['invoice_time'];
-    $exit_time = empty($_POST['exit_time']) ? null : $_POST['exit_time']; // Assuming you're retrieving the value from a form
+    $partNumber = $_POST['partNumber'] === 'null' ? null : $_POST['partNumber']; // Assuming you're retrieving the value from a form
+    $seller_id = $_POST['seller'] === 'null' ? null : $_POST['seller'];
+    $brand_id = $_POST['brand'] === 'null' ? null : $_POST['brand'];
+    $pos1 = $_POST['pos1'] === 'null' ? null : $_POST['pos1'];
+    $pos2 = $_POST['pos2'] === 'null' ? null : $_POST['pos2'];
+    $stock_id = $_POST['stock'] === 'null' ? null : $_POST['stock'];
+    $user_id = $_POST['user'] === 'null' ? null : $_POST['user'];
+    $invoice_number = $_POST['invoice_number'] === 'null' ? null : $_POST['invoice_number'];
+    $invoice_date = $_POST['invoice_time'] === 'null' ? null : $_POST['invoice_time'];
+    $exit_time = $_POST['exit_time'] === 'null' ? null : $_POST['exit_time']; // Assuming you're retrieving the value from a form
 
+
+    print_r(json_encode($_POST));
     // Prepare the statement
     $stmt = $pdo->prepare("SELECT nisha.partnumber, qtybank.des, nisha.id, users.username AS usn, seller.name, seller.id AS slid, stock.name AS stn, brand.name AS brn, qtybank.qty, qtybank.id AS qtyid, exitrecord.qty AS extqty, exitrecord.id AS exid, qtybank.qty AS entqty, exitrecord.customer, exitrecord.des AS exdes, getter.name AS gtn, deliverer.name AS dln, exitrecord.exit_time, exitrecord.jamkon, exitrecord.invoice_number, exitrecord.invoice_date, qtybank.anbarenter
                             FROM qtybank
