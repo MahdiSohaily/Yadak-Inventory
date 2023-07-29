@@ -63,6 +63,22 @@
     label {
         font-size: 14px !important;
     }
+
+    .updateModal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: none;
+    }
+
+    .modalContent {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+    }
 </style>
 <div>
     <div class="">
@@ -167,13 +183,12 @@
         </tbody>
     </table>
 </div>
-<div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>
-            <iframe width="100%" height="370px" src=""></iframe>
-        </p>
+
+<div class="updateModal">
+    <div class="modalContent">
+        <iframe width="1400" height="500" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
     </div>
+
 </div>
 
 <script>
@@ -212,6 +227,10 @@
             .catch(function(error) {
                 console.log(error);
             });
+    }
+
+    function displayModal() {
+        alert('hello');
     }
 </script>
 

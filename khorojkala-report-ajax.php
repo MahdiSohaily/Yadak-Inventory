@@ -129,11 +129,3 @@ if (filter_has_var(INPUT_POST, 'submit_filter')) {
     }
 } // end while
 ?>
-<div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>
-            <iframe width="100%" height="370px" src=""></iframe>
-        </p>
-    </div>
-</div>

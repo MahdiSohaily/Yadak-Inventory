@@ -66,6 +66,29 @@ require_once './php/jdf.php';
     echo "<title>$title</title>";
 
     ?>
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 6px !important;
+            height: 4px !important;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey !important;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: rgb(105, 104, 104) !important;
+            border-radius: 5px !important;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6d6c6c !important;
+        }
+    </style>
     <script src="./js/assets/axios.js"></script>
 </head>
 
