@@ -40,7 +40,7 @@ if (filter_has_var(INPUT_POST, 'submit_filter')) {
                             AND (exitrecord.invoice_date = :invoice_date OR :invoice_date IS NULL)
                             AND (exitrecord.exit_time = :exit_time OR :exit_time IS NULL)
                             ORDER BY exitrecord.exit_time DESC, exitrecord.invoice_number DESC
-                            LIMIT 100
+                            LIMIT 500
                             ");
 
     // Bind the parameters
@@ -57,9 +57,7 @@ if (filter_has_var(INPUT_POST, 'submit_filter')) {
 
     $stmt->execute();
 
-    $number_of_rows = $stmt->fetchColumn();
-
-    if ($number_of_rows) {
+    if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $date = $row["exit_time"];
 

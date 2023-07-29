@@ -206,6 +206,7 @@
         const resultBox = document.getElementById('resultBox');
         axios.post("./khorojkala-report-ajax.php", params)
             .then(function(response) {
+                console.log(response.data);
                 resultBox.innerHTML = response.data;
             })
             .catch(function(error) {
