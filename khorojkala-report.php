@@ -203,9 +203,10 @@
         params.append('invoice_time', invoice_time);
         params.append('exit_time', exit_time);
 
+        const resultBox = document.getElementById('resultBox');
         axios.post("./khorojkala-report-ajax.php", params)
             .then(function(response) {
-                console.log(response.data);
+                resultBox.innerHTML = response.data;
             })
             .catch(function(error) {
                 console.log(error);
