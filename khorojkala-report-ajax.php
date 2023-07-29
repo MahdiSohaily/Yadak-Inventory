@@ -7,6 +7,7 @@ $invoice_number = 0000;
 global $factor;
 $factor = 1;
 
+print_r($_POST);
 if (filter_has_var(INPUT_POST, 'submit_filter')) {
     $partNumber = empty($_POST['partNumber']) ? null : $_POST['partNumber']; // Assuming you're retrieving the value from a form
     $seller_id = empty($_POST['seller']) ? null : $_POST['seller'];

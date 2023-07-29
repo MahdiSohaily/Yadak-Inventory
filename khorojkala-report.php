@@ -178,7 +178,6 @@
 
 <script>
     function filterReport() {
-
         const partNumber = document.getElementById('partNumber').value;
         const seller = document.getElementById('seller').value;
         const brand = document.getElementById('brand').value;
@@ -192,7 +191,7 @@
 
 
         var params = new URLSearchParams();
-        params.append('filterAjax', 'filterAjax');
+        params.append('submit_filter', 'submit_filter');
         params.append('partNumber', partNumber);
         params.append('seller', seller);
         params.append('brand', brand);
@@ -206,7 +205,7 @@
 
         axios.post("./khorojkala-report-ajax.php", params)
             .then(function(response) {
-                console.log(response);
+                console.log(response.data);
             })
             .catch(function(error) {
                 console.log(error);
