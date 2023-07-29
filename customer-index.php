@@ -2,15 +2,6 @@
 
 
 <div id="Customer-Page">
-
-
-
-
-
-
-
-
-
     <div class="right-side">
 
         <form id="customersave" method="post" action="php/customer-save.php" autocomplete="off">
