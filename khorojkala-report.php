@@ -83,10 +83,15 @@
     .modalHeader {
         display: flex;
         justify-content: space-between;
-        padding: 10px;
+        padding: 20px;
+        background-color: lightgray;
     }
 
-    #closeModal {
+    .modalHeader h2 {
+        font-weight: bold;
+    }
+
+    .closeModal {
         cursor: pointer;
         color: red;
         font-size: 18px;
@@ -200,7 +205,7 @@
     <div class="modalContent">
         <div class="modalHeader">
             <h2>ویرایش فاکتور خروجی</h2>
-            <i id="closeModal" class="fa fa-times" aria-hidden="true"></i>
+            <i onclick="closeModal()" class="fa fa-times closeModal" aria-hidden="true"></i>
         </div>
         <iframe id="updateModalIframe" width="1400" height="500" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
     </div>
@@ -251,6 +256,10 @@
         id = element.getAttribute('id');
         updateModal.style.display = 'flex';
         updateModalIframe.src = './php/khorojkala-report-edit.php?q=' + id;
+    }
+
+    function closeModal() {
+        updateModal.style.display = 'none';
     }
 </script>
 
