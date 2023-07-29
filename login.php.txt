@@ -1,0 +1,159 @@
+<?php
+// Initialize the session
+
+session_start();
+
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    header("location: index.php");
+    exit;
+}
+
+// Include config file
+require_once "php/db.php";
+
+// Define variables and initialize with empty values
+$username = $password = "";
+$username_err = $password_err = $login_err = "";
+
+// Processing form data when form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Check if username is empty
+    if (empty(trim($_POST["username"]))) {
+        $username_err = "Please enter username.";
+    } else {
+        $username = trim($_POST["username"]);
+    }
+
+    // Check if password is empty
+    if (empty(trim($_POST["password"]))) {
+        $password_err = "Please enter your password.";
+    } else {
+        $password = trim($_POST["password"]);
+    }
+
+    // Validate credentials
+    if (empty($username_err) && empty($password_err)) {
+        // Prepare a select statement
+        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+
+        if ($stmt = mysqli_prepare($con, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+
+            // Set parameters
+            $param_username = $username;
+
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                // Store result
+                mysqli_stmt_store_result($stmt);
+
+                // Check if username exists, if yes then verify password
+                if (mysqli_stmt_num_rows($stmt) == 1) {
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                    if (mysqli_stmt_fetch($stmt)) {
+                        if (password_verify($password, $hashed_password)) {
+                            // Password is correct, so start a new session
+                            session_start();
+
+                            // Store data in session variables
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["username"] = $username;
+
+                            // Redirect user to welcome page
+                            header("location: index.php?msg=$username");
+
+
+
+                            date_default_timezone_set('Iran');
+
+                            $myfile = fopen("login.txt", "a") or die("Unable to open file!");
+                            $txt = $username . ' ' . date("Y-m-d h:i:sa") . " Logged in \n";
+                            fwrite($myfile, $txt);
+                            fclose($myfile);
+                        } else {
+                            // Password is not valid, display a generic error message
+                            $login_err = "Invalid username or password.";
+                        }
+                    }
+                } else {
+                    // Username doesn't exist, display a generic error message
+                    $login_err = "Invalid username or password.";
+                }
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+
+    // Close connection
+    mysqli_close($con);
+}
+?>
+
+<?php
+if (!empty($login_err)) {
+    echo '<div class="alert alert-danger">' . $login_err . '</div>';
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <title>???? ?? ?????</title>
+    <link rel="icon" href="https://yadak.shop/wp-content/uploads/2017/04/cropped-YadakShop-512-1-100x100.png" sizes="32x32">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://v1.fontapi.ir/css/Vazir');
+    </style>
+
+    <style>
+        * {
+            font-family: Vazir, sans-serif;
+        }
+    </style>
+</head>
+
+<body style="direction: rtl;">
+    <div class="rtl flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <img class="mx-auto h-10 w-auto" src="https://yadak.shop/wp-content/uploads/2017/04/cropped-YadakShop-512-1-300x300.png" alt="Your Company">
+            <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">???? ?? ???? ??????</h2>
+        </div>
+
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form class="space-y-6" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <div>
+                    <label for="username" class="block text-sm font-medium leading-6 text-gray-900">??? ??????</label>
+                    <div class="mt-2">
+                        <input id="username" type="text" name="username" value="<?php echo $username; ?>" required class=" p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">??? ????</label>
+                    <div class="mt-2">
+                        <input id="password" type="password" name="password" required class=" p-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">???? ?? ?????</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
