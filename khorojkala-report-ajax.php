@@ -57,64 +57,73 @@ if (filter_has_var(INPUT_POST, 'submit_filter')) {
 
     $stmt->execute();
 
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $date = $row["exit_time"];
+    $number_of_rows = $stmt->fetchColumn();
 
-        $array = explode(' ', $date);
-        list($year, $month, $day) = explode('-', $array[0]);
-        list($hour, $minute, $second) = explode(':', $array[1]);
-        $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
+    if ($number_of_rows) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $date = $row["exit_time"];
 
-        $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
-        $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
+            $array = explode(' ', $date);
+            list($year, $month, $day) = explode('-', $array[0]);
+            list($hour, $minute, $second) = explode(':', $array[1]);
+            $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
 
-        if ($invoice_number == 0000) {
-            $invoice_number = $row["invoice_number"];
-        }
+            $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
+            $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
 
-        if ($invoice_number != $row["invoice_number"]) {
-            $invoice_number = $row["invoice_number"];
+            if ($invoice_number == 0000) {
+                $invoice_number = $row["invoice_number"];
+            }
+
+            if ($invoice_number != $row["invoice_number"]) {
+                $invoice_number = $row["invoice_number"];
 ?>
+                <tr>
+                    <td class="invoice-spacer" colspan="18">
+                        جمع اقلام : <?php echo $jame_item;
+                                    $jame_item = 0;
+                                    ?>
+                    </td>
+                </tr>
+
+            <?php
+            }
+            $jame_item = $jame_item + $row["extqty"];
+
+
+            ?>
             <tr>
-                <td class="invoice-spacer" colspan="18">
-                    جمع اقلام : <?php echo $jame_item;
-                                $jame_item = 0;
-                                ?>
-                </td>
+                <td class="cell-shakhes "><?php echo $factor ?></td>
+                <td class="cell-code "><?php echo '&nbsp;' . $row["partnumber"] ?></td>
+                <td class="cell-brand cell-brand-<?php echo $row["brn"] ?> "><?php echo $row["brn"] ?></td>
+                <td class="cell-des "><?php echo $row["des"] ?></td>
+                <td class="cell-des "><?php echo $row["exdes"] ?></td>
+                <td class="cell-qty "><?php echo $row["extqty"] ?></td>
+                <td class="cell-seller cell-seller-<?php echo $row["slid"] ?>"><?php echo $row["name"] ?></td>
+                <td class="cell-customer "><?php echo $row["customer"] ?></td>
+                <td class="cell-gtname "><?php echo $row["gtn"] ?></td>
+                <td class="cell-gtname "><?php echo $row["jamkon"] ?></td>
+                <td class="cell-time "><?php echo $jalali_time ?></td>
+                <td class="cell-date "><?php echo $jalali_date ?></td>
+                <td <?php if (empty($row["invoice_number"])) {
+                        echo 'class="no-invoice-number"';
+                    } ?>><?php echo $row["invoice_number"] ?></td>
+                <td class="cell-date "><?php echo substr($row["invoice_date"], 5) ?></td>
+
+                <td class="tik-anb-<?php echo $row["anbarenter"] ?>"></td>
+                <td></td>
+                <td></td>
+                <td class="cell-stock "><?php echo $row["stn"] ?></td>
+                <td class="cell-user "><?php echo $row["usn"] ?></td>
+                <td><a id="<?php echo $row["exid"] ?>" class="edit-rec2">ویرایش<i class="fas fa-edit"></i></a></td>
             </tr>
-
         <?php
+            $factor = $factor + 1;
         }
-        $jame_item = $jame_item + $row["extqty"];
-
-
-        ?>
+    } else { ?>
         <tr>
-            <td class="cell-shakhes "><?php echo $factor ?></td>
-            <td class="cell-code "><?php echo '&nbsp;' . $row["partnumber"] ?></td>
-            <td class="cell-brand cell-brand-<?php echo $row["brn"] ?> "><?php echo $row["brn"] ?></td>
-            <td class="cell-des "><?php echo $row["des"] ?></td>
-            <td class="cell-des "><?php echo $row["exdes"] ?></td>
-            <td class="cell-qty "><?php echo $row["extqty"] ?></td>
-            <td class="cell-seller cell-seller-<?php echo $row["slid"] ?>"><?php echo $row["name"] ?></td>
-            <td class="cell-customer "><?php echo $row["customer"] ?></td>
-            <td class="cell-gtname "><?php echo $row["gtn"] ?></td>
-            <td class="cell-gtname "><?php echo $row["jamkon"] ?></td>
-            <td class="cell-time "><?php echo $jalali_time ?></td>
-            <td class="cell-date "><?php echo $jalali_date ?></td>
-            <td <?php if (empty($row["invoice_number"])) {
-                    echo 'class="no-invoice-number"';
-                } ?>><?php echo $row["invoice_number"] ?></td>
-            <td class="cell-date "><?php echo substr($row["invoice_date"], 5) ?></td>
-
-            <td class="tik-anb-<?php echo $row["anbarenter"] ?>"></td>
-            <td></td>
-            <td></td>
-            <td class="cell-stock "><?php echo $row["stn"] ?></td>
-            <td class="cell-user "><?php echo $row["usn"] ?></td>
-            <td><a id="<?php echo $row["exid"] ?>" class="edit-rec2">ویرایش<i class="fas fa-edit"></i></a></td>
+            <td colspan="20">موردی برای فیلتر های مشخص شده پیدا نشد</td>
         </tr>
 <?php
-        $factor = $factor + 1;
     }
 } // end while
