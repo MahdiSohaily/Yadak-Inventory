@@ -144,7 +144,6 @@ include("php/seller-form.php")
         const resultBox = document.getElementById('resultBox');
         axios.post("./vorodkala-report-ajax.php", params)
             .then(function(response) {
-                console.log(response.data);
                 resultBox.innerHTML = response.data;
             })
             .catch(function(error) {
@@ -155,7 +154,7 @@ include("php/seller-form.php")
     function displayModal(element) {
         id = element.getAttribute('id');
         updateModal.style.display = 'flex';
-        updateModalIframe.src = './php/khorojkala-report-edit.php?q=' + id;
+        updateModalIframe.src = './php/vorodkala-report-edit.php?q=' + id;
     }
 
     function closeModal() {

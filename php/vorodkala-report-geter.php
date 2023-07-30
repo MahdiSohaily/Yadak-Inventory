@@ -86,7 +86,8 @@ if (mysqli_num_rows($result) > 0) {
             <?php if (userRoll() < 3) { ?>
                 <td class="cell-price "><?php echo (echoRial($row["nprice"], $row["name"])); ?></td>
             <?php } ?>
-            <td><a id="<?php echo $row["id"] ?>" class="edit-rec">ویرایش<i class="fas fa-edit"></i></a></td>
+            <td><a onclick="displayModal(this)" id="<?php echo $row["id"] ?>" class="edit-rec2">ویرایش<i class="fas fa-edit"></i></a></td>
+
         </tr>
 <?php
 
