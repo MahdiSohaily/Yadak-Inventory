@@ -1,105 +1,273 @@
-<?php
-require_once("./php/db.php");
-
-
-$lim = "";
-if (!empty($_GET['lim'])) {
-    $lim = "LIMIT " . $_GET['lim'];
-}
-
-
-
-$sql = " SELECT nisha.partnumber ,qtybank.des, nisha.id , users.username AS usn , seller.name ,seller.id AS slid, stock.name AS stn ,brand.name AS brn , qtybank.qty ,qtybank.id AS qtyid,exitrecord.qty AS extqty,exitrecord.id AS exid ,  qtybank.qty AS entqty ,exitrecord.customer,exitrecord.des AS exdes,getter.name AS gtn,deliverer.name AS dln,exitrecord.exit_time,exitrecord.jamkon,exitrecord.invoice_number,exitrecord.invoice_date,qtybank.anbarenter
-FROM qtybank
-LEFT JOIN nisha ON qtybank.codeid=nisha.id
-INNER JOIN exitrecord ON qtybank.id=exitrecord.qtyid
-LEFT JOIN seller ON qtybank.seller=seller.id
-LEFT JOIN brand ON qtybank.brand=brand.id
-LEFT JOIN stock ON qtybank.stock_id=stock.id
-LEFT JOIN users ON exitrecord.user=users.id
-LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
-LEFT JOIN getter ON exitrecord.getter=getter.id
-ORDER BY  exitrecord.exit_time DESC , exitrecord.invoice_number DESC
-LIMIT 500
-";
-
-
-
-global $jameitem;
-$jameitem = 0;
-global $invoice_number;
-$invoice_number = 0000;
-global $shakhes;
-$shakhes = 1;
-
-$result = mysqli_query($con, $sql);
-if (mysqli_num_rows($result) > 0) {
-
-    while ($row = mysqli_fetch_assoc($result)) {
-
-        $date = $row["exit_time"];
-
-        $array = explode(' ', $date);
-        list($year, $month, $day) = explode('-', $array[0]);
-        list($hour, $minute, $second) = explode(':', $array[1]);
-        $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
-
-        $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
-        $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
-
-        if ($invoice_number == 0000) {
-            $invoice_number = $row["invoice_number"];
-        }
-
-        if ($invoice_number != $row["invoice_number"]) {
-            $invoice_number = $row["invoice_number"];
+<?php require_once("header.php");
 ?>
-            <tr>
-                <td class="invoice-spacer" colspan="18">
-                    جمع اقلام : <?php echo $jameitem;
-                                $jameitem = 0;
-                                ?>
-                </td>
-            </tr>
-
-        <?php
-        }
-        $jameitem = $jameitem + $row["extqty"];
-
-
-        ?>
-        <tr>
-            <td class="cell-shakhes "><?php echo $shakhes ?></td>
-            <td class="cell-code "><?php echo '&nbsp;' . $row["partnumber"] ?></td>
-            <td class="cell-brand cell-brand-<?php echo $row["brn"] ?> "><?php echo $row["brn"] ?></td>
-            <td class="cell-des "><?php echo $row["des"] ?></td>
-            <td class="cell-des "><?php echo $row["exdes"] ?></td>
-            <td class="cell-qty "><?php echo $row["extqty"] ?></td>
-            <td class="cell-seller cell-seller-<?php echo $row["slid"] ?>"><?php echo $row["name"] ?></td>
-            <td class="cell-customer "><?php echo $row["customer"] ?></td>
-            <td class="cell-gtname "><?php echo $row["gtn"] ?></td>
-            <td class="cell-gtname "><?php echo $row["jamkon"] ?></td>
-            <td class="cell-time "><?php echo $jalali_time ?></td>
-            <td class="cell-date "><?php echo $jalali_date ?></td>
-            <td <?php if (empty($row["invoice_number"])) {
-                    echo 'class="no-invoice-number"';
-                } ?>><?php echo $row["invoice_number"] ?></td>
-            <td class="cell-date "><?php echo substr($row["invoice_date"], 5) ?></td>
-
-            <td class="tik-anb-<?php echo $row["anbarenter"] ?>"></td>
-            <td></td>
-            <td></td>
-            <td class="cell-stock "><?php echo $row["stn"] ?></td>
-            <td class="cell-user "><?php echo $row["usn"] ?></td>
-            <td><a onclick="displayModal(this)" id="<?php echo $row["exid"] ?>" class="edit-rec2">ویرایش<i class="fas fa-edit"></i></a></td>
-        </tr>
-<?php
-        $shakhes = $shakhes + 1;
+<style>
+    th {
+        cursor: pointer;
     }
-} // end while
 
-else {
-    echo '<tr><td colspan="18">متاسفانه نتیجه ای یافت نشد</td></tr>';
-}
-mysqli_close($con);
-?>
+    #parent {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        grid-column-gap: 6px;
+        grid-row-gap: 6px;
+        background-color: lightgray;
+        padding: 10px !important;
+        margin: 10px !important;
+        border-radius: 10px;
+    }
+
+    .div1 {
+        grid-area: 1 / 1 / 2 / 2;
+    }
+
+    .div2 {
+        grid-area: 1 / 2 / 2 / 3;
+    }
+
+    .div3 {
+        grid-area: 1 / 3 / 2 / 4;
+    }
+
+    .div4 {
+        grid-area: 1 / 4 / 2 / 5;
+    }
+
+    .div5 {
+        grid-area: 1 / 5 / 2 / 6;
+    }
+
+    .div6 {
+        grid-area: 2 / 1 / 3 / 2;
+    }
+
+    .div7 {
+        grid-area: 2 / 2 / 3 / 3;
+    }
+
+    .div8 {
+        grid-area: 2 / 3 / 3 / 4;
+    }
+
+    .div9 {
+        grid-area: 2 / 4 / 3 / 5;
+    }
+
+    .div10 {
+        grid-area: 2 / 5 / 3 / 6;
+    }
+
+    select,
+    option,
+    input,
+    label {
+        font-size: 14px !important;
+    }
+
+    #updateModal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: none;
+    }
+
+    .modalContent {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .modalHeader {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        background-color: lightgray;
+    }
+
+    .modalHeader h2 {
+        font-weight: bold;
+    }
+
+    .closeModal {
+        cursor: pointer;
+        color: red;
+        font-size: 18px;
+    }
+</style>
+<div>
+    <div class="">
+        <form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
+            <div class="div1">
+                <input type="text" name="partNumber" id="partNumber">
+                <label for="partNumber">کد فنی</label>
+            </div>
+
+            <div class="div2">
+                <select name="seller" id="seller">
+                    <option selected="true" disabled="disabled">انتخاب فروشنده</option>
+                    <?php include("php/seller-form.php") ?>
+                </select>
+                <label for="seller">فروشنده</label>
+            </div>
+
+            <div class="div3">
+                <select name="brand" id="brand">
+                    <option selected="true" disabled="disabled">انتخاب برند جنس</option>
+                    <?php include("php/brand-form.php") ?>
+                </select>
+                <label for="brand">اصالت</label>
+            </div>
+
+            <div class="div4">
+                <input type="text" name="pos2" id="pos2">
+                <label for="pos2">قفسه</label>
+            </div>
+
+            <div class="div5">
+                <input onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1">
+                <label for="pos1">راهرو</label>
+            </div>
+
+            <div class="div" 6>
+                <select name="stock" id="stock">
+                    <option selected="true" disabled="disabled">انتخاب انبار</option>
+                    <?php include("php/stock-form.php") ?>
+                </select>
+                <label for="stock">انبار</label>
+            </div>
+
+            <div class="div7">
+                <select name="user" id="user">
+                    <option selected="true" disabled="disabled">انتخاب کاربر</option>
+                    <?php include("php/user-form.php") ?>
+                </select>
+                <label for="user">کاربر</label>
+            </div>
+
+            <div class="div8">
+                <input type="number" name="invoice_number" id="invoice_number">
+                <label for="invoice_number">شماره فاکتور</label>
+            </div>
+
+            <div class="div9">
+                <input type="text" name="invoice_time" id="invoice_time">
+                <label for="invoice_time">زمان فاکتور</label>
+            </div>
+            <div class="div10">
+                <input type="text" name="exit_time" id="exit_time">
+                <label for="exit_time">زمان خروج </label>
+            </div>
+            <div>
+                <input type="submit" value="فیلتر" name="submit_filter">
+                <a id="excel">اکسل <i class="fas fa-file-excel"></i></a>
+            </div>
+        </form>
+    </div>
+    <table class="report-table">
+        <thead>
+            <tr>
+                <th title="">#</th>
+                <th title="شماره فنی">شماره فنی</th>
+                <th title="برند">برند</th>
+                <th title="توضیحات ورود">توضیحات و</th>
+                <th title="توضیحات خروج">توضیحات خ</th>
+                <th title="تعداد">تعداد</th>
+
+                <th title="فروشنده">فروشنده</th>
+                <th title="خریدار">خریدار</th>
+                <th title="تحویل گیرنده">تحویل گیرنده</th>
+                <th title="جمع کننده">جمع کننده</th>
+                <th title="زمان خروج">زمان خ</th>
+                <th title="تاریخ خروج">تاریخ خ</th>
+
+                <th title="شماره فاکتور خروج">ش ف خروج</th>
+                <th title="تاریخ فاکتور خروج">تاریخ ف خ</th>
+
+                <th title="ورود به انبار">ورود به انبار</th>
+
+                <th title="شماره فاکتور ورود">ش ف و</th>
+                <th title="تاریخ فاکتور ورود">تاریخ ف و</th>
+                <th title="انبار">انبار</th>
+                <th title="کاربر">کاربر</th>
+                <th title="عملیات">عملیات</th>
+            </tr>
+        </thead>
+        <tbody id="resultBox">
+            <?php include("php/khorojkala-report-geter.php") ?>
+        </tbody>
+    </table>
+</div>
+
+<div id="updateModal">
+    <div class="modalContent">
+        <div class="modalHeader">
+            <h2>ویرایش فاکتور خروجی</h2>
+            <i onclick="closeModal()" class="fa fa-times closeModal" aria-hidden="true"></i>
+        </div>
+        <iframe id="updateModalIframe" width="1400" height="500" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
+    </div>
+
+</div>
+
+<script>
+    const updateModal = document.getElementById('updateModal');
+
+    function filterReport() {
+        const partNumber = document.getElementById('partNumber').value === '' ? null : document.getElementById('partNumber').value;
+        const seller = document.getElementById('seller').value === 'انتخاب فروشنده' ? null : document.getElementById('seller').value;
+        const brand = document.getElementById('brand').value === 'انتخاب برند جنس' ? null : document.getElementById('brand').value;
+        const pos1 = document.getElementById('pos1').value === '' ? null : document.getElementById('pos1').value;
+        const pos2 = document.getElementById('pos2').value === '' ? null : document.getElementById('pos2').value;
+        const stock = document.getElementById('stock').value === 'انتخاب انبار' ? null : document.getElementById('stock').value;
+        const user = document.getElementById('user').value === 'انتخاب کاربر' ? null : document.getElementById('user').value;
+        const invoice_number = document.getElementById('invoice_number').value === '' ? null : document.getElementById('invoice_number').value;
+        const invoice_time = document.getElementById('invoice_time').value === '' ? null : document.getElementById('invoice_time').value;
+        const exit_time = document.getElementById('exit_time').value === '' ? null : document.getElementById('exit_time').value;
+
+
+        var params = new URLSearchParams();
+        params.append('submit_filter', 'submit_filter');
+        params.append('partNumber', partNumber);
+        params.append('seller', seller);
+        params.append('brand', brand);
+        params.append('pos1', pos1);
+        params.append('pos2', pos2);
+        params.append('stock', stock);
+        params.append('user', user);
+        params.append('invoice_number', invoice_number);
+        params.append('invoice_time', invoice_time);
+        params.append('exit_time', exit_time);
+
+        const resultBox = document.getElementById('resultBox');
+        axios.post("./khorojkala-report-ajax.php", params)
+            .then(function(response) {
+                console.log(response.data);
+                resultBox.innerHTML = response.data;
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
+
+    function displayModal(element) {
+        id = element.getAttribute('id');
+        updateModal.style.display = 'flex';
+        updateModalIframe.src = './php/khorojkala-report-edit.php?q=' + id;
+    }
+
+    function closeModal() {
+        updateModal.style.display = 'none';
+    }
+    var modal = document.getElementById("updateModal");
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+<?php include("footer.php") ?>
