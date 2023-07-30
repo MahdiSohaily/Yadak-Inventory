@@ -13,8 +13,6 @@ if (mysqli_num_rows($result) > 0) {
   }
 }
 
-print_r(json_encode($data));
-
 $data = persianSort($data);
 
 function persianSort($array) {

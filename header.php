@@ -30,6 +30,7 @@ require_once './php/jdf.php';
             break;
         case 'khorojkala-report.php':
             $title = "گزارش خروج";
+            echo '<link rel="stylesheet" href="./css/exit_record/exit.css?v=' . rand() . '" type="text/css" media="all" />';
             break;
         case 'vorodkala-report.php':
             $title = "گزارش ورود";
@@ -95,9 +96,9 @@ require_once './php/jdf.php';
 <body>
     <div style="position: fixed; z-index:100" class="top-bar">
         <div class="link">
-            <li><a  href="vorodkala-index.php">ورود کالا <i class="fas fa-arrow-circle-right"></i></a></li>
-            <li><a  href="khorojkala-index.php">خروج کالا <i class="fas fa-arrow-circle-left"></i></a></li>
-            <li><a  href="shomaresh-index.php">انبارگردانی <i class="fas fa-expand-arrows-alt"></i></a></li>
+            <li><a href="vorodkala-index.php">ورود کالا <i class="fas fa-arrow-circle-right"></i></a></li>
+            <li><a href="khorojkala-index.php">خروج کالا <i class="fas fa-arrow-circle-left"></i></a></li>
+            <li><a href="shomaresh-index.php">انبارگردانی <i class="fas fa-expand-arrows-alt"></i></a></li>
             <li>
                 <a href="vorodkala-report.php">گزارش ورود <i class="far fa-caret-square-right"></i></a>
                 <ul class="under-link">
@@ -108,7 +109,7 @@ require_once './php/jdf.php';
                 </ul>
             </li>
             <li>
-                <a  href="khorojkala-report.php">گزارش خروج <i class="far fa-caret-square-left"></i></a>
+                <a href="khorojkala-report.php">گزارش خروج <i class="far fa-caret-square-left"></i></a>
                 <ul class="under-link">
                     <li><a href="#">10 روز اخیر</a></li>
                     <li><a href="#">30 روز اخیر</a></li>
@@ -131,9 +132,9 @@ require_once './php/jdf.php';
 
                 </ul>
             </li>
-            <li><a  href="customer-index.php">مشتری <i class="fas fa-user"></i></a></li>
+            <li><a href="customer-index.php">مشتری <i class="fas fa-user"></i></a></li>
             <li><a href="invoice-index.php">فاکتور فروش <i class="fas fa-file-invoice-dollar"></i></a></li>
-            <li><a  href="file-index.php">مدیریت فایل <i class="fas fa-file-excel"></i></a></li>
+            <li><a href="file-index.php">مدیریت فایل <i class="fas fa-file-excel"></i></a></li>
             <li><a target="_blank" href="../callcenter/">مرکز تماس <i class="fas fa-headphones"></i></a></li>
             <li class="sale-mali">سال 1402</li>
         </div>
