@@ -7,6 +7,17 @@ if (!empty($_GET['lim'])) {
     $lim = "LIMIT " . $_GET['lim'];
 }
 
+$partNumber = $_POST['partNumber'] === 'null' ? null : $_POST['partNumber']; // Assuming you're retrieving the value from a form
+$seller_id = $_POST['seller'] === 'null' ? null : $_POST['seller'];
+$brand_id = $_POST['brand'] === 'null' ? null : $_POST['brand'];
+$pos1 = $_POST['pos1'] === 'null' ? null : $_POST['pos1'];
+$pos2 = $_POST['pos2'] === 'null' ? null : $_POST['pos2'];
+$stock_id = $_POST['stock'] === 'null' ? null : $_POST['stock'];
+$user_id = $_POST['user'] === 'null' ? null : $_POST['user'];
+$invoice_number = $_POST['invoice_number'] === 'null' ? null : $_POST['invoice_number'];
+$invoice_date = $_POST['invoice_time'] === 'null' ? null : $_POST['invoice_time'];
+$exit_time = $_POST['exit_time'] === 'null' ? null : $_POST['exit_time'];
+
 
 
 $sql = " SELECT nisha.partnumber ,qtybank.des, nisha.id , users.username AS usn , seller.name ,
@@ -24,11 +35,18 @@ LEFT JOIN stock ON qtybank.stock_id=stock.id
 LEFT JOIN users ON exitrecord.user=users.id
 LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
 LEFT JOIN getter ON exitrecord.getter=getter.id
+WHERE (nisha.partnumber LIKE '" . $partNumber . "' OR " . $partNumber . " IS NULL) 
+AND (qtybank.seller = '" . $seller_id . "' OR '" . $seller_id . "' IS NULL)
+AND (brand.id = '" . $brand_id . "' OR '" . $brand_id . "' IS NULL)
+AND (qtybank.pos1 = '" . $pos1 . "' OR '" . $pos1 . "' IS NULL)
+AND (qtybank.pos2 = '" . $pos2 . "' OR '" . $pos2 . "' IS NULL)
+AND (qtybank.stock_id = '" . $stock_id . "' OR '" . $stock_id . "' IS NULL)
+AND (exitrecord.user = '" . $user_id . "' OR '" . $user_id . "' IS NULL)
+AND (exitrecord.invoice_number = '" . $invoice_number . "' OR '" . $invoice_number . "' IS NULL)
+AND (exitrecord.invoice_date = '" . $invoice_date . "' OR '" . $invoice_date . "' IS NULL)
+AND (exitrecord.exit_time = '" . $exit_time . "' OR '" . $exit_time . "' IS NULL)
 ORDER BY  exitrecord.exit_time DESC , exitrecord.invoice_number DESC
-LIMIT 500
-";
-
-
+LIMIT 500";
 
 global $jameitem;
 $jameitem = 0;
