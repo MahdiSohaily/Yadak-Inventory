@@ -4,8 +4,7 @@
     <div class="">
         <form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
             <div class="div1">
-                <input type="text" name="partNumber" id="partNumber">
-                <label for="partNumber">کد فنی</label>
+                <input type="text" name="partNumber" id="partNumber" placeholder="کد فنی">
             </div>
 
             <div class="div2">
@@ -13,7 +12,6 @@
                     <option selected="true" disabled="disabled">انتخاب فروشنده</option>
                     <?php include("php/seller-form.php") ?>
                 </select>
-                <label for="seller">فروشنده</label>
             </div>
 
             <div class="div3">
@@ -21,17 +19,14 @@
                     <option selected="true" disabled="disabled">انتخاب برند جنس</option>
                     <?php include("php/brand-form.php") ?>
                 </select>
-                <label for="brand">اصالت</label>
             </div>
 
             <div class="div4">
-                <input type="text" name="pos2" id="pos2">
-                <label for="pos2">قفسه</label>
+                <input type="text" name="pos2" id="pos2" placeholder="قفسه">
             </div>
 
             <div class="div5">
-                <input onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1">
-                <label for="pos1">راهرو</label>
+                <input onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1" placeholder="راهرو">
             </div>
 
             <div class="div" 6>
@@ -39,7 +34,6 @@
                     <option selected="true" disabled="disabled">انتخاب انبار</option>
                     <?php include("php/stock-form.php") ?>
                 </select>
-                <label for="stock">انبار</label>
             </div>
 
             <div class="div7">
@@ -47,21 +41,17 @@
                     <option selected="true" disabled="disabled">انتخاب کاربر</option>
                     <?php include("php/user-form.php") ?>
                 </select>
-                <label for="user">کاربر</label>
             </div>
 
             <div class="div8">
-                <input type="number" name="invoice_number" id="invoice_number">
-                <label for="invoice_number">شماره فاکتور</label>
+                <input type="number" name="invoice_number" id="invoice_number" placeholder="شماره فاکتور">
             </div>
 
             <div class="div9">
-                <input type="text" name="invoice_time" id="invoice_time">
-                <label for="invoice_time">زمان فاکتور</label>
+                <input type="text" name="invoice_time" id="invoice_time" placeholder="زمان فاکتور">
             </div>
             <div class="div10">
-                <input type="text" name="exit_time" id="exit_time">
-                <label for="exit_time">زمان خروج </label>
+                <input type="text" name="exit_time" id="exit_time" placeholder="زمان خروج">
             </div>
             <div>
                 <input type="submit" value="فیلتر" name="submit_filter">
