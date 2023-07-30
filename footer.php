@@ -80,7 +80,7 @@
     function redirectTo(url, namespace) {
         redirect_to = url;
         redirect.style.display = 'flex';
-        document.getElementById('redirectMessage').innerHTML = ' حاجی ناموسأ میخوای بری صفحه' + " " + namespace + '؟';
+        document.getElementById('redirectMessage').innerHTML = 'آیا مطمئن هستید که میخواهید به صفحه' + " " + namespace + ' ' + 'منتقل شوید؟';
     }
 
     function confirm() {

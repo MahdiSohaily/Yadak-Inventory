@@ -95,11 +95,11 @@ require_once './php/jdf.php';
 <body>
     <div style="position: fixed; z-index:100" class="top-bar">
         <div class="link">
-            <li><a onclick="redirectTo('vorodkala-index.php', 'ورود کالا');return false; " href="vorodkala-index.php">ورود کالا <i class="fas fa-arrow-circle-right"></i></a></li>
-            <li><a onclick="redirectTo('khorojkala-index.php', 'خروج کالا');return false; " href="khorojkala-index.php">خروج کالا <i class="fas fa-arrow-circle-left"></i></a></li>
-            <li><a onclick="redirectTo('shomaresh-index.php','انبارگردانی');return false; " href="shomaresh-index.php">انبارگردانی <i class="fas fa-expand-arrows-alt"></i></a></li>
+            <li><a  href="vorodkala-index.php">ورود کالا <i class="fas fa-arrow-circle-right"></i></a></li>
+            <li><a  href="khorojkala-index.php">خروج کالا <i class="fas fa-arrow-circle-left"></i></a></li>
+            <li><a  href="shomaresh-index.php">انبارگردانی <i class="fas fa-expand-arrows-alt"></i></a></li>
             <li>
-                <a onclick="redirectTo('vorodkala-report.php','گزارش ورود');return false;" href="vorodkala-report.php">گزارش ورود <i class="far fa-caret-square-right"></i></a>
+                <a href="vorodkala-report.php">گزارش ورود <i class="far fa-caret-square-right"></i></a>
                 <ul class="under-link">
                     <li><a href="#">10 روز اخیر</a></li>
                     <li><a href="#">30 روز اخیر</a></li>
@@ -108,7 +108,7 @@ require_once './php/jdf.php';
                 </ul>
             </li>
             <li>
-                <a onclick="redirectTo('khorojkala-report.php','گزارش خروج');return false;" href="khorojkala-report.php">گزارش خروج <i class="far fa-caret-square-left"></i></a>
+                <a  href="khorojkala-report.php">گزارش خروج <i class="far fa-caret-square-left"></i></a>
                 <ul class="under-link">
                     <li><a href="#">10 روز اخیر</a></li>
                     <li><a href="#">30 روز اخیر</a></li>
@@ -120,21 +120,21 @@ require_once './php/jdf.php';
                 <a onclick="redirectTo('mojodikala-report.php','موجودی کالا');return false;" href="mojodikala-report.php">موجودی کالا <i class="fas fa-compress-arrows-alt"></i></a>
 
                 <ul class="under-link">
-                    <li><a onclick="redirectTo('mojodikala-report-simple.php','موجودی سبک');return false;" href="mojodikala-report-simple.php">موجودی سبک</a></li>
+                    <li><a href="mojodikala-report-simple.php">موجودی سبک</a></li>
                 </ul>
             </li>
-            <li><a onclick="redirectTo('newcode-index.php', 'کد فنی جدید ');return false;" href="newcode-index.php">کد فنی جدید <i class="far fa-plus-square"></i></a></li>
+            <li><a href="newcode-index.php">کد فنی جدید <i class="far fa-plus-square"></i></a></li>
             <li>
-                <a onclick="redirectTo('price.php' , 'سامانه قیمت ');return false;" href="price.php">سامانه قیمت <i class="fas fa-dollar-sign"></i></a>
+                <a href="price.php">سامانه قیمت <i class="fas fa-dollar-sign"></i></a>
                 <ul class="under-link">
-                    <li><a onclick="redirectTo('https://yadakinfo.com/projects/price/', 'قیمت موبیز');return false;" target="_blank" href="https://yadakinfo.com/projects/price/">قیمت موبیز</a></li>
+                    <li><a target="_blank" href="https://yadakinfo.com/projects/price/">قیمت موبیز</a></li>
 
                 </ul>
             </li>
-            <li><a onclick="redirectTo('customer-index.php', 'مشتری');return false;" href="customer-index.php">مشتری <i class="fas fa-user"></i></a></li>
-            <li><a onclick="redirectTo('invoice-index.php', 'فاکتور فروش');return false;" href="invoice-index.php">فاکتور فروش <i class="fas fa-file-invoice-dollar"></i></a></li>
-            <li><a onclick="redirectTo('file-index.php', 'مدیریت فایل');return false;" href="file-index.php">مدیریت فایل <i class="fas fa-file-excel"></i></a></li>
-            <li><a onclick="redirectTo('../callcenter/', 'مرکز تماس');return false;" target="_blank" href="../callcenter/">مرکز تماس <i class="fas fa-headphones"></i></a></li>
+            <li><a  href="customer-index.php">مشتری <i class="fas fa-user"></i></a></li>
+            <li><a href="invoice-index.php">فاکتور فروش <i class="fas fa-file-invoice-dollar"></i></a></li>
+            <li><a  href="file-index.php">مدیریت فایل <i class="fas fa-file-excel"></i></a></li>
+            <li><a target="_blank" href="../callcenter/">مرکز تماس <i class="fas fa-headphones"></i></a></li>
             <li class="sale-mali">سال 1402</li>
         </div>
         <div class="user-box">
