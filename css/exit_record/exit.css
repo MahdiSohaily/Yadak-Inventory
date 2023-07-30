@@ -8,7 +8,7 @@ th {
   grid-template-rows: repeat(3, 1fr);
   grid-column-gap: 6px;
   grid-row-gap: 6px;
-  background-color: lightgray;
+  background-color: rgb(234, 234, 234);
   padding: 10px !important;
   margin: 10px !important;
   border-radius: 10px;
