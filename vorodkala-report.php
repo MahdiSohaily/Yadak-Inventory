@@ -69,7 +69,7 @@ include("php/seller-form.php")
                 اکسل</button>
         </div>
     </form>
-    <table class="report-table">
+    <table id="report-table" class="report-table">
         <thead>
             <tr>
                 <th>#</th>
@@ -105,7 +105,7 @@ include("php/seller-form.php")
 <div id="updateModal">
     <div class="modalContent">
         <div class="modalHeader">
-            <h2>ویرایش فاکتور خروجی</h2>
+            <h2>ویرایش فاکتور ورودی</h2>
             <i onclick="closeModal()" class="fa fa-times closeModal" aria-hidden="true"></i>
         </div>
         <iframe id="updateModalIframe" width="1400" height="500" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
@@ -176,7 +176,7 @@ include("php/seller-form.php")
                 $(table).table2excel({
                     exclude: ".noExl",
                     name: "Exit Report",
-                    filename: "Exit Report " + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+                    filename: "Entrance Report " + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
                     fileext: ".xls",
                     exclude_img: true,
                     exclude_links: true,
