@@ -81,7 +81,6 @@ include("php/seller-form.php")
             <th>فروشنده</th>
             <th>زمان ورود</th>
             <th>تاریخ ورود</th>
-
             <th>تحویل دهنده</th>
             <th>فاکتور</th>
             <th>شماره فاکتور</th>
