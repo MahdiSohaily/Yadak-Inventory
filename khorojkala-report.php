@@ -1,4 +1,6 @@
-<?php require_once("header.php");
+<?php
+require_once("header.php");
+include("php/seller-form.php");
 ?>
 <style>
     th {
@@ -108,7 +110,11 @@
             <div class="div2">
                 <select name="seller" id="seller">
                     <option selected="true" disabled="disabled">انتخاب فروشنده</option>
-                    <?php include("php/seller-form.php") ?>
+                    <?php
+                    foreach ($data as $id => $name) {
+                        echo '<option value="' . $id . '">' . $name . '</option>';
+                    }
+                    ?>
                 </select>
                 <label for="seller">فروشنده</label>
             </div>

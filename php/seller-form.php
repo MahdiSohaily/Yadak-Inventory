@@ -53,7 +53,3 @@ function persianSort($array) {
   return $array;
 }
 
-
-foreach ($data as $id => $name) {
-  echo '<option value="' . $id . '">' . $name . '</option>';
-}
