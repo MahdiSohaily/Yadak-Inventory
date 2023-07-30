@@ -31,6 +31,7 @@ require_once './php/jdf.php';
         case 'khorojkala-report.php':
             $title = "گزارش خروج";
             echo '<link rel="stylesheet" href="./css/exit_record/exit.css?v=' . rand() . '" type="text/css" media="all" />';
+            echo '<script type="text/javascript src = "./js/assets/table2excel.js>?v=' . rand() . '"></script>';
             break;
         case 'vorodkala-report.php':
             $title = "گزارش ورود";

@@ -69,8 +69,6 @@ include("php/seller-form.php")
             </div>
         </form>
     </div>
-
-
     <table id="report-table" class="report-table">
         <thead>
             <tr>
@@ -105,27 +103,6 @@ include("php/seller-form.php")
         </tbody>
     </table>
 </div>
-<script>
-    $(function() {
-        $(".exportToExcel").click(function(e) {
-            var table = $('#report-table');
-            if (table && table.length) {
-                var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
-                $(table).table2excel({
-                    exclude: ".noExl",
-                    name: "Exit Report",
-                    filename: "Exit Report " + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
-                    fileext: ".xls",
-                    exclude_img: true,
-                    exclude_links: true,
-                    exclude_inputs: true,
-                    preserveColors: preserveColors
-                });
-            }
-        });
-
-    });
-</script>
 <div id="updateModal">
     <div class="modalContent">
         <div class="modalHeader">
@@ -193,6 +170,26 @@ include("php/seller-form.php")
             modal.style.display = "none";
         }
     }
+
+    $(function() {
+        $(".exportToExcel").click(function(e) {
+            var table = $('#report-table');
+            if (table && table.length) {
+                var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+                $(table).table2excel({
+                    exclude: ".noExl",
+                    name: "Exit Report",
+                    filename: "Exit Report " + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+                    fileext: ".xls",
+                    exclude_img: true,
+                    exclude_links: true,
+                    exclude_inputs: true,
+                    preserveColors: preserveColors
+                });
+            }
+        });
+
+    });
 </script>
 
 <?php include("footer.php") ?>
