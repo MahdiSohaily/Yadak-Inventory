@@ -28,7 +28,7 @@ $stmt = $pdo->prepare("SELECT nisha.partnumber, qtybank.des, nisha.id, users.use
                         LEFT JOIN users ON exitrecord.user = users.id
                         LEFT JOIN deliverer ON qtybank.deliverer = deliverer.id
                         LEFT JOIN getter ON exitrecord.getter = getter.id
-                        WHERE (nisha.partnumber LIKE :partNumber OR :partNumber IS NULL)
+                        WHERE (nisha.partnumber = :partNumber OR :partNumber IS NULL)
                         AND (qtybank.seller = :seller_id OR :seller_id IS NULL)
                         AND (brand.id = :brand_id OR :brand_id IS NULL)
                         AND (qtybank.pos1 = :pos1 OR :pos1 IS NULL)
