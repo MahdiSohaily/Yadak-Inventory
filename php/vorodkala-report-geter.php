@@ -9,7 +9,7 @@ LEFT JOIN seller ON qtybank.seller=seller.id
 LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
 LEFT JOIN users ON qtybank.user=users.id
 LEFT JOIN stock ON qtybank.stock_id=stock.id 
-ORDER BY qtybank.create_time DESC";
+ORDER BY qtybank.create_time DESC Limit 100";
 
 global $jameitem;
 $jameitem = 0;
@@ -90,7 +90,7 @@ if (mysqli_num_rows($result) > 0) {
         </tr>
 <?php
 
-        $shakhes = $shakhes + 1;
+        $shakhes++;
     } // end while
 } else {
     echo '<tr><td colspan="18">متاسفانه نتیجه ای یافت نشد</td></tr>';

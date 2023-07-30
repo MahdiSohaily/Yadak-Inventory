@@ -50,7 +50,7 @@ $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 global $jameitem;
 $jameitem = 0;
 global $invoice_number;
-$invoice_number = 0000;
+$invoice_number = null;
 global $shakhes;
 $shakhes = 1;
 
@@ -77,7 +77,7 @@ if (true) {
         }
 
 
-        if ($invoice_number != $row["invoice_number"]) {
+        if ($invoice_number != $row["invoice_number"] && $invoice_number != null) {
 
 
 
