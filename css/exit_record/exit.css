@@ -81,7 +81,7 @@ label {
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  background-color: lightgray;
+  background-color: #f4f3f3;
 }
 
 .modalHeader h2 {

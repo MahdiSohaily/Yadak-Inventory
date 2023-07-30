@@ -69,33 +69,37 @@ include("php/seller-form.php")
                 اکسل</button>
         </div>
     </form>
-    <table id="resultBox" class="report-table">
-        <tr>
-            <th>#</th>
-            <th>شماره فنی</th>
-            <th>برند</th>
-            <th>توضیحات</th>
-            <th>تعداد</th>
-            <th>راهرو</th>
-            <th>قفسه</th>
-            <th>فروشنده</th>
-            <th>زمان ورود</th>
-            <th>تاریخ ورود</th>
-            <th>تحویل دهنده</th>
-            <th>فاکتور</th>
-            <th>شماره فاکتور</th>
-            <th>تاریخ فاکتور</th>
-            <th>ورود به انبار</th>
-            <th>انبار</th>
-            <th>کاربر</th>
-            <?php if (userRoll() < 3) { ?>
-                <th>قیمت</th>
+    <table class="report-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>شماره فنی</th>
+                <th>برند</th>
+                <th>توضیحات</th>
+                <th>تعداد</th>
+                <th>راهرو</th>
+                <th>قفسه</th>
+                <th>فروشنده</th>
+                <th>زمان ورود</th>
+                <th>تاریخ ورود</th>
+                <th>تحویل دهنده</th>
+                <th>فاکتور</th>
+                <th>شماره فاکتور</th>
+                <th>تاریخ فاکتور</th>
+                <th>ورود به انبار</th>
+                <th>انبار</th>
+                <th>کاربر</th>
+                <?php if (userRoll() < 3) { ?>
+                    <th>قیمت</th>
 
-            <?php } ?>
+                <?php } ?>
 
-            <th>عملیات</th>
-        </tr>
-        <?php include("php/vorodkala-report-geter.php") ?>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody id="resultBox">
+            <?php include("php/vorodkala-report-geter.php") ?>
+        </tbody>
     </table>
 </div>
 <div id="updateModal">
