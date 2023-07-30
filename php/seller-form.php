@@ -15,8 +15,6 @@ if (mysqli_num_rows($result) > 0) {
 
 $data = persianSort($data);
 
-print_r(json_encode($data));
-
 function persianSort($array)
 {
   $persianAlphabet = array(
@@ -52,4 +50,9 @@ function persianSort($array)
   });
 
   return $array;
+}
+
+
+foreach ($data as $id => $name) {
+  echo '<option value="' . $id . '">' . $name . '</option>';
 }
