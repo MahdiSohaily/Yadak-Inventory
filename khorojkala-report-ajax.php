@@ -1,12 +1,6 @@
 <?php
 require_once("./php/db.php");
 
-
-$lim = "";
-if (!empty($_GET['lim'])) {
-    $lim = "LIMIT " . $_GET['lim'];
-}
-
 $partNumber = $_POST['partNumber'] === 'null' ? null : $_POST['partNumber']; // Assuming you're retrieving the value from a form
 $seller_id = $_POST['seller'] === 'null' ? null : $_POST['seller'];
 $brand_id = $_POST['brand'] === 'null' ? null : $_POST['brand'];

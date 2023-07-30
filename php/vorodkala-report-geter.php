@@ -1,40 +1,6 @@
 <?php
 require_once("db.php");
 
-
-$var = "WHERE 1=1";
-
-if (!empty($_GET['user'])) {
-    $var = $var . " AND users.id=" . $_GET['user'];
-}
-if (!empty($_GET['brand'])) {
-    $var = $var . " AND  brand.id=" . $_GET['brand'];
-}
-if (!empty($_GET['codeid'])) {
-    $var = $var . " AND  nisha.partnumber LIKE '" . $_GET['codeid'] . "%'";
-}
-if (!empty($_GET['pos1'])) {
-    $var = $var . " AND   pos1='" . $_GET['pos1'] . "'";
-}
-if (!empty($_GET['pos2'])) {
-    $var = $var . " AND   pos2='" . $_GET['pos2'] . "'";
-}
-
-if (!empty($_GET['stock'])) {
-    $var = $var . " AND   qtybank.stock_id='" . $_GET['stock'] . "'";
-}
-if (!empty($_GET['seller'])) {
-    $var = $var . " AND   qtybank.seller='" . $_GET['seller'] . "'";
-}
-if (!empty($_GET['invoice_number'])) {
-    $var = $var . " AND   qtybank.invoice_number='" . $_GET['invoice_number'] . "'";
-}
-if (!empty($_GET['invoice_time'])) {
-    $var = $var . " AND  qtybank.invoice_date LIKE '" . $_GET['invoice_time'] . "%'";
-}
-
-
-
 $sql = "SELECT nisha.partnumber ,nisha.price AS nprice,seller.id AS slid, brand.name , qtybank.des ,qtybank.id, qtybank.qty , qtybank.pos1 , qtybank.pos2 , qtybank.create_time , seller.name AS sln, deliverer.name AS dn , qtybank.anbarenter ,qtybank.invoice , users.username AS un , qtybank.invoice_number,qtybank.invoice_date ,stock.name AS stn
 FROM qtybank
 LEFT JOIN nisha ON qtybank.codeid=nisha.id
