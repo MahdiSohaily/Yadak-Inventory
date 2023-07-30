@@ -125,7 +125,6 @@ include("php/seller-form.php")
         const user = document.getElementById('user').value === 'انتخاب کاربر' ? null : document.getElementById('user').value;
         const invoice_number = document.getElementById('invoice_number').value === '' ? null : document.getElementById('invoice_number').value;
         const invoice_time = document.getElementById('invoice_time').value === '' ? null : document.getElementById('invoice_time').value;
-        const exit_time = document.getElementById('exit_time').value === '' ? null : document.getElementById('exit_time').value;
 
 
         var params = new URLSearchParams();
@@ -139,7 +138,6 @@ include("php/seller-form.php")
         params.append('user', user);
         params.append('invoice_number', invoice_number);
         params.append('invoice_time', invoice_time);
-        params.append('exit_time', exit_time);
 
         const resultBox = document.getElementById('resultBox');
         resultBox.innerHTML = `
