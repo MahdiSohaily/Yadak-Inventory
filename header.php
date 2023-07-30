@@ -15,6 +15,8 @@ require_once './php/jdf.php';
     <link rel='stylesheet' href='css/style.css?v=<?php echo (rand()) ?>' type='text/css' media='all' />
     <link rel='stylesheet' href='css/modal.css?v=<?php echo (rand()) ?>' type='text/css' media='all' />
     <link type="text/css" rel="stylesheet" href="css/persianDatepicker.css" />
+    <link rel="stylesheet" href="./css/exit_record/exit.css?v=' . rand() . '" type="text/css" media="all" />
+    <script type="text/javascript" src="./js/assets/table2excel.js>?v=' . rand() . '"></script>
 
     <?php
     switch (basename($_SERVER['PHP_SELF'])) {
@@ -30,8 +32,6 @@ require_once './php/jdf.php';
             break;
         case 'khorojkala-report.php':
             $title = "گزارش خروج";
-            echo '<link rel="stylesheet" href="./css/exit_record/exit.css?v=' . rand() . '" type="text/css" media="all" />';
-            echo '<script type="text/javascript src = "./js/assets/table2excel.js>?v=' . rand() . '"></script>';
             break;
         case 'vorodkala-report.php':
             $title = "گزارش ورود";
