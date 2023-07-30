@@ -141,6 +141,13 @@ include("php/seller-form.php")
         params.append('exit_time', exit_time);
 
         const resultBox = document.getElementById('resultBox');
+        resultBox.innerHTML = `
+                            <tr class='full-page'>
+                                <td colspan='18'>
+                                <img style='width: 60px; margin-block:30px' src='../callcenter/report/public/img/loading.png' alt='google'>
+                                <p class="pt-2 text-gray-500">لطفا صبور باشید</p>
+                                </td>
+                            </tr>`;
         axios.post("./khorojkala-report-ajax.php", params)
             .then(function(response) {
                 console.log(response.data);
