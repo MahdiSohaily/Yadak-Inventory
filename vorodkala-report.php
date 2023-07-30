@@ -60,7 +60,7 @@ include("php/seller-form.php")
             <input type="text" name="invoice_time" id="invoice_time" placeholder="زمان فاکتور">
         </div>
         <div class="div10">
-            <input type="text" name="exit_time" id="exit_time" placeholder="زمان خروج">
+           
         </div>
         <div>
             <input type="submit" value="فیلتر" name="submit_filter">
