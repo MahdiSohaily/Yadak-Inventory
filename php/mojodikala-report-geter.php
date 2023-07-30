@@ -8,7 +8,6 @@ $sql = " SELECT nisha.partnumber , nisha.id,stock.name AS stckname ,nisha.price 
         LEFT JOIN seller ON qtybank.seller=seller.id
         LEFT JOIN brand ON qtybank.brand=brand.id
         LEFT JOIN stock ON qtybank.stock_id=stock.id
-        LIMIT 100
         ORDER BY nisha.partnumber DESC ";
 
 
