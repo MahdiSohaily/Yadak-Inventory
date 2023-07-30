@@ -29,10 +29,7 @@ if(!$result)
 }
 else
 {
-    echo "Query succesfully executed!";
-
-
+    echo "ویرایش موفقانه صورت گرفت";
 } 
  
 mysqli_close($con);
-?>
