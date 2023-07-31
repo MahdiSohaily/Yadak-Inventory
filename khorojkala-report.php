@@ -64,7 +64,7 @@ include("php/seller-form.php")
                 <i style="padding-inline: 5px;" class="fa fa-filter" aria-hidden="true"></i>
                 فیلتر
             </button>
-            <a class="removeFilter" onclick="filter()">
+            <a class="removeFilter" onclick="clearFilter()">
                 <i style="padding-inline: 5px;" class="fa fa-trash" aria-hidden="true"></i>
                 حذف فیلتر
             </a>
@@ -147,6 +147,23 @@ include("php/seller-form.php")
         const exit_time_value = exit_time.value === '' ? null : exit_time.value;
         filter(partNumber_value, seller_value, brand_value, pos1_value, pos2_value,
             stock_value, user_value, invoice_number_value, invoice_time_value, exit_time_value);
+    }
+
+    function clearFilter() {
+        const partNumber_value = null;
+        const seller_value = null;
+        const brand_value = null;
+        const pos1_value = null;
+        const pos2_value = null;
+        const stock_value = null;
+        const user_value = null;
+        const invoice_number_value = null;
+        const invoice_time_value = null;
+        const exit_time_value = null;
+        document.getElementById('select2-seller-container').innerHTML = 'انتخاب فروشنده';
+        document.getElementById('select2-brand-container').innerHTML = 'انتخاب برند جنس';
+        document.getElementById('select2-stock-container').innerHTML = 'انتخاب انبار';
+        document.getElementById('select2-user-container').innerHTML = 'انتخاب کاربر';
     }
 
     function displayModal(element) {
