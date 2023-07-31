@@ -13,13 +13,13 @@ $invoice_date = $_POST['invoice_time'] === 'null' ? null : $_POST['invoice_time'
 
 // Prepare the statement
 $stmt = $pdo->prepare("SELECT nisha.partnumber ,nisha.price AS nprice,seller.id AS slid, brand.name , qtybank.des ,qtybank.id, qtybank.qty , qtybank.pos1 , qtybank.pos2 , qtybank.create_time , seller.name AS sln, deliverer.name AS dn , qtybank.anbarenter ,qtybank.invoice , users.username AS un , qtybank.invoice_number,qtybank.invoice_date ,stock.name AS stn
-FROM qtybank
-LEFT JOIN nisha ON qtybank.codeid=nisha.id
-LEFT JOIN brand ON qtybank.brand=brand.id
-LEFT JOIN seller ON qtybank.seller=seller.id
-LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
-LEFT JOIN users ON qtybank.user=users.id
-LEFT JOIN stock ON qtybank.stock_id=stock.id 
+                        FROM qtybank
+                        LEFT JOIN nisha ON qtybank.codeid=nisha.id
+                        LEFT JOIN brand ON qtybank.brand=brand.id
+                        LEFT JOIN seller ON qtybank.seller=seller.id
+                        LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
+                        LEFT JOIN users ON qtybank.user=users.id
+                        LEFT JOIN stock ON qtybank.stock_id=stock.id 
                         WHERE (nisha.partnumber = :partNumber OR :partNumber IS NULL)
                         AND (qtybank.seller = :seller_id OR :seller_id IS NULL)
                         AND (brand.id = :brand_id OR :brand_id IS NULL)
@@ -29,7 +29,7 @@ LEFT JOIN stock ON qtybank.stock_id=stock.id
                         AND (qtybank.user = :user_id OR :user_id IS NULL)
                         AND (qtybank.invoice_number = :invoice_number OR :invoice_number IS NULL)
                         AND (qtybank.invoice_date = :invoice_date OR :invoice_date IS NULL)
-                        ORDER BY qtybank.create_time DESC");
+                        ORDER BY qtybank.create_time DESC LIMIT 100");
 
 // Bind the parameters
 $stmt->bindParam(':partNumber', $partNumber, PDO::PARAM_STR);
@@ -56,7 +56,6 @@ $shakhes = 1;
 
 if (true) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-
 
         $date = $row["create_time"];
 

@@ -59,7 +59,6 @@ include("php/seller-form.php")
             <input type="text" name="invoice_time" id="invoice_time" placeholder="زمان فاکتور">
         </div>
         <div class="div10">
-            <input type="text" name="exit_time" id="exit_time" placeholder="زمان خروج">
         </div>
         <div style="display: flex;">
             <button class="filter" type="submit">
@@ -129,7 +128,6 @@ include("php/seller-form.php")
     const user = document.getElementById('user');
     const invoice_number = document.getElementById('invoice_number');
     const invoice_time = document.getElementById('invoice_time');
-    const exit_time = document.getElementById('exit_time');
     const updateModal = document.getElementById('updateModal');
 
     function filterReport() {
@@ -142,10 +140,9 @@ include("php/seller-form.php")
         const user_value = user.value === 'انتخاب کاربر' ? null : user.value;
         const invoice_number_value = invoice_number.value === '' ? null : invoice_number.value;
         const invoice_time_value = invoice_time.value === '' ? null : invoice_time.value;
-        const exit_time_value = exit_time.value === '' ? null : exit_time.value;
 
         filter(partNumber_value, seller_value, brand_value, pos1_value, pos2_value,
-            stock_value, user_value, invoice_number_value, invoice_time_value, exit_time_value);
+            stock_value, user_value, invoice_number_value, invoice_time_value);
     }
 
     function clearFilter() {
@@ -158,7 +155,6 @@ include("php/seller-form.php")
         user.value = 'انتخاب کاربر';
         invoice_number.value = '';
         invoice_time.value = '';
-        exit_time.value = '';
         document.getElementById('select2-seller-container').innerHTML = 'انتخاب فروشنده';
         document.getElementById('select2-brand-container').innerHTML = 'انتخاب برند جنس';
         document.getElementById('select2-stock-container').innerHTML = 'انتخاب انبار';
@@ -278,7 +274,6 @@ include("php/seller-form.php")
         user_value = null,
         invoice_number_value = null,
         invoice_time_value = null,
-        exit_time_value = null
     ) {
         var params = new URLSearchParams();
         params.append('submit_filter', 'submit_filter');
@@ -291,7 +286,6 @@ include("php/seller-form.php")
         params.append('user', user_value);
         params.append('invoice_number', invoice_number_value);
         params.append('invoice_time', invoice_time_value);
-        params.append('exit_time', exit_time_value);
 
         const resultBox = document.getElementById('resultBox');
         resultBox.innerHTML = `
