@@ -1,8 +1,6 @@
 <?php
 
 if (isset($interval)) {
-    $interval -= 2;
-
     echo $interval;
     $condition = " WHERE exitrecord.invoice_date >= gregorian_to_shamsi_datec($interval)
     AND exitrecord.invoice_date <= gregorian_to_shamsi_datec(0)";

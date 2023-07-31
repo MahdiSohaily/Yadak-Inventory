@@ -29,9 +29,3 @@ END$$
 
 DELIMITER ;
 
-SELECT gregorian_to_shamsi_datec(2); -- Returns Shamsi date 30 days ago from today
-
-SELECT *
-FROM exitrecord
-WHERE invoice_date >= gregorian_to_shamsi_date(30)
-  AND invoice_date <= gregorian_to_shamsi_date(0);
