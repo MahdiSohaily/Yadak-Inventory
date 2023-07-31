@@ -128,11 +128,12 @@ label {
   font-size: 18px;
 }
 
-.excel {
+.excel,
+.removeFilter,
+.filter {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: seagreen;
   color: white;
   font-size: 12px;
   font-weight: bold;
@@ -142,4 +143,16 @@ label {
   border: 1px solid #b3b3b3;
   -webkit-box-shadow: 0px 1px 2px 1px #d4d4d4;
   margin: 0.5% 1% !important;
+}
+
+.filter {
+  background-color: dodgerblue !important;
+}
+
+.excel {
+  background-color: seagreen;
+}
+
+.removeFilter {
+  background-color: red;
 }

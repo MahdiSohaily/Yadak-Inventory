@@ -35,7 +35,7 @@ include("php/seller-form.php")
             <input onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1" placeholder="راهرو">
         </div>
 
-        <div class="div6" >
+        <div class="div6">
             <select name="stock" id="stock">
                 <option selected="true" disabled="disabled">انتخاب انبار</option>
                 <?php include("php/stock-form.php") ?>
@@ -59,11 +59,22 @@ include("php/seller-form.php")
         <div class="div10">
             <input type="text" name="exit_time" id="exit_time" placeholder="زمان خروج">
         </div>
-        <div>
-            <input type="submit" value="فیلتر" name="submit_filter">
+        <div style="display: flex;">
+            <button class="filter">
+                <i style="padding-inline: 5px;" class="fa fa-filter" aria-hidden="true"></i>
+                فیلتر
+            </button>
+            <a class="removeFilter">
+                <i style="padding-inline: 5px;" class="fa fa-trash" aria-hidden="true"></i>
+                حذف فیلتر
+            </a>
             <a class="exportToExcel excel">
-                <i class="fas fa-file-excel"></i>
-                اکسل</a>
+                <i style="padding-inline: 5px;" class="fas fa-file-excel"></i>
+                اکسل
+            </a>
+        </div>
+        <div>
+
         </div>
     </form>
 </div>
@@ -124,7 +135,7 @@ include("php/seller-form.php")
         const invoice_number = document.getElementById('invoice_number').value === '' ? null : document.getElementById('invoice_number').value;
         const invoice_time = document.getElementById('invoice_time').value === '' ? null : document.getElementById('invoice_time').value;
         const exit_time = document.getElementById('exit_time').value === '' ? null : document.getElementById('exit_time').value;
-        
+
         var params = new URLSearchParams();
         params.append('submit_filter', 'submit_filter');
         params.append('partNumber', partNumber);
