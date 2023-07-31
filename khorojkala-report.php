@@ -135,46 +135,16 @@ include("php/seller-form.php")
     const updateModal = document.getElementById('updateModal');
 
     function filterReport() {
-        const partNumber = partNumber.value === '' ? null : partNumber.value;
-        const seller = seller.value === 'انتخاب فروشنده' ? null : seller.value;
-        const brand = brand.value === 'انتخاب برند جنس' ? null : brand.value;
-        const pos1 = pos1.value === '' ? null : pos1.value;
-        const pos2 = pos2.value === '' ? null : pos2.value;
-        const stock = stock.value === 'انتخاب انبار' ? null : stock.value;
-        const user = user.value === 'انتخاب کاربر' ? null : user.value;
-        const invoice_number = invoice_number.value === '' ? null : invoice_number.value;
-        const invoice_time = invoice_time.value === '' ? null : invoice_time.value;
-        const exit_time = exit_time.value === '' ? null : exit_time.value;
-
-        var params = new URLSearchParams();
-        params.append('submit_filter', 'submit_filter');
-        params.append('partNumber', partNumber);
-        params.append('seller', seller);
-        params.append('brand', brand);
-        params.append('pos1', pos1);
-        params.append('pos2', pos2);
-        params.append('stock', stock);
-        params.append('user', user);
-        params.append('invoice_number', invoice_number);
-        params.append('invoice_time', invoice_time);
-        params.append('exit_time', exit_time);
-
-        const resultBox = document.getElementById('resultBox');
-        resultBox.innerHTML = `
-                            <tr class='full-page'>
-                                <td colspan='18'>
-                                <img style='width: 60px; margin-block:30px' src='../callcenter/report/public/img/loading.png' alt='google'>
-                                <p class="pt-2 text-gray-500">لطفا صبور باشید</p>
-                                </td>
-                            </tr>`;
-        axios.post("./khorojkala-report-ajax.php", params)
-            .then(function(response) {
-                console.log(response.data);
-                resultBox.innerHTML = response.data;
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+        const partNumber_value = partNumber.value === '' ? null : partNumber.value;
+        const seller_value = seller.value === 'انتخاب فروشنده' ? null : seller.value;
+        const brand_value = brand.value === 'انتخاب برند جنس' ? null : brand.value;
+        const pos1_value = pos1.value === '' ? null : pos1.value;
+        const pos2_value = pos2.value === '' ? null : pos2.value;
+        const stock_value = stock.value === 'انتخاب انبار' ? null : stock.value;
+        const user_value = user.value === 'انتخاب کاربر' ? null : user.value;
+        const invoice_number_value = invoice_number.value === '' ? null : invoice_number.value;
+        const invoice_time_value = invoice_time.value === '' ? null : invoice_time.value;
+        const exit_time_value = exit_time.value === '' ? null : exit_time.value;
     }
 
     function displayModal(element) {
@@ -279,6 +249,48 @@ include("php/seller-form.php")
 
         // Return `null` if the term should not be displayed
         return null;
+    }
+
+    function filter(partNumber_value = null,
+        seller_value = null,
+        brand_value = null,
+        pos1_value = null,
+        pos2_value = null,
+        stock_value = null,
+        user_value = null,
+        invoice_number_value = null,
+        invoice_time_value = null,
+        exit_time_value = null
+    ) {
+        var params = new URLSearchParams();
+        params.append('submit_filter', 'submit_filter');
+        params.append('partNumber', partNumber_value);
+        params.append('seller', seller_value);
+        params.append('brand', brand_value);
+        params.append('pos1', pos1_value);
+        params.append('pos2', pos2_value);
+        params.append('stock', stock_value);
+        params.append('user', user_value);
+        params.append('invoice_number', invoice_number_value);
+        params.append('invoice_time', invoice_time_value);
+        params.append('exit_time', exit_time_value);
+
+        const resultBox = document.getElementById('resultBox');
+        resultBox.innerHTML = `
+                            <tr class='full-page'>
+                                <td colspan='18'>
+                                <img style='width: 60px; margin-block:30px' src='../callcenter/report/public/img/loading.png' alt='google'>
+                                <p class="pt-2 text-gray-500">لطفا صبور باشید</p>
+                                </td>
+                            </tr>`;
+        axios.post("./khorojkala-report-ajax.php", params)
+            .then(function(response) {
+                console.log(response.data);
+                resultBox.innerHTML = response.data;
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
     }
 </script>
 <?php include("footer.php") ?>
