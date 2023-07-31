@@ -130,6 +130,7 @@ include("php/seller-form.php")
     const user = document.getElementById('user');
     const invoice_number = document.getElementById('invoice_number');
     const invoice_time = document.getElementById('invoice_time');
+    const exit_time = document.getElementById('exit_time');
     const updateModal = document.getElementById('updateModal');
 
     function filterReport() {
@@ -142,25 +143,27 @@ include("php/seller-form.php")
         const user_value = user.value === 'انتخاب کاربر' ? null : user.value;
         const invoice_number_value = invoice_number.value === '' ? null : invoice_number.value;
         const invoice_time_value = invoice_time.value === '' ? null : invoice_time.value;
+        const exit_time_value = exit_time.value === '' ? null : exit_time.value;
+
         filter(partNumber_value, seller_value, brand_value, pos1_value, pos2_value,
-            stock_value, user_value, invoice_number_value, invoice_time_value);
+            stock_value, user_value, invoice_number_value, invoice_time_value, exit_time_value);
     }
 
     function clearFilter() {
-        partNumber.value = null;
-        seller.value = null;
-        brand.value = null;
-        pos1.value = null;
-        pos2.value = null;
-        stock.value = null;
-        user.value = null;
-        invoice_number.value = null;
-        invoice_time.value = null;
+        partNumber.value = '';
+        seller.value = 'انتخاب فروشنده';
+        brand.value = 'انتخاب برند جنس';
+        pos1.value = '';
+        pos2.value = '';
+        stock.value = 'انتخاب انبار';
+        user.value = 'انتخاب کاربر';
+        invoice_number.value = '';
+        invoice_time.value = '';
+        exit_time.value = '';
         document.getElementById('select2-seller-container').innerHTML = 'انتخاب فروشنده';
         document.getElementById('select2-brand-container').innerHTML = 'انتخاب برند جنس';
         document.getElementById('select2-stock-container').innerHTML = 'انتخاب انبار';
         document.getElementById('select2-user-container').innerHTML = 'انتخاب کاربر';
-        filter();
     }
 
     function displayModal(element) {
@@ -275,7 +278,8 @@ include("php/seller-form.php")
         stock_value = null,
         user_value = null,
         invoice_number_value = null,
-        invoice_time_value = null
+        invoice_time_value = null,
+        exit_time_value = null
     ) {
         var params = new URLSearchParams();
         params.append('submit_filter', 'submit_filter');
@@ -288,6 +292,7 @@ include("php/seller-form.php")
         params.append('user', user_value);
         params.append('invoice_number', invoice_number_value);
         params.append('invoice_time', invoice_time_value);
+        params.append('exit_time', exit_time_value);
 
         const resultBox = document.getElementById('resultBox');
         resultBox.innerHTML = `
@@ -297,8 +302,9 @@ include("php/seller-form.php")
                                 <p class="pt-2 text-gray-500">لطفا صبور باشید</p>
                                 </td>
                             </tr>`;
-        axios.post("./vorodkala-report-ajax.php", params)
+        axios.post("./khorojkala-report-ajax.php", params)
             .then(function(response) {
+                console.log(response.data);
                 resultBox.innerHTML = response.data;
             })
             .catch(function(error) {

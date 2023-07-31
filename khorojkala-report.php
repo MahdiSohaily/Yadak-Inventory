@@ -149,12 +149,12 @@ include("php/seller-form.php")
 
     function clearFilter() {
         partNumber.value = '';
-        seller.value = '';
-        brand.value = '';
+        seller.value = 'انتخاب فروشنده';
+        brand.value = 'انتخاب برند جنس';
         pos1.value = '';
         pos2.value = '';
-        stock.value = '';
-        user.value = '';
+        stock.value = 'انتخاب انبار';
+        user.value = 'انتخاب کاربر';
         invoice_number.value = '';
         invoice_time.value = '';
         exit_time.value = '';
