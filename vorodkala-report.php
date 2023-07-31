@@ -6,7 +6,7 @@ include("php/seller-form.php")
 
 
 <div>
-    <form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
+<form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
         <div class="div1">
             <input type="text" name="partNumber" id="partNumber" placeholder="کد فنی">
         </div>
@@ -18,7 +18,6 @@ include("php/seller-form.php")
                 foreach ($data as $key => $value) {
                     echo "<option value='$key'>$value</option>";
                 }
-
                 ?>
             </select>
         </div>
@@ -60,7 +59,7 @@ include("php/seller-form.php")
             <input type="text" name="invoice_time" id="invoice_time" placeholder="زمان فاکتور">
         </div>
         <div class="div10">
-
+            <input type="text" name="exit_time" id="exit_time" placeholder="زمان خروج">
         </div>
         <div style="display: flex;">
             <button class="filter" type="submit">
@@ -191,8 +190,8 @@ include("php/seller-form.php")
                 $(table).table2excel({
                     exclude: ".noExl",
                     name: "Exit Report",
-                    filename: "Exit Report " + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xlsx",
-                    fileext: ".xlsx",
+                    filename: "Exit Report " + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+                    fileext: ".xls",
                     exclude_img: true,
                     exclude_links: true,
                     exclude_inputs: true,
