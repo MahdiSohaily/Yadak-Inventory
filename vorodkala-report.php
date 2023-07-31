@@ -301,9 +301,8 @@ include("php/seller-form.php")
                                 <p class="pt-2 text-gray-500">لطفا صبور باشید</p>
                                 </td>
                             </tr>`;
-        axios.post("./khorojkala-report-ajax.php", params)
+        axios.post("./vorodkala-report-ajax.php", params)
             .then(function(response) {
-                console.log(response.data);
                 resultBox.innerHTML = response.data;
             })
             .catch(function(error) {

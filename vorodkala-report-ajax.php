@@ -13,13 +13,13 @@ $invoice_date = $_POST['invoice_time'] === 'null' ? null : $_POST['invoice_time'
 
 // Prepare the statement
 $stmt = $pdo->prepare("SELECT nisha.partnumber ,nisha.price AS nprice,seller.id AS slid, brand.name , qtybank.des ,qtybank.id, qtybank.qty , qtybank.pos1 , qtybank.pos2 , qtybank.create_time , seller.name AS sln, deliverer.name AS dn , qtybank.anbarenter ,qtybank.invoice , users.username AS un , qtybank.invoice_number,qtybank.invoice_date ,stock.name AS stn
-                        FROM qtybank
-                        LEFT JOIN nisha ON qtybank.codeid=nisha.id
-                        LEFT JOIN brand ON qtybank.brand=brand.id
-                        LEFT JOIN seller ON qtybank.seller=seller.id
-                        LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
-                        LEFT JOIN users ON qtybank.user=users.id
-                        LEFT JOIN stock ON qtybank.stock_id=stock.id 
+FROM qtybank
+LEFT JOIN nisha ON qtybank.codeid=nisha.id
+LEFT JOIN brand ON qtybank.brand=brand.id
+LEFT JOIN seller ON qtybank.seller=seller.id
+LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
+LEFT JOIN users ON qtybank.user=users.id
+LEFT JOIN stock ON qtybank.stock_id=stock.id 
                         WHERE (nisha.partnumber = :partNumber OR :partNumber IS NULL)
                         AND (qtybank.seller = :seller_id OR :seller_id IS NULL)
                         AND (brand.id = :brand_id OR :brand_id IS NULL)
@@ -50,12 +50,13 @@ $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 global $jameitem;
 $jameitem = 0;
 global $invoice_number;
-$invoice_number = null;
+$invoice_number = 0000;
 global $shakhes;
 $shakhes = 1;
 
 if (true) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
 
         $date = $row["create_time"];
 
@@ -77,7 +78,7 @@ if (true) {
         }
 
 
-        if ($invoice_number != $row["invoice_number"] && $invoice_number != null) {
+        if ($invoice_number != $row["invoice_number"]) {
 
 
 
@@ -98,7 +99,7 @@ if (true) {
         }
         $jameitem = $jameitem + $row["qty"];
         ?>
-        <tr style="background-color: #f4f3f3;">
+        <tr>
             <td class="cell-shakhes "><?php echo $shakhes ?></td>
             <td class="cell-code "><?php echo '&nbsp;' . $row["partnumber"] ?></td>
             <td class="cell-brand cell-brand-<?php echo $row["name"] ?> "><?php echo $row["name"] ?></td>
@@ -121,10 +122,11 @@ if (true) {
                 <td class="cell-price "><?php echo (echoRial($row["nprice"], $row["name"])); ?></td>
             <?php } ?>
             <td><a onclick="displayModal(this)" id="<?php echo $row["id"] ?>" class="edit-rec2">ویرایش<i class="fas fa-edit"></i></a></td>
+
         </tr>
 <?php
 
-        $shakhes = $shakhes + 1;
+        $shakhes++;
     } // end while
 } else {
     echo '<tr><td colspan="18">متاسفانه نتیجه ای یافت نشد</td></tr>';
