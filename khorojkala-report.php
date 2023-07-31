@@ -60,11 +60,11 @@ include("php/seller-form.php")
             <input type="text" name="exit_time" id="exit_time" placeholder="زمان خروج">
         </div>
         <div style="display: flex;">
-            <button class="filter">
+            <button class="filter" type="submit">
                 <i style="padding-inline: 5px;" class="fa fa-filter" aria-hidden="true"></i>
                 فیلتر
             </button>
-            <a class="removeFilter">
+            <a class="removeFilter" onclick="filter()">
                 <i style="padding-inline: 5px;" class="fa fa-trash" aria-hidden="true"></i>
                 حذف فیلتر
             </a>
@@ -145,6 +145,8 @@ include("php/seller-form.php")
         const invoice_number_value = invoice_number.value === '' ? null : invoice_number.value;
         const invoice_time_value = invoice_time.value === '' ? null : invoice_time.value;
         const exit_time_value = exit_time.value === '' ? null : exit_time.value;
+        filter(partNumber_value, seller_value, brand_value, pos1_value, pos2_value,
+            stock_value, user_value, invoice_number_value, invoice_time_value, exit_time_value);
     }
 
     function displayModal(element) {
@@ -285,7 +287,6 @@ include("php/seller-form.php")
                             </tr>`;
         axios.post("./khorojkala-report-ajax.php", params)
             .then(function(response) {
-                console.log(response.data);
                 resultBox.innerHTML = response.data;
             })
             .catch(function(error) {
