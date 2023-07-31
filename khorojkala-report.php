@@ -1,6 +1,9 @@
 <?php
 require_once("header.php");
-include("php/seller-form.php")
+include("php/seller-form.php");
+if (isset($_GET['interval'])) {
+    echo $_GET['interval'];
+}
 
 ?>
 <div class="">
@@ -115,7 +118,7 @@ include("php/seller-form.php")
             <i onclick="closeModal()" class="fa fa-times closeModal" aria-hidden="true"></i>
         </div>
         <div class="displayPage">
-        <iframe id="updateModalIframe" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
+            <iframe id="updateModalIframe" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
         </div>
     </div>
 </div>
