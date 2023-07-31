@@ -35,7 +35,7 @@ include("php/seller-form.php")
             <input onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1" placeholder="راهرو">
         </div>
 
-        <div class="div" 6>
+        <div class="div6" >
             <select name="stock" id="stock">
                 <option selected="true" disabled="disabled">انتخاب انبار</option>
                 <?php include("php/stock-form.php") ?>
@@ -124,8 +124,7 @@ include("php/seller-form.php")
         const invoice_number = document.getElementById('invoice_number').value === '' ? null : document.getElementById('invoice_number').value;
         const invoice_time = document.getElementById('invoice_time').value === '' ? null : document.getElementById('invoice_time').value;
         const exit_time = document.getElementById('exit_time').value === '' ? null : document.getElementById('exit_time').value;
-
-        alert(seller);
+        
         var params = new URLSearchParams();
         params.append('submit_filter', 'submit_filter');
         params.append('partNumber', partNumber);

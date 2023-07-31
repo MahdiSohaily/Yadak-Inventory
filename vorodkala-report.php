@@ -38,7 +38,7 @@ include("php/seller-form.php")
             <input onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1" placeholder="راهرو">
         </div>
 
-        <div class="div" 6>
+        <div class="div6">
             <select name="stock" id="stock">
                 <option selected="true" disabled="disabled">انتخاب انبار</option>
                 <?php include("php/stock-form.php") ?>
@@ -193,6 +193,74 @@ include("php/seller-form.php")
         });
 
     });
+
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('#seller').select2({
+            matcher: matchCustom
+        });
+        $('#brand').select2({
+            matcher: function matchCustom(params, data) {
+                // If there are no search terms, return all of the data
+                if ($.trim(params.term) === '') {
+                    return data;
+                }
+
+                // Do not display the item if there is no 'text' property
+                if (typeof data.text === 'undefined') {
+                    return null;
+                }
+
+                // `params.term` should be the term that is used for searching
+                // `data.text` is the text that is displayed for the data object
+                if (data.text.indexOf(params.term.toUpperCase()) > -1) {
+                    var modifiedData = $.extend({}, data, true);
+                    modifiedData.text += '';
+
+                    // You can return modified objects from here
+                    // This includes matching the `children` how you want in nested data sets
+                    return modifiedData;
+                }
+
+                // Return `null` if the term should not be displayed
+                return null;
+            }
+        });
+        $('#stock').select2({
+            matcher: matchCustom
+        });
+        $('#user').select2({
+            matcher: matchCustom
+        });
+
+    });
+
+    // This function helps to display only the matching results when user types a keyword (Slecte 2 plugin)
+    function matchCustom(params, data) {
+        // If there are no search terms, return all of the data
+        if ($.trim(params.term) === '') {
+            return data;
+        }
+
+        // Do not display the item if there is no 'text' property
+        if (typeof data.text === 'undefined') {
+            return null;
+        }
+
+        // `params.term` should be the term that is used for searching
+        // `data.text` is the text that is displayed for the data object
+        if (data.text.indexOf(params.term) > -1) {
+            var modifiedData = $.extend({}, data, true);
+            modifiedData.text += '';
+
+            // You can return modified objects from here
+            // This includes matching the `children` how you want in nested data sets
+            return modifiedData;
+        }
+
+        // Return `null` if the term should not be displayed
+        return null;
+    }
 </script>
 
 
