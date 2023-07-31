@@ -60,7 +60,7 @@ include("php/seller-form.php")
             <input type="text" name="invoice_time" id="invoice_time" placeholder="زمان فاکتور">
         </div>
         <div class="div10">
-           
+
         </div>
         <div>
             <input type="submit" value="فیلتر" name="submit_filter">
@@ -182,8 +182,8 @@ include("php/seller-form.php")
                 $(table).table2excel({
                     exclude: ".noExl",
                     name: "Exit Report",
-                    filename: "Entrance Report " + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
-                    fileext: ".xls",
+                    filename: "Entrance Report " + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xlsx",
+                    fileext: ".xlsx",
                     exclude_img: true,
                     exclude_links: true,
                     exclude_inputs: true,

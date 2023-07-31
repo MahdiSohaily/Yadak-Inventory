@@ -182,8 +182,8 @@ include("php/seller-form.php")
                 $(table).table2excel({
                     exclude: ".noExl",
                     name: "Exit Report",
-                    filename: "Exit Report " + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
-                    fileext: ".xls",
+                    filename: "Exit Report " + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xlsx",
+                    fileext: ".xlsx",
                     exclude_img: true,
                     exclude_links: true,
                     exclude_inputs: true,

@@ -17,6 +17,8 @@ require_once './php/jdf.php';
     <link type="text/css" rel="stylesheet" href="css/persianDatepicker.css" />
     <link rel="stylesheet" href="./css/exit_record/exit.css?v=<?php echo rand() ?>" type="text/css" media="all" />
     <script type="text/javascript" src="./js/assets/table2excel.js"></script>
+    <link rel="stylesheet" href="./css/assets/select2.css">
+    <script src="./js/assets/select2.js"></script>
 
     <?php
     switch (basename($_SERVER['PHP_SELF'])) {
