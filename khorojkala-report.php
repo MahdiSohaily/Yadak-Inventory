@@ -16,7 +16,6 @@ include("php/seller-form.php")
                 foreach ($data as $key => $value) {
                     echo "<option value='$key'>$value</option>";
                 }
-
                 ?>
             </select>
         </div>

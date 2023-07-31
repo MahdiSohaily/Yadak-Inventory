@@ -4,29 +4,7 @@
 <div id="Enter-Page">
 
 
-
-
-
-
-
-
-
     <div>
-
-        
-        
-        
-
-
-        
-        
-        
-        
-        
-        
-        
-        
-
         <form id="vorodkala" method="post" action="php/vorodkala-save.php" autocomplete="off">
             <div class="left-form">
                 <?php include("php/codeid.php") ?>
@@ -40,13 +18,18 @@
                     <?php include("php/brand-form.php") ?>
 
                 </select>
-<input type="hidden"  name="brand-box" id="brand-box" >
+                <input type="hidden" name="brand-box" id="brand-box">
 
 
 
                 <label for="seller">فروشنده</label>
                 <select name="seller" id="seller">
-                    <?php include("php/seller-form.php") ?>
+                    <?php include("php/seller-form.php");
+                    foreach ($data as $key => $value) {
+                        echo "<option value='$key'>$value</option>";
+                    }
+
+                    ?>
 
                 </select>
 
@@ -95,15 +78,15 @@
                 </fieldset>
 
 
-                    <label for="invoice_number">شماره فاکتور</label>
-                    <input type="number" name="invoice_number" id="invoice_number">
-                
-                    <label for="invoice_time">زمان فاکتور</label>
-                    <input value="<?php echo(jdate("Y/m/d",time(),"","Asia/Tehran","en")) ?>" type="text" name="invoice_time" id="invoice_time">
+                <label for="invoice_number">شماره فاکتور</label>
+                <input type="number" name="invoice_number" id="invoice_number">
+
+                <label for="invoice_time">زمان فاکتور</label>
+                <input value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>" type="text" name="invoice_time" id="invoice_time">
                 <span id="span_invoice_time"></span>
 
-                
-                
+
+
                 <fieldset>
                     <legend>آیا وارد انبار شده ؟</legend>
 
