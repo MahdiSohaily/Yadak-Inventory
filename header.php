@@ -105,19 +105,19 @@ require_once './php/jdf.php';
             <li>
                 <a href="vorodkala-report.php">گزارش ورود <i class="far fa-caret-square-right"></i></a>
                 <ul class="under-link">
-                    <li><a href="#">10 روز اخیر</a></li>
-                    <li><a href="#">30 روز اخیر</a></li>
-                    <li><a href="#">60 روز اخیر</a></li>
-                    <li><a href="#">120 روز اخیر</a></li>
+                    <li><a href="vorodkala-report.php?interval=10">10 روز اخیر</a></li>
+                    <li><a href="vorodkala-report.php?interval=30">30 روز اخیر</a></li>
+                    <li><a href="vorodkala-report.php?interval=60">60 روز اخیر</a></li>
+                    <li><a href="vorodkala-report.php?interval=120">120 روز اخیر</a></li>
                 </ul>
             </li>
             <li>
                 <a href="khorojkala-report.php">گزارش خروج <i class="far fa-caret-square-left"></i></a>
                 <ul class="under-link">
-                    <li><a href="#">10 روز اخیر</a></li>
-                    <li><a href="#">30 روز اخیر</a></li>
-                    <li><a href="#">60 روز اخیر</a></li>
-                    <li><a href="#">120 روز اخیر</a></li>
+                    <li><a href="khorojkala-report.php?interval=10">10 روز اخیر</a></li>
+                    <li><a href="khorojkala-report.php?interval=30">30 روز اخیر</a></li>
+                    <li><a href="khorojkala-report.php?interval=60">60 روز اخیر</a></li>
+                    <li><a href="khorojkala-report.php?interval=120">120 روز اخیر</a></li>
                 </ul>
             </li>
             <li>

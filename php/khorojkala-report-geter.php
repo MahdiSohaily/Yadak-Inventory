@@ -11,7 +11,7 @@ LEFT JOIN stock ON qtybank.stock_id=stock.id
 LEFT JOIN users ON exitrecord.user=users.id
 LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
 LEFT JOIN getter ON exitrecord.getter=getter.id
-ORDER BY  exitrecord.exit_time DESC , exitrecord.invoice_number DESC";
+ORDER BY  exitrecord.exit_time DESC , exitrecord.invoice_number DESC LIMIT 100";
 
 
 
