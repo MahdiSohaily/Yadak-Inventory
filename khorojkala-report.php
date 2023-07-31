@@ -125,7 +125,7 @@ include("php/seller-form.php")
         const invoice_time = document.getElementById('invoice_time').value === '' ? null : document.getElementById('invoice_time').value;
         const exit_time = document.getElementById('exit_time').value === '' ? null : document.getElementById('exit_time').value;
 
-
+        alert(seller);
         var params = new URLSearchParams();
         params.append('submit_filter', 'submit_filter');
         params.append('partNumber', partNumber);
@@ -193,5 +193,72 @@ include("php/seller-form.php")
         });
 
     });
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('#seller').select2({
+            matcher: matchCustom
+        });
+        $('#brand').select2({
+            matcher: function matchCustom(params, data) {
+                // If there are no search terms, return all of the data
+                if ($.trim(params.term) === '') {
+                    return data;
+                }
+
+                // Do not display the item if there is no 'text' property
+                if (typeof data.text === 'undefined') {
+                    return null;
+                }
+
+                // `params.term` should be the term that is used for searching
+                // `data.text` is the text that is displayed for the data object
+                if (data.text.indexOf(params.term.toUpperCase()) > -1) {
+                    var modifiedData = $.extend({}, data, true);
+                    modifiedData.text += '';
+
+                    // You can return modified objects from here
+                    // This includes matching the `children` how you want in nested data sets
+                    return modifiedData;
+                }
+
+                // Return `null` if the term should not be displayed
+                return null;
+            }
+        });
+        $('#stock').select2({
+            matcher: matchCustom
+        });
+        $('#user').select2({
+            matcher: matchCustom
+        });
+
+    });
+
+    // This function helps to display only the matching results when user types a keyword (Slecte 2 plugin)
+    function matchCustom(params, data) {
+        // If there are no search terms, return all of the data
+        if ($.trim(params.term) === '') {
+            return data;
+        }
+
+        // Do not display the item if there is no 'text' property
+        if (typeof data.text === 'undefined') {
+            return null;
+        }
+
+        // `params.term` should be the term that is used for searching
+        // `data.text` is the text that is displayed for the data object
+        if (data.text.indexOf(params.term) > -1) {
+            var modifiedData = $.extend({}, data, true);
+            modifiedData.text += '';
+
+            // You can return modified objects from here
+            // This includes matching the `children` how you want in nested data sets
+            return modifiedData;
+        }
+
+        // Return `null` if the term should not be displayed
+        return null;
+    }
 </script>
 <?php include("footer.php") ?>
