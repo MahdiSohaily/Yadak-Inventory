@@ -122,19 +122,29 @@ include("php/seller-form.php")
 
 </div>
 <script>
+    const partNumber = document.getElementById('partNumber');
+    const seller = document.getElementById('seller');
+    const brand = document.getElementById('brand');
+    const pos1 = document.getElementById('pos1');
+    const pos2 = document.getElementById('pos2');
+    const stock = document.getElementById('stock');
+    const user = document.getElementById('user');
+    const invoice_number = document.getElementById('invoice_number');
+    const invoice_time = document.getElementById('invoice_time');
+    const exit_time = document.getElementById('exit_time');
     const updateModal = document.getElementById('updateModal');
 
     function filterReport() {
-        const partNumber = document.getElementById('partNumber').value === '' ? null : document.getElementById('partNumber').value;
-        const seller = document.getElementById('seller').value === 'انتخاب فروشنده' ? null : document.getElementById('seller').value;
-        const brand = document.getElementById('brand').value === 'انتخاب برند جنس' ? null : document.getElementById('brand').value;
-        const pos1 = document.getElementById('pos1').value === '' ? null : document.getElementById('pos1').value;
-        const pos2 = document.getElementById('pos2').value === '' ? null : document.getElementById('pos2').value;
-        const stock = document.getElementById('stock').value === 'انتخاب انبار' ? null : document.getElementById('stock').value;
-        const user = document.getElementById('user').value === 'انتخاب کاربر' ? null : document.getElementById('user').value;
-        const invoice_number = document.getElementById('invoice_number').value === '' ? null : document.getElementById('invoice_number').value;
-        const invoice_time = document.getElementById('invoice_time').value === '' ? null : document.getElementById('invoice_time').value;
-        const exit_time = document.getElementById('exit_time').value === '' ? null : document.getElementById('exit_time').value;
+        const partNumber = partNumber.value === '' ? null : partNumber.value;
+        const seller = seller.value === 'انتخاب فروشنده' ? null : seller.value;
+        const brand = brand.value === 'انتخاب برند جنس' ? null : brand.value;
+        const pos1 = pos1.value === '' ? null : pos1.value;
+        const pos2 = pos2.value === '' ? null : pos2.value;
+        const stock = stock.value === 'انتخاب انبار' ? null : stock.value;
+        const user = user.value === 'انتخاب کاربر' ? null : user.value;
+        const invoice_number = invoice_number.value === '' ? null : invoice_number.value;
+        const invoice_time = invoice_time.value === '' ? null : invoice_time.value;
+        const exit_time = exit_time.value === '' ? null : exit_time.value;
 
         var params = new URLSearchParams();
         params.append('submit_filter', 'submit_filter');
