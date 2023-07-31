@@ -29,7 +29,7 @@ $stmt = $pdo->prepare("SELECT nisha.partnumber ,nisha.price AS nprice,seller.id 
                         AND (qtybank.user = :user_id OR :user_id IS NULL)
                         AND (qtybank.invoice_number = :invoice_number OR :invoice_number IS NULL)
                         AND (qtybank.invoice_date = :invoice_date OR :invoice_date IS NULL)
-                        ORDER BY qtybank.create_time DESC LIMIT 100");
+                        ORDER BY qtybank.create_time DESC");
 
 // Bind the parameters
 $stmt->bindParam(':partNumber', $partNumber, PDO::PARAM_STR);
