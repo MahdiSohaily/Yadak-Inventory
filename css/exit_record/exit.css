@@ -95,13 +95,15 @@ label {
 }
 
 .excel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: seagreen;
   color: white;
   font-size: 12px;
   font-weight: bold;
   width: 97px !important;
   height: 34px;
-  text-align: center;
   -webkit-border-radius: 5px;
   border: 1px solid #b3b3b3;
   -webkit-box-shadow: 0px 1px 2px 1px #d4d4d4;

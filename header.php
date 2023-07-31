@@ -15,7 +15,7 @@ require_once './php/jdf.php';
     <link rel='stylesheet' href='css/style.css?v=<?php echo (rand()) ?>' type='text/css' media='all' />
     <link rel='stylesheet' href='css/modal.css?v=<?php echo (rand()) ?>' type='text/css' media='all' />
     <link type="text/css" rel="stylesheet" href="css/persianDatepicker.css" />
-    <link rel="stylesheet" href="./css/exit_record/exit.css?v=' . rand() . '" type="text/css" media="all" />
+    <link rel="stylesheet" href="./css/exit_record/exit.css?v=<?php echo rand() ?>" type="text/css" media="all" />
     <script type="text/javascript" src="./js/assets/table2excel.js"></script>
 
     <?php

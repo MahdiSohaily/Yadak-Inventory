@@ -64,9 +64,9 @@ include("php/seller-form.php")
         </div>
         <div>
             <input type="submit" value="فیلتر" name="submit_filter">
-            <button class="exportToExcel excel">
+            <a class="exportToExcel excel">
                 <i class="fas fa-file-excel"></i>
-                اکسل</button>
+                اکسل</a>
         </div>
     </form>
     <table id="report-table" class="report-table">
