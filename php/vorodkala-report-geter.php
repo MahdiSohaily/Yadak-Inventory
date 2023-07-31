@@ -1,6 +1,13 @@
 <?php
 require_once("db.php");
 
+if (isset($interval)) {
+    $condition = " WHERE qtybank.invoice_date >= gregorian_to_shamsi_datec($interval)
+    AND qtybank.invoice_date <= gregorian_to_shamsi_datec(0)";
+} else {
+    $condition = 'WHERE 1=1';
+}
+
 $sql = "SELECT nisha.partnumber ,nisha.price AS nprice,seller.id AS slid, brand.name , qtybank.des ,qtybank.id, qtybank.qty , qtybank.pos1 , qtybank.pos2 , qtybank.create_time , seller.name AS sln, deliverer.name AS dn , qtybank.anbarenter ,qtybank.invoice , users.username AS un , qtybank.invoice_number,qtybank.invoice_date ,stock.name AS stn
 FROM qtybank
 LEFT JOIN nisha ON qtybank.codeid=nisha.id
@@ -9,7 +16,7 @@ LEFT JOIN seller ON qtybank.seller=seller.id
 LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
 LEFT JOIN users ON qtybank.user=users.id
 LEFT JOIN stock ON qtybank.stock_id=stock.id 
-ORDER BY qtybank.create_time DESC   LIMIT 100";
+ORDER BY qtybank.create_time DESC";
 
 global $jameitem;
 $jameitem = 0;

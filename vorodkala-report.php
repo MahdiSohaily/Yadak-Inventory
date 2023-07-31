@@ -1,6 +1,10 @@
 <?php
 require_once("header.php");
-include("php/seller-form.php")
+include("php/seller-form.php");
+
+if (isset($_GET['interval'])) {
+    $interval = $_GET['interval'];
+}
 ?>
 
 
