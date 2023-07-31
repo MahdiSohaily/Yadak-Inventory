@@ -160,6 +160,7 @@ include("php/seller-form.php")
         document.getElementById('select2-brand-container').innerHTML = 'انتخاب برند جنس';
         document.getElementById('select2-stock-container').innerHTML = 'انتخاب انبار';
         document.getElementById('select2-user-container').innerHTML = 'انتخاب کاربر';
+        filter();
     }
 
     function displayModal(element) {
