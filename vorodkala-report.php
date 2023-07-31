@@ -62,11 +62,19 @@ include("php/seller-form.php")
         <div class="div10">
 
         </div>
-        <div>
-            <input type="submit" value="فیلتر" name="submit_filter">
+        <div style="display: flex;">
+            <button class="filter" type="submit">
+                <i style="padding-inline: 5px;" class="fa fa-filter" aria-hidden="true"></i>
+                فیلتر
+            </button>
+            <a class="removeFilter" onclick="clearFilter()">
+                <i style="padding-inline: 5px;" class="fa fa-trash" aria-hidden="true"></i>
+                حذف فیلتر
+            </a>
             <a class="exportToExcel excel">
-                <i class="fas fa-file-excel"></i>
-                اکسل</a>
+                <i style="padding-inline: 5px;" class="fas fa-file-excel"></i>
+                اکسل
+            </a>
         </div>
     </form>
     <table id="report-table" class="report-table">
@@ -113,54 +121,51 @@ include("php/seller-form.php")
 
 </div>
 <script>
+    const partNumber = document.getElementById('partNumber');
+    const seller = document.getElementById('seller');
+    const brand = document.getElementById('brand');
+    const pos1 = document.getElementById('pos1');
+    const pos2 = document.getElementById('pos2');
+    const stock = document.getElementById('stock');
+    const user = document.getElementById('user');
+    const invoice_number = document.getElementById('invoice_number');
+    const invoice_time = document.getElementById('invoice_time');
     const updateModal = document.getElementById('updateModal');
 
     function filterReport() {
-        const partNumber = document.getElementById('partNumber').value === '' ? null : document.getElementById('partNumber').value;
-        const seller = document.getElementById('seller').value === 'انتخاب فروشنده' ? null : document.getElementById('seller').value;
-        const brand = document.getElementById('brand').value === 'انتخاب برند جنس' ? null : document.getElementById('brand').value;
-        const pos1 = document.getElementById('pos1').value === '' ? null : document.getElementById('pos1').value;
-        const pos2 = document.getElementById('pos2').value === '' ? null : document.getElementById('pos2').value;
-        const stock = document.getElementById('stock').value === 'انتخاب انبار' ? null : document.getElementById('stock').value;
-        const user = document.getElementById('user').value === 'انتخاب کاربر' ? null : document.getElementById('user').value;
-        const invoice_number = document.getElementById('invoice_number').value === '' ? null : document.getElementById('invoice_number').value;
-        const invoice_time = document.getElementById('invoice_time').value === '' ? null : document.getElementById('invoice_time').value;
+        const partNumber_value = partNumber.value === '' ? null : partNumber.value;
+        const seller_value = seller.value === 'انتخاب فروشنده' ? null : seller.value;
+        const brand_value = brand.value === 'انتخاب برند جنس' ? null : brand.value;
+        const pos1_value = pos1.value === '' ? null : pos1.value;
+        const pos2_value = pos2.value === '' ? null : pos2.value;
+        const stock_value = stock.value === 'انتخاب انبار' ? null : stock.value;
+        const user_value = user.value === 'انتخاب کاربر' ? null : user.value;
+        const invoice_number_value = invoice_number.value === '' ? null : invoice_number.value;
+        const invoice_time_value = invoice_time.value === '' ? null : invoice_time.value;
+        filter(partNumber_value, seller_value, brand_value, pos1_value, pos2_value,
+            stock_value, user_value, invoice_number_value, invoice_time_value);
+    }
 
-
-        var params = new URLSearchParams();
-        params.append('submit_filter', 'submit_filter');
-        params.append('partNumber', partNumber);
-        params.append('seller', seller);
-        params.append('brand', brand);
-        params.append('pos1', pos1);
-        params.append('pos2', pos2);
-        params.append('stock', stock);
-        params.append('user', user);
-        params.append('invoice_number', invoice_number);
-        params.append('invoice_time', invoice_time);
-
-        const resultBox = document.getElementById('resultBox');
-        resultBox.innerHTML = `
-                            <tr class='full-page'>
-                                <td colspan='18'>
-                                <img style='width: 60px; margin-block:30px' src='../callcenter/report/public/img/loading.png' alt='google'>
-                                <p class="pt-2 text-gray-500">لطفا صبور باشید</p>
-                                </td>
-                            </tr>
-                                    `;
-        axios.post("./vorodkala-report-ajax.php", params)
-            .then(function(response) {
-                resultBox.innerHTML = response.data;
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+    function clearFilter() {
+        partNumber.value = null;
+        seller.value = null;
+        brand.value = null;
+        pos1.value = null;
+        pos2.value = null;
+        stock.value = null;
+        user.value = null;
+        invoice_number.value = null;
+        invoice_time.value = null;
+        document.getElementById('select2-seller-container').innerHTML = 'انتخاب فروشنده';
+        document.getElementById('select2-brand-container').innerHTML = 'انتخاب برند جنس';
+        document.getElementById('select2-stock-container').innerHTML = 'انتخاب انبار';
+        document.getElementById('select2-user-container').innerHTML = 'انتخاب کاربر';
     }
 
     function displayModal(element) {
         id = element.getAttribute('id');
         updateModal.style.display = 'flex';
-        updateModalIframe.src = './php/vorodkala-report-edit.php?q=' + id;
+        updateModalIframe.src = './php/khorojkala-report-edit.php?q=' + id;
     }
 
     function closeModal() {
@@ -182,7 +187,7 @@ include("php/seller-form.php")
                 $(table).table2excel({
                     exclude: ".noExl",
                     name: "Exit Report",
-                    filename: "Entrance Report " + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xlsx",
+                    filename: "Exit Report " + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xlsx",
                     fileext: ".xlsx",
                     exclude_img: true,
                     exclude_links: true,
@@ -193,7 +198,6 @@ include("php/seller-form.php")
         });
 
     });
-
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function() {
         $('#seller').select2({
@@ -260,6 +264,45 @@ include("php/seller-form.php")
 
         // Return `null` if the term should not be displayed
         return null;
+    }
+
+    function filter(partNumber_value = null,
+        seller_value = null,
+        brand_value = null,
+        pos1_value = null,
+        pos2_value = null,
+        stock_value = null,
+        user_value = null,
+        invoice_number_value = null,
+        invoice_time_value = null
+    ) {
+        var params = new URLSearchParams();
+        params.append('submit_filter', 'submit_filter');
+        params.append('partNumber', partNumber_value);
+        params.append('seller', seller_value);
+        params.append('brand', brand_value);
+        params.append('pos1', pos1_value);
+        params.append('pos2', pos2_value);
+        params.append('stock', stock_value);
+        params.append('user', user_value);
+        params.append('invoice_number', invoice_number_value);
+        params.append('invoice_time', invoice_time_value);
+
+        const resultBox = document.getElementById('resultBox');
+        resultBox.innerHTML = `
+                            <tr class='full-page'>
+                                <td colspan='18'>
+                                <img style='width: 60px; margin-block:30px' src='../callcenter/report/public/img/loading.png' alt='google'>
+                                <p class="pt-2 text-gray-500">لطفا صبور باشید</p>
+                                </td>
+                            </tr>`;
+        axios.post("./vorodkala-report-ajax.php", params)
+            .then(function(response) {
+                resultBox.innerHTML = response.data;
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
     }
 </script>
 
