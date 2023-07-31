@@ -1,6 +1,16 @@
 <?php
-require_once("db.php");
 
+if (isset($interval)) {
+    $interval -= 2;
+
+    echo $interval;
+    $condition = " WHERE exitrecord.invoice_date >= gregorian_to_shamsi_datec($interval)
+    AND exitrecord.invoice_date <= gregorian_to_shamsi_datec(0)";
+} else {
+    $condition = 'WHERE 1=1';
+}
+
+require_once("db.php");
 $sql = "SELECT nisha.partnumber ,qtybank.des, nisha.id , users.username AS usn , seller.name ,seller.id AS slid, stock.name AS stn ,brand.name AS brn , qtybank.qty ,qtybank.id AS qtyid,exitrecord.qty AS extqty,exitrecord.id AS exid ,  qtybank.qty AS entqty ,exitrecord.customer,exitrecord.des AS exdes,getter.name AS gtn,deliverer.name AS dln,exitrecord.exit_time,exitrecord.jamkon,exitrecord.invoice_number,exitrecord.invoice_date,qtybank.anbarenter
 FROM qtybank
 LEFT JOIN nisha ON qtybank.codeid=nisha.id
@@ -11,7 +21,8 @@ LEFT JOIN stock ON qtybank.stock_id=stock.id
 LEFT JOIN users ON exitrecord.user=users.id
 LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
 LEFT JOIN getter ON exitrecord.getter=getter.id
-ORDER BY  exitrecord.exit_time DESC , exitrecord.invoice_number DESC LIMIT 100";
+$condition
+ORDER BY  exitrecord.exit_time DESC , exitrecord.invoice_number DESC";
 
 
 
