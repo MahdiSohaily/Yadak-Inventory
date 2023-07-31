@@ -111,12 +111,13 @@ include("php/seller-form.php")
 <div id="updateModal">
     <div class="modalContent">
         <div class="modalHeader">
-            <h2>ویرایش فاکتور خروجی</h2>
+            <h2>ویرایش فاکتور ورودی</h2>
             <i onclick="closeModal()" class="fa fa-times closeModal" aria-hidden="true"></i>
         </div>
-        <iframe id="updateModalIframe" width="1400" height="500" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
+        <div class="displayPage">
+        <iframe id="updateModalIframe" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
+        </div>
     </div>
-
 </div>
 <script>
     const partNumber = document.getElementById('partNumber');

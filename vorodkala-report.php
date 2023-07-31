@@ -114,9 +114,10 @@ include("php/seller-form.php")
             <h2>ویرایش فاکتور ورودی</h2>
             <i onclick="closeModal()" class="fa fa-times closeModal" aria-hidden="true"></i>
         </div>
-        <iframe id="updateModalIframe" width="1400" height="500" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
+        <div class="displayPage">
+        <iframe id="updateModalIframe" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
+        </div>
     </div>
-
 </div>
 <script>
     const partNumber = document.getElementById('partNumber');
@@ -164,7 +165,7 @@ include("php/seller-form.php")
     function displayModal(element) {
         id = element.getAttribute('id');
         updateModal.style.display = 'flex';
-        updateModalIframe.src = './php/khorojkala-report-edit.php?q=' + id;
+        updateModalIframe.src = './php/vorodkala-report-edit.php?q=' + id;
     }
 
     function closeModal() {
