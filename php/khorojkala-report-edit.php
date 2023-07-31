@@ -8,16 +8,38 @@
     <link type="text/css" rel="stylesheet" href="../css/persianDatepicker.css" />
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 6px !important;
+            height: 4px !important;
+        }
 
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey !important;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: rgb(105, 104, 104) !important;
+            border-radius: 5px !important;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6d6c6c !important;
+        }
+    </style>
 </head>
 
 <body>
 
     <?php
-$q = $_GET['q'];
- require_once("db.php"); 
+    $q = $_GET['q'];
+    require_once("db.php");
 
-$sql = "
+    $sql = "
 
 
 
@@ -31,192 +53,192 @@ LEFT JOIN stock ON qtybank.stock_id=stock.id
 LEFT JOIN users ON exitrecord.user=users.id
 LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
 LEFT JOIN getter ON exitrecord.getter=getter.id
-WHERE exitrecord.id LIKE '".$q."%'
+WHERE exitrecord.id LIKE '" . $q . "%'
 
 ";
-$result = mysqli_query($con,$sql);
-if (mysqli_num_rows($result) > 0) {
-    while($row = mysqli_fetch_assoc($result)) {
- 
- $id = $row["exid"];       
-$mydes  = $row["exdes"] ;
- 
-$jamkon =  $row["jamkon"];
-   $gtid = $row["gtid"];
-        
-        $date = $row["exit_time"];
-            
-$array = explode(' ', $date);
-list($year, $month, $day) = explode('-', $array[0]);
-list($hour, $minute, $second) = explode(':', $array[1]);
-$timestamp = mktime($hour, $minute, $second, $month, $day, $year);
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
 
-        
-$jalali_time = jdate("H:i", $timestamp,"","Asia/Tehran","en");
-$jalali_date = jdate("Y/m/d", $timestamp,"","Asia/Tehran","en");
-        
-        
-        
-        
-?>
+            $id = $row["exid"];
+            $mydes  = $row["exdes"];
 
+            $jamkon =  $row["jamkon"];
+            $gtid = $row["gtid"];
 
-    <table class="report-table">
+            $date = $row["exit_time"];
 
-        <tr>
-            <th>شماره فنی</th>
-            <th>برند</th>
-            <th>توضیحات ورود</th>
-            <th>توضیحات خروج</th>
-            <th>تعداد</th>
+            $array = explode(' ', $date);
+            list($year, $month, $day) = explode('-', $array[0]);
+            list($hour, $minute, $second) = explode(':', $array[1]);
+            $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
 
-            <th>فروشنده</th>
-            <th>خریدار</th>
-            <th>تحویل گیرنده</th>
-            <th>جمع کننده</th>
-            <th>زمان خروج</th>
-            <th>تاریخ خروج</th>
 
-            <th>شماره فاکتور</th>
-            <th>تاریخ فاکتور</th>
+            $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
+            $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
 
-            <th>ورود به انبار</th>
 
-            <th>انبار</th>
-            <th>کاربر</th>
 
 
-        </tr>
+    ?>
 
 
+            <table class="report-table">
 
+                <tr>
+                    <th>شماره فنی</th>
+                    <th>برند</th>
+                    <th>توضیحات ورود</th>
+                    <th>توضیحات خروج</th>
+                    <th>تعداد</th>
 
+                    <th>فروشنده</th>
+                    <th>خریدار</th>
+                    <th>تحویل گیرنده</th>
+                    <th>جمع کننده</th>
+                    <th>زمان خروج</th>
+                    <th>تاریخ خروج</th>
 
+                    <th>شماره فاکتور</th>
+                    <th>تاریخ فاکتور</th>
 
+                    <th>ورود به انبار</th>
 
+                    <th>انبار</th>
+                    <th>کاربر</th>
 
 
+                </tr>
 
-        <tr>
 
-            <td class="cell-code "><?php echo $row["partnumber"] ?></td>
-            <td class="cell-brand cell-brand-<?php echo $row["brn"] ?> "><?php echo $row["brn"] ?></td>
-            <td class="cell-des "><?php echo $row["des"] ?></td>
-            <td class="cell-des "><?php echo $row["exdes"] ?></td>
 
 
-            <td class="cell-qty "><?php echo $row["extqty"] ?></td>
 
-            <td class="cell-seller cell-seller-<?php echo $row["slid"] ?>"><?php echo $row["name"] ?></td>
 
 
 
 
 
+                <tr>
 
+                    <td class="cell-code "><?php echo $row["partnumber"] ?></td>
+                    <td class="cell-brand cell-brand-<?php echo $row["brn"] ?> "><?php echo $row["brn"] ?></td>
+                    <td class="cell-des "><?php echo $row["des"] ?></td>
+                    <td class="cell-des "><?php echo $row["exdes"] ?></td>
 
-            <td class="cell-customer "><?php echo $row["customer"] ?></td>
 
+                    <td class="cell-qty "><?php echo $row["extqty"] ?></td>
 
-            <td class="cell-gtname "><?php echo $row["gtn"] ?></td>
-            <td class="cell-gtname "><?php echo $row["jamkon"] ?></td>
+                    <td class="cell-seller cell-seller-<?php echo $row["slid"] ?>"><?php echo $row["name"] ?></td>
 
 
 
-            <td class="cell-time "><?php echo $jalali_time ?></td>
-            <td class="cell-date "><?php echo $jalali_date ?></td>
 
 
-            <td><?php echo $row["invoice_number"] ?></td>
-            <td class="cell-date "><?php echo substr($row["invoice_date"],5) ?></td>
 
 
+                    <td class="cell-customer "><?php echo $row["customer"] ?></td>
 
 
+                    <td class="cell-gtname "><?php echo $row["gtn"] ?></td>
+                    <td class="cell-gtname "><?php echo $row["jamkon"] ?></td>
 
-            <td class="tik-anb-<?php echo $row["anbarenter"] ?>"></td>
-            <td class="cell-stock "><?php echo $row["stn"] ?></td>
-            <td class="cell-user "><?php echo $row["usn"] ?></td>
 
 
+                    <td class="cell-time "><?php echo $jalali_time ?></td>
+                    <td class="cell-date "><?php echo $jalali_date ?></td>
 
 
-        </tr>
+                    <td><?php echo $row["invoice_number"] ?></td>
+                    <td class="cell-date "><?php echo substr($row["invoice_date"], 5) ?></td>
 
 
 
 
 
-    </table>
+                    <td class="tik-anb-<?php echo $row["anbarenter"] ?>"></td>
+                    <td class="cell-stock "><?php echo $row["stn"] ?></td>
+                    <td class="cell-user "><?php echo $row["usn"] ?></td>
 
 
 
 
+                </tr>
 
 
 
 
-    <form id="khoroj-edit" method="get" action="khorojkala-report-edit-save.php" autocomplete="off">
 
+            </table>
 
-        <div class="right-form">
 
-            <input value="<?php echo $id ?>" type="hidden" name="id">
 
-            <label for="qty">تعداد</label>
-            <input value="<?php echo $row["extqty"] ?>" min="0" type="number" name="qty" id="qty">
 
 
-            <label for="invoice_number">شماره فاکتور</label>
-            <input value="<?php echo $row["invoice_number"] ?>" type="number" name="invoice_number" id="invoice_number">
 
 
 
-            <label for="invoice_time">زمان فاکتور</label>
-            <input value="<?php echo $row["invoice_date"] ?>" type="text" name="invoice_time" id="invoice_time">
-            <span id="span_invoice_time"></span>
+            <form id="khoroj-edit" method="get" action="khorojkala-report-edit-save.php" autocomplete="off">
 
 
+                <div class="right-form">
 
+                    <input value="<?php echo $id ?>" type="hidden" name="id">
 
+                    <label for="qty">تعداد</label>
+                    <input value="<?php echo $row["extqty"] ?>" min="0" type="number" name="qty" id="qty">
 
 
+                    <label for="invoice_number">شماره فاکتور</label>
+                    <input value="<?php echo $row["invoice_number"] ?>" type="number" name="invoice_number" id="invoice_number">
 
 
 
+                    <label for="invoice_time">زمان فاکتور</label>
+                    <input value="<?php echo $row["invoice_date"] ?>" type="text" name="invoice_time" id="invoice_time">
+                    <span id="span_invoice_time"></span>
 
-        </div>
 
-        <div class="left-form">
 
 
-            <label for="customer">خریدار</label>
-            <input type="text" name="customer" id="customer" value="<?php echo $row["customer"] ?>">
 
 
-            <label class="half-label" for="getter">تحویل گیرنده</label>
-            <select class="half-input" name="getter" id="getter" data="<?php echo $gtid ?>">
-                <?php include("getter-form.php") ?>
-            </select>
 
 
-            <label for="jamkon">جمع کننده</label>
-            <input value="<?php echo $jamkon ?>" type="text" name="jamkon" id="jamkon">
 
 
+                </div>
 
+                <div class="left-form">
 
-            <label for="des">توضیحات</label>
-            <textarea name="des" id="des"><?php echo $mydes ?></textarea>
 
-        </div>
-        <div class="bottom-bar">
-            <input type="submit" value="ذخیره" id="sabt">
-            <a data="<?php echo $id ?>" class="del-vorod">حذف</a>
-            <div class="error"></div>
-        </div>
+                    <label for="customer">خریدار</label>
+                    <input type="text" name="customer" id="customer" value="<?php echo $row["customer"] ?>">
 
-    </form>
+
+                    <label class="half-label" for="getter">تحویل گیرنده</label>
+                    <select class="half-input" name="getter" id="getter" data="<?php echo $gtid ?>">
+                        <?php include("getter-form.php") ?>
+                    </select>
+
+
+                    <label for="jamkon">جمع کننده</label>
+                    <input value="<?php echo $jamkon ?>" type="text" name="jamkon" id="jamkon">
+
+
+
+
+                    <label for="des">توضیحات</label>
+                    <textarea name="des" id="des"><?php echo $mydes ?></textarea>
+
+                </div>
+                <div class="-bar">
+                    <input type="submit" value="ذخیره" id="sabt">
+                    <a data="<?php echo $id ?>" class="del-vorod">حذف</a>
+                    <div class="error"></div>
+                </div>
+
+            </form>
 
 
 
@@ -228,13 +250,12 @@ $jalali_date = jdate("Y/m/d", $timestamp,"","Asia/Tehran","en");
 
 
     <?php
-    } // end while
-}
-else {
-    echo '<div id="error">کد فنی اشتباه یا ناقص می باشد</div>';
-}
-mysqli_close($con);
-?>
+        } // end while
+    } else {
+        echo '<div id="error">کد فنی اشتباه یا ناقص می باشد</div>';
+    }
+    mysqli_close($con);
+    ?>
 
     <script src="../js/khorojkala-edit.js?v=<?php echo (rand()) ?>"></script>
     <script src="../js/form.js?v=<?php echo (rand()) ?>"></script>

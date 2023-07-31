@@ -108,15 +108,14 @@ label {
 .modalContent {
   background-color: white;
   border-radius: 10px;
-  overflow: hidden;
   width: 90vw !important;
-  height: 70vh !important;
+  overflow-y: hidden !important;
 }
 
 
 #updateModalIframe {
   width: 100% !important;
-  height: 63vh !important;
+  height:70vh !important;
 }
 
 .modalHeader {

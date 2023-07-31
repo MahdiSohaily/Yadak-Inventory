@@ -9,7 +9,7 @@ LEFT JOIN seller ON qtybank.seller=seller.id
 LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
 LEFT JOIN users ON qtybank.user=users.id
 LEFT JOIN stock ON qtybank.stock_id=stock.id 
-ORDER BY qtybank.create_time DESC";
+ORDER BY qtybank.create_time DESC LIMIT 100";
 
 global $jameitem;
 $jameitem = 0;
