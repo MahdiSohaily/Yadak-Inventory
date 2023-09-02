@@ -138,12 +138,23 @@ if (!empty($login_err)) {
             color: #3a3e42 !important;
         }
 
+        .AppForm {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .AppFormLeft {
+            padding: 2rem;
+        }
+
         .AppForm .AppFormLeft h1 {
             font-size: 35px;
         }
 
-        .AppForm .AppFormLeft input:focus {
-            border-color: #ced4da;
+        .AppForm .AppFormLeft input {
+            margin-block: 5px;
+            border: 1px solid #8D334C !important;
+            border-radius: 5px !important;
         }
 
         .AppForm .AppFormLeft input::placeholder {
@@ -171,7 +182,7 @@ if (!empty($login_err)) {
         }
 
         .AppForm .AppFormRight {
-            background-image: url('https://e0.pxfuel.com/wallpapers/277/433/desktop-wallpaper-cars-auto-blur-smooth-front-view.jpg');
+            background-image: url('https://wallpapers.com/images/hd/detailed-hyundai-front-view-0ourh5sb3js38dlw.webp');
             height: 450px;
             background-size: cover;
             background-position: center;
@@ -210,12 +221,11 @@ if (!empty($login_err)) {
 <body style="direction: rtl;">
     <div class="container h-100">
         <div class="row h-100 justify-content-center align-items-center">
-            <form class="col-md-9" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <form class="col-md-11" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="AppForm shadow-lg">
                     <div class="row">
                         <div class="col-md-6 d-flex justify-content-center align-items-center">
                             <div class="AppFormLeft">
-
                                 <h1> ورود به سیستم</h1>
                                 <p>برای ورود به سیستم اطلاعات کاربری خود را به دقت وارد کنید.</p>
                                 <div class="form-group position-relative mb-4 mt-4">
@@ -224,7 +234,7 @@ if (!empty($login_err)) {
                                     <i class="fa fa-user-o"></i>
                                 </div>
                                 <div class="form-group position-relative mb-4">
-                                <label for="label-contrlller pb-2">رمز عبور</label>
+                                    <label for="label-contrlller pb-2">رمز عبور</label>
                                     <input type="password" name="password" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none" id="password" placeholder="رمز عبور خود را وارد کنید">
                                     <i class="fa fa-key"></i>
 

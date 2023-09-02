@@ -10,8 +10,6 @@ require_once './php/jdf.php';
     <meta charset="utf-8">
     <script src="js/font.min.js"></script>
     <script src="js/jquery-1.11.3.min.js"></script>
-
-    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">
     <link rel='stylesheet' href='css/style.css?v=<?php echo (rand()) ?>' type='text/css' media='all' />
     <link rel='stylesheet' href='css/modal.css?v=<?php echo (rand()) ?>' type='text/css' media='all' />
     <link type="text/css" rel="stylesheet" href="css/persianDatepicker.css" />
@@ -25,45 +23,58 @@ require_once './php/jdf.php';
         case 'price.php':
             $title = "سامانه قیمت";
             echo '<link rel="stylesheet" href="css/price.css?v=' . rand() . '" type="text/css" media="all" />';
+            echo '<link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">';
             break;
         case 'khorojkala-index.php':
             $title = "خروج کالا";
+            echo '<link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">';
             break;
         case 'vorodkala-index.php':
             $title = "ورود کالا";
+            echo '<link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">';
             break;
         case 'khorojkala-report.php':
             $title = "گزارش خروج";
+            echo '<link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">';
             break;
         case 'vorodkala-report.php':
             $title = "گزارش ورود";
+            echo '<link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">';
             break;
         case 'shomaresh-index.php':
             $title = "انبار گردانی";
+            echo '<link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">';
             break;
         case 'newcode-index.php':
             $title = "کد فنی جدید";
+            echo '<link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">';
             break;
         case 'mojodikala-report.php':
             $title = "موجودی کالا";
+            echo '<link rel="shortcut icon" href="./img/inventory.png" type="image/x-icon">';
             break;
         case 'index.php':
             $title = "صفحه اصلی";
+            echo '<link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">';
             break;
         case 'customer-index.php':
             $title = "مشتری";
+            echo '<link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">';
             break;
         case 'invoice-index.php':
             $title = "فاکتور فروش";
+            echo '<link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">';
             break;
         case 'file-index.php':
             $title = "مدیریت فایل";
             break;
         case 'mojodikala-report-simple.php':
             $title = "موجودی کالا نسخه سبک";
+            echo '<link rel="shortcut icon" href="./img/inventory.png" type="image/x-icon">';
             break;
         default:
             $title = "صفحه اصلی";
+            echo '<link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">';
             break;
     }
 
@@ -139,6 +150,15 @@ require_once './php/jdf.php';
             <li><a href="invoice-index.php">فاکتور فروش <i class="fas fa-file-invoice-dollar"></i></a></li>
             <li><a href="file-index.php">مدیریت فایل <i class="fas fa-file-excel"></i></a></li>
             <li><a target="_blank" href="../callcenter/">مرکز تماس <i class="fas fa-headphones"></i></a></li>
+            <li>
+                <a href="./transfer_index.php">
+                    انتقال به انبار
+                    <i class="far fa-caret-square-right"></i>
+                </a>
+                <ul class="under-link">
+                    <li><a href="transfer_report.php">گزارش انتقالات</a></li>
+                </ul>
+            </li>
             <li class="sale-mali">سال 1402</li>
         </div>
         <div class="user-box">

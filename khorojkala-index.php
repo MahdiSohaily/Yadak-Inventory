@@ -2,28 +2,12 @@
 
 
 <div id="QTY-Page">
-
-
-
-
-
-
-
-
-
     <div>
-
-
-
         <form id="khorojkala" method="post" action="php/khorojkala-save.php" autocomplete="off">
             <div class="left-form">
                 <?php include("php/qtybank.php") ?>
             </div>
             <div class="right-form">
-
-
-
-
 
                 <label for="customer">خریدار</label>
                 <input type="text" name="customer" id="customer">
@@ -47,10 +31,6 @@
                 <textarea name="des" id="des"></textarea>
 
                 <div class="add-to-basket">
-
-
-
-
                 </div>
 
                 <div class="bottom-bar">
@@ -58,26 +38,9 @@
                     <div class="error">
                     </div>
                 </div>
-
-
-
             </div>
         </form>
-
-
-
-
-
-
-
     </div>
-
-
-
-
-
-
-
 </div>
 
 

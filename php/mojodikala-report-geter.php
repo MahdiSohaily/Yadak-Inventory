@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 require_once("db.php");
 
@@ -8,7 +8,7 @@ $sql = " SELECT nisha.partnumber , nisha.id,stock.name AS stckname ,nisha.price 
         LEFT JOIN seller ON qtybank.seller=seller.id
         LEFT JOIN brand ON qtybank.brand=brand.id
         LEFT JOIN stock ON qtybank.stock_id=stock.id
-        ORDER BY nisha.partnumber DESC ";
+        ORDER BY nisha.partnumber DESC";
 
 
 global $shakhes;

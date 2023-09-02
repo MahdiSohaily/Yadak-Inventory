@@ -14,6 +14,7 @@
 
           $(".bottom-bar").addClass("msg-loading");
           $("#sabt").prop('disabled', true);
+          
           $.ajax({
               type: frm.attr('method'),
               url: frm.attr('action'),

@@ -72,7 +72,7 @@ $dateTime = jdate('Y-m-d') ?>
     }
 
     .countdown-col {
-        background: url(https://images.pexels.com/photos/3457780/pexels-photo-3457780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1) no-repeat center;
+        background: url('./img/pxfuel.jpg') no-repeat top left;
         background-size: cover;
     }
 
