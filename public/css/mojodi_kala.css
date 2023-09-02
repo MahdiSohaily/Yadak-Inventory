@@ -1,3 +1,19 @@
+/* START -------------------- MOJODI KALA STYLES---------------------------------- */
+.search_container {
+  display: flex;
+  align-items: center;
+}
+
+.search_container span {
+  padding-inline: 20px;
+}
+#MojodiSearch {
+  width: 300px;
+  padding: 10px;
+}
+/* END -------------------- MOJODI KALA STYLES---------------------------------- */
+
+/* START -------------------- MOJODI KALA REDIRECTION MODAL STYLES---------------------------------- */
 #redirect {
   position: fixed;
   inset: 0;
@@ -41,3 +57,5 @@
 .btn-decline {
   background-color: red;
 }
+
+/* END -------------------- MOJODI KALA REDIRECTION MODAL STYLES---------------------------------- */

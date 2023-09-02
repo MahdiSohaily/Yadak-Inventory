@@ -1,13 +1,3 @@
-<div id="redirect">
-    <div class="alertMessage">
-        <p id='redirectMessage'></p>
-        <div>
-            <button onclick="confirm()" class="btn btn-confirm">تایید</button>
-            <button onclick="decline()" class="btn btn-decline">انصراف</button>
-        </div>
-    </div>
-</div>
-
 <script src="js/mojodikala.js"></script>
 <script src="js/cutomer-save.js"></script>
 <script src="js/invoice.js"></script>
@@ -28,7 +18,7 @@
 <script src="js/copy.js"></script>
 
 <script type="text/javascript" src="js/persianDatepicker.min.js"></script>
-<script src="./public/js/mojodi_redirect.js"></script>
+<script src="./public/js/mojodi_kala.js"></script>
 </body>
 
 </html>

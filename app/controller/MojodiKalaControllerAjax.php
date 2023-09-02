@@ -1,5 +1,7 @@
 <?php
-require_once("db.php");
+require_once '../../bootstrap/init.php';
+
+
 
 function echoRial($x, $y)
 {
@@ -29,6 +31,19 @@ if (filter_has_var(INPUT_POST, 'search')) {
         LEFT JOIN stock ON qtybank.stock_id=stock.id
         WHERE nisha.partnumber LIKE '" . $pattern . "%'
         ORDER BY nisha.partnumber DESC ";
+
+    $statement = DB_CONNECTION->prepare("SELECT nisha.partnumber , nisha.id,stock.name AS stckname ,nisha.price AS nprice, seller.name , brand.name AS brn , qtybank.qty,qtybank.pos1,qtybank.pos2 ,qtybank.des,qtybank.id AS qtyid,  qtybank.qty AS entqty 
+        FROM qtybank
+        LEFT JOIN nisha ON qtybank.codeid=nisha.id
+        LEFT JOIN seller ON qtybank.seller=seller.id
+        LEFT JOIN brand ON qtybank.brand=brand.id
+        LEFT JOIN stock ON qtybank.stock_id=stock.id
+        WHERE nisha.partnumber LIKE :pattern
+        ORDER BY nisha.partnumber DESC");
+
+    $statement->bindParam(":pattern", $pattern . "%");
+    $statement->execute();
+    $statement->setFetchMode(PDO::FETCH_ASSOC);
 
 
     global $shakhes;
