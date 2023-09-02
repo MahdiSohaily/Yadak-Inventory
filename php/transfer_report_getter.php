@@ -26,6 +26,17 @@ try {
     // set the resulting array to associative
     $statement->setFetchMode(PDO::FETCH_ASSOC);
     $results =  $statement->fetchAll();
+
+    $results = array_map(function ($record) {
+        $record['previous_amount'] = getSanitizedData($record["previous_amount"], $record["affected_record"]);
+        return $record;
+    }, $results);
+
+    // $results = array_filter($existingGoods, function ($record) {
+    //     if ($record["previous_amount"] > 0)
+    //         return $record;
+    // });
+
 } catch (PDOException $e) {
     echo $sql . "<br>" . $e->getMessage();
 }
@@ -56,4 +67,20 @@ function getStockName($stock_id)
     $statement->setFetchMode(PDO::FETCH_ASSOC);
     $result =  $statement->fetch();
     return $result['name'];
+}
+
+function getSanitizedData($quantity, $id)
+{
+    $statement = DB_CONNECTION->prepare("SELECT qty FROM exitrecord WHERE qtyid = :id");
+
+    $statement->bindParam(":id", $id);
+    $statement->execute();
+    $statement->setFetchMode(PDO::FETCH_ASSOC);
+
+    $allExit =  $statement->fetchAll();
+
+    foreach ($allExit as $record) {
+        $quantity -= $record["qty"];
+    }
+    return $quantity;
 }

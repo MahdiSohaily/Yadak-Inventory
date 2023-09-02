@@ -7,13 +7,16 @@ if (filter_has_var(INPUT_POST, 'search')) {
     $pattern = $_POST['pattern'] . "%";
     $existingGoods = getExistingGoods($pattern);
 
+    $existingGoods = array_map(function ($record) {
+
+        $record['entqty'] = getSanitizedData($record["entqty"], $record["qtyid"]);
+        return $record;
+    }, $existingGoods);
+
+
     $existingGoods = array_filter($existingGoods, function ($record) {
-
-        $finalQuantity = getSanitizedData($record["entqty"], $record["qtyid"]);
-
-        if ($finalQuantity > 0) {
+        if ($record["entqty"] > 0)
             return $record;
-        }
     });
     createDisplay($existingGoods);
 }
