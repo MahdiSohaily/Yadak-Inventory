@@ -9,6 +9,7 @@ $invoice_number = isset($_POST['invoice_number']) ? $_POST['invoice_number'] : '
 $description = $_POST['des'];
 $collector = $_POST['jamkon'];
 $invoice_time = $_POST['invoice_time'];
+$prev_qty = $_POST['prev_qty'];
 $stock = isset($_POST['stock']) ? $_POST['stock'] : 0;
 
 
@@ -28,7 +29,7 @@ foreach ($_POST['qty'] as $value) {
 
         $info = get_entered_Info($qty_id);
         $Bank_id = save_new_entrance($info, $stock, $qty);
-        record_transaction($qty_id, $Bank_id, $exit_id, $qty, $stock);
+        record_transaction($qty_id, $Bank_id, $exit_id, $qty, $prev_qty, $stock);
     } else {
 
         $sql = "INSERT INTO exitrecord (customer,getter,qty,qtyid,user,invoice_number,des,jamkon,invoice_date) VALUES ('$customer', '$getter', '$qty', '$qty_id','$id','$invoice_number','$description','$collector','$invoice_time');";
@@ -99,16 +100,17 @@ function save_new_entrance($info, $stock, $quantity)
     return PDO_CONNECTION->lastInsertId();
 }
 
-function record_transaction($affected_record, $Bank_id, $exit_id, $quantity, $stock)
+function record_transaction($affected_record, $Bank_id, $exit_id, $prev_qty, $quantity, $stock)
 {
-    $statement = PDO_CONNECTION->prepare("INSERT INTO transfer_record (affected_record, qtybanck_id , exit_id, stock, user_id, quantity)
-    VALUES (:affected_record, :qtybanck_id, :exit_id, :stock, :user_id, :quantity)");
+    $statement = PDO_CONNECTION->prepare("INSERT INTO transfer_record (affected_record, qtybanck_id , exit_id, stock, user_id, prev_quantity,quantity)
+    VALUES (:affected_record, :qtybanck_id, :exit_id, :stock, :user_id,:prev_quantity ,:quantity)");
 
     $statement->bindParam(':affected_record', $affected_record);
     $statement->bindParam(':qtybanck_id', $Bank_id);
     $statement->bindParam(':exit_id', $exit_id);
     $statement->bindParam(':stock', $stock);
     $statement->bindParam(':user_id', $_SESSION["id"]);
+    $statement->bindParam(':prev_quantity', $prev_qty);
     $statement->bindParam(':quantity', $quantity);
 
     $statement->execute();

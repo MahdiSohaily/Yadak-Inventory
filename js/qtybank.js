@@ -38,6 +38,7 @@ $(document).ready(function () {
     let brand = $(this).prev().attr("brand");
     let seller = $(this).prev().attr("seller");
     let qtyid = $(this).prev().attr("qtyid");
+    let prev_qty = $(this).prev().attr("data-amount");
     let qty = $(this).prev().val();
 
     var xqty = $(this).parent().parent().find(".qtybank-first").text();
@@ -47,7 +48,9 @@ $(document).ready(function () {
     $(this).parent().parent().find(".qtybank-first").text(xqty);
 
     $(".add-to-basket").append(
-      '<div class="item"> <div>' +
+      '<div class="item"><input type="hidden" name="prev_qty" value="' +
+        prev_qty +
+        '" /> <div>' +
         code +
         "</div> <div>" +
         seller +

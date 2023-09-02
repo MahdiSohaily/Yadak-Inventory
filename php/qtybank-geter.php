@@ -39,7 +39,7 @@ if (mysqli_num_rows($result) > 0) {
                     <div class="qtybank-first">' . $finalqty . '</div>
                     <div>' . $row["brn"] . '</div><div>' . $row["name"] . '</div>
                     <div class="action">
-                        <input brand="' . $row["brn"] . '" seller="' . $row["name"] . '" qtyid="' . $row["qtyid"] . '" code="' . $row["partnumber"] . '" type="number" min="0" max="' . $finalqty . '" value="1" class="qty-x">
+                        <input data-amount="' . $finalqty . '" brand="' . $row["brn"] . '" seller="' . $row["name"] . '" qtyid="' . $row["qtyid"] . '" code="' . $row["partnumber"] . '" type="number" min="0" max="' . $finalqty . '" value="1" class="qty-x">
                         <a class="add-to-khoroj">
                             افزودن
                             <i class="fas fa-plus-circle"></i>
