@@ -113,53 +113,36 @@ if (!empty($login_err)) {
     <style>
         @import url('https://v1.fontapi.ir/css/Vazir');
     </style>
-    <link rel="stylesheet" href="./public/css/login.css">
     <link href="./public/css/assets/bootstrap.min.css?v=<?= rand() ?>" rel="stylesheet">
     <script src="./public/js/assets/bootstrap.bundle.min.js?v=<?= rand() ?>"></script>
+    <link rel="stylesheet" href="./public/css/login.css">
 </head>
 
 <body style="direction: rtl;">
-    <div class="card">
-        <div class="card-body">Basic card</div>
-    </div>
-    <div class="container h-100">
-        <div class="row h-100 justify-content-center align-items-center">
+    <div style="height: 100vh !important;" class="container">
+        <div class="row h-100 d-flex justify-content-center align-content-center">
             <form class="col-md-11" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                 <div class="AppForm shadow-lg">
                     <div class="row">
-                        <div class="col-md-6 d-flex justify-content-center align-items-center">
+                        <div class="col-md-6 d-flex justify-content-center align-content-center">
                             <div class="AppFormLeft">
                                 <h1> ورود به سیستم</h1>
                                 <p>برای ورود به سیستم اطلاعات کاربری خود را به دقت وارد کنید.</p>
                                 <div class="form-group position-relative mb-4 mt-4">
                                     <label for="label-contrlller pb-2">اسم کاربری</label>
                                     <input type="text" name="username" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none" id="username" placeholder="اسم کاربری خود را وارد کنید">
-                                    <i class="fa fa-user-o"></i>
                                 </div>
                                 <div class="form-group position-relative mb-4">
                                     <label for="label-contrlller pb-2">رمز عبور</label>
                                     <input type="password" name="password" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none" id="password" placeholder="رمز عبور خود را وارد کنید">
-                                    <i class="fa fa-key"></i>
-
                                 </div>
-
                                 <button class="btn btn-success btn-block shadow border-0 py-2 text-uppercase ">
                                     ورود به سیستم
                                 </button>
-
-                                <p class="text-center mt-5 hidden" style="visibility: hidden;">
-                                    Don't have an account?
-                                    <span>
-                                        Create your account
-                                    </span>
-
-                                </p>
-
                             </div>
-
                         </div>
                         <div class="col-md-6">
-                            <div class="AppFormRight position-relative d-flex justify-content-center flex-column align-items-center text-center p-5 text-white">
+                            <div class="AppFormRight position-relative d-flex justify-content-center flex-column align-content-center text-center p-5 text-white">
                                 <h2 class="position-relative px-4 pb-3 mb-4">خوش آمدید</h2>
                                 <p>مجموعه ی یدک شاپ از سال ١٣٩٣ قطعات و لوازم یدکی کیا را به طور مستقیم از کشور کره جنوبی وارد ایران میکند،یدک شاپ علاوه بر لوازم اصلی خودروهای کیا که با نام کیا جنیون پارت و موبیس شناخته می شوند برای بالا بردن قدرت خرید مشتریان خود بعضی از قطعات کیا را با سایر برند های معتبر کره ای وارد کرده و حق انتخاب وسیع تری برای شما مصرف کنندگان عزیز ایجاد میکند.‌</p>
                             </div>

@@ -1,10 +1,22 @@
-* {
-  font-family: Vazir, sans-serif;
-  padding: 0;
-  margin: 0;
-  outline: none;
+@font-face {
+  font-family: "IranSans";
+  src: url("../fonts/IRANSans-Light-web.woff") format("woff"),
+    url("../fonts/IRANSans-Light-web.ttf") format("truetype");
+  font-weight: normal;
 }
 
+@font-face {
+  font-family: "IranSans";
+  src: url("../fonts/IRANSans-Bold-web.woff") format("woff"),
+    url("../fonts/IRANSans-Bold-web.ttf") format("truetype");
+  font-weight: bold;
+}
+
+* {
+  font-family: IranSans, sans-serif;
+  padding: 0;
+  margin: 0;
+}
 
 .AppForm {
   border-radius: 10px;
@@ -50,7 +62,7 @@
 }
 
 .AppForm .AppFormRight {
-  background-image: url("https://wallpapers.com/images/hd/detailed-hyundai-front-view-0ourh5sb3js38dlw.webp");
+  background-image: url("../img/login.webp");
   height: 450px;
   background-size: cover;
   background-position: center;
@@ -59,8 +71,7 @@
 .AppForm .AppFormRight:after {
   content: "";
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: linear-gradient(45deg, #8d334c, #cf6964);
   opacity: 0.5;
 }
