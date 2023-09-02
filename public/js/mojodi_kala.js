@@ -8,26 +8,7 @@ function searchGoods(value) {
     pattern = pattern.replace(/\s/g, "");
     pattern = pattern.replace(/-/g, "");
     pattern = pattern.replace(/_/g, "");
-
-    resultBox.innerHTML = `
-        <tr class='full-page'>
-            <td colspan='18'>
-            <img style='width: 60px; margin-block:30px' src='../callcenter/report/public/img/loading.png' alt='google'>
-            <p class="pt-2 text-gray-500">لطفا صبور باشید</p>
-            </td>
-        </tr>`;
-    resultBox.innerHTML = sendRequest("search", pattern);
-  } else {
-    resultBox.innerHTML = `
-        <tr class='full-page'>
-            <td colspan='18'>
-            <img style='width: 60px; margin-block:30px' src='../callcenter/report/public/img/loading.png' alt='google'>
-            <p class="pt-2 text-gray-500">لطفا صبور باشید</p>
-            </td>
-        </tr>`;
-    setTimeout(() => {
-      resultBox.innerHTML = sendRequest("search", "");
-    }, 1500);
+    sendRequest("search", pattern);
   }
 }
 
@@ -36,10 +17,19 @@ function sendRequest(action, pattern) {
   params.append("pattern", pattern);
   params.append("search", action);
 
+  resultBox.innerHTML = `
+  <tr class='full-page'>
+      <td colspan='18'>
+      <img style='width: 60px; margin-block:30px' src='../callcenter/report/public/img/loading.png' alt='google'>
+      <p class="pt-2 text-gray-500">لطفا صبور باشید</p>
+      </td>
+  </tr>`;
+
   axios
-    .post("./php/mojodiKalaAjax.php", params)
+    .post("./app/controller/MojodiKalaControllerAjax.php", params)
     .then(function (response) {
-      return response.data;
+      console.log(response.data);
+      resultBox.innerHTML = response.data;
     })
     .catch(function (error) {
       console.log(error);
