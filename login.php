@@ -1,6 +1,5 @@
 ﻿<?php
 // Initialize the session
-
 session_start();
 
 // Check if the user is already logged in, if yes then redirect him to welcome page
@@ -103,122 +102,26 @@ if (!empty($login_err)) {
     echo '<div class="alert alert-danger">' . $login_err . '</div>';
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ورود به سیستم</title>
     <link rel="icon" href="https://yadak.shop/wp-content/uploads/2017/04/cropped-YadakShop-512-1-100x100.png" sizes="32x32">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         @import url('https://v1.fontapi.ir/css/Vazir');
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <style>
-        * {
-            font-family: Vazir, sans-serif;
-        }
-
-        @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
-
-        * {
-            padding: 0;
-            margin: 0;
-            outline: none;
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif !important;
-            height: 100vh;
-            color: #3a3e42 !important;
-        }
-
-        .AppForm {
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .AppFormLeft {
-            padding: 2rem;
-        }
-
-        .AppForm .AppFormLeft h1 {
-            font-size: 35px;
-        }
-
-        .AppForm .AppFormLeft input {
-            margin-block: 5px;
-            border: 1px solid #8D334C !important;
-            border-radius: 5px !important;
-        }
-
-        .AppForm .AppFormLeft input::placeholder {
-            font-size: 15px;
-        }
-
-        .AppForm .AppFormLeft i {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .AppForm .AppFormLeft a {
-            color: #3a3e42;
-        }
-
-        .AppForm .AppFormLeft button {
-            background: linear-gradient(45deg, #8D334C, #CF6964);
-            border-radius: 30px;
-        }
-
-        .AppForm .AppFormLeft p span {
-            color: #007bff;
-        }
-
-        .AppForm .AppFormRight {
-            background-image: url('https://wallpapers.com/images/hd/detailed-hyundai-front-view-0ourh5sb3js38dlw.webp');
-            height: 450px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .AppForm .AppFormRight:after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #8D334C, #CF6964);
-            opacity: 0.5;
-        }
-
-        .AppForm .AppFormRight h2 {
-            z-index: 1;
-        }
-
-        .AppForm .AppFormRight h2::after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background-color: #fff;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .AppForm .AppFormRight p {
-            z-index: 1;
-        }
-    </style>
+    <link rel="stylesheet" href="./public/css/login.css">
+    <link href="./public/css/assets/bootstrap.min.css?v=<?= rand() ?>" rel="stylesheet">
+    <script src="./public/js/assets/bootstrap.bundle.min.js?v=<?= rand() ?>"></script>
 </head>
 
 <body style="direction: rtl;">
+    <div class="card">
+        <div class="card-body">Basic card</div>
+    </div>
     <div class="container h-100">
         <div class="row h-100 justify-content-center align-items-center">
             <form class="col-md-11" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
