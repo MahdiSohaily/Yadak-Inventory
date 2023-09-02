@@ -9,7 +9,7 @@ $invoice_number = isset($_POST['invoice_number']) ? $_POST['invoice_number'] : '
 $description = $_POST['des'];
 $collector = $_POST['jamkon'];
 $invoice_time = $_POST['invoice_time'];
-$stock = $_POST['stock'];
+$stock = isset($_POST['stock']) ? $_POST['stock'] : 0;
 
 
 $x = 0;
@@ -18,15 +18,21 @@ foreach ($_POST['qty'] as $value) {
     $qty_id = $_POST['qtyid'][$x];
     $x++;
 
-    $sql = "INSERT INTO exitrecord (customer,getter,qty,qtyid,user,invoice_number,des,jamkon,invoice_date) VALUES ('$customer', '$getter', '$qty', '$qty_id','$id','$invoice_number','$description','$collector','$invoice_time');";
-    $result = mysqli_query($con, $sql);
-
-    $exit_id = mysqli_insert_id($con);
 
     if ($action == 'move') {
+
+        $sql = "INSERT INTO exitrecord (customer,getter,qty,qtyid,user,invoice_number,des,jamkon,invoice_date, is_transfered) VALUES ('$customer', '$getter', '$qty', '$qty_id','$id','$invoice_number','$description','$collector','$invoice_time', 1);";
+        $result = mysqli_query($con, $sql);
+
+        $exit_id = mysqli_insert_id($con);
+
         $info = get_entered_Info($qty_id);
         $Bank_id = save_new_entrance($info, $stock, $qty);
         record_transaction($qty_id, $Bank_id, $exit_id, $qty, $stock);
+    } else {
+
+        $sql = "INSERT INTO exitrecord (customer,getter,qty,qtyid,user,invoice_number,des,jamkon,invoice_date) VALUES ('$customer', '$getter', '$qty', '$qty_id','$id','$invoice_number','$description','$collector','$invoice_time');";
+        $result = mysqli_query($con, $sql);
     }
 
     if (!$result) {
@@ -60,7 +66,7 @@ function save_new_entrance($info, $stock, $quantity)
     $quantity = $quantity;
     $pos1 = $info['pos1'];
     $pos2 = $info['pos2'];
-    $des = $info['des'];
+    $des = 'انتقال به انبار جدید';
     $seller = $info['seller'];
     $deliverer = $info['deliverer'];
     $invoice = $info['invoice'];
@@ -68,9 +74,10 @@ function save_new_entrance($info, $stock, $quantity)
     $user_id = $_SESSION["id"];
     $invoice_number = $info['invoice_number'];
     $invoice_time = $info['invoice_date'];
+    $is_transfered = 1;
 
-    $statement = PDO_CONNECTION->prepare("INSERT INTO qtybank (codeid, brand, qty, pos1, pos2, des, seller, deliverer, invoice, anbarenter, user, invoice_number, stock_id, invoice_date)
-    VALUES (:codeId, :brand, :quantity, :pos1, :pos2, :description, :seller, :deliverer, :invoice, :anbarenter, :user_id, :invoice_number, :stock, :invoice_time)");
+    $statement = PDO_CONNECTION->prepare("INSERT INTO qtybank (codeid, brand, qty, pos1, pos2, des, seller, deliverer, invoice, anbarenter, user, invoice_number, stock_id, invoice_date, is_transfered)
+    VALUES (:codeId, :brand, :quantity, :pos1, :pos2, :description, :seller, :deliverer, :invoice, :anbarenter, :user_id, :invoice_number, :stock, :invoice_time, :is_transfered)");
 
     $statement->bindParam(':codeId', $codeId);
     $statement->bindParam(':brand', $brand);
@@ -86,6 +93,7 @@ function save_new_entrance($info, $stock, $quantity)
     $statement->bindParam(':invoice_number', $invoice_number);
     $statement->bindParam(':stock', $stock);
     $statement->bindParam(':invoice_time', $invoice_time);
+    $statement->bindParam(':is_transfered', $is_transfered);
 
     $statement->execute();
     return PDO_CONNECTION->lastInsertId();

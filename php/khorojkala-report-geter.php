@@ -31,6 +31,7 @@ LEFT JOIN users ON exitrecord.user=users.id
 LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
 LEFT JOIN getter ON exitrecord.getter=getter.id
 $condition
+AND exitrecord.is_transfered = 0
 ORDER BY  exitrecord.exit_time DESC , exitrecord.invoice_number DESC ";
 
 
