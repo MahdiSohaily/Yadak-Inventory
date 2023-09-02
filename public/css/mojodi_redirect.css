@@ -1,0 +1,43 @@
+#redirect {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.alertMessage {
+  background-color: white;
+  width: 600px;
+  height: 300px;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#redirectMessage {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  padding-block: 50px;
+}
+
+.btn {
+  padding: 10px 10px;
+  width: 80px;
+  border-radius: 10px;
+  color: white;
+  border: none;
+}
+
+.btn-confirm {
+  background-color: seagreen;
+}
+
+.btn-decline {
+  background-color: red;
+}

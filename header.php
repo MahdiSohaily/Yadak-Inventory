@@ -15,8 +15,10 @@ require_once './php/jdf.php';
     <link type="text/css" rel="stylesheet" href="css/persianDatepicker.css" />
     <link rel="stylesheet" href="./css/exit_record/exit.css?v=<?php echo rand() ?>" type="text/css" media="all" />
     <script type="text/javascript" src="./js/assets/table2excel.js"></script>
-    <link rel="stylesheet" href="./css/assets/select2.css">
+    <link rel="stylesheet" href="./css/assets/select2.css" />
+    <link rel="stylesheet" href="./public/css/mojodi_redirect.css" />
     <script src="./js/assets/select2.js"></script>
+ 
 
     <?php
     switch (basename($_SERVER['PHP_SELF'])) {
@@ -132,7 +134,7 @@ require_once './php/jdf.php';
                 </ul>
             </li>
             <li>
-                <a onclick="redirectTo('mojodikala-report.php','موجودی کالا');return false;" href="mojodikala-report.php">موجودی کالا <i class="fas fa-compress-arrows-alt"></i></a>
+                <a onclick="redirectTo('mojodikala-report.php','موجودی کالا');return false;" >موجودی کالا <i class="fas fa-compress-arrows-alt"></i></a>
 
                 <ul class="under-link">
                     <li><a href="mojodikala-report-simple.php">موجودی سبک</a></li>
