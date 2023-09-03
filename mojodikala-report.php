@@ -17,7 +17,6 @@
                     <th>قفسه</th>
                     <th>توضیحات</th>
                     <th>انبار</th>
-                    <th>قیمت</th>
                 </tr>
             </thead>
             <tbody id="mojodiResult" class="mojodi-table">

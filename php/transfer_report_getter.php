@@ -47,12 +47,13 @@ foreach ($results as $index => $result) : ?>
         <td class="cell-code "><?= '&nbsp;' . $result["partnumber"] ?></td>
         <td class="cell-brand cell-brand-<?= $result["brand_name"] ?> "><?= $result["brand_name"] ?></td>
         <td class="cell-des "><?= $result["des"] ?></td>
-        <td class="cell-qty "><?= $result["previous_amount"] ?></td>
-        <td class="cell-pos1 "><?= $result["quantity"] ?></td>
         <td class="cell-pos1 "><?= getStockName($result["stock_id"]) ?></td>
+        <td class="cell-qty "><?= $result["previous_amount"] ?></td>
         <td class="cell-pos1 "><?= getStockName($result["stock"]) ?></td>
+        <td class="cell-pos1 "><?= $result["quantity"] ?></td>
         <td class="cell-pos2 "><?= $result["seller_name"] ?></td>
         <td class="cell-pos2 "><?= $result["getter_name"] ?></td>
+        <td class="cell-pos2 "><?= $result["transfer_date"] ?></td>
         <td class="cell-user "><?= $result["user_name"] ?></td>
     </tr>
 <?php endforeach;
