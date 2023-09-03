@@ -3,6 +3,7 @@ $dateTime = jdate('Y-m-d') ?>
 <div class="page">
     <div class="countdown-col col">
         <div class="time middle">
+
             <span>
                 <div id="days"><?php echo explode('-', $dateTime)[0]; ?> /</div><?php echo jdate('V') ?>
             </span>
@@ -17,7 +18,8 @@ $dateTime = jdate('Y-m-d') ?>
     </div>
     <div class="newsletter-col col">
         <div class="newslatter middle">
-            <h1>به نرم افزار تحت وب یدک شاپ خوش آمدید</h2>
+            <div class="card">
+                <h1>به نرم افزار تحت وب یدک شاپ خوش آمدید</h1>
 
                 <div class="py-5">
                     <strong>رمز قیمت موبیز</strong>
@@ -30,20 +32,13 @@ $dateTime = jdate('Y-m-d') ?>
                 <div class="py-5">
                     <strong>فعالیت کاربران</strong>
                     <hr>
-                    <iframe id="frame" src="login.txt"></iframe>
+                    <iframe src="login.txt"></iframe>
                 </div>
+            </div>
         </div>
     </div>
 </div>
 <style>
-    body {
-        background-color: red !important;
-    }
-
-    * {
-        font-family: 'montserrat', sans-serif;
-    }
-
     body,
     html {
         margin: 0 !important;
@@ -55,9 +50,11 @@ $dateTime = jdate('Y-m-d') ?>
         font-weight: bold;
         margin-bottom: 20px;
     }
-    .py-5{
+
+    .py-5 {
         padding-block: 10px;
     }
+
     .page {
         background: #f1f1f1;
         display: flex;
@@ -68,7 +65,6 @@ $dateTime = jdate('Y-m-d') ?>
     .col {
         flex: 1;
         height: 100vh;
-        position: relative;
     }
 
     .countdown-col {
@@ -76,64 +72,34 @@ $dateTime = jdate('Y-m-d') ?>
         background-size: cover;
     }
 
-    .time {
-        color: #fff;
-        text-transform: uppercase;
-        width: 90%;
-        display: flex;
-        justify-content: center;
-    }
 
     .middle {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
     }
+
+    .time {
+        color: #fff;
+        flex-direction: row;
+    }
+
 
     .time span {
         padding: 0 14px;
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .time span div {
         font-size: 40px;
     }
 
-    .newslatter {
-        width: 90%;
+    .card {
+        width: 600px !important;
+        text-align: center;
     }
-
-    .newslatter h4 {
-        font-style: italic;
-        font-size: 12px;
-    }
-
-    .newslatter input,
-    .newslatter button {
-        display: block;
-        margin: 12px auto;
-        width: 100%;
-        max-width: 400px;
-        box-sizing: border-box;
-        padding: 14px 20px;
-        border-radius: 30px;
-        border: 1px solid #ddd;
-        outline: none;
-    }
-
-    .newslatter-button {
-        background: linear-gradient(125deg, #3498db, #34495e);
-        color: #fff;
-        cursor: pointer;
-        transition: 0.4s;
-    }
-
-    .newslatter-button:hover {
-        opacity: 0.7;
-    }
-
 
     @media screen and (max-width: 900px) {
         .col {
