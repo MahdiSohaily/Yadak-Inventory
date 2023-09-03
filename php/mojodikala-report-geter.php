@@ -1,4 +1,5 @@
 ﻿<?php
+require_once '../config/db_connect.php';
 $existingGoods = getExistingGoods();
 
 $existingGoods = array_map(function ($record) {

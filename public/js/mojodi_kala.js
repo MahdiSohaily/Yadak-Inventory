@@ -8,15 +8,21 @@ function searchGoods(value) {
     pattern = pattern.replace(/\s/g, "");
     pattern = pattern.replace(/-/g, "");
     pattern = pattern.replace(/_/g, "");
-    sendRequest("search", pattern);
+
+    destination = "./app/controller/MojodiKalaControllerAjax.php";
+    var params = new URLSearchParams();
+    params.append("pattern", pattern);
+    params.append("search", "search");
+    sendRequest(destination, params);
   }
 }
 
-function sendRequest(action, pattern) {
-  var params = new URLSearchParams();
-  params.append("pattern", pattern);
-  params.append("search", action);
+function getGoods() {
+  destination = "./php/mojodikala-report-geter.php";
+  sendRequest(destination);
+}
 
+function sendRequest(destination, params = "") {
   resultBox.innerHTML = `
   <tr class='full-page'>
       <td colspan='18'>
@@ -26,7 +32,7 @@ function sendRequest(action, pattern) {
   </tr>`;
 
   axios
-    .post("./app/controller/MojodiKalaControllerAjax.php", params)
+    .post(destination, params)
     .then(function (response) {
       console.log(response.data);
       resultBox.innerHTML = response.data;

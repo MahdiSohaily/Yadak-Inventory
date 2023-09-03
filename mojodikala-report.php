@@ -20,10 +20,14 @@
                 </tr>
             </thead>
             <tbody id="mojodiResult" class="mojodi-table">
-                <script src="./public/js/mojodi_kala.js?v=<?= rand() ?>"></script>
-                <?php include_once './php/mojodikala-report-geter.php'; ?>
             </tbody>
         </table>
     </div>
 </div>
+<script src="./public/js/mojodi_kala.js?v=<?= rand() ?>"></script>
+<script>
+    setTimeout(() => {
+        getGoods();
+    }, 500);
+</script>
 <?php include("footer.php") ?>
