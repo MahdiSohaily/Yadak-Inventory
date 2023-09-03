@@ -24,5 +24,9 @@
         </table>
     </div>
 </div>
-<script src="./public/js/mojodi_kala.js?v=<?= rand() ?>"></script>
+<script>
+    setTimeout(() => {
+        getGoods();
+    }, 100);
+</script>
 <?php include("footer.php") ?>

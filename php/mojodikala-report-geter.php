@@ -65,17 +65,17 @@ function createDisplay($records)
                     <td class="cell-des "><?= $record["des"] ?></td>
                     <td class="cell-stock "><?= $record["stckname"] ?></td>
                 </tr>
-            <?php else :?>
-                <tr>
-                    <td class="cell-shakhes "><?= $counter ?></td>
-                    <td class="cell-code"><?= $record["partnumber"] ?></td>
-                    <td class="cell-brand"><?= $record["brn"] ?></td>
-                    <td class="cell-qty"><?= $record["entqty"] ?></td>
-                    <td class="cell-seller"><?= $record["name"] ?></td>
-                    <td class="cell-pos1"><?= $record["pos1"] ?></td>
-                    <td class="cell-pos2"><?= $record["pos2"] ?></td>
+            <?php else : ?>
+                <tr class="transfer">
+                    <td class="cell- "><?= $counter ?></td>
+                    <td class="bold fs-20"><?= $record["partnumber"] ?></td>
+                    <td class="bold fs-13"><?= $record["brn"] ?></td>
+                    <td><?= $record["entqty"] ?></td>
+                    <td class="bold fs-13"><?= $record["name"] ?></td>
+                    <td><?= $record["pos1"] ?></td>
+                    <td><?= $record["pos2"] ?></td>
                     <td class="cell-des"><?= $record["des"] ?></td>
-                    <td class="cell-stock"><?= $record["stckname"] ?></td>
+                    <td class="cell-stock-move"><?= $record["stckname"] ?></td>
                 </tr>
         <?php
             endif;
@@ -83,10 +83,9 @@ function createDisplay($records)
         endforeach;
     else :
         ?>
-        <tr>
+        <tr style="background-color: #f8ad8c; color:white; height:100px">
             <td colspan="18">متاسفانه نتیجه ای یافت نشد</td>
         </tr>
-
 <?php
     endif;
 }

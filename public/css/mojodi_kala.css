@@ -11,8 +11,23 @@
   width: 300px;
   padding: 10px;
 }
-.cell-seller-move {
-  background-color: seagreen !important;
+.transfer {
+  background-color: #c79772 !important;
+}
+
+.fs-20 {
+  font-size: 20px;
+}
+
+.fs-13 {
+  font-size: 13px;
+}
+
+.bold {
+  font-weight: bold;
+}
+.cell-stock-move {
+  font-size: 10px;
 }
 /* END -------------------- MOJODI KALA STYLES---------------------------------- */
 
