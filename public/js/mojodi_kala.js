@@ -1,4 +1,7 @@
 // START ------- SEARCH FOR MOJODI KALA SCRIPT --------------------------------
+setTimeout(() => {
+  getGoods();
+}, 100);
 const resultBox = document.getElementById("mojodiResult");
 
 function searchGoods(value) {
@@ -34,7 +37,6 @@ function sendRequest(destination, params = "") {
   axios
     .post(destination, params)
     .then(function (response) {
-      console.log(response.data);
       resultBox.innerHTML = response.data;
     })
     .catch(function (error) {

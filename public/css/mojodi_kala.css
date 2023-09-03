@@ -11,6 +11,9 @@
   width: 300px;
   padding: 10px;
 }
+.cell-seller-move {
+  background-color: seagreen !important;
+}
 /* END -------------------- MOJODI KALA STYLES---------------------------------- */
 
 /* START -------------------- MOJODI KALA REDIRECTION MODAL STYLES---------------------------------- */

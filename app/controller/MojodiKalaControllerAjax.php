@@ -60,20 +60,34 @@ function getSanitizedData($quantity, $id)
 function createDisplay($records)
 {
     $counter = 1;
-    foreach ($records as $record) : ?>
-        <tr style="background-color: <?php echo $record['is_transfered'] == 1 ? 'red' : '' ?>;">
-            <td class="cell-shakhes "><?php echo $counter ?></td>
-            <td class="cell-code "><?php echo '&nbsp;' . $record["partnumber"] ?></td>
-            <td class="cell-brand cell-brand-<?php echo $record["brn"] ?> "><?php echo $record["brn"] ?></td>
-            <td class="cell-qty "><?php echo $record["entqty"] ?></td>
-            <td class="cell-seller cell-seller-<?php echo $record["name"] ?>"><?php echo $record["name"] ?></td>
-            <td class="cell-pos1 "><?php echo $record["pos1"] ?></td>
-            <td class="cell-pos2 "><?php echo $record["pos2"] ?></td>
-            <td class="cell-des "><?php echo $record["des"] ?></td>
-            <td class="cell-stock "><?php echo $record["stckname"] ?></td>
-            <td class="cell-price "><?php echo (echoRial($record["nprice"], $record["brn"])); ?></td>
-        </tr>
+    foreach ($records as $record) :
+        if ($record['is_transfered'] !== 1) : ?>
+            <tr>
+                <td class="cell-shakhes "><?= $counter ?></td>
+                <td class="cell-code "><?= '&nbsp;' .  $record["partnumber"] ?></td>
+                <td class="cell-brand  cell-brand-<?= $record["brn"] ?> "><?= $record["brn"] ?></td>
+                <td class="cell-qty "><?= $record["entqty"] ?></td>
+                <td class="cell-seller cell-seller-<?= $record["name"] ?>"><?= $record["name"] ?></td>
+                <td class="cell-pos1 "><?= $record["pos1"] ?></td>
+                <td class="cell-pos2 "><?= $record["pos2"] ?></td>
+                <td class="cell-des "><?= $record["des"] ?></td>
+                <td class="cell-stock "><?= $record["stckname"] ?></td>
+            </tr>
+        <?php else :
+        ?>
+            <tr>
+                <td class="cell-shakhes "><?= $counter ?></td>
+                <td class="cell-"><?= $record["partnumber"] ?></td>
+                <td class="cell-"><?= $record["brn"] ?></td>
+                <td class="cell-"><?= $record["entqty"] ?></td>
+                <td class="cell-seller-move"><?= $record["name"] ?></td>
+                <td class="cell-pos1"><?= $record["pos1"] ?></td>
+                <td class="cell-pos2"><?= $record["pos2"] ?></td>
+                <td class="cell-des"><?= $record["des"] ?></td>
+                <td class="cell-stock"><?= $record["stckname"] ?></td>
+            </tr>
 <?php
+        endif;
         $counter++;
     endforeach;
 }

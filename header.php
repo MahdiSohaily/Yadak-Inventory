@@ -17,7 +17,7 @@ require_once './bootstrap/init.php';
     <link rel="stylesheet" href="./css/exit_record/exit.css?v=<?php echo rand() ?>" type="text/css" media="all" />
     <script type="text/javascript" src="./js/assets/table2excel.js"></script>
     <link rel="stylesheet" href="./css/assets/select2.css" />
-    <link rel="stylesheet" href="./public/css/mojodi_kala.css" />
+    <link rel="stylesheet" href="./public/css/mojodi_kala.css?v=<?php echo (rand()) ?>" />
     <script src="./js/assets/select2.js"></script>
 
 
