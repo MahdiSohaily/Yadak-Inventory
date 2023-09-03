@@ -1,91 +1,70 @@
 ﻿<?php
-require_once '../config/db_connect.php';
-$existingGoods = getExistingGoods();
 
-$existingGoods = array_map(function ($record) {
+require_once("db.php");
 
-    $record['entqty'] = getSanitizedData($record["entqty"], $record["qtyid"]);
-    return $record;
-}, $existingGoods);
+$sql = "SELECT nisha.partnumber , nisha.id,stock.name AS stckname ,nisha.price AS nprice, seller.name , brand.name AS brn , qtybank.qty,qtybank.pos1,qtybank.pos2 ,qtybank.des,qtybank.id AS qtyid,  qtybank.qty AS entqty 
+        , qtybank.is_transfered
+        FROM qtybank
+        LEFT JOIN nisha ON qtybank.codeid=nisha.id
+        LEFT JOIN seller ON qtybank.seller=seller.id
+        LEFT JOIN brand ON qtybank.brand=brand.id
+        LEFT JOIN stock ON qtybank.stock_id=stock.id
+        ORDER BY nisha.partnumber DESC";
 
 
-$existingGoods = array_filter($existingGoods, function ($record) {
-    if ($record["entqty"] > 0)
-        return $record;
-});
+global $shakhes;
+$shakhes = 1;
 
-createDisplay($existingGoods);
+$result = mysqli_query($con, $sql);
+if (mysqli_num_rows($result) > 0) {
 
-function getExistingGoods()
-{
-    $statement = DB_CONNECTION->prepare("SELECT nisha.partnumber , nisha.id,stock.name AS stckname ,nisha.price AS nprice,
-            seller.name , brand.name AS brn , qtybank.qty,qtybank.pos1,qtybank.pos2 ,qtybank.des,qtybank.id AS qtyid,
-            qtybank.qty AS entqty ,qtybank.is_transfered
-            FROM qtybank
-            LEFT JOIN nisha ON qtybank.codeid=nisha.id
-            LEFT JOIN seller ON qtybank.seller=seller.id
-            LEFT JOIN brand ON qtybank.brand=brand.id
-            LEFT JOIN stock ON qtybank.stock_id=stock.id
-            ORDER BY nisha.partnumber DESC");
-    $statement->execute();
-    $statement->setFetchMode(PDO::FETCH_ASSOC);
-    return   $statement->fetchAll();
-}
+    while ($row = mysqli_fetch_assoc($result)) {
+        $finalqty = $row["entqty"];
 
-function getSanitizedData($quantity, $id)
-{
-    $statement = DB_CONNECTION->prepare("SELECT qty FROM exitrecord WHERE qtyid = :id");
+        $sql2 = " SELECT qty FROM exitrecord WHERE qtyid LIKE '" . $row["qtyid"] . "'";
+        $result2 = mysqli_query($con, $sql2);
+        if (mysqli_num_rows($result2) > 0) {
+            while ($record = mysqli_fetch_assoc($result2)) {
 
-    $statement->bindParam(":id", $id);
-    $statement->execute();
-    $statement->setFetchMode(PDO::FETCH_ASSOC);
+                $finalqty =  $finalqty - $record["qty"];
+            }
+        }
+        if ($finalqty > 0) {
 
-    $allExit =  $statement->fetchAll();
-
-    foreach ($allExit as $record) {
-        $quantity -= $record["qty"];
-    }
-    return $quantity;
-}
-
-function createDisplay($records)
-{
-    if (count($records) > 0) :
-        $counter = 1;
-        foreach ($records as $record) :
-            if ($record['is_transfered'] !== 1) : ?>
+            if ($row['is_transfered'] !== '1') : ?>
                 <tr>
-                    <td class="cell-shakhes "><?= $counter ?></td>
-                    <td class="cell-code "><?= '&nbsp;' .  $record["partnumber"] ?></td>
-                    <td class="cell-brand  cell-brand-<?= $record["brn"] ?> "><?= $record["brn"] ?></td>
-                    <td class="cell-qty "><?= $record["entqty"] ?></td>
-                    <td class="cell-seller cell-seller-<?= $record["name"] ?>"><?= $record["name"] ?></td>
-                    <td class="cell-pos1 "><?= $record["pos1"] ?></td>
-                    <td class="cell-pos2 "><?= $record["pos2"] ?></td>
-                    <td class="cell-des "><?= $record["des"] ?></td>
-                    <td class="cell-stock "><?= $record["stckname"] ?></td>
+                    <td class="cell-shakhes "><?= $shakhes ?></td>
+                    <td class="cell-code "><?= '&nbsp;' .  $row["partnumber"] ?></td>
+                    <td class="cell-brand  cell-brand-<?= $row["brn"] ?> "><?= $row["brn"] ?></td>
+                    <td class="cell-qty "><?= $finalqty ?></td>
+                    <td class="cell-seller cell-seller-<?= $row["name"] ?>"><?= $row["name"] ?></td>
+                    <td class="cell-pos1 "><?= $row["pos1"] ?></td>
+                    <td class="cell-pos2 "><?= $row["pos2"] ?></td>
+                    <td class="cell-des "><?= $row["des"] ?></td>
+                    <td class="cell-stock "><?= $row["stckname"] ?></td>
                 </tr>
             <?php else : ?>
                 <tr class="transfer">
-                    <td class="cell- "><?= $counter ?></td>
-                    <td class="bold fs-20"><?= $record["partnumber"] ?></td>
-                    <td class="bold fs-13"><?= $record["brn"] ?></td>
-                    <td><?= $record["entqty"] ?></td>
-                    <td class="bold fs-13"><?= $record["name"] ?></td>
-                    <td><?= $record["pos1"] ?></td>
-                    <td><?= $record["pos2"] ?></td>
-                    <td class="cell-des"><?= $record["des"] ?></td>
-                    <td class="cell-stock-move"><?= $record["stckname"] ?></td>
+                    <td class="cell- "><?= $shakhes ?></td>
+                    <td class="bold fs-20"><?= $row["partnumber"] ?></td>
+                    <td class="bold fs-13"><?= $row["brn"] ?></td>
+                    <td><?= $finalqty ?></td>
+                    <td class="bold fs-13"><?= $row["name"] ?></td>
+                    <td><?= $row["pos1"] ?></td>
+                    <td><?= $row["pos2"] ?></td>
+                    <td class="cell-des"><?= $row["des"] ?></td>
+                    <td class="cell-stock-move"><?= $row["stckname"] ?></td>
                 </tr>
-        <?php
-            endif;
-            $counter++;
-        endforeach;
-    else :
-        ?>
-        <tr style="background-color: #f8ad8c; color:white; height:100px">
-            <td colspan="18">متاسفانه نتیجه ای یافت نشد</td>
-        </tr>
 <?php
-    endif;
+            endif;
+
+            $shakhes++;
+        }
+    }
+} // end while
+
+else {
+    echo '<tr><td colspan="18">متاسفانه نتیجه ای یافت نشد</td></tr>';
 }
+mysqli_close($con);
+?>
