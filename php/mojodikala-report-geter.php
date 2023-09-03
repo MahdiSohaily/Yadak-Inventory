@@ -52,7 +52,7 @@ function createDisplay($records)
     if (count($records) > 0) :
         $counter = 1;
         foreach ($records as $record) : ?>
-            <tr>
+            <tr style="background-color: <?php echo $record['is_transfered'] == 1 ? 'red' : '' ?>;">
                 <td class="cell-shakhes "><?= $counter ?></td>
                 <td class="cell-code "><?= '&nbsp;' .  $record["partnumber"] ?></td>
                 <td class="cell-brand cell-brand-<?= $record["brn"] ?> "><?= $record["brn"] ?></td>

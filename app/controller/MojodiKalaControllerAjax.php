@@ -23,7 +23,9 @@ if (filter_has_var(INPUT_POST, 'search')) {
 
 function getExistingGoods($pattern)
 {
-    $statement = DB_CONNECTION->prepare("SELECT nisha.partnumber , nisha.id,stock.name AS stckname ,nisha.price AS nprice, seller.name , brand.name AS brn , qtybank.qty,qtybank.pos1,qtybank.pos2 ,qtybank.des,qtybank.id AS qtyid,  qtybank.qty AS entqty 
+    $statement = DB_CONNECTION->prepare("SELECT nisha.partnumber , nisha.id,stock.name AS stckname ,nisha.price AS nprice,
+                seller.name , brand.name AS brn , qtybank.qty,qtybank.pos1,qtybank.pos2 ,qtybank.des,qtybank.id AS qtyid,
+                qtybank.qty AS entqty, qtybank.is_transfered
     FROM qtybank
     LEFT JOIN nisha ON qtybank.codeid=nisha.id
     LEFT JOIN seller ON qtybank.seller=seller.id
@@ -59,7 +61,7 @@ function createDisplay($records)
 {
     $counter = 1;
     foreach ($records as $record) : ?>
-        <tr>
+        <tr style="background-color: <?php echo $record['is_transfered'] == 1 ? 'red' : '' ?>;">
             <td class="cell-shakhes "><?php echo $counter ?></td>
             <td class="cell-code "><?php echo '&nbsp;' . $record["partnumber"] ?></td>
             <td class="cell-brand cell-brand-<?php echo $record["brn"] ?> "><?php echo $record["brn"] ?></td>
