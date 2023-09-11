@@ -114,7 +114,7 @@ if (isset($_GET['interval'])) {
 <div id="updateModal">
     <div class="modalContent">
         <div class="modalHeader">
-            <h2>ویرایش فاکتور ورودی</h2>
+            <h2>ویرایش فاکتور خروج</h2>
             <i onclick="closeModal()" class="fa fa-times closeModal" aria-hidden="true"></i>
         </div>
         <div class="displayPage">
