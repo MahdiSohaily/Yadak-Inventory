@@ -78,14 +78,23 @@ if (count($previous_records['display'])) :
                 <input type="checkbox" name="select for print" id="select">
             </td>
         </tr>
-        <?php endforeach;
+    <?php endforeach;
     $pages_count = ceil($previous_records['total'] / $item_per_page);
-    if ($pages_count > 0) :
-        for ($page = 1; $page <= $pages_count; $page++) :
-        ?>
-            <a href="<?= htmlspecialchars_decode($_SERVER['PHP_SELF']) ?>?page=<?= $page ?>"><?= $page ?> </a>
+    if ($pages_count > 1) :
+    ?>
+        <tr style="background-color: transparent;">
+            <td colspan="14">
+                <div class="pagination">
+                    <?php
+                    for ($page = 1; $page <= $pages_count; $page++) :
+                    ?>
+                        <a class="pagination_item" href="<?= htmlspecialchars_decode($_SERVER['PHP_SELF']) ?>?page=<?= $page ?>"><?= $page ?> </a>
+                    <?php
+                    endfor; ?>
+                </div>
+            </td>
+        </tr>
 <?php
-        endfor;
     endif;
 else :
     echo "<tr style='margin-block: 10px !important; background-color: #;'>

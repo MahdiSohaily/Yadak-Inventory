@@ -10,6 +10,25 @@ if (isset($_GET['interval'])) {
         background-color: lightgray;
     }
 
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pagination_item {
+        text-decoration: none !important;
+        background-color: purple;
+        color: white;
+        margin: 5px !important;
+        width: 30px !important;
+        height: 30px !important;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     @media print {
         #page_header {
             display: none;
@@ -70,7 +89,7 @@ if (isset($_GET['interval'])) {
     </table>
 </div>
 <div class="action_bar">
-    
+
 </div>
 
 <script>
