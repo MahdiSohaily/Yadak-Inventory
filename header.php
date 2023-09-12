@@ -111,7 +111,7 @@ require_once './bootstrap/init.php';
 </head>
 
 <body>
-    <div style="position: fixed; z-index:100" class="top-bar">
+    <div id="page_header" style="position: fixed; z-index:100" class="top-bar">
         <div class="link">
             <li><a href="vorodkala-index.php">ورود کالا <i class="fas fa-arrow-circle-right"></i></a></li>
             <li><a href="khorojkala-index.php">خروج کالا <i class="fas fa-arrow-circle-left"></i></a></li>

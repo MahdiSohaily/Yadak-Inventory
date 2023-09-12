@@ -9,6 +9,40 @@ if (isset($_GET['interval'])) {
     tr:nth-child(odd) {
         background-color: lightgray;
     }
+
+    @media print {
+        #page_header {
+            display: none;
+        }
+
+        @page :footer {
+            display: none !important;
+        }
+
+        @page :header {
+            display: none !important;
+        }
+
+        @page {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        html {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        main {
+            padding: 0 !important;
+        }
+
+    }
 </style>
 
 <div>
@@ -19,20 +53,24 @@ if (isset($_GET['interval'])) {
                 <th>شماره فنی</th>
                 <th>برند</th>
                 <th>توضیحات</th>
-                <th>انبار قبلی</th>
-                <th> تعداد قبلی</th> 
-                <th>انبار منتقل شده</th>
+                <th>انبار مبدا</th>
+                <th> تعداد قبلی</th>
+                <th>انبار مقصد</th>
                 <th>تعداد منتقل شده</th>
                 <th>فروشنده</th>
                 <th>تحویل گیرنده</th>
                 <th>تاریخ انتقال </th>
                 <th>کاربر</th>
+                <th style="color: red;"> &#10084;</th>
             </tr>
         </thead>
         <tbody id="resultBox">
             <?php include("php/transfer_report_getter.php") ?>
         </tbody>
     </table>
+</div>
+<div class="action_bar">
+    
 </div>
 
 <script>
