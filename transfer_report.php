@@ -294,6 +294,7 @@ if (isset($_GET['interval'])) {
             });
     }
 </script>
+<script src="./public/js/transform_page.js"></script>
 
 
 <?php include("footer.php") ?>
