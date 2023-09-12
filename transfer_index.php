@@ -18,13 +18,11 @@
         </div>
         <div class="right-form">
             <input type="hidden" name="action" value="move">
-
-
             <label class="" for="getter">تحویل گیرنده</label>
             <select class="" name="getter" id="getter">
                 <?php include("php/getter-form.php") ?>
             </select>
-            <label for="stock">انبار مدنظر</label>
+            <label for="stock">انبار مقصد</label>
             <select style="" name="stock" id="stock">
                 <?php include("php/stock-form.php") ?>
             </select>

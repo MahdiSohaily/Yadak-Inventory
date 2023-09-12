@@ -29,7 +29,7 @@ foreach ($_POST['qty'] as $value) {
 
         $info = get_entered_Info($qty_id);
         $Bank_id = save_new_entrance($info, $stock, $qty);
-        record_transaction($qty_id, $Bank_id, $exit_id, $qty, $prev_qty, $stock);
+        record_transaction($qty_id, $Bank_id, $exit_id, $prev_qty, $qty, $stock);
     } else {
 
         $sql = "INSERT INTO exitrecord (customer,getter,qty,qtyid,user,invoice_number,des,jamkon,invoice_date) VALUES ('$customer', '$getter', '$qty', '$qty_id','$id','$invoice_number','$description','$collector','$invoice_time');";
