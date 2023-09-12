@@ -1,21 +1,22 @@
 <?php
-require_once '../../config/db_connect.php';
+require_once './config/db_connect.php';
 
 $todays_records = getTodayRecords();
 $previous_records = getPreviousRecords();
-// Create a DateTime object for today
-$today = new DateTime();
 
-// Subtract one day
-$yesterday = $today;
 
-// Format and display the result
-$yesterday = $yesterday->format('Y-m-d') . ' 00:00:00';
 
 
 function getTodayRecords()
 {
-    global $yesterday;
+    // Create a DateTime object for today
+    $today = new DateTime();
+
+    // Subtract one day
+    $yesterday = $today;
+
+    // Format and display the result
+    $yesterday = $yesterday->format('Y-m-d') . ' 00:00:00';
 
     $statement = DB_CONNECTION->prepare("SELECT transfer_record.*, qtybank.qty AS previous_amount,
         nisha.partnumber, brand.name As brand_name, seller.name AS seller_name, getter.name AS getter_name,
@@ -41,7 +42,14 @@ function getTodayRecords()
 
 function getPreviousRecords()
 {
-    global $yesterday;
+    // Create a DateTime object for today
+    $today = new DateTime();
+
+    // Subtract one day
+    $yesterday = $today;
+
+    // Format and display the result
+    $yesterday = $yesterday->format('Y-m-d') . ' 00:00:00';
 
     $statement = DB_CONNECTION->prepare("SELECT transfer_record.*, qtybank.qty AS previous_amount,
         nisha.partnumber, brand.name As brand_name, seller.name AS seller_name, getter.name AS getter_name,
