@@ -1,6 +1,16 @@
 <?php
 require_once './app/controller/TransferReportController.php';
+$item_per_page = 15;
+$page = 1;
 
+if (isset($_GET['page'])) :
+    $page = intval($_GET['page']);
+endif;
+
+
+
+$todays_records = getTodayRecords();
+$previous_records = getPreviousRecords($item_per_page, $page);
 
 ?>
 <tr style="margin-block: 10px !important; background-color: #dae5eb;">
@@ -36,6 +46,8 @@ else :
 endif;
 
 ?>
+
+
 <tr style="background-color: transparent;">
     <td colspan="13"></td>
 </tr>
@@ -47,8 +59,8 @@ endif;
 </tr>
 <?php
 
-if (count($previous_records)) :
-    foreach ($previous_records as $index => $result) : ?>
+if (count($previous_records['display'])) :
+    foreach ($previous_records['display'] as $index => $result) : ?>
         <tr>
             <td class="cell-shakhes"><?= $index + 1 ?></td>
             <td class="cell-code "><?= '&nbsp;' . $result["partnumber"] ?></td>
@@ -66,7 +78,15 @@ if (count($previous_records)) :
                 <input type="checkbox" name="select for print" id="select">
             </td>
         </tr>
-<?php endforeach;
+        <?php endforeach;
+    $pages_count = ceil($previous_records['total'] / $item_per_page);
+    if ($pages_count > 0) :
+        for ($page = 1; $page <= $pages_count; $page++) :
+        ?>
+            <a href="<?= htmlspecialchars_decode($_SERVER['PHP_SELF']) ?>?page=<?= $page ?>"><?= $page ?> </a>
+<?php
+        endfor;
+    endif;
 else :
     echo "<tr style='margin-block: 10px !important; background-color: #;'>
             <td colspan='13'>
@@ -74,31 +94,3 @@ else :
             </td>
           </tr>";
 endif;
-
-function getStockName($stock_id)
-{
-    $statement = PDO_CONNECTION->prepare("SELECT name FROM stock WHERE id = :stock_id");
-    $statement->bindParam(":stock_id", $stock_id);
-    $statement->execute();
-
-    // set the resulting array to associative
-    $statement->setFetchMode(PDO::FETCH_ASSOC);
-    $result =  $statement->fetch();
-    return $result['name'];
-}
-
-function getSanitizedData($quantity, $id)
-{
-    $statement = DB_CONNECTION->prepare("SELECT qty FROM exitrecord WHERE qtyid = :id");
-
-    $statement->bindParam(":id", $id);
-    $statement->execute();
-    $statement->setFetchMode(PDO::FETCH_ASSOC);
-
-    $allExit =  $statement->fetchAll();
-
-    foreach ($allExit as $record) {
-        $quantity -= $record["qty"];
-    }
-    return $quantity;
-}
