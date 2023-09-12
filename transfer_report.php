@@ -64,7 +64,7 @@ if (isset($_GET['interval'])) {
     }
 
     .signature {
-        position: absolute;
+        /* position: absolute; */
         bottom: 0;
         padding: 10px;
     }
@@ -117,6 +117,17 @@ if (isset($_GET['interval'])) {
             color: black !important;
         }
     }
+
+    .factor_header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .factor_logo {
+        width: 100px;
+    }
 </style>
 
 <div>
@@ -150,6 +161,28 @@ if (isset($_GET['interval'])) {
 <!-- Print preview modal -->
 <div id="print_modal">
     <div id="print_container">
+        <div class="factor_header">
+            <div>
+                <p>
+                    شماره فاکتور: ۱
+                </p>
+                <p>
+                    تاریخ:‌۱۴۰۲/۰۶/۲۱
+                </p>
+            </div>
+            <div>
+                <p>فاکتور جابجای انبار</p>
+                <p>فروشگاه یدک شاپ</p>
+            </div>
+            <div>
+                <img src="./public/img/logo.jpg" alt="logo" class="factor_logo">
+            </div>
+        </div>
+        <div class="factor_info">
+            انبار دار: علی اکبر
+            <br>
+            
+        </div>
         <table id="report-table" class="report-table">
             <thead>
                 <tr>
