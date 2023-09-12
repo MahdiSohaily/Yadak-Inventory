@@ -45,6 +45,23 @@ if (isset($_GET['interval'])) {
         background-color: seagreen;
     }
 
+    #print_modal {
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.8);
+        inset: 0;
+        z-index: 100000;
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #print_container {
+        background-color: white;
+        width: 90vw;
+        height: 95vh;
+        border-radius: 10px;
+    }
+
     @media print {
         #page_header {
             display: none;
@@ -105,7 +122,34 @@ if (isset($_GET['interval'])) {
     </table>
 </div>
 <div class="action_bar">
-    <button class="print-btn">پرنت</button>
+    <button class="print-btn" onclick="makePreview()">پرنت</button>
+</div>
+
+<!-- Print preview modal -->
+<div id="print_modal">
+    <div id="print_container">
+        <table id="report-table" class="report-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>شماره فنی</th>
+                    <th>برند</th>
+                    <th>توضیحات</th>
+                    <th>انبار مبدا</th>
+                    <th> تعداد قبلی</th>
+                    <th>انبار مقصد</th>
+                    <th>تعداد منتقل شده</th>
+                    <th>فروشنده</th>
+                    <th>تحویل گیرنده</th>
+                    <th>تاریخ انتقال </th>
+                    <th>کاربر</th>
+                </tr>
+            </thead>
+            <tbody id="print_result">
+
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script>
