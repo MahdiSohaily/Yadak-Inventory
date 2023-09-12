@@ -29,8 +29,8 @@ function makePreview() {
       // Extract and display the content of sibling <td> elements
       let template = `<tr>`;
       tdElements.forEach(function (td, index) {
-        if (index === 0) template += `<td>${i + 1}</td>`;
-        else template += `<td>${td.textContent}</td>`;
+        if (index === 0) template += `<td class="text">${i + 1}</td>`;
+        else template += `<td class="text">${td.textContent}</td>`;
       });
       template += `</td>`;
 

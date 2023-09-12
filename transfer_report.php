@@ -60,6 +60,17 @@ if (isset($_GET['interval'])) {
         width: 90vw;
         height: 95vh;
         border-radius: 10px;
+        position: relative;
+    }
+
+    .signature {
+        position: absolute;
+        bottom: 0;
+        padding: 10px;
+    }
+
+    .text {
+        font-size: 12px !important;
     }
 
     @media print {
@@ -94,6 +105,17 @@ if (isset($_GET['interval'])) {
             padding: 0 !important;
         }
 
+        #print_container {
+            width: 100vw !important;
+            height: 100vh !important;
+        }
+
+        table,
+        td,
+        th {
+            border: 1px solid #ccc !important;
+            color: black !important;
+        }
     }
 </style>
 
@@ -149,6 +171,10 @@ if (isset($_GET['interval'])) {
 
             </tbody>
         </table>
+
+        <div class="signature">
+            Signature
+        </div>
     </div>
 </div>
 
@@ -338,7 +364,7 @@ if (isset($_GET['interval'])) {
             });
     }
 </script>
-<script src="./public/js/transform_page.js"></script>
+<script src="./public/js/transform_page.js?v=<?= rand() ?>"></script>
 
 
 <?php include("footer.php") ?>
