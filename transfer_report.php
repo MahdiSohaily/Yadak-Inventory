@@ -29,6 +29,22 @@ if (isset($_GET['interval'])) {
         align-items: center;
     }
 
+    .action_bar {
+        position: fixed;
+        height: 60px;
+        bottom: 0 !important;
+        right: 0;
+        left: 0;
+        background-color: #dae5eb;
+        display: flex;
+        align-items: center;
+    }
+
+    .print-btn {
+        padding-inline: 20px;
+        background-color: seagreen;
+    }
+
     @media print {
         #page_header {
             display: none;
@@ -89,7 +105,7 @@ if (isset($_GET['interval'])) {
     </table>
 </div>
 <div class="action_bar">
-
+    <button class="print-btn">پرنت</button>
 </div>
 
 <script>
