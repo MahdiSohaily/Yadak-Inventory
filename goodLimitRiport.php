@@ -10,13 +10,10 @@
                 <tr>
                     <th>#</th>
                     <th>شماره فنی</th>
-                    <th>برند</th>
-                    <th>تعداد موجود</th>
-                    <th>فروشنده</th>
-                    <th>راهرو</th>
-                    <th>قفسه</th>
-                    <th>توضیحات</th>
-                    <th>انبار</th>
+                    <th>تعداد اصلی مورد نیاز</th>
+                    <th>تعداد کپی مورد نیاز</th>
+                    <th>اصلی موجود</th>
+                    <th>کپی موجود</th>
                 </tr>
             </thead>
             <tbody id="mojodiResult" class="mojodi-table">

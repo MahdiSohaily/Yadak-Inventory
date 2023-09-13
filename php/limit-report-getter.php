@@ -12,10 +12,27 @@ while ($row = $result->fetch_assoc()) {
 }
 
 $goods = (array_column($records, 'nisha_id'));
-print_r(json_encode(getStockInfo($con, $goods)));
+$existing = getStockInfo($con, $goods);
 
 
+foreach ($records as $index => $row) :
+    $nisha_id = $row['nisha_id'];
+    $original_limit = $row['original'];
+    $fake = $row['fake'];
 
+    $existing_record = $existing[$nisha_id];
+    if ($original_limit > $existing_record['original'] || $fake > $existing_record['fake']) : ?>
+        <tr>
+            <td class="cell-shakhes "><?= $index + 1 ?></td>
+            <td class="cell-code "><?= $row["nisha_id"] ?></td>
+            <td class="cell-qty "><?= $original_limit ?></td>
+            <td class="cell-qty"><?= $fake ?></td>
+            <td class="cell-qty "><?= $existing_record['original'] ?></td>
+            <td class="cell-qty "><?= $existing_record['fake'] ?></td>
+        </tr>
+<?php
+    endif;
+endforeach;
 
 
 
@@ -55,11 +72,12 @@ function getEntranceRecord($conn, $partNumbers)
     FROM (( yadakshop1402.qtybank 
     INNER JOIN yadakshop1402.brand ON brand.id = qtybank.brand )
     INNER JOIN yadakshop1402.seller ON seller.id = qtybank.seller)
-    WHERE codeid = ?");
+    WHERE codeid = ? AND stock_id = ?");
 
     $data = array();
     foreach ($partNumbers as $partNumber) {
-        $statement->bind_param('i', $partNumber);
+        $stock_id = 1;
+        $statement->bind_param('ii', $partNumber, $stock_id);
         $statement->execute();
         $records = $statement->get_result();
         while ($result = $records->fetch_assoc()) {
