@@ -7,7 +7,7 @@
             <div id="invoice" class="effect2">
                 <div id="invoice-top">
                     <div class="title">
-                        <h1>فروشگاه یدک شاپ</h1>
+                        <h1 class="bold">فروشگاه یدک شاپ</h1>
                         <br>
                         <p>تاریخ فاکتور: <span id="invoice_date">1402/06/22</span>
                         </p>
@@ -42,17 +42,17 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <label id="currency">
+                                        <b class="bold" id="currency">
                                             انبار دار:
-                                        </label>
+                                        </b>
                                         <span>علی اکبر</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label id="note">
+                                        <b class="bold" id="note">
                                             یادداشت:
-                                        </label>
+                                        </b>
                                         <span>Note</span>
                                     </td>
                                 </tr>
@@ -67,6 +67,7 @@
                         <table class="table-main">
                             <thead>
                                 <tr class="tabletitle">
+                                    <th>ردیف</th>
                                     <th>شماره فنی</th>
                                     <th>برند</th>
                                     <th>توضیحات</th>
@@ -79,33 +80,53 @@
                             </thead>
                             <tbody>
                                 <tr class="list-item">
-                                    <td data-label="Type" class="tableitem">553113F650</td>
-                                    <td data-label="Type" class="tableitem">GEN</td>
-                                    <td data-label="Quantity" class="tableitem">46.6</td>
-                                    <td data-label="Unit Price" class="tableitem">1</td>
-                                    <td data-label="Taxable Amount" class="tableitem">46.6</td>
-                                    <td data-label="Tax Code" class="tableitem">DP20</td>
-                                    <td data-label="%" class="tableitem">20</td>
-                                    <td data-label="Tax Amount" class="tableitem">9.32</td>
+                                    <td class="tableitem">1</td>
+                                    <td class="tableitem">553113F650</td>
+                                    <td class="tableitem">GEN</td>
+                                    <td class="tableitem">46.6</td>
+                                    <td class="tableitem">1</td>
+                                    <td class="tableitem">46.6</td>
+                                    <td class="tableitem">DP20</td>
+                                    <td class="tableitem">20</td>
+                                    <td class="tableitem">9.32</td>
                                 </tr>
-                                <tr class="list-item total-row">
-                                    <th colspan="7" class="tableitem">Grand Total</th>
-                                    <td data-label="Grand Total" class="tableitem">111.84</td>
+                                <tr class="list-item total-row" style="background-color: lightgray;">
+                                    <th class="tableitem">مجموع اجناس</th>
+                                    <td colspan="8" data-label="Grand Total" class="tableitem">111.84</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div><!--End Table-->
                     <div class="cta-group">
-                        <a href="javascript:void(0);" class="btn-primary">Approve</a>
-                        <a href="javascript:void(0);" class="btn-default">Reject</a>
+                        <div id="message">
+                            <h2>توجه!</h2>
+                            <p>
+                                درج امضاء تمامی مراجع ذکر شده در فاکتور الزامی میباشد.
+                            </p>
+
+                        </div>
                     </div>
 
                 </div><!--End InvoiceBot-->
                 <footer>
                     <div id="legalcopy" class="clearfix">
-                        <p class="col-right">Our mailing address is:
-                            <span class="email"><a href="mailto:supplier.portal@almonature.com">supplier.portal@almonature.com</a></span>
-                        </p>
+                        <div class="signature" style="display: flex; align-items: center;">
+                            <div style="flex-grow: 1;">
+                                <span class="small">امضاء انباردار ۱</span>
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <span class="small">امضاء پیک</span>
+
+                            </div>
+
+                            <div style="flex-grow: 1;">
+                                <span class="small">امضاء حساب داری</span>
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <span class="small">امضاء امبار دار ۲</span>
+
+                            </div>
+                        </div>
                     </div>
                 </footer>
             </div><!--End Invoice-->

@@ -5,8 +5,6 @@ if (isset($_GET['interval'])) {
     $interval = $_GET['interval'];
 }
 ?>
-<link rel="stylesheet" href="./public/css/transfer.css?v=<?= rand() ?>">
-
 
 <div>
     <table id="report-table" class="report-table">
@@ -33,7 +31,7 @@ if (isset($_GET['interval'])) {
     </table>
 </div>
 <div class="action_bar">
-    <button class="print-btn" onclick="makePreview()">پرنت</button>
+    <button class="print-btn" onclick="makePreview()">فاکتور گیری</button>
 </div>
 
 
