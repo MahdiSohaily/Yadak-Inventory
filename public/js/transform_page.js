@@ -26,15 +26,39 @@ function makePreview() {
       const row = checkboxes[i].closest("tr"); // Change this line to capture the data you need
       let tdElements = row.querySelectorAll("td:not(:last-child)");
 
-      // Extract and display the content of sibling <td> elements
-      let template = `<tr>`;
+      // Extract and display the content of sibling <tr> elements
+      let values = [];
       tdElements.forEach(function (td, index) {
-        if (index === 0) template += `<td class="text">${i + 1}</td>`;
-        else template += `<td class="text">${td.textContent}</td>`;
+        values.push(td.textContent);
       });
-      template += `</td>`;
 
-      print_result.innerHTML += template;
+      print_result.innerHTML += createTemplate(values, i + 1);
     }
   }
+}
+
+function createTemplate(values, counter) {
+  let template = `<tr class="list-item">`;
+
+  const partNumber = values[1];
+  const brand = values[2];
+  const description = values[3];
+  const inventory = values[6];
+  const amount = values[7];
+  const seller = values[8];
+  const deliver = values[9];
+  const date = values[10];
+
+  template += `<td class="tableitem">${counter}</td>`;
+  template += `<td class="tableitem">${partNumber}</td>`;
+  template += `<td class="tableitem">${brand}</td>`;
+  template += `<td class="tableitem">${description}</td>`;
+  template += `<td class="tableitem">${inventory}</td>`;
+  template += `<td class="tableitem">${amount}</td>`;
+  template += `<td class="tableitem">${seller}</td>`;
+  template += `<td class="tableitem">${deliver}</td>`;
+  template += `<td class="tableitem">${date}</td>`;
+
+  template += `</tr>`;
+  return template;
 }

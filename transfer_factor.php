@@ -53,7 +53,7 @@
                                         <b class="bold" id="note">
                                             یادداشت:
                                         </b>
-                                        <span>Note</span>
+                                        <span></span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -78,23 +78,13 @@
                                     <th>تاریخ انتقال </th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr class="list-item">
-                                    <td class="tableitem">1</td>
-                                    <td class="tableitem">553113F650</td>
-                                    <td class="tableitem">GEN</td>
-                                    <td class="tableitem">46.6</td>
-                                    <td class="tableitem">1</td>
-                                    <td class="tableitem">46.6</td>
-                                    <td class="tableitem">DP20</td>
-                                    <td class="tableitem">20</td>
-                                    <td class="tableitem">9.32</td>
-                                </tr>
-                                <tr class="list-item total-row" style="background-color: lightgray;">
-                                    <th class="tableitem">مجموع اجناس</th>
-                                    <td colspan="8" data-label="Grand Total" class="tableitem">111.84</td>
-                                </tr>
+                            <tbody id="print_result">
+                                <!-- Data are  goings to be appended here -->
                             </tbody>
+                            <tr class="list-item total-row" style="background-color: lightgray;">
+                                <th class="tableitem">مجموع اجناس</th>
+                                <td colspan="8" data-label="Grand Total" class="tableitem">111.84</td>
+                            </tr>
                         </table>
                     </div><!--End Table-->
                     <div class="cta-group">
