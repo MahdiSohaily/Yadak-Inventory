@@ -1,3 +1,24 @@
+@font-face {
+  font-family: "IranSans";
+  src: url("../fonts/IRANSans-Light-web.woff") format("woff"),
+    url("../fonts/IRANSans-Light-web.ttf") format("truetype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "IranSans";
+  src: url("../fonts/IRANSans-Bold-web.woff") format("woff"),
+    url("../fonts/IRANSans-Bold-web.ttf") format("truetype");
+  font-weight: bold;
+}
+
+* {
+  font-family: IranSans, sans-serif;
+  padding: 0;
+  margin: 0;
+  direction: rtl !important;
+}
+
 .pagination {
   display: flex;
   justify-content: center;
@@ -166,20 +187,19 @@ a {
   background: #fff;
 }
 
-[id*="invoice-"] {
-  /* Targets all id with 'col-' */
-  /*  border-bottom: 1px solid #EEE;*/
-  padding: 20px;
-}
-
 #invoice-top {
   border-bottom: 2px solid #00a63f;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 #invoice-mid {
   min-height: 110px;
+  padding: 10px;
+  background-color: lightgray;
+  border-radius: 5px;
+  margin-block: 5px;
 }
 
 #invoice-bot {
@@ -215,11 +235,6 @@ a {
   vertical-align: middle;
   margin-left: 20px;
 }
-
-.title {
-  float: right;
-}
-
 
 #message {
   margin-bottom: 30px;
@@ -265,24 +280,27 @@ h2 {
   display: none;
 }
 
-table {
+#table table {
   width: 100%;
+  border: 2px solid rgb(139, 138, 138);
+  border-radius: 10px !important;
   border-collapse: collapse;
+  margin-bottom: 10px;
 }
 
-td {
+#table table thead {
+  background-color: lightgray;
+}
+
+td,
+th {
   padding: 10px;
-  border-bottom: 1px solid #cccaca;
   font-size: 0.7em;
-}
-
-.tabletitle th {
-  border-bottom: 2px solid #ddd;
+  border-bottom: 1px solid #eee;
 }
 
 th {
-  font-size: 0.7em;
-  padding: 5px 10px;
+  text-align: right;
 }
 
 .item {
