@@ -67,7 +67,7 @@
                         <table class="table-main">
                             <thead>
                                 <tr class="tabletitle">
-                                    <th>ردیف</th>
+                                    <th class="cell-shakhes">ردیف</th>
                                     <th>شماره فنی</th>
                                     <th>برند</th>
                                     <th>توضیحات</th>
@@ -82,7 +82,7 @@
                                 <!-- Data are  goings to be appended here -->
                             </tbody>
                             <tr class="list-item total-row" style="background-color: lightgray;">
-                                <th class="tableitem">مجموع اجناس</th>
+                                <th class="tableitem">مجموع </th>
                                 <td colspan="8" data-label="Grand Total" class="tableitem">111.84</td>
                             </tr>
                         </table>

@@ -49,7 +49,7 @@ function createTemplate(values, counter) {
   const deliver = values[9];
   const date = values[10];
 
-  template += `<td class="tableitem">${counter}</td>`;
+  template += `<td class="cell-shakhes">${counter}</td>`;
   template += `<td class="tableitem">${partNumber}</td>`;
   template += `<td class="tableitem">${brand}</td>`;
   template += `<td class="tableitem">${description}</td>`;
