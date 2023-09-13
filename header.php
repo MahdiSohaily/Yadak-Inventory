@@ -160,6 +160,7 @@ require_once './bootstrap/init.php';
                 </a>
                 <ul class="under-link">
                     <li><a href="transfer_report.php">گزارش انتقالات</a></li>
+                    <li><a href="transfer_report.php">گزارش کسرات</a></li>
                 </ul>
             </li>
             <li class="sale-mali">سال 1402</li>
