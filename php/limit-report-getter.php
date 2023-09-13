@@ -2,79 +2,126 @@
 
 require_once("db.php");
 
-
 $statement = $con->prepare("SELECT nisha_id, original, fake FROM shop.good_limit ");
 $statement->execute();
 $result = $statement->get_result();
+
 $records = array();
 while ($row = $result->fetch_assoc()) {
     array_push($records, $row);
 }
 
 $goods = (array_column($records, 'nisha_id'));
+print_r(json_encode(getStockInfo($con, $goods)));
 
-$sql = "SELECT nisha.partnumber , nisha.id,stock.name AS stckname ,nisha.price AS nprice, seller.name , brand.name AS brn , qtybank.qty,qtybank.pos1,qtybank.pos2 ,qtybank.des,qtybank.id AS qtyid,  qtybank.qty AS entqty 
-        , qtybank.is_transfered
-        FROM qtybank
-        LEFT JOIN nisha ON qtybank.codeid=nisha.id
-        LEFT JOIN seller ON qtybank.seller=seller.id
-        LEFT JOIN brand ON qtybank.brand=brand.id
-        LEFT JOIN stock ON qtybank.stock_id=stock.id
-        WHERE nisha.id in (" . implode(",", $goods) . ") AND stock.id = '1'
-        ORDER BY nisha.partnumber DESC";
-global $shakhes;
-$shakhes = 1;
 
-$result = mysqli_query($con, $sql);
-if (mysqli_num_rows($result) > 0) {
 
-    while ($row = mysqli_fetch_assoc($result)) {
-        $finalqty = $row["entqty"];
 
-        $sql2 = " SELECT qty FROM exitrecord WHERE qtyid LIKE '" . $row["qtyid"] . "'";
-        $result2 = mysqli_query($con, $sql2);
-        if (mysqli_num_rows($result2) > 0) {
-            while ($record = mysqli_fetch_assoc($result2)) {
 
-                $finalqty =  $finalqty - $record["qty"];
-            }
+
+
+
+
+
+
+
+
+
+
+function getStockInfo($conn, $codes)
+{
+    $statement = $conn->prepare("SELECT * FROM yadakshop1402.nisha WHERE id = ?");
+    $goods = array();
+    foreach ($codes as $code) {
+        $statement->bind_param('s', $code);
+        $statement->execute();
+        $record = $statement->get_result();
+        $ids = array();
+        $item = null;
+        while ($result = $record->fetch_assoc()) {
+            array_push($ids, $result['id']);
+            $item = $result;
         }
-        if ($finalqty > 0) {
+        $goods[$code] =  getEntranceRecord($conn, $ids);
+    }
 
-            if ($row['is_transfered'] !== '1') : ?>
-                <tr>
-                    <td class="cell-shakhes "><?= $shakhes ?></td>
-                    <td class="cell-code "><?= '&nbsp;' .  $row["partnumber"] ?></td>
-                    <td class="cell-brand  cell-brand-<?= $row["brn"] ?> "><?= $row["brn"] ?></td>
-                    <td class="cell-qty "><?= $finalqty ?></td>
-                    <td class="cell-seller cell-seller-<?= $row["name"] ?>"><?= $row["name"] ?></td>
-                    <td class="cell-pos1 "><?= $row["pos1"] ?></td>
-                    <td class="cell-pos2 "><?= $row["pos2"] ?></td>
-                    <td class="cell-des "><?= $row["des"] ?></td>
-                    <td class="cell-stock "><?= $row["stckname"] ?></td>
-                </tr>
-            <?php else : ?>
-                <tr class="transfer">
-                    <td class="cell- "><?= $shakhes ?></td>
-                    <td class="bold fs-20"><?= $row["partnumber"] ?></td>
-                    <td class="bold fs-13"><?= $row["brn"] ?></td>
-                    <td><?= $finalqty ?></td>
-                    <td class="bold fs-13"><?= $row["name"] ?></td>
-                    <td><?= $row["pos1"] ?></td>
-                    <td><?= $row["pos2"] ?></td>
-                    <td class="cell-des"><?= $row["des"] ?></td>
-                    <td class="cell-stock-move"><?= $row["stckname"] ?></td>
-                </tr>
-<?php
-            endif;
+    return $goods;
+}
 
-            $shakhes++;
+function getEntranceRecord($conn, $partNumbers)
+{
+
+    $statement = $conn->prepare("SELECT yadakshop1402.qtybank.id, codeid, brand.name AS brand_name, qty, invoice_date, seller.name As seller_name
+    FROM (( yadakshop1402.qtybank 
+    INNER JOIN yadakshop1402.brand ON brand.id = qtybank.brand )
+    INNER JOIN yadakshop1402.seller ON seller.id = qtybank.seller)
+    WHERE codeid = ?");
+
+    $data = array();
+    foreach ($partNumbers as $partNumber) {
+        $statement->bind_param('i', $partNumber);
+        $statement->execute();
+        $records = $statement->get_result();
+        while ($result = $records->fetch_assoc()) {
+            array_push($data, $result);
         }
     }
-} // end while
 
-else {
-    echo '<tr><td colspan="18">متاسفانه نتیجه ای یافت نشد</td></tr>';
+    return getExitRecords($conn, $data);
 }
-mysqli_close($con);
-?>
+
+function getExitRecords($conn, $entrance)
+{
+    $statement = $conn->prepare("SELECT qty FROM yadakshop1402.exitrecord WHERE qtyid = ?");
+
+    $data = array();
+    foreach ($entrance as $record) {
+        $statement->bind_param('i', $record['id']);
+        $statement->execute();
+        $records = $statement->get_result();
+        $quantity = 0;
+        while ($result = $records->fetch_assoc()) {
+            $quantity += $result['qty'];
+        }
+        $record['qty'] -= $quantity;
+        if ($record['qty'] > 0) {
+            array_push($data, $record);
+        }
+        // getFinalAmount($result, $record['qty']);
+    }
+    $derived = getFinalAmount($data);
+
+    $GEN = isset($derived['GEN']) ? $derived['GEN'] : 0;
+    $MOB = isset($derived['MOB']) ? $derived['MOB'] : 0;
+
+    $original = $GEN + $MOB;
+    $fake = array_sum($derived) - $original;
+
+    return ['original' => $original, 'fake' => $fake];
+}
+
+function getFinalAmount($data)
+{
+    // Create an associative array to store the sum of qty for each brand_name
+    $brandQtySum = array();
+
+    // Iterate through the data and sum the qty for each brand_name
+    foreach ($data as $record) {
+        $brandName = $record["brand_name"];
+        $qty = $record["qty"];
+        if (array_key_exists($brandName, $brandQtySum)) {
+            $brandQtySum[$brandName] += $qty;
+        } else {
+            $brandQtySum[$brandName] = $qty;
+        }
+    }
+
+    uasort($brandQtySum, "sortByBrandNameQTY");
+
+    return $brandQtySum;
+}
+
+function sortByBrandNameQTY($a, $b)
+{
+    return $b - $a;
+}
