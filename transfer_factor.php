@@ -9,7 +9,7 @@
                     <div class="title">
                         <h1 class="bold">فروشگاه یدک شاپ</h1>
                         <br>
-                        <p>تاریخ فاکتور: <span id="invoice_date">1402/06/22</span>
+                        <p>تاریخ فاکتور: <span id="invoice_date"><?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?></span>
                         </p>
                     </div><!--End Title-->
                     <div class="logo">

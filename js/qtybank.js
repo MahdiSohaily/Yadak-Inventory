@@ -20,6 +20,8 @@ function showQty(str) {
   }
 }
 
+let notAllowed = [];
+
 $(document).ready(function () {
   $("#txtHint-khoroj").on("click", "div", function () {
     $("#txtHint-khoroj div").removeClass("clickedcode");
@@ -39,8 +41,11 @@ $(document).ready(function () {
     let seller = $(this).prev().attr("seller");
     let qtyid = $(this).prev().attr("qtyid");
     let prev_qty = $(this).prev().attr("data-amount");
+    let stock = $(this).prev().attr("stock");
     let qty = $(this).prev().val();
 
+    notAllowed.push(stock);
+    
     var xqty = $(this).parent().parent().find(".qtybank-first").text();
 
     var xqty = xqty - qty;

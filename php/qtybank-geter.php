@@ -2,8 +2,8 @@
 $q = $_GET['q'];
 require_once("db.php");
 
-$sql = "SELECT nisha.partnumber , stock.name AS stn,nisha.id , seller.name , brand.name AS brn , qtybank.qty ,qtybank.des,qtybank.id AS qtyid,  qtybank.qty AS entqty 
-FROM qtybank
+$sql = "SELECT nisha.partnumber , stock.name AS stn,stock.id AS sti, nisha.id , seller.name , brand.name AS brn , qtybank.qty ,qtybank.des,qtybank.id AS qtyid,  qtybank.qty AS entqty 
+FROM qtybank 
 LEFT JOIN nisha ON qtybank.codeid=nisha.id
 LEFT JOIN seller ON qtybank.seller=seller.id
 LEFT JOIN stock ON qtybank.stock_id=stock.id
@@ -39,7 +39,7 @@ if (mysqli_num_rows($result) > 0) {
                     <div class="qtybank-first">' . $finalqty . '</div>
                     <div>' . $row["brn"] . '</div><div>' . $row["name"] . '</div>
                     <div class="action">
-                        <input data-amount="' . $finalqty . '" brand="' . $row["brn"] . '" seller="' . $row["name"] . '" qtyid="' . $row["qtyid"] . '" code="' . $row["partnumber"] . '" type="number" min="0" max="' . $finalqty . '" value="1" class="qty-x">
+                        <input stock="' . $row["sti"] . '" data-amount="' . $finalqty . '" brand="' . $row["brn"] . '" seller="' . $row["name"] . '" qtyid="' . $row["qtyid"] . '" code="' . $row["partnumber"] . '" type="number" min="0" max="' . $finalqty . '" value="1" class="qty-x">
                         <a class="add-to-khoroj">
                             افزودن
                             <i class="fas fa-plus-circle"></i>
