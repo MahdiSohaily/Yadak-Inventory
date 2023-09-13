@@ -2,6 +2,17 @@
 
 require_once("db.php");
 
+
+$statement = $con->prepare("SELECT nisha_id, original, fake FROM shop.good_limit ");
+$statement->execute();
+$result = $statement->get_result();
+$records = array();
+while ($row = $result->fetch_assoc()) {
+    array_push($records, $row);
+}
+
+$goods = (array_column($records, 'nisha_id'));
+
 $sql = "SELECT nisha.partnumber , nisha.id,stock.name AS stckname ,nisha.price AS nprice, seller.name , brand.name AS brn , qtybank.qty,qtybank.pos1,qtybank.pos2 ,qtybank.des,qtybank.id AS qtyid,  qtybank.qty AS entqty 
         , qtybank.is_transfered
         FROM qtybank
@@ -9,9 +20,8 @@ $sql = "SELECT nisha.partnumber , nisha.id,stock.name AS stckname ,nisha.price A
         LEFT JOIN seller ON qtybank.seller=seller.id
         LEFT JOIN brand ON qtybank.brand=brand.id
         LEFT JOIN stock ON qtybank.stock_id=stock.id
+        WHERE nisha.id in (" . implode(",", $goods) . ") AND stock.id = '1'
         ORDER BY nisha.partnumber DESC";
-
-
 global $shakhes;
 $shakhes = 1;
 
