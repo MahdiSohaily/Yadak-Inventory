@@ -1,134 +1,12 @@
 <?php
 require_once("header.php");
-
+require_once './transfer_factor.php';
 if (isset($_GET['interval'])) {
     $interval = $_GET['interval'];
 }
 ?>
-<style>
-    tr:nth-child(odd) {
-        background-color: lightgray;
-    }
+<link rel="stylesheet" href="./public/css/transfer.css?v=<?= rand() ?>">
 
-    .pagination {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .pagination_item {
-        text-decoration: none !important;
-        background-color: purple;
-        color: white;
-        margin: 5px !important;
-        width: 30px !important;
-        height: 30px !important;
-        border-radius: 5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .action_bar {
-        position: fixed;
-        height: 60px;
-        bottom: 0 !important;
-        right: 0;
-        left: 0;
-        background-color: #dae5eb;
-        display: flex;
-        align-items: center;
-    }
-
-    .print-btn {
-        padding-inline: 20px;
-        background-color: seagreen;
-    }
-
-    #print_modal {
-        position: fixed;
-        background-color: rgba(0, 0, 0, 0.8);
-        inset: 0;
-        z-index: 100000;
-        display: none;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #print_container {
-        background-color: white;
-        width: 90vw;
-        height: 95vh;
-        border-radius: 10px;
-        position: relative;
-    }
-
-    .signature {
-        /* position: absolute; */
-        bottom: 0;
-        padding: 10px;
-    }
-
-    .text {
-        font-size: 12px !important;
-    }
-
-    @media print {
-        #page_header {
-            display: none;
-        }
-
-        @page :footer {
-            display: none !important;
-        }
-
-        @page :header {
-            display: none !important;
-        }
-
-        @page {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        html {
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            padding-top: 20px;
-            padding-bottom: 20px;
-        }
-
-        main {
-            padding: 0 !important;
-        }
-
-        #print_container {
-            width: 100vw !important;
-            height: 100vh !important;
-        }
-
-        table,
-        td,
-        th {
-            border: 1px solid #ccc !important;
-            color: black !important;
-        }
-    }
-
-    .factor_header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-    }
-
-    .factor_logo {
-        width: 100px;
-    }
-</style>
 
 <div>
     <table id="report-table" class="report-table">
@@ -158,58 +36,6 @@ if (isset($_GET['interval'])) {
     <button class="print-btn" onclick="makePreview()">پرنت</button>
 </div>
 
-<!-- Print preview modal -->
-<div id="print_modal">
-    <div id="print_container">
-        <div class="factor_header">
-            <div>
-                <p>
-                    شماره فاکتور: ۱
-                </p>
-                <p>
-                    تاریخ:‌۱۴۰۲/۰۶/۲۱
-                </p>
-            </div>
-            <div>
-                <p>فاکتور جابجای انبار</p>
-                <p>فروشگاه یدک شاپ</p>
-            </div>
-            <div>
-                <img src="./public/img/logo.jpg" alt="logo" class="factor_logo">
-            </div>
-        </div>
-        <div class="factor_info">
-            انبار دار: علی اکبر
-            <br>
-            
-        </div>
-        <table id="report-table" class="report-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>شماره فنی</th>
-                    <th>برند</th>
-                    <th>توضیحات</th>
-                    <th>انبار مبدا</th>
-                    <th> تعداد قبلی</th>
-                    <th>انبار مقصد</th>
-                    <th>تعداد منتقل شده</th>
-                    <th>فروشنده</th>
-                    <th>تحویل گیرنده</th>
-                    <th>تاریخ انتقال </th>
-                    <th>کاربر</th>
-                </tr>
-            </thead>
-            <tbody id="print_result">
-
-            </tbody>
-        </table>
-
-        <div class="signature">
-            Signature
-        </div>
-    </div>
-</div>
 
 <script>
     const partNumber = document.getElementById('partNumber');
