@@ -67,7 +67,6 @@
 #print_container {
   background-color: white;
   width: 70vw;
-  height: 95vh;
   border-radius: 10px;
   position: relative;
 }

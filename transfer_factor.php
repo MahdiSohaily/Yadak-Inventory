@@ -121,5 +121,6 @@
                 </footer>
             </div><!--End Invoice-->
         </div><!-- End Invoice Holder-->
+        <button class="print-btn" onclick="print()">پرینت</button>
     </div>
 </div>
