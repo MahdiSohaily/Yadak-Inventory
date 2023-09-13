@@ -5,6 +5,7 @@ $(document).ready(function () {
     e.preventDefault();
     const selectedInventory = document.getElementById("stock").value;
     if (!notAllowed.includes(selectedInventory)) {
+      notAllowed = [];
       $(".bottom-bar").addClass("msg-loading");
       $("#sabt").prop("disabled", true);
       $.ajax({
