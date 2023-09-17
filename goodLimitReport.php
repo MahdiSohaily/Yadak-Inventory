@@ -1,4 +1,7 @@
-<?php include("header.php") ?>
+<?php
+include("header.php");
+include './php/limit-report-getter.php';
+?>
 <style>
     .wrapper {
         width: 90%;
@@ -155,8 +158,26 @@
                             </tr>
                         </thead>
                         <tbody id="mojodiResult" class="mojodi-table">
-                            <script src="./public/js/mojodi_kala.js?v=<?= rand() ?>"></script>
-                            <?php include_once './php/limit-report-getter.php'; ?>
+                            <?php
+                            foreach ($records as $index => $row) :
+                                $pattern_id = $row['pattern_id'];
+                                $original_limit = $row['original'];
+                                $fake = $row['fake'];
+
+                                $existing_record = $existing[$pattern_id];
+                                if ($original_limit > $existing_record['original'] || $fake > $existing_record['fake']) : ?>
+                                    <tr>
+                                        <td class="cell-shakhes "><?= $index + 1 ?></td>
+                                        <td class="cell-code "><?= $row["pattern_id"] ?></td>
+                                        <td class="cell-qty "><?= $original_limit ?></td>
+                                        <td class="cell-qty"><?= $fake ?></td>
+                                        <td class="cell-qty "><?= $existing_record['original'] ?></td>
+                                        <td class="cell-qty "><?= $existing_record['fake'] ?></td>
+                                    </tr>
+                            <?php
+                                endif;
+                            endforeach;
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -173,8 +194,26 @@
                             </tr>
                         </thead>
                         <tbody id="mojodiResult" class="mojodi-table">
-                            <script src="./public/js/mojodi_kala.js?v=<?= rand() ?>"></script>
-                            <?php include_once './php/limit-report-getter.php'; ?>
+                            <?php
+                            foreach ($records as $index => $row) :
+                                $nisha_id = $row['nisha_id'];
+                                $original_limit = $row['original'];
+                                $fake = $row['fake'];
+
+                                $existing_record = $existing[$nisha_id];
+                                if ($original_limit > $existing_record['original'] || $fake > $existing_record['fake']) : ?>
+                                    <tr>
+                                        <td class="cell-shakhes "><?= $index + 1 ?></td>
+                                        <td class="cell-code "><?= $row["nisha_id"] ?></td>
+                                        <td class="cell-qty "><?= $original_limit ?></td>
+                                        <td class="cell-qty"><?= $fake ?></td>
+                                        <td class="cell-qty "><?= $existing_record['original'] ?></td>
+                                        <td class="cell-qty "><?= $existing_record['fake'] ?></td>
+                                    </tr>
+                            <?php
+                                endif;
+                            endforeach;
+                            ?>
                         </tbody>
                     </table>
                 </div>

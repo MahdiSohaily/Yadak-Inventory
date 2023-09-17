@@ -2,37 +2,37 @@
 
 require_once("db.php");
 
-$statement = $con->prepare("SELECT nisha_id, original, fake FROM shop.good_limit_all ");
+$statement = $con->prepare("SELECT pattern_id, original, fake FROM shop.good_limit_all WHERE pattern_id != 'null'");
 $statement->execute();
 $result = $statement->get_result();
+
+$relations = array();
+while ($row = $result->fetch_assoc()) {
+    array_push($relations, $row);
+}
+
+print_r($relations);
+
+
+$statement = $con->prepare("SELECT nisha_id FROM shop.similars WHERE pattern_id= ?");
+$statement->bind_param('i', $result['pattern_id']);
+$statement->execute();
+$result = $statement->get_result();
+
 
 $records = array();
 while ($row = $result->fetch_assoc()) {
     array_push($records, $row);
 }
 
-$goods = (array_column($records, 'nisha_id'));
+$goods = array_column($records, 'nisha_id');
+
 $existing = getStockInfo($con, $goods);
 
+print_r($existing);
 
-foreach ($records as $index => $row) : 
-    $nisha_id = $row['nisha_id'];
-    $original_limit = $row['original'];
-    $fake = $row['fake'];
 
-    $existing_record = $existing[$nisha_id];
-    if ($original_limit > $existing_record['original'] || $fake > $existing_record['fake']) : ?>
-        <tr>
-            <td class="cell-shakhes "><?= $index + 1 ?></td>
-            <td class="cell-code "><?= $row["nisha_id"] ?></td>
-            <td class="cell-qty "><?= $original_limit ?></td>
-            <td class="cell-qty"><?= $fake ?></td>
-            <td class="cell-qty "><?= $existing_record['original'] ?></td>
-            <td class="cell-qty "><?= $existing_record['fake'] ?></td>
-        </tr>
-<?php
-    endif;
-endforeach;
+
 
 
 
