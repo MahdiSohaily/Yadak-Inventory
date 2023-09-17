@@ -2,34 +2,51 @@
 
 require_once("db.php");
 
-$statement = $con->prepare("SELECT pattern_id, original, fake FROM shop.good_limit_all WHERE pattern_id != 'null'");
-$statement->execute();
-$result = $statement->get_result();
+$relationALL = $con->prepare("SELECT pattern_id, original, fake FROM shop.good_limit_all WHERE pattern_id IS NOT NULL AND nisha_id IS NULL");
+$relationALL->execute();
+$result = $relationALL->get_result();
 
 $relations = array();
 while ($row = $result->fetch_assoc()) {
     array_push($relations, $row);
 }
 
-print_r($relations);
+$needToMove = array();
+foreach ($relations as $relation) {
+    $patter_id = $relation['pattern_id'];
+    $original = $relation['original'];
+    $fake = $relation['fake'];
 
+    $similar = $con->prepare("SELECT nisha_id FROM shop.similars WHERE pattern_id= ?");
+    $similar->bind_param('i', $patter_id);
+    $similar->execute();
+    $result = $similar->get_result();
 
-$statement = $con->prepare("SELECT nisha_id FROM shop.similars WHERE pattern_id= ?");
-$statement->bind_param('i', $result['pattern_id']);
-$statement->execute();
-$result = $statement->get_result();
+    $records = array();
+    while ($row = $result->fetch_assoc()) {
+        array_push($records, $row);
+    }
 
+    $goods = array_column($records, 'nisha_id');
 
-$records = array();
-while ($row = $result->fetch_assoc()) {
-    array_push($records, $row);
+    if (count($goods) > 0) {
+        $existing = getStockInfo($con, $goods);
+        // Initialize a variable to store the sum
+        $sumOriginal = 0;
+        $sumFake = 0;
+        foreach ($existing as $item) {
+            $sumOriginal += intval($item['original']);
+            $sumFake += intval($item['fake']);
+        }
+
+        echo $sumOriginal . "<br>";
+        echo $sumFake . "<br>";
+    }
 }
 
-$goods = array_column($records, 'nisha_id');
 
-$existing = getStockInfo($con, $goods);
 
-print_r($existing);
+
 
 
 
