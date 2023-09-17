@@ -2,7 +2,7 @@
 
 require_once("db.php");
 
-$statement = $con->prepare("SELECT nisha_id, original, fake FROM shop.good_limit ");
+$statement = $con->prepare("SELECT nisha_id, original, fake FROM shop.good_limit_all ");
 $statement->execute();
 $result = $statement->get_result();
 
