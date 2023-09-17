@@ -11,6 +11,7 @@
 
                 <label for="customer">خریدار</label>
                 <input type="text" name="customer" id="customer">
+                <input type="hidden" name="stock_hjdgshj" id="stock" value=''>
 
                 <label class="half-label" for="getter">تحویل گیرنده</label>
                 <select class="half-input" name="getter" id="getter">
@@ -21,7 +22,7 @@
                 <p style="Clear:both"></p>
 
                 <label for="invoice_time">زمان فاکتور</label>
-                <input value="<?php echo(jdate("Y/m/d",time(),"","Asia/Tehran","en")) ?>" type="text" name="invoice_time" id="invoice_time">
+                <input value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>" type="text" name="invoice_time" id="invoice_time">
                 <span id="span_invoice_time"></span>
                 <label for="jamkon">جمع کننده</label>
                 <input type="text" name="jamkon" id="jamkon">
