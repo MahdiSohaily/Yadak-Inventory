@@ -39,10 +39,18 @@ foreach ($relations as $relation) {
             $sumFake += intval($item['fake']);
         }
 
-        echo $sumOriginal . "<br>";
-        echo $sumFake . "<br>";
+        if ($sumOriginal < $original || $sumFake < $fake) {
+
+            $needToMove[$patter_id]['goods'] = $existing;
+            $needToMove[$patter_id]['original'] = $original;
+            $needToMove[$patter_id]['fake'] = $fake;
+            $needToMove[$patter_id]['sumOriginal'] = $sumOriginal;
+            $needToMove[$patter_id]['sumFake'] = $sumFake;
+        }
     }
 }
+
+print_r(json_encode($needToMove));
 
 
 
