@@ -15,7 +15,7 @@ $goods = (array_column($records, 'nisha_id'));
 $existing = getStockInfo($con, $goods);
 
 
-foreach ($records as $index => $row) :
+foreach ($records as $index => $row) : 
     $nisha_id = $row['nisha_id'];
     $original_limit = $row['original'];
     $fake = $row['fake'];
