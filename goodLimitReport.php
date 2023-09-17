@@ -159,23 +159,21 @@ include './php/limit-report-getter.php';
                         </thead>
                         <tbody id="mojodiResult" class="mojodi-table">
                             <?php
-                            foreach ($records as $index => $row) :
-                                $pattern_id = $row['pattern_id'];
-                                $original_limit = $row['original'];
-                                $fake = $row['fake'];
-
-                                $existing_record = $existing[$pattern_id];
-                                if ($original_limit > $existing_record['original'] || $fake > $existing_record['fake']) : ?>
+                            foreach ($needToMove as $index => $row) :
+                                foreach ($row['goods'] as $key => $element) :
+                                    print_r(json_encode($key));
+                                    $original_limit = $row['sumOriginal'];
+                                    $fake = $row['sumFake'] ?>
                                     <tr>
                                         <td class="cell-shakhes "><?= $index + 1 ?></td>
-                                        <td class="cell-code "><?= $row["pattern_id"] ?></td>
+                                        <td class="cell-code "><?= $key ?></td>
                                         <td class="cell-qty "><?= $original_limit ?></td>
                                         <td class="cell-qty"><?= $fake ?></td>
                                         <td class="cell-qty "><?= $existing_record['original'] ?></td>
                                         <td class="cell-qty "><?= $existing_record['fake'] ?></td>
                                     </tr>
                             <?php
-                                endif;
+                                endforeach;
                             endforeach;
                             ?>
                         </tbody>

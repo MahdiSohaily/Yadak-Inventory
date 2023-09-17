@@ -50,7 +50,6 @@ foreach ($relations as $relation) {
     }
 }
 
-print_r(json_encode($needToMove));
 
 
 
