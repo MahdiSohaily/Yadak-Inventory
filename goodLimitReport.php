@@ -133,13 +133,13 @@ include './php/limit-report-getter.php';
             <ul class="tabs group">
                 <li>
                     <a class="orange-border active" href="#/one">
-                        تک آیتم ها
+                        رابطه ها
                         <span class="badge">5</span>
                     </a>
                 </li>
                 <li>
                     <a class="green-border" href="#/two">
-                        رابطه ها
+                        تک آیتم ها
                         <span class="badge">10</span>
                     </a>
                 </li>
@@ -151,8 +151,6 @@ include './php/limit-report-getter.php';
                             <tr>
                                 <th>#</th>
                                 <th>شماره فنی</th>
-                                <th>تعداد اصلی مورد نیاز</th>
-                                <th>تعداد کپی مورد نیاز</th>
                                 <th>اصلی موجود</th>
                                 <th>کپی موجود</th>
                             </tr>
@@ -160,20 +158,40 @@ include './php/limit-report-getter.php';
                         <tbody id="mojodiResult" class="mojodi-table">
                             <?php
                             foreach ($needToMove as $index => $row) :
+                                $counter = 1;
+                                $original = $row['original'];
+                                $fake = $row['fake'];
                                 foreach ($row['goods'] as $key => $element) :
-                                    print_r(json_encode($key));
-                                    $original_limit = $row['sumOriginal'];
-                                    $fake = $row['sumFake'] ?>
+                                    $original_limit = $element['original'];
+                                    $fake = $element['fake'] ?>
                                     <tr>
-                                        <td class="cell-shakhes "><?= $index + 1 ?></td>
-                                        <td class="cell-code "><?= $key ?></td>
+                                        <td class="cell-shakhes "><?= $counter ?></td>
+                                        <td class="cell-code "><?= getPartNumber($key) ?></td>
                                         <td class="cell-qty "><?= $original_limit ?></td>
                                         <td class="cell-qty"><?= $fake ?></td>
-                                        <td class="cell-qty "><?= $existing_record['original'] ?></td>
-                                        <td class="cell-qty "><?= $existing_record['fake'] ?></td>
                                     </tr>
-                            <?php
+                                <?php
+                                    $counter++;
                                 endforeach;
+
+                                ?>
+                                <tr>
+                                    <td></td>
+                                    <td><?= getRelationInfo($index) ?></td>
+                                    <td>
+                                        مقدار اصلی مورد نیاز:
+                                        <?= $original ?>
+                                    </td>
+                                    <td>
+                                        مقدار غیر اصلی مورد نیاز:
+                                        <?= $fake ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                            <?php
+
                             endforeach;
                             ?>
                         </tbody>

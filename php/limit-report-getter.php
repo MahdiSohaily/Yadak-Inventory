@@ -2,7 +2,7 @@
 
 require_once("db.php");
 
-$relationALL = $con->prepare("SELECT pattern_id, original, fake FROM shop.good_limit_all WHERE pattern_id IS NOT NULL AND nisha_id IS NULL");
+$relationALL = $con->prepare("SELECT pattern_id, original, fake FROM shop.good_limit_inventory WHERE pattern_id IS NOT NULL AND nisha_id IS NULL");
 $relationALL->execute();
 $result = $relationALL->get_result();
 
@@ -166,4 +166,26 @@ function getFinalAmount($data)
 function sortByBrandNameQTY($a, $b)
 {
     return $b - $a;
+}
+
+function getPartNumber($id)
+{
+    $statement = PDO_CONNECTION->prepare("SELECT partnumber FROM nisha WHERE id = :id");
+    $statement->bindParam(":id", $id);
+    $statement->execute();
+    $result = $statement->setFetchMode(PDO::FETCH_ASSOC);
+
+    $result = $statement->fetch();
+    return $result['partnumber'];
+}
+
+function getRelationInfo($id)
+{
+    $statement = PDO_CONNECTION->prepare("SELECT name FROM shop.patterns WHERE id = :id");
+    $statement->bindParam(":id", $id);
+    $statement->execute();
+    $result = $statement->setFetchMode(PDO::FETCH_ASSOC);
+
+    $result = $statement->fetch();
+    return $result['name'];
 }
