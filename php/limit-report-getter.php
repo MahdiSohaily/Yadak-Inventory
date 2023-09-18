@@ -63,12 +63,21 @@ while ($row = $records->fetch_assoc()) {
 
 $singleItems = array();
 foreach ($goods as $good) {
-    $patter_id = $relation['pattern_id'];
-    $original = $relation['original'];
-    $fake = $relation['fake'];
+    $patter_id = $good['nisha_id'];
+    $original = $good['original'];
+    $fake = $good['fake'];
     $existing = getStockInfo($con, [$good['nisha_id']]);
 
-    print_r($existing);
+    $sumOriginal = intval(current($existing)['original']);
+    $sumFake = intval(current($existing)['fake']);
+
+    if ($sumOriginal < $original || $sumFake < $fake) {
+        $needToMove[$patter_id]['goods'] = $existing;
+        $needToMove[$patter_id]['original'] = $original;
+        $needToMove[$patter_id]['fake'] = $fake;
+        $needToMove[$patter_id]['sumOriginal'] = $sumOriginal;
+        $needToMove[$patter_id]['sumFake'] = $sumFake;
+    }
 }
 
 
@@ -207,5 +216,5 @@ function getRelationInfo($id)
     $result = $statement->setFetchMode(PDO::FETCH_ASSOC);
 
     $result = $statement->fetch();
-    return $result['name'];
+    return array_key_exists('name', $result) ? $result['name'] : 'Hello';
 }

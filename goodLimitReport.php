@@ -179,7 +179,12 @@ include './php/limit-report-getter.php';
                                 ?>
                                 <tr style="background-color: #fea901;">
                                     <td></td>
-                                    <td class="bold" rowspan="2"><?= getRelationInfo($index) ?></td>
+                                    <td class="bold" rowspan="2"><?php
+                                                                    try {
+                                                                        echo getRelationInfo($index);
+                                                                    } catch (\Throwable $th) {
+                                                                        echo "Hello";
+                                                                    } ?></td>
                                     <td class="bold">
                                         موجود :
                                         <?= $sumOriginal ?>
@@ -201,7 +206,7 @@ include './php/limit-report-getter.php';
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td></td>
+                                    <td style="padding-block: 30px;"></td>
                                 </tr>
                             <?php
 
