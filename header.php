@@ -161,7 +161,7 @@ require_once './bootstrap/init.php';
                 <ul class="under-link">
                     <li><a href="transfer_report.php">گزارش انتقالات</a></li>
                     <li><a href="goodLimitReport.php"> نیاز به انتقال</a></li>
-                    <li><a href="goodLimitReport.php">گزارش کسرات</a></li>
+                    <li><a href="goodLimitReportAll.php">گزارش کسرات</a></li>
                 </ul>
             </li>
             <li class="sale-mali">سال 1402</li>
