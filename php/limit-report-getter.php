@@ -46,6 +46,7 @@ foreach ($relations as $relation) {
             $needToMove[$patter_id]['fake'] = $fake;
             $needToMove[$patter_id]['sumOriginal'] = $sumOriginal;
             $needToMove[$patter_id]['sumFake'] = $sumFake;
+            $needToMove[$patter_id]['IsSingle'] = false;
         }
     }
 }
@@ -77,6 +78,7 @@ foreach ($goods as $good) {
         $needToMove[$patter_id]['fake'] = $fake;
         $needToMove[$patter_id]['sumOriginal'] = $sumOriginal;
         $needToMove[$patter_id]['sumFake'] = $sumFake;
+        $needToMove[$patter_id]['IsSingle'] = true;
     }
 }
 
