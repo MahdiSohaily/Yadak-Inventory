@@ -52,6 +52,26 @@ foreach ($relations as $relation) {
 
 
 
+$singleGoods = $con->prepare("SELECT nisha_id, original, fake FROM shop.good_limit_inventory WHERE pattern_id IS  NULL AND nisha_id IS NOT NULL");
+$singleGoods->execute();
+$records = $singleGoods->get_result();
+
+$goods = array();
+while ($row = $records->fetch_assoc()) {
+    array_push($goods, $row);
+}
+
+$singleItems = array();
+foreach ($goods as $good) {
+    $patter_id = $relation['pattern_id'];
+    $original = $relation['original'];
+    $fake = $relation['fake'];
+    $existing = getStockInfo($con, [$good['nisha_id']]);
+
+    print_r($existing);
+}
+
+
 
 
 

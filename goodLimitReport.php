@@ -4,7 +4,7 @@ include './php/limit-report-getter.php';
 ?>
 <style>
     .wrapper {
-        width: 90%;
+        width: 60%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -133,16 +133,16 @@ include './php/limit-report-getter.php';
             <ul class="tabs group">
                 <li>
                     <a class="orange-border active" href="#/one">
-                        رابطه ها
-                        <span class="badge">5</span>
+                        اقلام نیازمند انتقال به انبار یدک شاپ
+                        <span class="badge"><?= count($needToMove) ?></span>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a class="green-border" href="#/two">
                         تک آیتم ها
                         <span class="badge">10</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
             <div id="content">
                 <div id="one">
@@ -155,17 +155,19 @@ include './php/limit-report-getter.php';
                                 <th>کپی موجود</th>
                             </tr>
                         </thead>
-                        <tbody id="mojodiResult" class="mojodi-table">
+                        <tbody>
                             <?php
                             foreach ($needToMove as $index => $row) :
                                 $counter = 1;
                                 $original = $row['original'];
+                                $sumOriginal = $row['sumOriginal'];
                                 $fake = $row['fake'];
+                                $sumFake = $row['sumFake'];
                                 foreach ($row['goods'] as $key => $element) :
                                     $original_limit = $element['original'];
                                     $fake = $element['fake'] ?>
                                     <tr>
-                                        <td class="cell-shakhes "><?= $counter ?></td>
+                                        <td class="cell-code"><?= $counter ?></td>
                                         <td class="cell-code "><?= getPartNumber($key) ?></td>
                                         <td class="cell-qty "><?= $original_limit ?></td>
                                         <td class="cell-qty"><?= $fake ?></td>
@@ -175,16 +177,27 @@ include './php/limit-report-getter.php';
                                 endforeach;
 
                                 ?>
-                                <tr>
+                                <tr style="background-color: #fea901;">
                                     <td></td>
-                                    <td><?= getRelationInfo($index) ?></td>
-                                    <td>
-                                        مقدار اصلی مورد نیاز:
+                                    <td class="bold" rowspan="2"><?= getRelationInfo($index) ?></td>
+                                    <td class="bold">
+                                        موجود :
+                                        <?= $sumOriginal ?>
+                                    </td>
+                                    <td class="bold">
+                                        موجود:
+                                        <?= $sumFake ?>
+                                    </td>
+                                </tr>
+                                <tr style="background-color: #fea901;">
+                                    <td class="bold"></td>
+                                    <td class="bold">
+                                        مورد نیاز:
                                         <?= $original ?>
                                     </td>
-                                    <td>
-                                        مقدار غیر اصلی مورد نیاز:
-                                        <?= $fake ?>
+                                    <td class="bold">
+                                        مورد نیاز:
+                                        <?= $original ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -198,40 +211,6 @@ include './php/limit-report-getter.php';
                     </table>
                 </div>
                 <div id="two">
-                    <table class="report-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>شماره فنی</th>
-                                <th>تعداد اصلی مورد نیاز</th>
-                                <th>تعداد کپی مورد نیاز</th>
-                                <th>اصلی موجود</th>
-                                <th>کپی موجود</th>
-                            </tr>
-                        </thead>
-                        <tbody id="mojodiResult" class="mojodi-table">
-                            <?php
-                            foreach ($records as $index => $row) :
-                                $nisha_id = $row['nisha_id'];
-                                $original_limit = $row['original'];
-                                $fake = $row['fake'];
-
-                                $existing_record = $existing[$nisha_id];
-                                if ($original_limit > $existing_record['original'] || $fake > $existing_record['fake']) : ?>
-                                    <tr>
-                                        <td class="cell-shakhes "><?= $index + 1 ?></td>
-                                        <td class="cell-code "><?= $row["nisha_id"] ?></td>
-                                        <td class="cell-qty "><?= $original_limit ?></td>
-                                        <td class="cell-qty"><?= $fake ?></td>
-                                        <td class="cell-qty "><?= $existing_record['original'] ?></td>
-                                        <td class="cell-qty "><?= $existing_record['fake'] ?></td>
-                                    </tr>
-                            <?php
-                                endif;
-                            endforeach;
-                            ?>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
