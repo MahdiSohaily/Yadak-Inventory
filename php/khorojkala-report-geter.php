@@ -1,13 +1,22 @@
 <?php
+require_once("db.php");
 
 if (isset($interval)) {
-    $condition = " WHERE exitrecord.invoice_date >= gregorian_to_shamsi_datec($interval)
-    AND exitrecord.invoice_date <= gregorian_to_shamsi_datec(0)";
+    // Get today's date
+    $todayDate = date('Y-m-d');
+
+    // Calculate the date from 10 days ago
+    $previousDate = date('Y-m-d', strtotime('-' . $interval . ' days'));
+
+    $todayDate .= " 00:00:00";
+    $previousDate .= " 00:00:00";
+
+    $condition = " WHERE exitrecord.exit_time >= '$previousDate'
+    AND exitrecord.exit_time <= '$todayDate'";
 } else {
     $condition = 'WHERE 1=1';
 }
 
-require_once("db.php");
 $sql = "SELECT nisha.partnumber,
 qtybank.des, 
 nisha.id , 
@@ -33,7 +42,6 @@ LEFT JOIN getter ON exitrecord.getter=getter.id
 $condition
 AND exitrecord.is_transfered = 0
 ORDER BY  exitrecord.exit_time DESC , exitrecord.invoice_number DESC ";
-
 
 
 global $jameitem;
