@@ -177,21 +177,21 @@ include './php/limit-report-getter.php';
                                     </td>
                                     <td class="bold" rowspan="2">
                                         <?= $isSingle ? getPartNumber($key) : getRelationInfo($index); ?></td>
-                                    <td class="bold" style="background-color: <?= $original === $sumOriginal ? 'green' : 'red' ?>;">
+                                    <td class="bold" style="background-color: <?= $original <= $sumOriginal ? 'green' : 'red' ?>;">
                                         موجود :
                                         <?= $sumOriginal ?>
                                     </td>
-                                    <td class="bold" style="background-color: <?= $fake === $fakeNeed ? 'green' : 'red' ?>;">
+                                    <td class="bold" style="background-color: <?= $fakeNeed <= $fake ? 'green' : 'red' ?>;">
                                         موجود:
                                         <?= $sumFake ?>
                                     </td>
                                 </tr>
                                 <tr style="background-color: #fea901;">
-                                    <td class="bold" style="background-color: <?= $original === $sumOriginal ? 'green' : 'red' ?>;">
+                                    <td class="bold" style="background-color: <?= $original <= $sumOriginal ? 'green' : 'red' ?>;">
                                         مورد نیاز:
                                         <?= $original ?>
                                     </td>
-                                    <td class="bold" style="background-color: <?= $fake === $fakeNeed ? 'green' : 'red' ?>;">
+                                    <td class="bold" style="background-color: <?= $fakeNeed <= $fake   ? 'green' : 'red' ?>;">
                                         مورد نیاز:
                                         <?= $fakeNeed ?>
                                     </td>

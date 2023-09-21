@@ -139,7 +139,7 @@ include './php/all-limit-report-getter.php';
                         $counter = 1;
                         $original = $row['original'];
                         $sumOriginal = $row['sumOriginal'];
-                        $fake = $row['fake'];
+                        $fakeNeed = $row['fake'];
                         $sumFake = $row['sumFake'];
                         $isSingle = $row['IsSingle'];
                     ?>
@@ -174,23 +174,23 @@ include './php/all-limit-report-getter.php';
                                     </td>
                                     <td class="bold" rowspan="2">
                                         <?= $isSingle ? getPartNumber($key) : getRelationInfo($index); ?></td>
-                                    <td class="bold">
+                                    <td class="bold" style="background-color: <?= $original <= $sumOriginal ? 'green' : 'red' ?>;">
                                         موجود :
                                         <?= $sumOriginal ?>
                                     </td>
-                                    <td class="bold">
+                                    <td class="bold" style="background-color: <?= $fakeNeed <= $fake ? 'green' : 'red' ?>;">
                                         موجود:
                                         <?= $sumFake ?>
                                     </td>
                                 </tr>
                                 <tr style="background-color: #fea901;">
-                                    <td class="bold">
+                                    <td class="bold" style="background-color: <?= $original <= $sumOriginal ? 'green' : 'red' ?>;">
                                         مورد نیاز:
                                         <?= $original ?>
                                     </td>
-                                    <td class="bold">
+                                    <td class="bold" style="background-color: <?= $fakeNeed <= $fake   ? 'green' : 'red' ?>;">
                                         مورد نیاز:
-                                        <?= $original ?>
+                                        <?= $fakeNeed ?>
                                     </td>
                                 </tr>
                             </tbody>
