@@ -131,7 +131,7 @@ function getEntranceRecord($conn, $partNumbers)
 
     $data = array();
     foreach ($partNumbers as $partNumber) {
-        $stock_id = 1;
+        $stock_id = 9;
         $statement->bind_param('ii', $partNumber, $stock_id);
         $statement->execute();
         $records = $statement->get_result();
