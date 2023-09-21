@@ -137,10 +137,13 @@ include './php/limit-report-getter.php';
                     <?php
                     foreach ($needToMove as $index => $row) :
                         $counter = 1;
+                        
                         $original = $row['original'];
+                        $fakeNeed = $row['fake'];
+
                         $sumOriginal = $row['sumOriginal'];
-                        $fake = $row['fake'];
                         $sumFake = $row['sumFake'];
+
                         $isSingle = $row['IsSingle'];
                     ?>
                         <table class="report-table" style="margin-bottom: 30px;">
@@ -190,7 +193,7 @@ include './php/limit-report-getter.php';
                                     </td>
                                     <td class="bold">
                                         مورد نیاز:
-                                        <?= $original ?>
+                                        <?= $fakeNeed ?>
                                     </td>
                                 </tr>
                             </tbody>
