@@ -2,11 +2,21 @@
 require_once("db.php");
 
 if (isset($interval)) {
-    $condition = " WHERE qtybank.invoice_date >= gregorian_to_shamsi_datec($interval)
-    AND qtybank.invoice_date <= gregorian_to_shamsi_datec(0)";
+    // Get today's date
+    $todayDate = date('Y-m-d');
+
+    // Calculate the date from 10 days ago
+    $previousDate = date('Y-m-d', strtotime('-' . $interval . ' days'));
+
+    $todayDate .= " 00:00:00";
+    $previousDate .= " 00:00:00";
+
+    $condition = " WHERE qtybank.create_time >= '$previousDate'
+    AND qtybank.create_time <= '$todayDate'";
 } else {
     $condition = 'WHERE 1=1';
 }
+
 
 $sql = "SELECT qtybank.id AS qtyidsss, nisha.partnumber ,nisha.price AS nprice,seller.id AS slid, brand.name , qtybank.des ,qtybank.id, qtybank.qty , qtybank.pos1 , qtybank.pos2 , qtybank.create_time , seller.name AS sln, deliverer.name AS dn , qtybank.anbarenter ,qtybank.invoice , users.username AS un , qtybank.invoice_number,qtybank.invoice_date ,stock.name AS stn
 FROM qtybank
@@ -16,7 +26,8 @@ LEFT JOIN seller ON qtybank.seller=seller.id
 LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
 LEFT JOIN users ON qtybank.user=users.id
 LEFT JOIN stock ON qtybank.stock_id=stock.id 
-WHERE qtybank.is_transfered = 0
+$condition
+AND qtybank.is_transfered = 0
 ORDER BY qtybank.create_time DESC";
 
 global $jameitem;
