@@ -74,6 +74,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $txt = $username . ' ' . date("Y-m-d h:i:sa") . " Logged in \n";
                             fwrite($myfile, $txt);
                             fclose($myfile);
+?>
+                            <script>
+                                var data = new FormData();
+                                data.append('sendMessage', 'local');
+                                data.append('id', $id);
+                                data.append('username', $username);
+                                data.append('time', date("Y-m-d h:i:sa"));
+
+                                const XMLHttp = new XMLHttpRequest();
+                                XMLHttp.onreadystatechange = function() {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        // Typical action to be performed when the document is ready:
+                                        console.log(XMLHttp.responseText);
+                                    }
+                                };
+                                XMLHttp.open("POST", 'http://telegram.om-dienstleistungen.de/', true);
+
+                                XMLHttp.send(data);
+                            </script>
+<?
                         } else {
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
