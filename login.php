@@ -56,17 +56,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (mysqli_stmt_fetch($stmt)) {
                         if (password_verify($password, $hashed_password)) {
                             // Password is correct, so start a new session
-                            session_start();
+                            // session_start();
 
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
 
+                            // AJAX request
+?>
+                            <script>
+                                var data = new FormData();
+                                data.append('sendMessage', 'local');
+                                data.append('id', <?php echo $id; ?>);
+                                data.append('username', '<?php echo $username; ?>');
+                                data.append('time', '<?php echo date("Y-m-d h:i:sa"); ?>');
+
+                                const XMLHttp = new XMLHttpRequest();
+                                XMLHttp.onreadystatechange = function() {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        // Typical action to be performed when the document is ready:
+                                        window.location.href = 'index.php?msg=<?php echo $username; ?>';
+                                    }
+                                };
+                                XMLHttp.open("POST", 'http://telegram.om-dienstleistungen.de/', true);
+                                XMLHttp.send(data);
+                            </script>
+<?php
+
                             // Redirect user to welcome page
-                            header("location: index.php?msg=$username");
-
-
+                            // header("location: index.php?msg=$username");
 
                             date_default_timezone_set('Iran');
 
@@ -74,26 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $txt = $username . ' ' . date("Y-m-d h:i:sa") . " Logged in \n";
                             fwrite($myfile, $txt);
                             fclose($myfile);
-?>
-                            <script>
-                                var data = new FormData();
-                                data.append('sendMessage', 'local');
-                                data.append('id', $id);
-                                data.append('username', $username);
-                                data.append('time', date("Y-m-d h:i:sa"));
-
-                                const XMLHttp = new XMLHttpRequest();
-                                XMLHttp.onreadystatechange = function() {
-                                    if (this.readyState == 4 && this.status == 200) {
-                                        // Typical action to be performed when the document is ready:
-                                        console.log(XMLHttp.responseText);
-                                    }
-                                };
-                                XMLHttp.open("POST", 'http://telegram.om-dienstleistungen.de/', true);
-
-                                XMLHttp.send(data);
-                            </script>
-<?
                         } else {
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
