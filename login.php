@@ -70,20 +70,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <script>
                                 var params = new URLSearchParams();
                                 params.append('sendMessage', 'local');
-                                params.append('id', <?php echo $id; ?>);
-                                params.append('username', '<?php echo $username; ?>');
-                                params.append('time', '<?php echo date("Y-m-d h:i:sa"); ?>');
+                                params.append('id', <?= $id; ?>);
+                                params.append('username', '<?= $username; ?>');
+                                params.append('time', '<?= date("Y-m-d h:i:sa"); ?>');
+                                params.append('host', '<?= $_SERVER['HTTP_HOST']; ?>');
+                                params.append('ip', '<?= $_SERVER['REMOTE_ADDR']; ?>');
+
 
                                 axios.post("http://telegram.om-dienstleistungen.de/", params)
                                     .then(function(response) {
                                         console.log(response.data);
-                                        window.location.href = 'index.php?msg=<?php echo $username; ?>';
+                                        window.location.href = 'index.php?msg=<?= $username; ?>';
 
                                     })
                                     .catch(function(error) {
                                         console.log(error);
                                     });
-                                window.location.href = 'index.php?msg=<?php echo $username; ?>';
+                                window.location.href = 'index.php?msg=<?= $username; ?>';
                             </script>
 <?php
 
