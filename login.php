@@ -62,27 +62,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
+                            date_default_timezone_set('Asia/Tehran');
 
                             // AJAX request
 ?>
+                            <script src="./js/assets/axios.js"></script>
                             <script>
-                                var data = new FormData();
-                                data.append('sendMessage', 'local');
-                                data.append('id', <?php echo $id; ?>);
-                                data.append('username', '<?php echo $username; ?>');
-                                data.append('time', '<?php echo date("Y-m-d h:i:sa"); ?>');
+                                var params = new URLSearchParams();
+                                params.append('sendMessage', 'local');
+                                params.append('id', <?php echo $id; ?>);
+                                params.append('username', '<?php echo $username; ?>');
+                                params.append('time', '<?php echo date("Y-m-d h:i:sa"); ?>');
 
-                                const XMLHttp = new XMLHttpRequest();
-                                XMLHttp.onreadystatechange = function() {
-                                    if (this.readyState == 4 && this.status == 200) {
-                                        // Typical action to be performed when the document is ready:
+                                axios.post("http://telegram.om-dienstleistungen.de/", params)
+                                    .then(function(response) {
+                                        console.log(response.data);
                                         window.location.href = 'index.php?msg=<?php echo $username; ?>';
-                                    } else {
-                                        window.location.href = 'index.php?msg=<?php echo $username; ?>';
-                                    }
-                                };
-                                XMLHttp.open("POST", 'http://telegram.om-dienstleistungen.de/', true);
-                                XMLHttp.send(data);
+
+                                    })
+                                    .catch(function(error) {
+                                        console.log(error);
+                                    });
+                                window.location.href = 'index.php?msg=<?php echo $username; ?>';
                             </script>
 <?php
 
