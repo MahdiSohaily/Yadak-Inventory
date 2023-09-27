@@ -1,5 +1,6 @@
 <?php
 require_once("./php/db.php");
+date_default_timezone_set('Asia/Tehran');
 
 $partNumber = $_POST['partNumber'] === 'null' ? null : $_POST['partNumber']; // Assuming you're retrieving the value from a form
 $seller_id = $_POST['seller'] === 'null' ? null : $_POST['seller'];
@@ -11,7 +12,7 @@ $user_id = $_POST['user'] === 'null' ? null : $_POST['user'];
 $invoice_number = $_POST['invoice_number'] === 'null' ? null : $_POST['invoice_number'];
 $invoice_date = $_POST['invoice_time'] === 'null' ? null : $_POST['invoice_time'];
 $exit_time = $_POST['exit_time'] === 'null' ? null : $_POST['exit_time']; // Assuming you're retrieving the value from a form
- 
+
 // Prepare the statement
 $stmt = $pdo->prepare("SELECT nisha.partnumber, qtybank.des, nisha.id, users.username AS usn, seller.name, seller.id AS slid, stock.name AS stn, brand.name AS brn, qtybank.qty, qtybank.id AS qtyid, exitrecord.qty AS extqty, exitrecord.id AS exid, qtybank.qty AS entqty, exitrecord.customer, exitrecord.des AS exdes, getter.name AS gtn, deliverer.name AS dln, exitrecord.exit_time, exitrecord.jamkon, exitrecord.invoice_number, exitrecord.invoice_date, qtybank.anbarenter
                         FROM qtybank
