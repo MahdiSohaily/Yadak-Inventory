@@ -2,6 +2,7 @@
 require_once("db.php");
 
 if (isset($interval)) {
+    date_default_timezone_set('Asia/Tehran');
     // Get today's date
     $todayDate = date('Y-m-d');
 
