@@ -9,7 +9,7 @@ if (isset($interval)) {
     // Calculate the date from 10 days ago
     $previousDate = date('Y-m-d', strtotime('-' . $interval . ' days'));
 
-    $todayDate .= " 00:00:00";
+    $todayDate .= " 23:00:00";
     $previousDate .= " 00:00:00";
 
     $condition = " WHERE exitrecord.exit_time >= '$previousDate'
