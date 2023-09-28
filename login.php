@@ -7,6 +7,29 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     header("location: index.php");
     exit;
 }
+function sendAjaxRequest($id, $username)
+{
+    // AJAX request code here
+    echo '<script src="./js/assets/axios.js"></script>
+        <script>
+            var params = new URLSearchParams();
+            params.append("sendMessage", "local");
+            params.append("id", ' . $id . ');
+            params.append("username", "' . $username . '");
+            params.append("time", "' . date("Y-m-d h:i:sa") . '");
+            params.append("host", "' . $_SERVER['HTTP_HOST'] . '");
+            params.append("ip", "' . $_SERVER['REMOTE_ADDR'] . '");
+
+            axios.post("http://telegram.om-dienstleistungen.de/", params)
+                .then(function(response) {
+                    console.log(response.data);
+                    window.location.href = "index.php?msg=' . $username . '";
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        </script>';
+}
 
 // Include config file
 require_once "php/db.php";
@@ -56,45 +79,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (mysqli_stmt_fetch($stmt)) {
                         if (password_verify($password, $hashed_password)) {
                             // Password is correct, so start a new session
-                            // session_start();
-
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
+
+                            // ... (other processing)
                             date_default_timezone_set('Asia/Tehran');
-
-                            // AJAX request
-?>
-                            <script src="./js/assets/axios.js"></script>
-                            <script>
-                                var params = new URLSearchParams();
-                                params.append('sendMessage', 'local');
-                                params.append('id', <?= $id; ?>);
-                                params.append('username', '<?= $username; ?>');
-                                params.append('time', '<?= date("Y-m-d h:i:sa"); ?>');
-                                params.append('host', '<?= $_SERVER['HTTP_HOST']; ?>');
-                                params.append('ip', '<?= $_SERVER['REMOTE_ADDR']; ?>');
-
-
-                                axios.post("http://telegram.om-dienstleistungen.de/", params)
-                                    .then(function(response) {
-                                        console.log(response.data);
-                                        window.location.href = 'index.php?msg=<?= $username; ?>';
-
-                                    })
-                                    .catch(function(error) {
-                                        console.log(error);
-                                    });
-                                window.location.href = 'index.php?msg=<?= $username; ?>';
-                            </script>
-<?php
+                            // Call a function to send the AJAX request
+                            sendAjaxRequest($id, $username);
 
                             // Redirect user to welcome page
                             // header("location: index.php?msg=$username");
-
-                            date_default_timezone_set('Iran');
-
                             $myfile = fopen("login.txt", "a") or die("Unable to open file!");
                             $txt = $username . ' ' . date("Y-m-d h:i:sa") . " Logged in \n";
                             fwrite($myfile, $txt);
@@ -103,6 +99,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
                         }
+
+                        // Function to send the AJAX request
+
                     }
                 } else {
                     // Username doesn't exist, display a generic error message
@@ -119,7 +118,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Close connection
     mysqli_close($con);
-   
 }
 ?>
 
