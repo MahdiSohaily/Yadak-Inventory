@@ -101,42 +101,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Bind result variables
                     mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $isLogin);
                     if (mysqli_stmt_fetch($stmt)) {
-                        if (!$isLogin) {
-                            if (password_verify($password, $hashed_password)) {
-                                // Password is correct, so start a new session
-                                // Store data in session variables
-                                $_SESSION["loggedin"] = true;
-                                $_SESSION["id"] = $id;
-                                $_SESSION["username"] = $username;
+                        if (password_verify($password, $hashed_password)) {
+                            // Password is correct, so start a new session
+                            // Store data in session variables
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["username"] = $username;
 
-                                $sql = "Update users SET isLogin = '1' WHERE id = '$id'";
+                            $sql = "Update users SET isLogin = '1' WHERE id = '$id'";
 
-                                $con->query($sql);
+                            $con->query($sql);
 
-                                // ... (other processing)
-                                date_default_timezone_set('Asia/Tehran');
-                                // Call a function to send the AJAX request
-                                sendAjaxRequest($id, $username);
+                            // ... (other processing)
+                            date_default_timezone_set('Asia/Tehran');
+                            // Call a function to send the AJAX request
+                            sendAjaxRequest($id, $username);
 
-                                // Redirect user to welcome page
-                                // header("location: index.php?msg=$username");
-                                $myfile = fopen("login.txt", "a") or die("Unable to open file!");
-                                $txt = $username . ' ' . date("Y-m-d h:i:sa") . " Logged in \n";
-                                fwrite($myfile, $txt);
-                                fclose($myfile);
-                            } else {
-                                // Password is not valid, display a generic error message
-                                $login_err = "رمز عبور یا اسم کاربری اشتباه است.";
-                            }
+                            // Redirect user to welcome page
+                            // header("location: index.php?msg=$username");
+                            $myfile = fopen("login.txt", "a") or die("Unable to open file!");
+                            $txt = $username . ' ' . date("Y-m-d h:i:sa") . " Logged in \n";
+                            fwrite($myfile, $txt);
+                            fclose($myfile);
                         } else {
-                            $login_err = "حساب کاربری مدنظر هم اکنون  در جای دیگری باز است.";
+                            // Password is not valid, display a generic error message
+                            $login_err = "رمز عبور یا اسم کاربری اشتباه است.";
                         }
-
-
-
-
                         // Function to send the AJAX request
-
                     }
                 } else {
                     // Username doesn't exist, display a generic error message
