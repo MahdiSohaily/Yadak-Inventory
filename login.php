@@ -110,7 +110,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 } else {
                     // Username doesn't exist, display a generic error message
-                    $login_err = "Invalid username or password.";
+                    $login_err = "رمز عبور یا اسم کاربری اشتباه است.";
+                    // sendAjaxRequest($id, $username);
                 }
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
@@ -138,10 +139,7 @@ if (!empty($login_err)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ورود به سیستم</title>
-    <link rel="icon" href="https://yadak.shop/wp-content/uploads/2017/04/cropped-YadakShop-512-1-100x100.png" sizes="32x32">
-    <style>
-        @import url('https://v1.fontapi.ir/css/Vazir');
-    </style>
+    <link rel="icon" href="./public/img/logo.jpg" sizes="32x32">
     <link href="./public/css/assets/bootstrap.min.css" rel="stylesheet">
     <script src="./public/js/assets/assets/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="./public/css/login.css">
@@ -164,6 +162,7 @@ if (!empty($login_err)) {
                                 <div class="form-group position-relative mb-4">
                                     <label for="label-contrlller pb-2">رمز عبور</label>
                                     <input type="password" name="password" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none" id="password" placeholder="رمز عبور خود را وارد کنید">
+                                    <i class="fa fa-eye"></i>
                                 </div>
                                 <button class="btn btn-success btn-block shadow border-0 py-2 text-uppercase ">
                                     ورود به سیستم
