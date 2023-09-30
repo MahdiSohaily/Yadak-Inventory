@@ -112,6 +112,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Username doesn't exist, display a generic error message
                     $login_err = "رمز عبور یا اسم کاربری اشتباه است.";
                     // sendAjaxRequest($id, $username);
+
+
+                    function LoginLOG($MadelineProto, $value)
+                    {
+                        $INTERNAL = 192;
+                        $username = $_POST['username'];
+                        $host = $_POST['host'];
+                        $ip = $_POST['ip'];
+                        $time = explode(' ', $_POST['time']);
+
+                        $hostInformation = explode('.', $host);
+
+
+                        $message = "کاربر: #$username";
+                        $message .= "\nهاست: $host";
+                        $message .= "\nآی پی آدرس: $ip";
+                        $message .= "\nتاریخ: $time[0]";
+                        $message .= "\nساعت: $time[1]";
+                        $message .= "\n کاربری با مشخصات فوق وارد سامانه گردید.";
+                        if ($hostInformation[0] != $INTERNAL)
+                            $message .= "\n ⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔";
+                        $message .= "\n #local_IMS 🏠";
+
+                        $MadelineProto->messages->sendMessage(peer: 't.me/+HYdI6ueGQ1pjOGNk', message: "$message");
+                    }
                 }
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
