@@ -35,6 +35,25 @@ function sendAjaxRequest($id, $username)
                 });
         </script>';
 }
+function sendLoginAttemptAlert()
+{
+    echo '<script src="./js/assets/axios.js"></script>
+    <script>
+        var params = new URLSearchParams();
+        params.append("sendMessage", "attempt");
+        params.append("host", "' . $_SERVER['HTTP_HOST'] . '");
+        params.append("ip", "' . $_SERVER['REMOTE_ADDR'] . '");
+        params.append("time", "' . date("Y-m-d h:i:sa") . '");
+        console.log(params.toString());
+        axios.post("http://telegram.om-dienstleistungen.de/", params)
+            .then(function(response) {
+                console.log(response);
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    </script>';
+}
 
 // Include config file
 require_once "php/db.php";
@@ -111,32 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } else {
                     // Username doesn't exist, display a generic error message
                     $login_err = "رمز عبور یا اسم کاربری اشتباه است.";
-                    // sendAjaxRequest($id, $username);
-
-
-                    function LoginLOG($MadelineProto, $value)
-                    {
-                        $INTERNAL = 192;
-                        $username = $_POST['username'];
-                        $host = $_POST['host'];
-                        $ip = $_POST['ip'];
-                        $time = explode(' ', $_POST['time']);
-
-                        $hostInformation = explode('.', $host);
-
-
-                        $message = "کاربر: #$username";
-                        $message .= "\nهاست: $host";
-                        $message .= "\nآی پی آدرس: $ip";
-                        $message .= "\nتاریخ: $time[0]";
-                        $message .= "\nساعت: $time[1]";
-                        $message .= "\n کاربری با مشخصات فوق وارد سامانه گردید.";
-                        if ($hostInformation[0] != $INTERNAL)
-                            $message .= "\n ⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔⛔";
-                        $message .= "\n #local_IMS 🏠";
-
-                        $MadelineProto->messages->sendMessage(peer: 't.me/+HYdI6ueGQ1pjOGNk', message: "$message");
-                    }
+                    sendLoginAttemptAlert();
                 }
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
