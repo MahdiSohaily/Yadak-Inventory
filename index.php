@@ -1,6 +1,6 @@
 <?php include("header.php");
 $dateTime = jdate('Y-m-d') ?>
-<div class="page">
+<div class="page"> 
     <div class="countdown-col col">
         <div class="time middle">
 

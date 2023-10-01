@@ -2,11 +2,22 @@
 // Initialize the session
 session_start();
 
-// Check if the user is already logged in, if yes then redirect him to welcome page
+// Check if the user is already logged in
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    header("location: index.php");
+    // Check if the session has expired (current time > expiration time)
+    if (isset($_SESSION["expiration_time"]) && time() > $_SESSION["expiration_time"]) {
+        // Session has expired, destroy it and log the user out
+        session_unset();
+        session_destroy();
+        header("location: login.php"); // Redirect to the login page
+        exit;
+    }
+} else {
+    // User is not logged in, redirect them to the login page
+    header("location: login.php");
     exit;
 }
+
 function sendAjaxRequest($id, $username)
 {
     // AJAX request code here
@@ -67,14 +78,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if username is empty
     if (empty(trim($_POST["username"]))) {
-        $username_err = "Please enter username.";
+        $username_err = "لطفا نام کاربری خود را وارد کنید";
     } else {
         $username = trim($_POST["username"]);
     }
 
     // Check if password is empty
     if (empty(trim($_POST["password"]))) {
-        $password_err = "Please enter your password.";
+        $password_err = "لطفا رمز عبور خود را وارد کنید.";
     } else {
         $password = trim($_POST["password"]);
     }
@@ -102,18 +113,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $isLogin);
                     if (mysqli_stmt_fetch($stmt)) {
                         if (password_verify($password, $hashed_password)) {
+                            date_default_timezone_set('Asia/Tehran');
+                            // Calculate the expiration timestamp for 8 AM the next day
+                            $expiration_time = strtotime("tomorrow 8:00 AM");
+
+                            // Store the expiration timestamp in the session
+                            $_SESSION["expiration_time"] = $expiration_time;
+
                             // Password is correct, so start a new session
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
 
-                            $sql = "Update users SET isLogin = '1' WHERE id = '$id'";
 
-                            $con->query($sql);
-
-                            // ... (other processing)
-                            date_default_timezone_set('Asia/Tehran');
                             // Call a function to send the AJAX request
                             sendAjaxRequest($id, $username);
 
@@ -126,6 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         } else {
                             // Password is not valid, display a generic error message
                             $login_err = "رمز عبور یا اسم کاربری اشتباه است.";
+                            sendLoginAttemptAlert();
                         }
                         // Function to send the AJAX request
                     }
