@@ -2,6 +2,21 @@
 require_once("./php/db.php");
 date_default_timezone_set('Asia/Tehran');
 
+function echoRial($x, $y)
+{
+    if (!empty($x)) {
+        if ($y == "GEN") {
+            return number_format((round($x * 100 / 243.5 * 1.2 * 26 * 1.3) * 10000), 0);
+        }
+        if ($y == "MOB") {
+            return number_format((round($x * 100 / 243.5 * 1.2 * 26 * 1.3 * 0.9) * 10000), 0);
+        }
+        if ($y != "GEN" && $y != "MOB") {
+            return number_format((round($x * 100 / 243.5 * 1.2 * 26 * 1.3 * 0.5) * 10000), 0);
+        }
+    }
+}
+
 $partNumber = $_POST['partNumber'] === 'null' ? null : $_POST['partNumber']; // Assuming you're retrieving the value from a form
 $seller_id = $_POST['seller'] === 'null' ? null : $_POST['seller'];
 $brand_id = $_POST['brand'] === 'null' ? null : $_POST['brand'];
