@@ -99,7 +99,7 @@ if (isset($_GET['interval'])) {
                 <th>ورود به انبار</th>
                 <th>انبار</th>
                 <th>کاربر</th>
-                <?php if (userRoll() < 3) { ?>
+                <?php if ($_SESSION["roll"] < 3) { ?>
                     <th>قیمت</th>
 
                 <?php } ?>

@@ -102,7 +102,7 @@ if (mysqli_num_rows($result) > 0) {
             <td class="cell-stock "><?php echo $row["stn"] ?></td>
             <td class="cell-user "><?php echo $row["un"] ?></td>
 
-            <?php if (userRoll() < 3) { ?>
+            <?php if ($_SESSION["roll"] < 3) { ?>
                 <td class="cell-price "><?php echo (echoRial($row["nprice"], $row["name"])); ?></td>
             <?php } ?>
             <td><a onclick="displayModal(this)" id="<?php echo $row["id"] ?>" class="edit-rec2">ویرایش<i class="fas fa-edit"></i></a></td>

@@ -133,7 +133,8 @@ if (true) {
             <td class="cell-stock "><?php echo $row["stn"] ?></td>
             <td class="cell-user "><?php echo $row["un"] ?></td>
 
-            <?php if (userRoll() < 3) { ?>
+            <?php
+            if ($_SESSION["roll"] < 3) { ?>
                 <td class="cell-price "><?php echo (echoRial($row["nprice"], $row["name"])); ?></td>
             <?php } ?>
             <td><a onclick="displayModal(this)" id="<?php echo $row["id"] ?>" class="edit-rec2">ویرایش<i class="fas fa-edit"></i></a></td>
@@ -145,17 +146,4 @@ if (true) {
     } // end while
 } else {
     echo '<tr><td colspan="18">متاسفانه نتیجه ای یافت نشد</td></tr>';
-}
-
-function userRoll()
-{
-    $username =  $_SESSION["username"];
-    $con = mysqli_connect('localhost', 'root', '', 'yadakshop1401');
-    $sql = "SELECT * FROM users WHERE username='$username' ";
-    $result = mysqli_query($con, $sql);
-    if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            return $row["roll"];
-        }
-    }
 }

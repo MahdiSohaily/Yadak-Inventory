@@ -1,5 +1,6 @@
 <?php
 // Initialize the session
+require_once './app/Middleware/Authorize.php';
 require_once './php/function.php';
 require_once './php/jdf.php';
 require_once './bootstrap/init.php';

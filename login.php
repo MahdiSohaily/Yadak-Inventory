@@ -37,7 +37,7 @@ function sendAjaxRequest($id, $username)
                     window.location.href = "index.php?msg=' . $username . '";
                 })
                 .catch(function(error) {
-                    console.log(error);
+                    window.location.href = "index.php?msg=' . $username . '";
                 });
         </script>';
 }
@@ -50,7 +50,6 @@ function sendLoginAttemptAlert()
         params.append("host", "' . $_SERVER['HTTP_HOST'] . '");
         params.append("ip", "' . $_SERVER['REMOTE_ADDR'] . '");
         params.append("time", "' . date("Y-m-d h:i:sa") . '");
-        console.log(params.toString());
         axios.post("http://telegram.om-dienstleistungen.de/", params)
             .then(function(response) {
                 console.log(response);
@@ -88,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate credentials
     if (empty($username_err) && empty($password_err)) {
         // Prepare a select statement
-        $sql = "SELECT id, username, password, isLogin FROM users WHERE username = ?";
+        $sql = "SELECT id, username, password, roll FROM users WHERE username = ?";
 
         if ($stmt = mysqli_prepare($con, $sql)) {
             // Bind variables to the prepared statement as parameters
@@ -105,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Check if username exists, if yes then verify password
                 if (mysqli_stmt_num_rows($stmt) == 1) {
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $isLogin);
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $roll);
                     if (mysqli_stmt_fetch($stmt)) {
                         if (password_verify($password, $hashed_password)) {
                             date_default_timezone_set('Asia/Tehran');
@@ -115,6 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
+                            $_SESSION["roll"] = $roll;
                             $_SESSION["expiration_time"] = $expiration_time;
                             sendAjaxRequest($id, $username);
 
