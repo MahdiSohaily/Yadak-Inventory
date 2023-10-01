@@ -2,6 +2,7 @@
 require_once("./php/db.php");
 date_default_timezone_set('Asia/Tehran');
 
+
 $partNumber = $_POST['partNumber'] === 'null' ? null : $_POST['partNumber']; // Assuming you're retrieving the value from a form
 $seller_id = $_POST['seller'] === 'null' ? null : $_POST['seller'];
 $brand_id = $_POST['brand'] === 'null' ? null : $_POST['brand'];

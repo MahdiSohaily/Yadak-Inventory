@@ -1,5 +1,18 @@
 ﻿<?php
-require_once './app/Middleware/Authorize.php';
+// Initialize the session
+session_start();
+
+// Check if the user is already logged in
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    // Check if the session has expired (current time > expiration time)
+    if (isset($_SESSION["expiration_time"]) && time() > $_SESSION["expiration_time"]) {
+        // Session has expired, destroy it and log the user out
+        session_unset();
+        session_destroy();
+        header("location: login.php"); // Redirect to the login page
+        exit;
+    }
+}
 
 function sendAjaxRequest($id, $username)
 {
@@ -21,7 +34,6 @@ function sendAjaxRequest($id, $username)
             params.append("ip", "' . $_SERVER['REMOTE_ADDR'] . '");
             axios.post("http://telegram.om-dienstleistungen.de/", params)
                 .then(function(response) {
-                    console.log(response.data);
                     window.location.href = "index.php?msg=' . $username . '";
                 })
                 .catch(function(error) {
@@ -61,14 +73,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if username is empty
     if (empty(trim($_POST["username"]))) {
-        $username_err = "لطفا نام کاربری خود را وارد کنید";
+        $username_err = "Please enter username.";
     } else {
         $username = trim($_POST["username"]);
     }
 
     // Check if password is empty
     if (empty(trim($_POST["password"]))) {
-        $password_err = "لطفا رمز عبور خود را وارد کنید.";
+        $password_err = "Please enter your password.";
     } else {
         $password = trim($_POST["password"]);
     }
@@ -100,21 +112,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             // Calculate the expiration timestamp for 8 AM the next day
                             $expiration_time = strtotime("tomorrow 8:00 AM");
 
-                            // Store the expiration timestamp in the session
-                            $_SESSION["expiration_time"] = $expiration_time;
-
-                            // Password is correct, so start a new session
-                            // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
-
-
-                            // Call a function to send the AJAX request
+                            $_SESSION["expiration_time"] = $expiration_time;
                             sendAjaxRequest($id, $username);
 
                             // Redirect user to welcome page
-                            // header("location: index.php?msg=$username");
                             $myfile = fopen("login.txt", "a") or die("Unable to open file!");
                             $txt = $username . ' ' . date("Y-m-d h:i:sa") . " Logged in \n";
                             fwrite($myfile, $txt);
@@ -122,7 +126,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         } else {
                             // Password is not valid, display a generic error message
                             $login_err = "رمز عبور یا اسم کاربری اشتباه است.";
-                            sendLoginAttemptAlert();
                         }
                         // Function to send the AJAX request
                     }
