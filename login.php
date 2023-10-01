@@ -126,6 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         } else {
                             // Password is not valid, display a generic error message
                             $login_err = "رمز عبور یا اسم کاربری اشتباه است.";
+                            sendLoginAttemptAlert();
                         }
                         // Function to send the AJAX request
                     }
