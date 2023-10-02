@@ -27,7 +27,7 @@ seller.id AS slid,
 stock.name AS stn,
 brand.name AS brn,
 qtybank.qty,
-qtybank.id AS qtyid,exitrecord.qty AS extqty,exitrecord.id AS exid ,
+qtybank.id AS qtyid,exitrecord.qty AS extqty,exitrecord.id AS exid,
 qtybank.qty AS entqty ,exitrecord.customer,exitrecord.des AS exdes,getter.name AS gtn,
 deliverer.name AS dln,exitrecord.exit_time,exitrecord.jamkon,
 exitrecord.invoice_number,exitrecord.invoice_date,qtybank.anbarenter
