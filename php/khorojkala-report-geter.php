@@ -42,7 +42,7 @@ LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
 LEFT JOIN getter ON exitrecord.getter=getter.id
 $condition
 AND exitrecord.is_transfered = 0
-ORDER BY  exitrecord.invoice_number DESC ";
+ORDER BY  exitrecord.exit_time DESC ";
 
 
 global $jameitem;
