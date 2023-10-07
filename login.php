@@ -3,8 +3,6 @@
 session_start();
 // Include config file
 require_once "php/db.php";
-
-print_r($_SESSION);
 // Check if the user is already logged in
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     // Check if the session has expired (current time > expiration time)
