@@ -7,9 +7,8 @@ require_once './bootstrap/init.php';
 ?>
 <!DOCTYPE html>
 <html>
-    
-    <head>
-    <!-- <script src="./public/js/index.js"></script> -->
+
+<head>
     <meta charset="utf-8">
     <script src="js/font.min.js"></script>
     <script src="js/jquery-1.11.3.min.js"></script>

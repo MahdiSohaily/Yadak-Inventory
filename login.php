@@ -1,7 +1,8 @@
 ﻿<?php
 // Initialize the session
 session_start();
-
+// Include config file
+require_once "php/db.php";
 // Check if the user is already logged in
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     // Check if the session has expired (current time > expiration time)
@@ -62,8 +63,14 @@ function sendLoginAttemptAlert($username, $password)
             });
     </script>';
 }
-// Include config file
-require_once "php/db.php";
+
+function getUserAuthority($id, $conn)
+{
+    $users_sql = "SELECT user_authorities AS auth FROM yadakshop1402.authorities WHERE user_id = $id";
+    $result = $conn->query($users_sql);
+    return $result->fetch_assoc()['auth'];
+}
+
 
 // Define variables and initialize with empty values
 $username = $password = "";
@@ -119,6 +126,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["roll"] = $roll;
                             $_SESSION["expiration_time"] = $expiration_time;
                             sendAjaxRequest($id, $username);
+
+                            $notAllowed = array();
+                            $auth = json_decode(getUserAuthority($id, $con), true);
+
+                            foreach ($auth as $key => $value) {
+                                if (!$value) {
+                                    array_push($notAllowed, $key);
+                                }
+                            }
+
+                            $_SESSION['not_allowed'] = $notAllowed;
                         } else {
                             // Password is not valid, display a generic error message
                             $login_err = "رمز عبور یا اسم کاربری اشتباه است.";
