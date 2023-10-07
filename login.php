@@ -119,12 +119,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["roll"] = $roll;
                             $_SESSION["expiration_time"] = $expiration_time;
                             sendAjaxRequest($id, $username);
-
-                            // Redirect user to welcome page
-                            $myfile = fopen("login.txt", "a") or die("Unable to open file!");
-                            $txt = $username . ' ' . date("Y-m-d h:i:sa") . " Logged in \n";
-                            fwrite($myfile, $txt);
-                            fclose($myfile);
                         } else {
                             // Password is not valid, display a generic error message
                             $login_err = "رمز عبور یا اسم کاربری اشتباه است.";

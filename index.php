@@ -20,20 +20,6 @@ $dateTime = jdate('Y-m-d') ?>
         <div class="newslatter middle">
             <div class="card">
                 <h1>به نرم افزار تحت وب یدک شاپ خوش آمدید</h1>
-
-                <div class="py-5">
-                    <strong>رمز قیمت موبیز</strong>
-                    <hr>
-                    <code>RaHiMi1408NR1408###3</code>
-                    <br>
-                    <code>RaHiMi1408@400@1408###7</code>
-                </div>
-
-                <div class="py-5">
-                    <strong>فعالیت کاربران</strong>
-                    <hr>
-                    <iframe src="login.txt"></iframe>
-                </div>
             </div>
         </div>
     </div>

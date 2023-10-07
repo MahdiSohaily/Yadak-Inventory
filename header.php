@@ -7,8 +7,9 @@ require_once './bootstrap/init.php';
 ?>
 <!DOCTYPE html>
 <html>
-
-<head>
+    
+    <head>
+    <!-- <script src="./public/js/index.js"></script> -->
     <meta charset="utf-8">
     <script src="js/font.min.js"></script>
     <script src="js/jquery-1.11.3.min.js"></script>
@@ -150,8 +151,6 @@ require_once './bootstrap/init.php';
 
                 </ul>
             </li>
-            <li><a href="customer-index.php">مشتری <i class="fas fa-user"></i></a></li>
-            <li><a href="invoice-index.php">فاکتور فروش <i class="fas fa-file-invoice-dollar"></i></a></li>
             <li><a href="file-index.php">مدیریت فایل <i class="fas fa-file-excel"></i></a></li>
             <li><a target="_blank" href="../callcenter/">مرکز تماس <i class="fas fa-headphones"></i></a></li>
             <li>
