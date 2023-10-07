@@ -3,6 +3,8 @@
 session_start();
 // Include config file
 require_once "php/db.php";
+
+print_r($_SESSION);
 // Check if the user is already logged in
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     // Check if the session has expired (current time > expiration time)
@@ -71,6 +73,13 @@ function getUserAuthority($id, $conn)
     return $result->fetch_assoc()['auth'];
 }
 
+function clearModifiedAuth($id, $conn)
+{
+    $sql = "UPDATE yadakshop1402.authorities SET  modified = 0  WHERE user_id = $id";
+    $conn->query($sql);
+    return true;
+}
+
 
 // Define variables and initialize with empty values
 $username = $password = "";
@@ -125,10 +134,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["username"] = $username;
                             $_SESSION["roll"] = $roll;
                             $_SESSION["expiration_time"] = $expiration_time;
-                            sendAjaxRequest($id, $username);
+
 
                             $notAllowed = array();
                             $auth = json_decode(getUserAuthority($id, $con), true);
+
 
                             foreach ($auth as $key => $value) {
                                 if (!$value) {
@@ -137,6 +147,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             }
 
                             $_SESSION['not_allowed'] = $notAllowed;
+
+                            clearModifiedAuth($id, $con);
+
+
+                            sendAjaxRequest($id, $username);
                         } else {
                             // Password is not valid, display a generic error message
                             $login_err = "رمز عبور یا اسم کاربری اشتباه است.";
