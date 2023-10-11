@@ -54,8 +54,10 @@
                 const factor = response.data;
                 if (factor) {
                     document.getElementById('customer').value = factor.kharidar;
+                    document.getElementById('sabt').disabled = false;
                 } else {
-                    alert('شماره فاکتور اشتباه است')
+                    alert('شماره فاکتور اشتباه است');
+                    document.getElementById('sabt').disabled = true;
                 }
             })
             .catch(function(error) {
