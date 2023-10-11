@@ -5,7 +5,6 @@ function showQty(str) {
   str = str.replace(/-/g, "");
   str = str.replace(/_/g, "");
 
-
   if (str.length > 6) {
     resultBox.innerHTML = "<img style='width:30px' src='./img/loading.png' />";
 
@@ -39,6 +38,8 @@ $(document).ready(function () {
     const qty = Math.abs($(this).prev().val());
 
     if (qty !== 0 && qty <= prev_qty) {
+      document.getElementById("sabt").disabled = false;
+
       const code = $(this).prev().attr("code");
       const brand = $(this).prev().attr("brand");
       const seller = $(this).prev().attr("seller");
@@ -70,6 +71,7 @@ $(document).ready(function () {
       );
     } else {
       alert("مقدار انتخاب شده درست نیست");
+      document.getElementById("sabt").disabled = true;
     }
   });
 });
