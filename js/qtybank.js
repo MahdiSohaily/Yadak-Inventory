@@ -38,7 +38,7 @@ $(document).ready(function () {
     const prev_qty = $(this).prev().attr("data-amount");
     const qty = Math.abs($(this).prev().val());
 
-    if (qty <= prev_qty) {
+    if (qty !== 0 && qty <= prev_qty) {
       const code = $(this).prev().attr("code");
       const brand = $(this).prev().attr("brand");
       const seller = $(this).prev().attr("seller");
