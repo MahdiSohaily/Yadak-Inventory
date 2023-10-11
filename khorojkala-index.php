@@ -8,17 +8,17 @@
                 <?php include("php/qtybank.php") ?>
             </div>
             <div class="right-form">
+                <label class="half-label" for="invoice_number">شماره فاکتور</label>
+                <input type="number" name="invoice_number" id="invoice_number" onchange="checkBillNumber(this.value)">
 
                 <label for="customer">خریدار</label>
                 <input type="text" name="customer" id="customer">
-                <input type="hidden" name="stock_hjdgshj" id="stock" value=''>
+                <input class="half-input" type="hidden" name="stock_hjdgshj" id="stock" value=''>
 
                 <label class="half-label" for="getter">تحویل گیرنده</label>
-                <select class="half-input" name="getter" id="getter">
+                <select name="getter" id="getter">
                     <?php include("php/getter-form.php") ?>
                 </select>
-                <label class="half-label" for="invoice_number">شماره فاکتور</label>
-                <input class="half-input" type="number" name="invoice_number" id="invoice_number">
                 <p style="Clear:both"></p>
 
                 <label for="invoice_time">زمان فاکتور</label>
@@ -44,5 +44,24 @@
     </div>
 </div>
 
+<script>
+    function checkBillNumber(value) {
+        var params = new URLSearchParams();
+        params.append('value', value);
+
+        axios.post("./checkFactorAjax.php", params)
+            .then(function(response) {
+                const factor = response.data;
+                if (factor) {
+                    document.getElementById('customer').value = factor.kharidar;
+                } else {
+                    alert('شماره فاکتور اشتباه است')
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
+</script>
 
 <?php include("footer.php") ?>
