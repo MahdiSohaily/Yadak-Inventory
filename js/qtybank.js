@@ -1,14 +1,14 @@
+const resultBox = document.getElementById("txtHint-khoroj");
+
 function showQty(str) {
   str = str.replace(/\s/g, "");
   str = str.replace(/-/g, "");
   str = str.replace(/_/g, "");
 
-  const resultBox = document.getElementById("txtHint-khoroj");
 
-  if (str.length < 7) {
-    resultBox.innerHTML = "...";
-  } else {
-    document.getElementById("txtHint-khoroj").innerHTML = "";
+  if (str.length > 6) {
+    resultBox.innerHTML = "<img style='width:30px' src='./img/loading.png' />";
+
     const xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
