@@ -35,37 +35,41 @@ $(document).ready(function () {
 
   $("#txtHint-khoroj").on("click", ".add-to-khoroj", function () {
     $(this).css("pointer-events", "none");
+    const prev_qty = $(this).prev().attr("data-amount");
+    const qty = Math.abs($(this).prev().val());
 
-    let code = $(this).prev().attr("code");
-    let brand = $(this).prev().attr("brand");
-    let seller = $(this).prev().attr("seller");
-    let qtyid = $(this).prev().attr("qtyid");
-    let prev_qty = $(this).prev().attr("data-amount");
-    let stock = $(this).prev().attr("stock");
-    let qty = $(this).prev().val();
+    if (qty <= prev_qty) {
+      const code = $(this).prev().attr("code");
+      const brand = $(this).prev().attr("brand");
+      const seller = $(this).prev().attr("seller");
+      const qtyid = $(this).prev().attr("qtyid");
+      const stock = $(this).prev().attr("stock");
 
-    notAllowed.push(stock);
-    
-    var xqty = $(this).parent().parent().find(".qtybank-first").text();
+      notAllowed.push(stock);
 
-    var xqty = xqty - qty;
+      var xqty = $(this).parent().parent().find(".qtybank-first").text();
 
-    $(this).parent().parent().find(".qtybank-first").text(xqty);
+      var xqty = xqty - qty;
 
-    $(".add-to-basket").append(
-      '<div class="item"><input type="hidden" name="prev_qty" value="' +
-        prev_qty +
-        '" /> <div>' +
-        code +
-        "</div> <div>" +
-        seller +
-        "</div> <div>" +
-        brand +
-        '</div> <input type="hidden" name="qtyid[]" value="' +
-        qtyid +
-        '"><div class="remove-basket"><input type="number" name="qty[]" value="' +
-        qty +
-        '" readonly><a>حذف <i class="fas fa-times"></i></a></div> </div>'
-    );
+      $(this).parent().parent().find(".qtybank-first").text(xqty);
+
+      $(".add-to-basket").append(
+        '<div class="item" style="padding-block:10px"><input type="hidden" name="prev_qty" value="' +
+          prev_qty +
+          '" /> <div>' +
+          code +
+          "</div> <div>" +
+          seller +
+          "</div> <div>" +
+          brand +
+          '</div> <input type="hidden" name="qtyid[]" value="' +
+          qtyid +
+          '"><div class="remove-basket"><input type="number" name="qty[]" value="' +
+          qty +
+          '" readonly><a>حذف <i class="fas fa-times"></i></a></div> </div>'
+      );
+    } else {
+      alert("مقدار انتخاب شده درست نیست");
+    }
   });
 });

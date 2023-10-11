@@ -40,7 +40,7 @@ if (mysqli_num_rows($result) > 0) {
                     <div>' . $row["brn"] . '</div><div>' . $row["name"] . '</div>
                     <div class="action">
                         <input stock="' . $row["sti"] . '" data-amount="' . $finalqty . '" brand="' . $row["brn"] . '" seller="' . $row["name"] . '" qtyid="' . $row["qtyid"] . '" code="' . $row["partnumber"] . '" type="number" min="0" max="' . $finalqty . '" value="1" class="qty-x">
-                        <a class="add-to-khoroj">
+                        <a class="add-to-khoroj" style="cursor: pointer">
                             افزودن
                             <i class="fas fa-plus-circle"></i>
                         </a>
