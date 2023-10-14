@@ -55,7 +55,7 @@ $(document).ready(function () {
       $(this).parent().parent().find(".qtybank-first").text(xqty);
 
       $(".add-to-basket").append(
-        '<div class="item" style="padding-block:10px"><input type="hidden" name="prev_qty" value="' +
+        '<div class="item"><input type="hidden" name="prev_qty" value="' +
           prev_qty +
           '" /> <div>' +
           code +

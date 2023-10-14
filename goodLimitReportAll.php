@@ -174,11 +174,11 @@ include './php/all-limit-report-getter.php';
                                     </td>
                                     <td class="bold" rowspan="2">
                                         <?= $isSingle ? getPartNumber($key) : getRelationInfo($index); ?></td>
-                                    <td class="bold" style="background-color: <?= $original <= $sumOriginal ? 'green' : 'red' ?>;">
+                                    <td class="bold" style="background-color: <?= $sumOriginal < $original  ? 'red' :  'green' ?>;">
                                         موجود :
                                         <?= $sumOriginal ?>
                                     </td>
-                                    <td class="bold" style="background-color: <?= $fakeNeed <= $fake ? 'green' : 'red' ?>;">
+                                    <td class="bold" style="background-color: <?= $fakeNeed > $sumFake ? 'red' :  'green' ?>;">
                                         موجود:
                                         <?= $sumFake ?>
                                     </td>
@@ -188,7 +188,7 @@ include './php/all-limit-report-getter.php';
                                         مورد نیاز:
                                         <?= $original ?>
                                     </td>
-                                    <td class="bold" style="background-color: <?= $fakeNeed <= $fake   ? 'green' : 'red' ?>;">
+                                    <td class="bold" style="background-color: <?= $fakeNeed > $sumFake ? 'red' :  'green' ?>;">
                                         مورد نیاز:
                                         <?= $fakeNeed ?>
                                     </td>
