@@ -191,7 +191,8 @@ if (!empty($login_err)) {
     <link rel="icon" href="./public/img/logo.jpg" sizes="32x32">
     <link href="./public/css/assets/bootstrap.min.css" rel="stylesheet">
     <script src="./public/js/assets/assets/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="./public/css/login.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./public/css/login.css?v=<?= rand() ?>">
 </head>
 
 <body style="direction: rtl;">
@@ -206,12 +207,14 @@ if (!empty($login_err)) {
                                 <p>برای ورود به سیستم اطلاعات کاربری خود را به دقت وارد کنید.</p>
                                 <div class="form-group position-relative mb-4 mt-4">
                                     <label for="label-contrlller pb-2">اسم کاربری</label>
-                                    <input type="text" name="username" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none" id="username" placeholder="اسم کاربری خود را وارد کنید">
+                                    <input type="text" name="username" class="form-control border-top-0" id="username" placeholder="اسم کاربری خود را وارد کنید">
                                 </div>
                                 <div class="form-group position-relative mb-4">
                                     <label for="label-contrlller pb-2">رمز عبور</label>
-                                    <input type="password" name="password" class="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none" id="password" placeholder="رمز عبور خود را وارد کنید">
-                                    <i class="fa fa-eye"></i>
+                                    <div class="position-relative">
+                                        <span class="material-icons" onclick="togglePass(this)" style="cursor:pointer; position: absolute; left:5px; top: 25%; display:inline !important">remove_red_eye</span>
+                                        <input type="password" name="password" class="form-control " id="password" placeholder="رمز عبور خود را وارد کنید">
+                                    </div>
                                 </div>
                                 <button class="btn btn-success btn-block shadow border-0 py-2 text-uppercase ">
                                     ورود به سیستم
@@ -230,6 +233,19 @@ if (!empty($login_err)) {
             </form>
         </div>
     </div>
+    <script>
+        function togglePass(element) {
+            const target = element.nextElementSibling;
+            const inputType = target.type;
+
+            if (inputType === 'password') {
+                target.type = 'test';
+                return;
+            }
+
+            target.type = 'password';
+        }
+    </script>
 </body>
 
 </html>
