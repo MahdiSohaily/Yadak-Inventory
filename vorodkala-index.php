@@ -1,49 +1,49 @@
 <?php include("header.php");
 ?>
 
+
 <style>
-    td {
-        padding: 20px !important;
+    .right-form td {
+        padding: 10px !important;
     }
 
-    td:first-child {
+    .right-form td:first-child {
         width: 150px !important;
     }
 
-    select {
+    .right-form select {
         display: block !important;
     }
 
-    input {
+    .right-form input {
         padding: 10px !important;
         margin: 0 !important;
         float: none !important;
     }
 
-    input[type=radio] {
+    .right-form input[type=radio] {
         width: auto !important;
     }
 
-    textarea {
+    .right-form textarea {
         float: none !important;
     }
 
-    li span {
+    .right-form li span {
         padding-inline: 10px;
     }
 
-    label {
+    .right-form label {
         width: auto !important;
         float: none !important;
         cursor: pointer;
     }
 
-    .factor_details {
+    .right-form .factor_details {
         opacity: 0;
         transition: opacity 0.5s;
     }
 </style>
-
 
 <div id="Enter-Page">
     <div>
@@ -123,7 +123,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>توضیحات</td>
+                            <td style="vertical-align: middle;">
+
+                                توضیحات
+                            </td>
                             <td>
                                 <textarea name="des" id="des"></textarea>
                             </td>
@@ -206,23 +209,27 @@
 
 <script>
     // Get the radio buttons by their name attribute
-    var invoiceRadioButtons = document.querySelectorAll('input[name="invoice"]');
+    const invoiceRadioButtons = document.querySelectorAll('input[name="invoice"]');
 
     // Get the factor_details rows
-    var factorDetailsRows = document.querySelectorAll('.factor_details');
+    const factorDetailsRows = document.querySelectorAll('.factor_details');
+
+
+    const invoice_time = document.getElementById("invoice_time");
 
     // Function to toggle the visibility and opacity of factor_details rows
     function toggleFactorDetailsVisibility(show) {
-        factorDetailsRows.forEach(function (row) {
+        factorDetailsRows.forEach(function(row) {
             if (show) {
                 row.style.display = 'table-row';
-                setTimeout(function () {
+                setTimeout(function() {
                     row.style.opacity = 1;
                 }, 10);
             } else {
                 row.style.opacity = 0;
-                setTimeout(function () {
+                setTimeout(function() {
                     row.style.display = 'none';
+                    invoice_time.value = null;
                 }, 500); // Adjust the duration as needed
             }
         });
@@ -232,8 +239,8 @@
     toggleFactorDetailsVisibility(invoiceRadioButtons[0].checked);
 
     // Add change event listener to the radio buttons
-    invoiceRadioButtons.forEach(function (radio) {
-        radio.addEventListener('change', function () {
+    invoiceRadioButtons.forEach(function(radio) {
+        radio.addEventListener('change', function() {
             var isChecked = radio.dataset.name === 'yes';
             toggleFactorDetailsVisibility(isChecked);
         });
