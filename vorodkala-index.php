@@ -59,32 +59,25 @@
                     <?php include("php/stock-form.php") ?>
                 </select>
 
-
-
                 <label for="des">توضیحات</label>
                 <textarea name="des" id="des"></textarea>
-
-
-
-
-
-
 
                 <fieldset>
                     <legend>آیا فاکتور دارد ؟</legend>
                     <label for="invoice">خیر</label>
-                    <input type="radio" name="invoice" id="invoice" value="0">
+                    <input type="radio" name="invoice" data-name="no" id="invoice" value="0" onchange="displayCheck(this)">
                     <label for="nvoice">بله</label>
-                    <input type="radio" name="invoice" id="invoice" value="1" checked>
+                    <input type="radio" name="invoice" data-name="yes" id="invoice" value="1" onchange="displayCheck(this)" checked>
                 </fieldset>
 
+                <div id="factor_details">
+                    <label for="invoice_number">شماره فاکتور</label>
+                    <input type="number" name="invoice_number" id="invoice_number">
 
-                <label for="invoice_number">شماره فاکتور</label>
-                <input type="number" name="invoice_number" id="invoice_number">
-
-                <label for="invoice_time">زمان فاکتور</label>
-                <input value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>" type="text" name="invoice_time" id="invoice_time">
-                <span id="span_invoice_time"></span>
+                    <label for="invoice_time">زمان فاکتور</label>
+                    <input value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>" type="text" name="invoice_time" id="invoice_time">
+                    <span id="span_invoice_time"></span>
+                </div>
 
 
 
@@ -118,7 +111,22 @@
 
     </div>
 
+    <script>
+        function displayCheck(element) {
 
+            const targetElement = element.getAttribute('data-name');
+            const factor_details = document.getElementById('factor_details');
+
+            if (targetElement === 'no') {
+
+                factor_details.style.display = "none";
+            } else {
+                factor_details.style.display = "block";
+            }
+
+
+        }
+    </script>
 
 
 
