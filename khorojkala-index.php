@@ -81,9 +81,30 @@
         background-color: #d9edef;
     }
 
+    .factor_details tbody tr:nth-child(odd) {
+        background-color: #ffffff;
+    }
+
     .factor_details td,
     .factor_details th {
         padding: 10px;
+    }
+
+    #good_amount {
+        width: 30px !important;
+        padding: 0;
+    }
+
+    .good_amount_details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px !important;
+    }
+
+    .fa-trash {
+        color: red !important;
     }
 </style>
 <div id="QTY-Page">
@@ -154,24 +175,10 @@
                             <tr>
                                 <th>شماره</th>
                                 <th>مشخصات</th>
-                                <th>عملیات</th>
+                                <th style="width:30px">عملیات</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td colspan="2">
-                                    <div class="add-to-basket">
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td colspan="2">
-                                    <div class="add-to-basket">
-                                    </div>
-                                </td>
-                            </tr>
+                        <tbody id="result_box">
                         </tbody>
                         <tfoot>
                             <tr>
