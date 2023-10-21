@@ -32,7 +32,7 @@
         flex: 1 !important;
         background-color: whitesmoke;
         border-radius: 10px;
-        padding: 20px;
+        padding: 10px;
         display: flex;
         justify-content: center;
     }
@@ -50,12 +50,12 @@
         float: none !important;
         display: inline-block;
         margin-inline: auto;
-        width: 90%;
+        width: 95%;
     }
 
     #txtHint-khoroj {
         margin-inline: auto;
-        width: 90%;
+        width: 95%;
     }
 
     .add-to-basket {
@@ -101,6 +101,7 @@
         align-items: center;
         gap: 10px;
         font-size: 12px !important;
+        font-weight: bold;
     }
 
     .fa-trash {
@@ -173,7 +174,7 @@
                     <table class="factor_details">
                         <thead>
                             <tr>
-                                <th>شماره</th>
+                                <th style="width:30px">شماره</th>
                                 <th>مشخصات</th>
                                 <th style="width:30px">عملیات</th>
                             </tr>
