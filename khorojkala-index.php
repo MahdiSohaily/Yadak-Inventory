@@ -1,47 +1,202 @@
 <?php include("header.php") ?>
 
+<style>
+    #formData * {
+        float: none !important;
+    }
 
+    #formData input,
+    #formData textarea {
+        width: 97% !important;
+    }
+
+    .select2-container {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    td {
+        padding-block: 10px;
+    }
+
+    td:first-child {
+        width: 120px;
+    }
+
+    table {
+        width: 100% !important;
+        flex-grow: initial;
+    }
+
+    .card {
+        flex: 1 !important;
+        background-color: whitesmoke;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+
+    .card_items {
+        width: 100% !important;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: start;
+    }
+
+    .card_items>input {
+        float: none !important;
+        display: inline-block;
+        margin-inline: auto;
+        width: 90%;
+    }
+
+    #txtHint-khoroj {
+        margin-inline: auto;
+        width: 90%;
+    }
+
+    .add-to-basket {
+        padding: 0;
+        margin: 0;
+        background-color: transparent !important;
+        width: 100% !important;
+        box-shadow: none;
+    }
+
+    .factor_details {
+        width: 100%;
+        align-self: start;
+    }
+
+    .factor_details thead {
+        background-color: #0c637d;
+        color: white;
+        text-align: right;
+    }
+
+    .factor_details tr:nth-child(even) {
+        background-color: #d9edef;
+    }
+
+    .factor_details td,
+    .factor_details th {
+        padding: 10px;
+    }
+</style>
 <div id="QTY-Page">
     <div>
         <form id="khorojkala" method="post" action="php/khorojkala-save.php" autocomplete="off">
-            <div class="left-form">
-                <?php include("php/qtybank.php") ?>
-            </div>
-            <div class="right-form">
-                <label class="half-label" for="invoice_number">شماره فاکتور</label>
-                <input type="number" name="invoice_number" id="invoice_number" onchange="checkBillNumber(this.value)">
-
-                <label for="customer">خریدار</label>
-                <input type="text" name="customer" id="customer">
-                <input class="half-input" type="hidden" name="stock_hjdgshj" id="stock" value=''>
-
-                <label class="half-label" for="getter">تحویل گیرنده</label>
-                <select name="getter" id="getter">
-                    <?php include("php/getter-form.php") ?>
-                </select>
-                <p style="Clear:both"></p>
-
-                <label for="invoice_time">زمان فاکتور</label>
-                <input value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>" type="text" name="invoice_time" id="invoice_time">
-                <span id="span_invoice_time"></span>
-                <label for="jamkon">جمع کننده</label>
-                <input type="text" name="jamkon" id="jamkon">
-
-
-                <label for="des">توضیحات</label>
-                <textarea name="des" id="des"></textarea>
-
-                <div class="add-to-basket">
+            <div style="display:flex; gap:20px; padding: 20px; min-height:83vh">
+                <div class="card" id="formData">
+                    <table style="align-self: flex-start">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p>شماره فاکتور</p>
+                                </td>
+                                <td>
+                                    <input type=" number" name="invoice_number" id="invoice_number" onchange="checkBillNumber(this.value)">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>خریدار</p>
+                                </td>
+                                <td>
+                                    <input type="text" name="customer" id="customer">
+                                    <input class="half-input" type="hidden" name="stock_hjdgshj" id="stock" value=''>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>تحویل گیرنده</p>
+                                </td>
+                                <td>
+                                    <select name="getter" id="getter">
+                                        <?php include("php/getter-form.php") ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>زمان فاکتور</p>
+                                </td>
+                                <td>
+                                    <input value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>" type="text" name="invoice_time" id="invoice_time">
+                                    <span id="span_invoice_time"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>جمع کننده</p>
+                                </td>
+                                <td>
+                                    <input type="text" name="jamkon" id="jamkon">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:super;">
+                                    توضیحات
+                                </td>
+                                <td>
+                                    <textarea name="des" id="des"></textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-                <div class="bottom-bar">
-                    <input type="submit" value="ذخیره" id="sabt">
-                    <div class="error">
+                <div class="card">
+                    <table class="factor_details">
+                        <thead>
+                            <tr>
+                                <th>شماره</th>
+                                <th>مشخصات</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td colspan="2">
+                                    <div class="add-to-basket">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td colspan="2">
+                                    <div class="add-to-basket">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>مجموع اقلام</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="card">
+                    <div class="card_items">
+                        <input type="search" name="codeid" id="codeid" onkeyup="showQty(this.value)" placeholder="کد فنی">
+                        <div id="txtHint-khoroj">
+                            <p>...</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </form>
     </div>
+    <div class="bottom-bar">
+        <input type="submit" value="ذخیره" id="sabt">
+        <div class="error">
+        </div>
+    </div>
+    </form>
+</div>
 </div>
 
 <script>
@@ -64,6 +219,34 @@
                 console.log(error);
             });
     }
+
+    $('#getter').select2({
+        matcher: function matchCustom(params, data) {
+            // If there are no search terms, return all of the data
+            if ($.trim(params.term) === '') {
+                return data;
+            }
+
+            // Do not display the item if there is no 'text' property
+            if (typeof data.text === 'undefined') {
+                return null;
+            }
+
+            // `params.term` should be the term that is used for searching
+            // `data.text` is the text that is displayed for the data object
+            if (data.text.indexOf(params.term.toUpperCase()) > -1) {
+                var modifiedData = $.extend({}, data, true);
+                modifiedData.text += '';
+
+                // You can return modified objects from here
+                // This includes matching the `children` how you want in nested data sets
+                return modifiedData;
+            }
+
+            // Return `null` if the term should not be displayed
+            return null;
+        }
+    });
 </script>
 
 <?php include("footer.php") ?>
