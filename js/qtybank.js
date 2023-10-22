@@ -20,6 +20,8 @@ function showQty(str) {
 }
 
 let notAllowed = [];
+let totalCount = document.getElementById("totalCount");
+totalCount.value = 0;
 
 $(document).ready(function () {
   $("#txtHint-khoroj").on("click", "div", function () {
@@ -29,6 +31,10 @@ $(document).ready(function () {
   });
 
   $("#result_box").on("click", ".remove-basket", function () {
+    const amount = $(this).attr("data-remove");
+    let totalCount = document.getElementById("totalCount");
+    totalCount.value = Number(totalCount.value) - Number(amount);
+
     $(this).parent().parent().remove();
   });
 
@@ -52,6 +58,9 @@ $(document).ready(function () {
 
       var xqty = xqty - qty;
 
+      let totalCount = document.getElementById("totalCount");
+      totalCount.value = Number(totalCount.value) + Number(qty);
+
       $(this).parent().parent().find(".qtybank-first").text(xqty);
       $("#result_box").append(
         `
@@ -68,7 +77,7 @@ $(document).ready(function () {
             </div>
           </td>
           <td>
-            <a class="remove-basket"><i class="fas fa-trash"></i></a>
+            <a class="remove-basket" data-remove="${qty}"><i class="fas fa-trash"></i></a>
           </td>
         </tr>
         `
@@ -77,5 +86,13 @@ $(document).ready(function () {
       alert("مقدار انتخاب شده درست نیست");
       document.getElementById("sabt").disabled = true;
     }
+  });
+});
+
+$(document).ready(function () {
+  $("#sabt").click(function () {
+    let totalCount = document.getElementById("totalCount");
+    totalCount.value = 0;
+    document.getElementById("result_box").innerHTML = "";
   });
 });

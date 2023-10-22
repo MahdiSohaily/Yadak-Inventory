@@ -69,6 +69,8 @@
     .factor_details {
         width: 100%;
         align-self: start;
+        min-height: 300px;
+        background-color: white;
     }
 
     .factor_details thead {
@@ -106,6 +108,14 @@
 
     .fa-trash {
         color: red !important;
+    }
+
+    .factor_details td:first-child {
+        width: 30px !important;
+    }
+
+    .factor_details tbody {
+        min-height: 50px !important;
     }
 </style>
 <div id="QTY-Page">
@@ -174,7 +184,7 @@
                     <table class="factor_details">
                         <thead>
                             <tr>
-                                <th style="width:30px">شماره</th>
+                                <th style="width:30px !important">شماره</th>
                                 <th>مشخصات</th>
                                 <th style="width:30px">عملیات</th>
                             </tr>
@@ -182,8 +192,12 @@
                         <tbody id="result_box">
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <td>مجموع اقلام</td>
+                            <tr style="background-color: #0c637d; color:white">
+                                <td></td>
+                                <td style="vertical-align: middle;">مجموع اقلام</td>
+                                <td>
+                                    <input type="number" name="total" id="totalCount" readonly>
+                                </td>
                             </tr>
                         </tfoot>
                     </table>
