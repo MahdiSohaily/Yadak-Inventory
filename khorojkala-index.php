@@ -93,7 +93,7 @@
     }
 
     #good_amount {
-        width: 30px !important;
+        width: 80px !important;
         padding: 0;
     }
 
@@ -116,6 +116,15 @@
 
     .factor_details tbody {
         min-height: 50px !important;
+    }
+
+    #error_message {
+        display: none;
+    }
+
+    #error_message p {
+        font-size: 12px !important;
+        color: red;
     }
 </style>
 <div id="QTY-Page">
@@ -192,6 +201,11 @@
                         <tbody id="result_box">
                         </tbody>
                         <tfoot>
+                            <tr id="error_message">
+                                <td colspan="3">
+                                    <p>تعداد درج شده بعضی از اجناس درست نمی باشد</p>
+                                </td>
+                            </tr>
                             <tr style="background-color: #0c637d; color:white">
                                 <td></td>
                                 <td style="vertical-align: middle;">مجموع اقلام</td>

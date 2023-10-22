@@ -1,4 +1,5 @@
 const resultBox = document.getElementById("txtHint-khoroj");
+document.getElementById("sabt").disabled = true;
 
 function showQty(str) {
   str = str.replace(/\s/g, "");
@@ -16,6 +17,43 @@ function showQty(str) {
     };
     xmlHttp.open("GET", "php/qtybank-geter.php?q=" + str, true);
     xmlHttp.send();
+  }
+}
+
+function validateAmount(input) {
+  var inputs = document.querySelectorAll('input[type="number"][name="qty[]"]');
+  var totalCountInput = document.getElementById("totalCount");
+  var invoiceNumberInput = document.getElementById("invoice_number");
+  var total = 0;
+  var invalidAmount = false;
+  var error_message = document.getElementById("error_message");
+
+  for (var i = 0; i < inputs.length; i++) {
+    var currentInput = inputs[i];
+    var prevQtyInput = currentInput.nextElementSibling;
+    var inputValue = Number(currentInput.value);
+    var prevQtyValue = Number(prevQtyInput.value);
+
+    if (inputValue < 0 || inputValue > prevQtyValue) {
+      currentInput.style.border = "2px solid red";
+      invalidAmount = true;
+    } else {
+      currentInput.style.border = "";
+      total += inputValue;
+    }
+  }
+
+  if (invalidAmount) {
+    document.getElementById("sabt").disabled = true;
+    error_message.style.display = "table-row";
+  } else {
+    totalCountInput.value = total;
+    error_message.style.display = "none";
+    if (invoiceNumberInput.value == "") {
+      document.getElementById("sabt").disabled = true;
+    } else {
+      document.getElementById("sabt").disabled = false;
+    }
   }
 }
 
@@ -43,8 +81,11 @@ $(document).ready(function () {
     const prev_qty = $(this).prev().attr("data-amount");
     const qty = Math.abs($(this).prev().val());
 
+    var invoiceNumberInput = document.getElementById("invoice_number");
+
     if (qty !== 0 && qty <= prev_qty) {
-      document.getElementById("sabt").disabled = false;
+      if (invoiceNumberInput.value !== "")
+        document.getElementById("sabt").disabled = false;
 
       const code = $(this).prev().attr("code");
       const brand = $(this).prev().attr("brand");
@@ -68,12 +109,12 @@ $(document).ready(function () {
           <td>1</td>
           <td>
             <div class="good_amount_details">
-              <input type="hidden" name="prev_qty" value="${prev_qty}" />
               <p>${code}</p>
               <p>${seller}</p>
               <p>${brand}</p>
               <input type="hidden" name="qtyid[]" value="${qtyid}">
-              <input type="number" name="qty[]" value="${qty}" readonly id="good_amount">
+              <input type="number" name="qty[]" value="${qty}" id="good_amount" onchange="validateAmount(this)">
+              <input type="hidden" name="prev_qty" value="${prev_qty}" />
             </div>
           </td>
           <td>
@@ -86,13 +127,5 @@ $(document).ready(function () {
       alert("مقدار انتخاب شده درست نیست");
       document.getElementById("sabt").disabled = true;
     }
-  });
-});
-
-$(document).ready(function () {
-  $("#sabt").click(function () {
-    let totalCount = document.getElementById("totalCount");
-    totalCount.value = 0;
-    document.getElementById("result_box").innerHTML = "";
   });
 });
