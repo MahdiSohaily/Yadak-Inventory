@@ -51,6 +51,10 @@ if ($var == 1) {
                     let totalCount = document.getElementById("totalCount");
                     totalCount.value = 0;
                     document.getElementById("result_box").innerHTML = "";
+                    document.getElementById("invoice_number").value = null;
+                    document.getElementById("customer").value = null;
+                    document.getElementById("sabt").disabled = true;
+                    document.getElementById("getter").value = null;
             </script>';
 }
 
