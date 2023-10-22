@@ -92,7 +92,8 @@
         padding: 10px;
     }
 
-    #good_amount {
+    #good_amount,
+    #totalCount {
         width: 80px !important;
         padding: 0;
     }
@@ -101,17 +102,13 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 10px;
-        font-size: 12px !important;
+        gap: 15px;
+        font-size: 14px !important;
         font-weight: bold;
     }
 
     .fa-trash {
         color: red !important;
-    }
-
-    .factor_details td:first-child {
-        width: 30px !important;
     }
 
     .factor_details tbody {
@@ -125,6 +122,15 @@
     #error_message p {
         font-size: 12px !important;
         color: red;
+    }
+
+    #totalCount {
+        padding: 0 !important;
+        margin: 0 !important;
+        outline: none !important;
+        background-color: #0c637d !important;
+        color: #fff;
+        border: none;
     }
 </style>
 <div id="QTY-Page">
@@ -193,23 +199,24 @@
                     <table class="factor_details">
                         <thead>
                             <tr>
-                                <th style="width:30px !important">شماره</th>
                                 <th>مشخصات</th>
-                                <th style="width:30px">عملیات</th>
+                                <th style="text-align:left">
+                                    <i class="fas fa-cog"></i>
+                                </th>
                             </tr>
                         </thead>
                         <tbody id="result_box">
                         </tbody>
                         <tfoot>
                             <tr id="error_message">
-                                <td colspan="3">
+                                <td colspan="2">
                                     <p>تعداد درج شده بعضی از اجناس درست نمی باشد</p>
                                 </td>
                             </tr>
                             <tr style="background-color: #0c637d; color:white">
-                                <td></td>
-                                <td style="vertical-align: middle;">مجموع اقلام</td>
-                                <td>
+                                <td colspan="2" style=" width:100% !important">
+                                    <span> مجموع اقلام
+                                    </span>
                                     <input type="number" name="total" id="totalCount" readonly>
                                 </td>
                             </tr>

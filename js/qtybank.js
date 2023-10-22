@@ -106,7 +106,6 @@ $(document).ready(function () {
       $("#result_box").append(
         `
         <tr>
-          <td>1</td>
           <td>
             <div class="good_amount_details">
               <p>${code}</p>
@@ -117,7 +116,7 @@ $(document).ready(function () {
               <input type="hidden" name="prev_qty" value="${prev_qty}" />
             </div>
           </td>
-          <td>
+          <td style="text-align:left">
             <a class="remove-basket" data-remove="${qty}"><i class="fas fa-trash"></i></a>
           </td>
         </tr>
