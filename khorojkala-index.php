@@ -137,6 +137,14 @@
     <div>
         <form id="khorojkala" method="post" action="php/khorojkala-save.php" autocomplete="off">
             <div style="display:flex; gap:20px; padding: 20px; min-height:83vh">
+                <div class="card">
+                    <div class="card_items">
+                        <input type="search" name="codeid" id="codeid" onkeyup="showQty(this.value)" placeholder="کد فنی">
+                        <div id="txtHint-khoroj">
+                            <p>...</p>
+                        </div>
+                    </div>
+                </div>
                 <div class="card" id="formData">
                     <table style="align-self: flex-start">
                         <tbody>
@@ -223,14 +231,7 @@
                         </tfoot>
                     </table>
                 </div>
-                <div class="card">
-                    <div class="card_items">
-                        <input type="search" name="codeid" id="codeid" onkeyup="showQty(this.value)" placeholder="کد فنی">
-                        <div id="txtHint-khoroj">
-                            <p>...</p>
-                        </div>
-                    </div>
-                </div>
+
             </div>
     </div>
     <div class="bottom-bar">

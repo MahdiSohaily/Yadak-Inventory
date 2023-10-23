@@ -120,7 +120,7 @@ if (mysqli_num_rows($result) > 0) {
             <td></td>
             <td class="cell-stock "><?php echo $row["stn"] ?></td>
             <td class="cell-user "><?php echo $row["usn"] ?></td>
-            <td><a onclick="displayModal(this)" id="<?php echo $row["exid"] ?>" class="edit-rec2">ویرایش<i class="fas fa-edit"></i></a></td>
+            <td><a onclick="displayModal(this)" id="<?php echo $row["exid"] ?>" class="edit-rec2">ویرایش</a></td>
         </tr>
         <?php
         if (mysqli_num_rows($result) == $counter) :
