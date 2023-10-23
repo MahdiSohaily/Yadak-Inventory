@@ -75,7 +75,7 @@ if (mysqli_num_rows($result) > 0) {
             $invoice_number = $row["invoice_number"];
 ?>
             <tr>
-                <td class="invoice-spacer" colspan="18">
+                <td class="-spacer" colspan="20" style="background-color: aquamarine !important; font-weight: bold; font-size: 18px; margin-right: 10% !important;">
                     جمع اقلام : <?php echo $jameitem;
                                 $jameitem = 0;
                                 ?>
@@ -90,7 +90,7 @@ if (mysqli_num_rows($result) > 0) {
         ?>
         <tr>
             <td class="cell-shakhes "><?php echo $shakhes ?></td>
-            <td class="cell-code "><?php echo '&nbsp;' . $row["partnumber"] ?></td>
+            <td class="cell-code "><?php echo '&nbsp;' . strtoupper($row["partnumber"]) ?></td>
             <td class="cell-brand cell-brand-<?php echo $row["brn"] ?> "><?php echo $row["brn"] ?></td>
             <td class="cell-des "><?php echo $row["des"] ?></td>
             <td class="cell-des "><?php echo $row["exdes"] ?></td>

@@ -70,7 +70,7 @@ $invoice_number = 0000;
 global $shakhes;
 $shakhes = 1;
 
-if (true) {
+if ($stmt->rowCount() > 0) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
         $date = $row["create_time"];
@@ -116,7 +116,7 @@ if (true) {
         ?>
         <tr>
             <td class="cell-shakhes "><?php echo $shakhes ?></td>
-            <td class="cell-code "><?php echo '&nbsp;' . $row["partnumber"] ?></td>
+            <td class="cell-code "><?php echo '&nbsp;' . strtoupper($row["partnumber"]) ?></td>
             <td class="cell-brand cell-brand-<?php echo $row["name"] ?> "><?php echo $row["name"] ?></td>
             <td class="cell-des "><?php echo $row["des"] ?></td>
             <td class="cell-qty "><?php echo $row["qty"] ?></td>

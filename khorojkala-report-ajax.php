@@ -62,7 +62,7 @@ $invoice_number = 0000;
 global $shakhes;
 $shakhes = 1;
 
-if (true) {
+if ($stmt->rowCount() > 0) {
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
@@ -84,7 +84,7 @@ if (true) {
             $invoice_number = $row["invoice_number"];
 ?>
             <tr>
-                <td class="invoice-spacer" colspan="18">
+                <td class="invoice-spacer" colspan="20" style="background-color: blanchedalmond !important;">
                     جمع اقلام : <?php echo $jameitem;
                                 $jameitem = 0;
                                 ?>
@@ -99,7 +99,7 @@ if (true) {
         ?>
         <tr>
             <td class="cell-shakhes "><?php echo $shakhes ?></td>
-            <td class="cell-code "><?php echo '&nbsp;' . $row["partnumber"] ?></td>
+            <td class="cell-code "><?php echo '&nbsp;' . strtoupper($row["partnumber"]) ?></td>
             <td class="cell-brand cell-brand-<?php echo $row["brn"] ?> "><?php echo $row["brn"] ?></td>
             <td class="cell-des "><?php echo $row["des"] ?></td>
             <td class="cell-des "><?php echo $row["exdes"] ?></td>
