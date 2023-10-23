@@ -61,6 +61,7 @@ global $invoice_number;
 $invoice_number = 0000;
 global $shakhes;
 $shakhes = 1;
+$counter = 1;
 
 if ($stmt->rowCount() > 0) {
 
@@ -82,13 +83,21 @@ if ($stmt->rowCount() > 0) {
 
         if ($invoice_number != $row["invoice_number"]) {
             $invoice_number = $row["invoice_number"];
+            $shakhes = 1;
 ?>
-            <tr>
-                <td class="invoice-spacer" colspan="20" style="background-color: blanchedalmond !important;">
+            <tr class="bill_section" style="border-bottom: 2px solid gray;">
+                <td colspan="20" class="left_right" style="background-color: aquamarine !important;
+                                        font-weight: bold; font-size: 18px;
+                                        margin-right: 10% !important;">
                     جمع اقلام : <?php echo $jameitem;
-                                $jameitem = 0;
-                                ?>
+                                $jameitem = 0; ?>
                 </td>
+            </tr>
+            <tr style="background-color: white !important;">
+                <td colspan="20"></td>
+            </tr>
+            <tr style="background-color: white !important;">
+                <td colspan="20"></td>
             </tr>
 
         <?php
@@ -97,7 +106,7 @@ if ($stmt->rowCount() > 0) {
 
 
         ?>
-        <tr>
+        <tr class="left_right <?= $shakhes == 1 ? 'border_top' : ''; ?>">
             <td class="cell-shakhes "><?php echo $shakhes ?></td>
             <td class="cell-code "><?php echo '&nbsp;' . strtoupper($row["partnumber"]) ?></td>
             <td class="cell-brand cell-brand-<?php echo $row["brn"] ?> "><?php echo $row["brn"] ?></td>
@@ -122,13 +131,28 @@ if ($stmt->rowCount() > 0) {
             <td class="cell-user "><?php echo $row["usn"] ?></td>
             <td><a onclick="displayModal(this)" id="<?php echo $row["exid"] ?>" class="edit-rec2">ویرایش<i class="fas fa-edit"></i></a></td>
         </tr>
+        <?php
+        if ($stmt->rowCount() == $counter) :
+        ?>
+            <tr class="bill_section" style="border-bottom: 2px solid gray;">
+                <td colspan="20" class="left_right" style="background-color: aquamarine !important;
+                                        font-weight: bold; font-size: 18px;
+                                        margin-right: 10% !important;">
+                    جمع اقلام : <?php echo $jameitem;
+                                $jameitem = 0; ?>
+                </td>
+            </tr>
+            <tr style="background-color: white !important;">
+                <td colspan="20"></td>
+            </tr>
+            <tr style="background-color: white !important;">
+                <td colspan="20"></td>
+            </tr>
 <?php
-        $shakhes = $shakhes + 1;
-    }
-} // end while
-
-else {
+        endif;
+        $shakhes++;
+        $counter++;
+    } // end while
+} else {
     echo '<tr><td colspan="18">متاسفانه نتیجه ای یافت نشد</td></tr>';
 }
-mysqli_close($con);
-?>

@@ -6,6 +6,16 @@ if (isset($_GET['interval'])) {
 }
 
 ?>
+<style>
+    .left_right {
+        border-left: 2px solid gray;
+        border-right: 2px solid gray;
+    }
+
+    .border_top {
+        border-top: 2px solid gray !important;
+    }
+</style>
 <div class="">
     <form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
         <div class="div1">

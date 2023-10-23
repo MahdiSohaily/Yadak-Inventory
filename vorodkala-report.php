@@ -7,10 +7,20 @@ if (isset($_GET['interval'])) {
 }
 ?>
 
+<style>
+    .left_right {
+        border-left: 2px solid gray;
+        border-right: 2px solid gray;
+    }
+
+    .border_top {
+        border-top: 2px solid gray !important;
+    }
+</style>
 
 
 <div>
-<form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
+    <form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
         <div class="div1">
             <input type="text" name="partNumber" id="partNumber" placeholder="کد فنی">
         </div>
@@ -119,7 +129,7 @@ if (isset($_GET['interval'])) {
             <i onclick="closeModal()" class="fa fa-times closeModal" aria-hidden="true"></i>
         </div>
         <div class="displayPage">
-        <iframe id="updateModalIframe" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
+            <iframe id="updateModalIframe" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
         </div>
     </div>
 </div>
