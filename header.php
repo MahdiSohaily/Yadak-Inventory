@@ -10,15 +10,17 @@ require_once './bootstrap/init.php';
 
 <head>
     <meta charset="utf-8">
-    <script src="js/font.min.js"></script>
     <script src="js/jquery-1.11.3.min.js"></script>
     <link rel='stylesheet' href='css/style.css?v=<?php echo (rand()) ?>' type='text/css' media='all' />
     <link rel='stylesheet' href='css/modal.css?v=<?php echo (rand()) ?>' type='text/css' media='all' />
     <link type="text/css" rel="stylesheet" href="css/persianDatepicker.css" />
     <link rel="stylesheet" href="./css/exit_record/exit.css?v=<?php echo rand() ?>" type="text/css" media="all" />
-    <script type="text/javascript" src="./js/assets/table2excel.js"></script>
     <link rel="stylesheet" href="./css/assets/select2.css" />
     <link rel="stylesheet" href="./public/css/mojodi_kala.css?v=<?php echo (rand()) ?>" />
+
+    
+    <script type="text/javascript" src="./js/assets/table2excel.js"></script>
+    <script src="js/font.min.js"></script>
     <script src="./js/assets/select2.js"></script>
 
 

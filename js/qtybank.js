@@ -1,5 +1,6 @@
 const resultBox = document.getElementById("txtHint-khoroj");
-document.getElementById("sabt").disabled = true;
+if (document.getElementById("sabt"))
+  document.getElementById("sabt").disabled = true;
 
 function showQty(str) {
   str = str.replace(/\s/g, "");
