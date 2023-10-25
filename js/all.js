@@ -3,6 +3,6 @@
  $('.link a[href="' + page + '"]').addClass('active')
 
 
- $("#frame").load(function () {
-     this.contentWindow.scrollBy(0, 100000)
- });
+ $("#frame").on('load', function() {
+        this.contentWindow.scrollBy(0, 100000)
+ })

@@ -1,11 +1,11 @@
-$(document).ready(function () {
+$(document).on("ready", function () {
   $(".filter select").prop("selectedIndex", -1);
 
   var frm = $("#vorod-filter");
 
-  frm.submit(function (e) {});
+  frm.on("submit", function (e) {});
 
-  $("#excel").click(function () {
+  $("#excel").on("click", function () {
     $(".report-table").table2excel({
       filename: "vorodkala-report.xls",
     });

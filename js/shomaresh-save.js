@@ -1,7 +1,7 @@
-$(document).ready(function () {
+$(document).on("ready", function () {
   var frm = $("#shomaresh");
 
-  frm.submit(function (e) {
+  frm.on("submit", function (e) {
     e.preventDefault();
 
     $("#brand-box").val($("#esalat option:selected").html());

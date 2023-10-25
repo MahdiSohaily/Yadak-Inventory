@@ -1,7 +1,7 @@
-$(document).ready(function () {
+$(document).on("ready", function () {
   $("#getter").val($("#getter").attr("data")).change();
 
-  $(".del-vorod").click(function () {
+  $(".del-vorod").on("click", function () {
     var str = $(this).attr("data");
 
     var r = confirm("حذف شود ؟");

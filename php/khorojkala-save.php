@@ -48,7 +48,6 @@ if ($var == 1) {
 
     echo '<p class="ok"> تعداد <span>' . $x . '</span> آیتم کالا برای خریدار <span>' . $customer . '</span> با موفقیت از انبار خارج شد </p>';
     echo '<script>
-                    let totalCount = document.getElementById("totalCount");
                     totalCount.value = 0;
                     document.getElementById("result_box").innerHTML = "";
                     document.getElementById("invoice_number").value = null;
