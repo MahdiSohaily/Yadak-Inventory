@@ -1,9 +1,9 @@
-<?php
+﻿<?php
 require_once("db.php");
 
 $action = isset($_POST['action']) ? $_POST['action'] : 'normal';
 $customer = isset($_POST['customer']) ? $_POST['customer'] : 'انتقال به انبار';
-$getter = $_POST['getter'];
+$getter = $_POST['getter'] ?? '';
 $id = $_SESSION["id"];
 $invoice_number = isset($_POST['invoice_number']) ? $_POST['invoice_number'] : 'انتقال به انبار';
 $description = $_POST['des'];

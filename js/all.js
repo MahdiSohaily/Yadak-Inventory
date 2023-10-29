@@ -1,8 +1,7 @@
- var page = location.pathname.split('/').pop();
+var page = location.pathname.split("/").pop();
 
- $('.link a[href="' + page + '"]').addClass('active')
+$('.link a[href="' + page + '"]').addClass("active");
 
-
- $("#frame").on('load', function() {
-        this.contentWindow.scrollBy(0, 100000)
- })
+$("#frame").on("load", function () {
+  this.contentWindow.scrollBy(0, 100000);
+});

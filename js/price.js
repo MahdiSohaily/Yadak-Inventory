@@ -1,4 +1,4 @@
-$(document).on("ready", function () {
+$(document).ready(function () {
   $(".price-page table").on("click", ".Save", function () {
     console.log($(this).attr("msg"));
     $(this).addClass("msg-loading");

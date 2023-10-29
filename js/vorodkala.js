@@ -1,5 +1,7 @@
-//  $( document ).on( 'ready', function () {
+ 
 
+//   $(document).ready(function () {
+ 
 //       $(".edit-rec").click(function () {
 //           $(".modal").css("display","block");
 //            $(this).attr("id");

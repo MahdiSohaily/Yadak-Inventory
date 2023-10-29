@@ -64,7 +64,7 @@ let notAllowed = [];
 let totalCount = document.getElementById("totalCount");
 totalCount.value = 0;
 
-$(document).on("ready", function () {
+$(document).ready(function () {
   $("#txtHint-khoroj").on("click", "div", function () {
     $("#txtHint-khoroj div").removeClass("clickedcode");
     $(this).addClass("clickedcode");
@@ -73,6 +73,7 @@ $(document).on("ready", function () {
 
   $("#result_box").on("click", ".remove-basket", function () {
     const amount = $(this).attr("data-remove");
+    let totalCount = document.getElementById("totalCount");
     totalCount.value = Number(totalCount.value) - Number(amount);
 
     $(this).parent().parent().remove();
@@ -101,6 +102,7 @@ $(document).on("ready", function () {
 
       var xqty = xqty - qty;
 
+      let totalCount = document.getElementById("totalCount");
       totalCount.value = Number(totalCount.value) + Number(qty);
 
       $(this).parent().parent().find(".qtybank-first").text(xqty);

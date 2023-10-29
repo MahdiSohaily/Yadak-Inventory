@@ -1,7 +1,7 @@
-$(document).on("ready", function () {
+$(document).ready(function () {
   const form = $("#khorojkala");
 
-  form.on("submit",function (e) {
+  form.submit(function (e) {
     e.preventDefault();
     const selectedInventory = document.getElementById("stock").value;
     if (!notAllowed.includes(selectedInventory)) {
