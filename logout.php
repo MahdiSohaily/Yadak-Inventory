@@ -1,5 +1,6 @@
 <?php
-// Initialize the session
+// Set a unique session name
+session_name("MyAppSession");
 session_start();
 // Unset all of the session variables
 $_SESSION = array();

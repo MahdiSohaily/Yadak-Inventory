@@ -227,6 +227,7 @@
                 }, 10);
             } else {
                 row.style.opacity = 0;
+                document.querySelector('input#invoice_number').value = null;
                 setTimeout(function() {
                     row.style.display = 'none';
                     invoice_time.value = null;
@@ -245,6 +246,7 @@
             toggleFactorDetailsVisibility(isChecked);
         });
     });
+
     $(document).ready(function() {
         $('#seller').select2({
             matcher: function matchCustom(params, data) {
