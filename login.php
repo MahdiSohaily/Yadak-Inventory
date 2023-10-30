@@ -1,5 +1,6 @@
 ﻿<?php
-// Initialize the session
+// Set a unique session name
+session_name("MyAppSession");
 session_start();
 // Include config file
 require_once "php/db.php";
@@ -117,12 +118,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Store result
                 mysqli_stmt_store_result($stmt);
 
-                // Check if username exists, if yes then verify password
                 if (mysqli_stmt_num_rows($stmt) == 1) {
                     // Bind result variables
                     mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $roll);
                     if (mysqli_stmt_fetch($stmt)) {
                         if (password_verify($password, $hashed_password)) {
+                            // Regenerate the session ID after a successful login
+                            session_regenerate_id(true);
+
                             date_default_timezone_set('Asia/Tehran');
                             // Calculate the expiration timestamp for 8 AM the next day
                             $expiration_time = strtotime("tomorrow 8:00 AM");
@@ -133,10 +136,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["roll"] = $roll;
                             $_SESSION["expiration_time"] = $expiration_time;
 
-
                             $notAllowed = array();
                             $auth = json_decode(getUserAuthority($id, $con), true);
-
 
                             foreach ($auth as $key => $value) {
                                 if (!$value) {
@@ -148,14 +149,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             clearModifiedAuth($id, $con);
 
-
                             sendAjaxRequest($id, $username);
                         } else {
                             // Password is not valid, display a generic error message
                             $login_err = "رمز عبور یا اسم کاربری اشتباه است.";
                             sendLoginAttemptAlert($username, $password);
                         }
-                        // Function to send the AJAX request
                     }
                 } else {
                     // Username doesn't exist, display a generic error message
