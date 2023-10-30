@@ -1,5 +1,6 @@
 <?php
-// Initialize the session
+// Set a unique session name
+session_name("MyAppSession");
 session_start();
 
 require_once './php/db.php';

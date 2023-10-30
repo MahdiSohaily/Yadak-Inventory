@@ -2,6 +2,7 @@
 // Set a unique session name
 session_name("MyAppSession");
 session_start();
+
 // Include config file
 require_once "php/db.php";
 // Check if the user is already logged in
@@ -89,14 +90,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if username is empty
     if (empty(trim($_POST["username"]))) {
-        $username_err = "Please enter username.";
+        $username_err = "لطفا نام کاربری خود را وارد کنید.";
     } else {
         $username = trim($_POST["username"]);
     }
 
     // Check if password is empty
     if (empty(trim($_POST["password"]))) {
-        $password_err = "Please enter your password.";
+        $password_err = "لطفا رمز عبور خود را وارد کنید.";
     } else {
         $password = trim($_POST["password"]);
     }
@@ -207,12 +208,14 @@ if (!empty($login_err)) {
                                 <div class="form-group position-relative mb-4 mt-4">
                                     <label for="label-contrlller pb-2">اسم کاربری</label>
                                     <input type="text" name="username" class="form-control border-top-0" id="username" placeholder="اسم کاربری خود را وارد کنید">
+                                    <p class="text-danger small"><?= $username_err ?></p>
                                 </div>
                                 <div class="form-group position-relative mb-4">
                                     <label for="label-contrlller pb-2">رمز عبور</label>
                                     <div class="position-relative">
                                         <span class="material-icons" onclick="togglePass(this)" style="cursor:pointer; position: absolute; left:5px; top: 25%; display:inline !important">remove_red_eye</span>
                                         <input type="password" name="password" class="form-control " id="password" placeholder="رمز عبور خود را وارد کنید">
+                                        <p class="text-danger small"><?= $password_err ?></p>
                                     </div>
                                 </div>
                                 <button class="btn btn-success btn-block shadow border-0 py-2 text-uppercase ">
