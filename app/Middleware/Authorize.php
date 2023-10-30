@@ -3,8 +3,6 @@
 session_name("MyAppSession");
 session_start();
 
-
-
 require_once './php/db.php';
 
 // Check if the user is already logged in
