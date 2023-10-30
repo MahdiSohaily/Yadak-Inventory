@@ -1,4 +1,6 @@
 ﻿<?php
+session_name("MyAppSession");
+session_start();
 require_once("db.php");
 
 $action = isset($_POST['action']) ? $_POST['action'] : 'normal';
