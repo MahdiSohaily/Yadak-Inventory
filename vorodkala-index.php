@@ -140,13 +140,13 @@
                                     <br>
                                     <li style="margin-bottom: 10px;">
                                         <label for="invoice">
-                                            <input type="radio" name="invoice" data-name="yes" id="invoice" value="1" onchange="displayCheck(this)" checked>
+                                            <input type="radio" name="invoice" data-name="yes" id="invoice" value="1" checked>
                                             بله
                                         </label>
                                     </li>
                                     <li style="margin-bottom: 10px;">
                                         <label for="invoiceNO">
-                                            <input type="radio" name="invoice" data-name="no" id="invoiceNO" value="0" onchange="displayCheck(this)">
+                                            <input type="radio" name="invoice" data-name="no" id="invoiceNO" value="0">
                                             خیر
                                         </label>
                                     </li>
