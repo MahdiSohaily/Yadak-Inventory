@@ -16,8 +16,8 @@ require_once './bootstrap/init.php';
     <link rel="stylesheet" href="./css/exit_record/exit.css?v=<?php echo rand() ?>" type="text/css" media="all" />
     <link rel="stylesheet" href="./css/assets/select2.css?v=<?php echo (rand()) ?>" />
     <link rel="stylesheet" href="./public/css/mojodi_kala.css?v=<?php echo (rand()) ?>" />
-    
-    
+
+
     <script src="./js/jquery-1.11.3.min.js?v=<?php echo (rand()) ?>"></script>
     <script type="text/javascript" src="./js/assets/table2excel.js?v=<?php echo (rand()) ?>"></script>
     <script src="js/font.min.js?v=<?php echo (rand()) ?>"></script>
@@ -138,7 +138,7 @@ require_once './bootstrap/init.php';
                 </ul>
             </li>
             <li>
-                <a onclick="redirectTo('mojodikala-report.php','موجودی کالا');return false;">موجودی کالا <i class="fas fa-compress-arrows-alt"></i></a>
+                <a href="mojodikala-report.php">موجودی کالا <i class="fas fa-compress-arrows-alt"></i></a>
 
                 <ul class="under-link">
                     <li><a href="mojodikala-report-simple.php">موجودی سبک</a></li>
