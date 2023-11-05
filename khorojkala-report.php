@@ -19,7 +19,7 @@ if (isset($_GET['interval'])) {
 <div class="">
     <form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
         <div class="div1">
-            <input type="text" name="partNumber" id="partNumber" placeholder="کد فنی">
+            <input type="text"  onkeyup="convertToEnglish(this)" name="partNumber" id="partNumber" placeholder="کد فنی">
         </div>
 
         <div class="div2">

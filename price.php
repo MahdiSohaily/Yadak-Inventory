@@ -8,7 +8,7 @@
 
         <form>
 
-            <input class="input-value" type="text" placeholder="کد فنی قطعه را وارد کنید ..." onkeyup="showPrice(this.value),showAnbar(this.value)">
+            <input  onkeyup="convertToEnglish(this)" class="input-value" type="text" placeholder="کد فنی قطعه را وارد کنید ..." onkeyup="showPrice(this.value),showAnbar(this.value)">
 
 
 

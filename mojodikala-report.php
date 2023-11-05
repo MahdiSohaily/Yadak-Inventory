@@ -3,7 +3,7 @@
     <div>
         <div class="search_container">
             <span for="MojodiSearch">جستجو</span>
-            <input id="MojodiSearch" onkeyup="searchGoods(this.value)" type="text" placeholder="جستجو به اساس کدفنی">
+            <input  onkeyup="convertToEnglish(this)" id="MojodiSearch" onkeyup="searchGoods(this.value)" type="text" placeholder="جستجو به اساس کدفنی">
         </div>
         <table class="report-table">
             <thead>

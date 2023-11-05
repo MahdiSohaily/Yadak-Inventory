@@ -22,7 +22,7 @@ if (isset($_GET['interval'])) {
 <div>
     <form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
         <div class="div1">
-            <input type="text" name="partNumber" id="partNumber" placeholder="کد فنی">
+            <input type="text" onkeyup="convertToEnglish(this)" name="partNumber" id="partNumber" placeholder="کد فنی">
         </div>
 
         <div class="div2">
@@ -66,7 +66,7 @@ if (isset($_GET['interval'])) {
         </div>
 
         <div class="div8">
-            <input type="number" name="invoice_number" id="invoice_number" placeholder="شماره فاکتور">
+            <input type="number"  onkeyup="convertToEnglish(this)" name="invoice_number" id="invoice_number" placeholder="شماره فاکتور">
         </div>
 
         <div class="div9">
