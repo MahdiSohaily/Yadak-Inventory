@@ -139,21 +139,21 @@
             <div style="display:flex; gap:20px; padding: 20px; min-height:83vh">
                 <div class="card">
                     <div class="card_items">
-                        <input type="search" style="direction: ltr; text-alignl" name="codeid" id="codeid" onkeyup="showQty(this.value)" placeholder="کد فنی">
+                        <input type="search" onkeyup="convertToEnglish(this)" style="direction: ltr; text-alignl" name="codeid" id="codeid" onkeyup="showQty(this.value)" placeholder="کد فنی">
                         <div id="txtHint-khoroj">
                             <p>...</p>
                         </div>
                     </div>
                 </div>
                 <div class="card" id="formData">
-                    <table style="align-self: flex-start">
+                    <table style="align-self:flex-start">
                         <tbody>
                             <tr>
                                 <td>
                                     <p>شماره فاکتور</p>
                                 </td>
                                 <td>
-                                    <input type=" number" name="invoice_number" id="invoice_number" onchange="checkBillNumber(this.value)">
+                                    <input type="number" name="invoice_number" id="invoice_number" onchange="checkBillNumber(this.value)">
                                 </td>
                             </tr>
                             <tr>
@@ -189,7 +189,7 @@
                                     <p>جمع کننده</p>
                                 </td>
                                 <td>
-                                    <input type="text" name="jamkon" id="jamkon">
+                                    <input onkeyup="convertToPersian(this)" type="text" name="jamkon" id="jamkon">
                                 </td>
                             </tr>
                             <tr>

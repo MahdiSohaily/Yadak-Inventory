@@ -1,5 +1,5 @@
 <label for="codeid">کد فنی</label>
-<input type="search" id="codeid" onkeyup="showUser(this.value)">
+<input  onkeyup="convertToEnglish(this)" type="search" id="codeid" onkeyup="showUser(this.value)">
 
 
 <div id="txtHint">
@@ -8,4 +8,4 @@
 <label for="code-box">شاخص</label>
 
 <input type="hidden" style="direction: ltr;" required name="codeid" id="codeid-hidden">
-<input required name="code-box" id="codeid-box">
+<input required  name="code-box" id="codeid-box">
