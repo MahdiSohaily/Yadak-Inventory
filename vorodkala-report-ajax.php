@@ -1,4 +1,5 @@
 <?php
+session_name("MyAppSession");
 require_once("./php/db.php");
 date_default_timezone_set('Asia/Tehran');
 
