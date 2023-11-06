@@ -2,27 +2,11 @@
 
 
 <div id="Enter-Page">
-
-
-
-
-
-
-
-
-
     <div>
-
-
-
-
         <form id="newcode" method="post" action="php/newcode.php" autocomplete="off">
             <div class="left-form">
-
-
                 <label for="newcode">کد فنی</label>
-                <input onkeyup="convertToEnglish(this)" onkeydown="upperCaseF(this)" type="text" name="newcode" id="newcode-in">
-
+                <input onkeydown="upperCaseF(this)" type="text" name="newcode" id="newcode-in">
             </div>
             <div class="right-form">
 
