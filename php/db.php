@@ -1,5 +1,4 @@
 <?php
-
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
@@ -26,7 +25,7 @@ try {
   exit();
 }
 
-function log_action($file, $query)
+function log_action($file, $query, $user)
 {
   $logFile = "../logs/$file.txt"; // Define the log file name or path
 
@@ -34,7 +33,7 @@ function log_action($file, $query)
   $timestamp = date('Y-m-d H:i:s');
 
   // Create a log entry
-  $logEntry = "[$timestamp] Action: $query, User:" . $_SESSION['id'] . "\n";
+  $logEntry = "[$timestamp] Action: $query, User:" . $user . "\n";
 
   // Open or create the log file in append mode
   $file = fopen($logFile, 'a');

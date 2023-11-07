@@ -1,6 +1,6 @@
 <?php
- 
- require_once("db.php"); 
+session_name("MyAppSession");
+require_once("db.php");
 
 $value1 = $_GET['id'];
 
@@ -15,12 +15,10 @@ $value5 = $_GET['pos2'];
 $value6 = $_GET['des'];
 
 
- if (isset($_GET['deliverer']) || !empty($_GET['deliverer']))
-{
+if (isset($_GET['deliverer']) || !empty($_GET['deliverer'])) {
     $value7 = $_GET['deliverer'];
-}
-else {
-    
+} else {
+
     $value7 = NULL;
 }
 $value8 = $_GET['invoice_number'];
@@ -34,22 +32,14 @@ $value11 = $_GET['anbarenter'];
 $value12 = $_GET['invoice'];
 
 
-$sql="UPDATE qtybank SET brand='$value2',qty='$value3',anbarenter='$value11',invoice='$value12',invoice_date='$value10',pos1='$value4',pos2='$value5',des='$value6',deliverer='$value7',invoice_number='$value8',stock_id='$value9' 
-WHERE id = '".$value1."'
-
-";
-$result = mysqli_query($con,$sql);
-if(!$result)
-{
-    echo "Error MySQLI QUERY: ".mysqli_error($con)."";
+$sql = "UPDATE qtybank SET brand='$value2',qty='$value3',anbarenter='$value11',invoice='$value12',invoice_date='$value10',pos1='$value4',pos2='$value5',des='$value6',deliverer='$value7',invoice_number='$value8',stock_id='$value9' WHERE id = '" . $value1 . "'";
+$result = mysqli_query($con, $sql);
+log_action('vorodKalaEdit', $sql, $_SESSION['id']);
+if (!$result) {
+    echo "Error MySQLI QUERY: " . mysqli_error($con) . "";
     die();
-
-}
-else
-{
+} else {
     echo "ویرایش موفقانه صورت گرفت";
+}
 
-
-} 
- 
 mysqli_close($con);

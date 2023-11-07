@@ -36,6 +36,7 @@ $value16 = $_POST['brand-box'];
 
 $sql = "INSERT INTO qtybank (codeid,brand,qty,pos1,pos2,des,seller,deliverer,invoice,anbarenter,user,invoice_number,stock_id,invoice_date) VALUES ('$value1', '$value2', '$value3', '$value4','$value5','$value6','$value7','$value8','$value9','$value10','$value11','$value12','$value13','$value14');";
 $result = mysqli_query($con, $sql);
+log_action('vorodKala', $sql, $_SESSION['id']);
 if (!$result) {
     echo "Error MySQLI QUERY: " . mysqli_error($con) . "";
     die();
