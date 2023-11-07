@@ -32,10 +32,12 @@ foreach ($_POST['qty'] as $value) {
         $info = get_entered_Info($qty_id);
         $Bank_id = save_new_entrance($info, $stock, $qty);
         record_transaction($qty_id, $Bank_id, $exit_id, $prev_qty, $qty, $stock);
+        log_action('khorojKala', $sql);
     } else {
 
         $sql = "INSERT INTO exitrecord (customer,getter,qty,qtyid,user,invoice_number,des,jamkon,invoice_date) VALUES ('$customer', '$getter', '$qty', '$qty_id','$id','$invoice_number','$description','$collector','$invoice_time');";
         $result = mysqli_query($con, $sql);
+        log_action('khorojKala', $sql);
     }
 
     if (!$result) {
@@ -46,8 +48,6 @@ foreach ($_POST['qty'] as $value) {
     }
 }
 if ($var == 1) {
-
-
     echo '<p class="ok"> تعداد <span>' . $x . '</span> آیتم کالا برای خریدار <span>' . $customer . '</span> با موفقیت از انبار خارج شد </p>';
     echo '<script>
                     totalCount.value = 0;
@@ -108,6 +108,7 @@ function save_new_entrance($info, $stock, $quantity)
     $statement->bindParam(':is_transfered', $is_transfered);
 
     $statement->execute();
+    log_action('khorojKala', $statement);
     return PDO_CONNECTION->lastInsertId();
 }
 
@@ -125,5 +126,6 @@ function record_transaction($affected_record, $Bank_id, $exit_id, $prev_qty, $qu
     $statement->bindParam(':quantity', $quantity);
 
     $statement->execute();
+    log_action('khorojKala', $statement);
     return PDO_CONNECTION->lastInsertId();
 }
