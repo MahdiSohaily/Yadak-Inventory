@@ -2,13 +2,14 @@
 
 require_once("db.php");
 
-$sql = "SELECT nisha.partnumber , nisha.id,stock.name AS stckname ,nisha.price AS nprice, seller.name , brand.name AS brn , qtybank.qty,qtybank.pos1,qtybank.pos2 ,qtybank.des,qtybank.id AS qtyid,  qtybank.qty AS entqty 
-        , qtybank.is_transfered
+$sql = "SELECT nisha.partnumber , nisha.id, qtybank.id as qid ,stock.name AS stckname ,nisha.price AS nprice,
+                seller.name , brand.name AS brn , qtybank.qty,qtybank.pos1,qtybank.pos2 ,
+                qtybank.des,qtybank.id AS qtyid,  qtybank.qty AS entqty, qtybank.is_transfered
         FROM qtybank
         LEFT JOIN nisha ON qtybank.codeid=nisha.id
-        LEFT JOIN seller ON qtybank.seller=seller.id
-        LEFT JOIN brand ON qtybank.brand=brand.id
-        LEFT JOIN stock ON qtybank.stock_id=stock.id
+        LEFT JOIN seller ON qtybank.seller = seller.id
+        LEFT JOIN brand ON qtybank.brand = brand.id
+        LEFT JOIN stock ON qtybank.stock_id = stock.id
         ORDER BY nisha.partnumber DESC";
 
 
@@ -16,12 +17,13 @@ global $shakhes;
 $shakhes = 1;
 
 $result = mysqli_query($con, $sql);
+
 if (mysqli_num_rows($result) > 0) {
 
     while ($row = mysqli_fetch_assoc($result)) {
         $finalqty = $row["entqty"];
 
-        $sql2 = " SELECT qty FROM exitrecord WHERE qtyid LIKE '" . $row["qtyid"] . "'";
+        $sql2 = " SELECT qty FROM exitrecord WHERE qtyid = '" . $row["qtyid"] . "'";
         $result2 = mysqli_query($con, $sql2);
         if (mysqli_num_rows($result2) > 0) {
             while ($record = mysqli_fetch_assoc($result2)) {
