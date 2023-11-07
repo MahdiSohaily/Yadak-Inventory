@@ -32,7 +32,7 @@ qtybank.qty AS entqty ,exitrecord.customer,exitrecord.des AS exdes,getter.name A
 deliverer.name AS dln,exitrecord.exit_time,exitrecord.jamkon,
 exitrecord.invoice_number,exitrecord.invoice_date,qtybank.anbarenter
 FROM qtybank
-LEFT JOIN nisha ON qtybank.codeid=nisha.id
+INNER JOIN nisha ON qtybank.codeid=nisha.id
 INNER JOIN exitrecord ON qtybank.id=exitrecord.qtyid
 LEFT JOIN seller ON qtybank.seller=seller.id
 LEFT JOIN brand ON qtybank.brand=brand.id
