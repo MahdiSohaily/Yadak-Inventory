@@ -65,7 +65,7 @@
             $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
             $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
             $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
-            ?>
+    ?>
             <table class="report-table">
                 <tr>
                     <th>شماره فنی</th>
@@ -137,7 +137,6 @@
             </table>
             <form id="khoroj-edit" method="get" action="khorojkala-report-edit-save.php" autocomplete="off">
 
-
                 <div class="right-form">
 
                     <input value="<?php echo $id ?>" type="hidden" name="id">
@@ -145,46 +144,23 @@
                     <label for="qty">تعداد</label>
                     <input value="<?php echo $row["extqty"] ?>" min="0" type="number" name="qty" id="qty">
 
-
                     <label for="invoice_number">شماره فاکتور</label>
                     <input value="<?php echo $row["invoice_number"] ?>" type="number" name="invoice_number" id="invoice_number">
-
-
 
                     <label for="invoice_time">زمان فاکتور</label>
                     <input value="<?php echo $row["invoice_date"] ?>" type="text" name="invoice_time" id="invoice_time">
                     <span id="span_invoice_time"></span>
-
-
-
-
-
-
-
-
-
-
                 </div>
 
                 <div class="left-form">
-
-
                     <label for="customer">خریدار</label>
                     <input type="text" name="customer" id="customer" value="<?php echo $row["customer"] ?>">
-
-
                     <label class="half-label" for="getter">تحویل گیرنده</label>
                     <select class="half-input" name="getter" id="getter" data="<?php echo $gtid ?>">
                         <?php include("getter-form.php") ?>
                     </select>
-
-
                     <label for="jamkon">جمع کننده</label>
                     <input value="<?php echo $jamkon ?>" type="text" name="jamkon" id="jamkon">
-
-
-
-
                     <label for="des">توضیحات</label>
                     <textarea name="des" id="des"><?php echo $mydes ?></textarea>
 
@@ -196,7 +172,7 @@
                 </div>
 
             </form>
-            <?php
+    <?php
         } // end while
     } else {
         echo '<div id="error">کد فنی اشتباه یا ناقص می باشد</div>';

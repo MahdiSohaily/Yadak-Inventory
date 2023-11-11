@@ -73,6 +73,9 @@
 
             $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
             $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
+
+
+            $seller_id = $row["slid"];
     ?>
             <table class="report-table">
                 <tr>
@@ -100,7 +103,7 @@
                     <td class="cell-qty "><?php echo $row["qty"] ?></td>
                     <td class="cell-pos1 "><?php echo $row["pos1"] ?></td>
                     <td class="cell-pos2 "><?php echo $row["pos2"] ?></td>
-                    <td class="cell-seller cell-seller-<?php echo $row["slid"] ?>"><?php echo $row["sln"] ?></td>
+                    <td class="cell-seller cell-seller-<?php echo $seller_id; ?>"><?php echo $row["sln"] ?></td>
                     <td class="cell-time "><?php echo $jalali_time ?></td>
                     <td class="cell-date "><?php echo $jalali_date ?></td>
 
@@ -170,6 +173,14 @@
                     <label for="brand">اصالت</label>
                     <select name="brand" id="esalat" data="<?php echo $brnid ?>">
                         <?php include("brand-form.php") ?>
+                    </select>
+                    <label>فروشنده</label>
+                    <select name="seller" id="seller">
+                        <?php include("./seller-form.php");
+                        foreach ($data as $key => $value) :
+                        ?>
+                            <option <?= ($key == $seller_id) ? 'selected' : '' ?> value="<?= $key ?>"><?= $value ?></option>
+                        <?php endforeach; ?>
                     </select>
 
                     <label for="stock">انبار</label>
