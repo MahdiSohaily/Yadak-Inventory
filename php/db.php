@@ -27,7 +27,7 @@ try {
 
 function log_action($file, $query, $user)
 {
-  $logFile = "../logs/$file.txt"; // Define the log file name or path
+  $logFile = "../../logs/$file.txt"; // Define the log file name or path
 
   // Get the current date and time
   $timestamp = date('Y-m-d H:i:s');

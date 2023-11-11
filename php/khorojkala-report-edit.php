@@ -153,7 +153,7 @@
                     <input value="<?php echo $row["extqty"] ?>" min="0" type="number" name="qty" id="qty">
 
                     <label for="invoice_number">شماره فاکتور</label>
-                    <input onkeyup="checkFactor(this.value)" value="<?php echo $row["invoice_number"] ?>" type="number" name="invoice_number" id="invoice_number">
+                    <input value="<?php echo $row["invoice_number"] ?>" onload="checkFactor(this.value)" onkeyup="checkFactor(this.value)"  type="number" name="invoice_number" id="invoice_number">
 
                     <label for="invoice_time">زمان فاکتور</label>
                     <input value="<?php echo $row["invoice_date"] ?>" type="text" name="invoice_time" id="invoice_time">
@@ -162,7 +162,7 @@
 
                 <div class="left-form">
                     <label for="customer">خریدار</label>
-                    <input type="text" name="customer-d" id="customer-d" disabled>
+                    <input type="text" name="customer-d" id="customer-d" value="<?php echo $row["customer"] ?>" disabled>
                     <input type="hidden" name="customer" id="customer" value="<?php echo $row["customer"] ?>">
                     <label class="half-label" for="getter">تحویل گیرنده</label>
                     <select class="half-input" name="getter" id="getter" data="<?php echo $gtid ?>">
