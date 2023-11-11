@@ -54,125 +54,87 @@
     $result = mysqli_query($con, $sql);
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-
             $id = $row["exid"];
-            $mydes  = $row["exdes"];
-
-            $jamkon =  $row["jamkon"];
+            $mydes = $row["exdes"];
+            $jamkon = $row["jamkon"];
             $gtid = $row["gtid"];
-
             $date = $row["exit_time"];
-
             $array = explode(' ', $date);
             list($year, $month, $day) = explode('-', $array[0]);
             list($hour, $minute, $second) = explode(':', $array[1]);
             $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
-
-
             $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
             $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
-
-
-
-
-    ?>
-
-
+            ?>
             <table class="report-table">
-
                 <tr>
                     <th>شماره فنی</th>
                     <th>برند</th>
                     <th>توضیحات ورود</th>
                     <th>توضیحات خروج</th>
                     <th>تعداد</th>
-
                     <th>فروشنده</th>
                     <th>خریدار</th>
                     <th>تحویل گیرنده</th>
                     <th>جمع کننده</th>
                     <th>زمان خروج</th>
                     <th>تاریخ خروج</th>
-
                     <th>شماره فاکتور</th>
                     <th>تاریخ فاکتور</th>
-
                     <th>ورود به انبار</th>
-
                     <th>انبار</th>
                     <th>کاربر</th>
-
-
                 </tr>
-
-
-
-
-
-
-
-
-
-
                 <tr>
+                    <td class="cell-code ">
+                        <?php echo $row["partnumber"] ?>
+                    </td>
+                    <td class="cell-brand cell-brand-<?php echo $row["brn"] ?> ">
+                        <?php echo $row["brn"] ?>
+                    </td>
+                    <td class="cell-des ">
+                        <?php echo $row["des"] ?>
+                    </td>
+                    <td class="cell-des ">
+                        <?php echo $row["exdes"] ?>
+                    </td>
+                    <td class="cell-qty ">
+                        <?php echo $row["extqty"] ?>
+                    </td>
 
-                    <td class="cell-code "><?php echo $row["partnumber"] ?></td>
-                    <td class="cell-brand cell-brand-<?php echo $row["brn"] ?> "><?php echo $row["brn"] ?></td>
-                    <td class="cell-des "><?php echo $row["des"] ?></td>
-                    <td class="cell-des "><?php echo $row["exdes"] ?></td>
-
-
-                    <td class="cell-qty "><?php echo $row["extqty"] ?></td>
-
-                    <td class="cell-seller cell-seller-<?php echo $row["slid"] ?>"><?php echo $row["name"] ?></td>
-
-
-
-
-
-
-
-                    <td class="cell-customer "><?php echo $row["customer"] ?></td>
-
-
-                    <td class="cell-gtname "><?php echo $row["gtn"] ?></td>
-                    <td class="cell-gtname "><?php echo $row["jamkon"] ?></td>
-
-
-
-                    <td class="cell-time "><?php echo $jalali_time ?></td>
-                    <td class="cell-date "><?php echo $jalali_date ?></td>
-
-
-                    <td><?php echo $row["invoice_number"] ?></td>
-                    <td class="cell-date "><?php echo substr($row["invoice_date"], 5) ?></td>
-
-
-
-
-
+                    <td class="cell-seller cell-seller-<?php echo $row["slid"] ?>">
+                        <?php echo $row["name"] ?>
+                    </td>
+                    <td class="cell-customer ">
+                        <?php echo $row["customer"] ?>
+                    </td>
+                    <td class="cell-gtname ">
+                        <?php echo $row["gtn"] ?>
+                    </td>
+                    <td class="cell-gtname ">
+                        <?php echo $row["jamkon"] ?>
+                    </td>
+                    <td class="cell-time ">
+                        <?php echo $jalali_time ?>
+                    </td>
+                    <td class="cell-date ">
+                        <?php echo $jalali_date ?>
+                    </td>
+                    <td>
+                        <?php echo $row["invoice_number"] ?>
+                    </td>
+                    <td class="cell-date ">
+                        <?php echo substr($row["invoice_date"], 5) ?>
+                    </td>
                     <td class="tik-anb-<?php echo $row["anbarenter"] ?>"></td>
-                    <td class="cell-stock "><?php echo $row["stn"] ?></td>
-                    <td class="cell-user "><?php echo $row["usn"] ?></td>
-
-
-
-
+                    <td class="cell-stock ">
+                        <?php echo $row["stn"] ?>
+                    </td>
+                    <td class="cell-user ">
+                        <?php echo $row["usn"] ?>
+                    </td>
                 </tr>
-
-
-
-
-
             </table>
-
-
-
-
-
-
-
-
             <form id="khoroj-edit" method="get" action="khorojkala-report-edit-save.php" autocomplete="off">
 
 
@@ -234,17 +196,7 @@
                 </div>
 
             </form>
-
-
-
-
-
-
-
-
-
-
-    <?php
+            <?php
         } // end while
     } else {
         echo '<div id="error">کد فنی اشتباه یا ناقص می باشد</div>';
