@@ -8,6 +8,7 @@
     <link type="text/css" rel="stylesheet" href="../css/persianDatepicker.css" />
 
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="../js/assets/axios.js"></script>
     <style>
         /* width */
         ::-webkit-scrollbar {
@@ -39,7 +40,13 @@
     $q = $_GET['q'];
     require_once("db.php");
 
-    $sql = "SELECT nisha.partnumber ,qtybank.des, nisha.id , users.username AS usn , seller.name ,seller.id AS slid, stock.name AS stn ,brand.name AS brn , qtybank.qty ,qtybank.id AS qtyid,exitrecord.qty AS extqty,exitrecord.id AS exid ,  qtybank.qty AS entqty ,exitrecord.customer,exitrecord.des AS exdes,getter.name AS gtn,getter.id AS gtid,deliverer.name AS dln,exitrecord.exit_time,exitrecord.jamkon,exitrecord.invoice_number,exitrecord.invoice_date,qtybank.anbarenter
+    $sql = "SELECT nisha.partnumber ,qtybank.des, nisha.id, users.username AS usn,
+                    seller.name ,seller.id AS slid, stock.name AS stn ,brand.name AS brn,
+                    qtybank.qty ,qtybank.id AS qtyid,exitrecord.qty AS extqty,exitrecord.id AS exid,
+                    qtybank.qty AS entqty ,exitrecord.customer,exitrecord.des AS exdes,getter.name AS gtn,
+                    getter.id AS gtid,deliverer.name AS dln,exitrecord.exit_time,exitrecord.jamkon,
+                    exitrecord.invoice_number, exitrecord.invoice_date,qtybank.anbarenter,
+                    callcenter.shomarefaktor.kharidar AS customer
             FROM qtybank
             LEFT JOIN nisha ON qtybank.codeid=nisha.id
             INNER JOIN exitrecord ON qtybank.id=exitrecord.qtyid
@@ -49,6 +56,7 @@
             LEFT JOIN users ON exitrecord.user=users.id
             LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
             LEFT JOIN getter ON exitrecord.getter=getter.id
+            LEFT JOIN callcenter.shomarefaktor ON exitrecord.invoice_number = shomarefaktor.shomare
             WHERE exitrecord.id LIKE '" . $q . "%'";
 
     $result = mysqli_query($con, $sql);
@@ -145,7 +153,7 @@
                     <input value="<?php echo $row["extqty"] ?>" min="0" type="number" name="qty" id="qty">
 
                     <label for="invoice_number">شماره فاکتور</label>
-                    <input value="<?php echo $row["invoice_number"] ?>" type="number" name="invoice_number" id="invoice_number">
+                    <input onkeyup="checkFactor(this.value)" value="<?php echo $row["invoice_number"] ?>" type="number" name="invoice_number" id="invoice_number">
 
                     <label for="invoice_time">زمان فاکتور</label>
                     <input value="<?php echo $row["invoice_date"] ?>" type="text" name="invoice_time" id="invoice_time">
@@ -154,7 +162,8 @@
 
                 <div class="left-form">
                     <label for="customer">خریدار</label>
-                    <input type="text" name="customer" id="customer" value="<?php echo $row["customer"] ?>">
+                    <input type="text" name="customer-d" id="customer-d" disabled>
+                    <input type="hidden" name="customer" id="customer" value="<?php echo $row["customer"] ?>">
                     <label class="half-label" for="getter">تحویل گیرنده</label>
                     <select class="half-input" name="getter" id="getter" data="<?php echo $gtid ?>">
                         <?php include("getter-form.php") ?>
@@ -183,7 +192,32 @@
     <script src="../js/khorojkala-edit.js?v=<?php echo (rand()) ?>"></script>
     <script src="../js/form.js?v=<?php echo (rand()) ?>"></script>
     <script src="../js/persianDatepicker.min.js?v=<?php echo (rand()) ?>"></script>
+    <script>
+        function checkFactor(bill_number) {
+            let params = new URLSearchParams();
+            params.append('bill_number', bill_number);
 
+            const display = document.getElementById("customer-d");
+            const btn = document.getElementById("sabt");
+
+            axios.post("../checkFactor-ajax.php", params)
+                .then(function(response) {
+                    if (response.data.kharidar !== undefined) {
+                        document.getElementById("customer").value = response.data.kharidar;
+                        display.style.color = 'green';
+                        display.value = response.data.kharidar;
+                        btn.style.display = 'block';
+                    } else {
+                        display.style.color = 'red';
+                        display.value = 'شماره فاکتور در سیستم ثبت نمی باشد.';
+                        btn.style.display = 'none';
+                    }
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        }
+    </script>
 </body>
 
 </html>
