@@ -62,7 +62,9 @@ function validateAmount(input) {
 
 let notAllowed = [];
 let totalCount = document.getElementById("totalCount");
-totalCount.value = 0;
+if (totalCount) {
+  totalCount.value = 0;
+}
 
 $(document).ready(function () {
   $("#txtHint-khoroj").on("click", "div", function () {
