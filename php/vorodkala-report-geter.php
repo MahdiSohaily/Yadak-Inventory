@@ -76,7 +76,7 @@ if (mysqli_num_rows($result) > 0) {
         $jameitem = $jameitem + $row["qty"];
         ?>
         <tr class="left_right <?= $shakhes == 1 ? 'border_top' : ''; ?>">
-            <td class="cell-shakhes"><?php echo $shakhes ?></td>
+            <td class="cell-shakhes"><?php echo $row['qtyidsss'] ?></td>
             <td class="cell-code"><?php echo '&nbsp;' . strtoupper($row["partnumber"]) ?></td>
             <td class="cell-brand cell-brand-<?php echo $row["name"] ?>"><?php echo $row["name"] ?></td>
             <td class="cell-des"><?php echo $row["des"] ?></td>

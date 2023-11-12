@@ -38,7 +38,7 @@
     $q = $_GET['q'];
     require_once("db.php");
 
-    $sql = "SELECT nisha.partnumber ,brand.id AS brnid, brand.name ,
+    $sql = "SELECT qtybank.id AS qtybankID, nisha.partnumber ,brand.id AS brnid, brand.name ,
             qtybank.des , qtybank.qty , qtybank.id , qtybank.pos1 ,
             qtybank.invoice_date, qtybank.pos2 , qtybank.create_time ,
             seller.name AS sln, 
@@ -59,7 +59,7 @@
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
 
-            $id = $row["id"];
+            $qtybankID = $row["qtybankID"];
             $mydes  = $row["des"];
             $brnid  = $row["brnid"];
             $stid  = $row["stid"];
@@ -124,7 +124,7 @@
 
                 <div class="right-form">
 
-                    <input value="<?php echo $id ?>" type="hidden" name="id">
+                    <input value="<?php echo $qtybankID ?>" type="hidden" name="id">
 
                     <label for="qty">تعداد</label>
                     <input value="<?php echo $row["qty"] ?>" min="0" type="number" name="qty" id="qty">
@@ -199,7 +199,7 @@
                 </div>
                 <div class="-bar">
                     <input type="submit" value="ذخیره" id="sabt">
-                    <a data="<?php echo $id ?>" class="del-vorod">حذف</a>
+                    <a data="<?php echo $qtybankID ?>" class="del-vorod"> حذف</a>
                     <div class="error"></div>
                 </div>
 

@@ -1,86 +1,47 @@
- $(document).ready(function () {
-     
-     
-     
-$('#esalat').val($('#esalat').attr("data")).change();
-$('#stock').val($('#stock').attr("data")).change();
-$('#deliverer').val($('#deliverer').attr("data")).change();
- 
-     $(".del-vorod").click(function () {
-          var str = $(this).attr("data");
-        
-         
- 
-         
-          var r =  confirm("حذف شود ؟");
-  if (r == true) {
- 
-      
-      
-      
- 
- 
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                $(".error").text(this.responseText);
-       
-            }
-        };
-        xmlhttp.open("GET", "vorodkala-report-edit-del.php?q=" + str, true);
-        xmlhttp.send();
-    
+$(document).ready(function () {
+  $("#esalat").val($("#esalat").attr("data")).change();
+  $("#stock").val($("#stock").attr("data")).change();
+  $("#deliverer").val($("#deliverer").attr("data")).change();
 
-      
-      
-      
-      
-      
-      
-      
-      
-  } 
-         
-         
-         
-         
-      });
-
-
-
-      var frm = $('#vorod-edit');
-
-      frm.submit(function (e) {
-
-          e.preventDefault();
-
-          $(".bottom-bar").addClass("msg-loading");
-          $("#sabt").prop('disabled', true);
-          $.ajax({
-              type: frm.attr('method'),
-              url: frm.attr('action'),
-              data: frm.serialize(),
-              success: function (data) {
-                  $(".error").text('Submission was successful.');
-                  $(".error").text(data);
-                  $(".bottom-bar").removeClass("msg-loading");
-                  
-                  $("#sabt").prop('disabled', false);
-
-
-
-              },
-              error: function (data) {
-                  $(".error").text('An error occurred.');
-                  $(".error").text(data);
-                  $(".bottom-bar").removeClass("msg-loading");
-                  $("#sabt").prop('disabled', false);
-
-
-              },
-          });
-      });
-
-
-
+  $(".del-vorod").click(function () {
+    var str = $(this).attr("data");
+    var r = confirm("حذف شود ؟");
+    if (r == true) {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          $(".error").text(this.responseText);
+        }
+      };
+      xmlhttp.open("GET", "vorodkala-report-edit-del.php?q=" + str, true);
+      xmlhttp.send();
+    }
   });
+
+  var frm = $("#vorod-edit");
+
+  frm.submit(function (e) {
+    e.preventDefault();
+
+    $(".bottom-bar").addClass("msg-loading");
+    $("#sabt").prop("disabled", true);
+    $.ajax({
+      type: frm.attr("method"),
+      url: frm.attr("action"),
+      data: frm.serialize(),
+      success: function (data) {
+        $(".error").text("Submission was successful.");
+        $(".error").text(data);
+        $(".bottom-bar").removeClass("msg-loading");
+
+        $("#sabt").prop("disabled", false);
+      },
+      error: function (data) {
+        $(".error").text("An error occurred.");
+        $(".error").text(data);
+        $(".bottom-bar").removeClass("msg-loading");
+        $("#sabt").prop("disabled", false);
+      },
+    });
+  });
+});

@@ -40,7 +40,7 @@
     $q = $_GET['q'];
     require_once("db.php");
 
-    $sql = "SELECT nisha.partnumber ,qtybank.des, nisha.id, users.username AS usn,
+    $sql = "SELECT qtybank.id AS qtyid, nisha.partnumber ,qtybank.des, nisha.id, users.username AS usn,
                     seller.name ,seller.id AS slid, stock.name AS stn ,brand.name AS brn,
                     qtybank.qty ,qtybank.id AS qtyid,exitrecord.qty AS extqty,exitrecord.id AS exid,
                     qtybank.qty AS entqty ,exitrecord.customer,exitrecord.des AS exdes,getter.name AS gtn,
@@ -62,7 +62,7 @@
     $result = mysqli_query($con, $sql);
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            $id = $row["exid"];
+            $qtyid = $row["exid"];
             $mydes = $row["exdes"];
             $jamkon = $row["jamkon"];
             $gtid = $row["gtid"];
@@ -147,13 +147,13 @@
 
                 <div class="right-form">
 
-                    <input value="<?php echo $id ?>" type="hidden" name="id">
+                    <input value="<?php echo $qtyid ?>" type="hidden" name="id">
 
                     <label for="qty">تعداد</label>
                     <input value="<?php echo $row["extqty"] ?>" min="0" type="number" name="qty" id="qty">
 
                     <label for="invoice_number">شماره فاکتور</label>
-                    <input value="<?php echo $row["invoice_number"] ?>" onload="checkFactor(this.value)" onkeyup="checkFactor(this.value)"  type="number" name="invoice_number" id="invoice_number">
+                    <input value="<?php echo $row["invoice_number"] ?>" onload="checkFactor(this.value)" onkeyup="checkFactor(this.value)" type="number" name="invoice_number" id="invoice_number">
 
                     <label for="invoice_time">زمان فاکتور</label>
                     <input value="<?php echo $row["invoice_date"] ?>" type="text" name="invoice_time" id="invoice_time">
@@ -176,7 +176,7 @@
                 </div>
                 <div class="-bar">
                     <input type="submit" value="ذخیره" id="sabt">
-                    <a data="<?php echo $id ?>" class="del-vorod">حذف</a>
+                    <a data="<?php echo $qtyid ?>" class="del-vorod">حذف</a>
                     <div class="error"></div>
                 </div>
 
