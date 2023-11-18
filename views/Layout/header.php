@@ -258,7 +258,6 @@ require_once './bootstrap/init.php';
                     <li><a href="mojodikala-report-simple.php">موجودی سبک</a></li>
                 </ul>
             </li>
-            <li><a href="newcode-index.php">کد فنی جدید <i class="far fa-plus-square"></i></a></li>
             <li>
                 <a href="price.php">سامانه قیمت <i class="fas fa-dollar-sign"></i></a>
                 <ul class="under-link">

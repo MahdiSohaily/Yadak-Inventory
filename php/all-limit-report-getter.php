@@ -1,6 +1,4 @@
 <?php
-session_name("MyAppSession");
-session_start();
 require_once("db.php");
 
 $relationALL = $con->prepare("SELECT pattern_id, original, fake FROM shop.good_limit_all WHERE pattern_id IS NOT NULL AND nisha_id IS NULL");
