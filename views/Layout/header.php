@@ -22,6 +22,7 @@ require_once './bootstrap/init.php';
     <script type="text/javascript" src="./js/assets/table2excel.js?v=<?php echo (rand()) ?>"></script>
     <script src="js/font.min.js?v=<?php echo (rand()) ?>"></script>
     <script src="./js/assets/select2.js?v=<?php echo (rand()) ?>"></script>
+    <script src="./public/js"></script>
 
 
     <?php
