@@ -10,6 +10,65 @@
         border-radius: 10px;
     }
 </style>
+
+<style>
+
+    .add-to-basket {
+        padding: 0;
+        margin: 0;
+        width: 100% !important;
+        box-shadow: none;
+    }
+
+    .factor_details {
+        width: 100%;
+        align-self: start;
+        min-height: 300px;
+        background-color: white;
+    }
+
+    .factor_details thead {
+        background-color: #0c637d;
+        color: white;
+        text-align: right;
+    }
+
+    .factor_details tr:nth-child(even) {
+        background-color: #d9edef;
+    }
+
+    .factor_details tbody tr:nth-child(odd) {
+        background-color: #ffffff;
+    }
+
+    .factor_details td,
+    .factor_details th {
+        padding: 10px;
+    }
+
+    #good_amount,
+    #totalCount {
+        width: 80px !important;
+        padding: 0;
+    }
+
+    .good_amount_details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        font-size: 14px !important;
+        font-weight: bold;
+    }
+
+    .fa-trash {
+        color: red !important;
+    }
+
+    .factor_details tbody {
+        min-height: 50px !important;
+    }
+</style>
 <div id="QTY-Page">
     <h1 class="custom-header">انتقال اجناس به انبار جدید</h1>
     <form id="khorojkala" method="post" action="php/khorojkala-save.php" autocomplete="off">
@@ -35,10 +94,10 @@
 
             <label for="des">توضیحات</label>
             <textarea name="des" id="des"></textarea>
-            <div class="add-to-basket">
+            <div id="result_box" class="add-to-basket">
             </div>
             <div class="bottom-bar">
-                <input type="submit" value="ذخیره" id="sabt">
+                <input type="submit" value="ذخیره" id="">
                 <div class="error"></div>
             </div>
         </div>
