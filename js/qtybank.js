@@ -89,7 +89,7 @@ $(document).ready(function () {
     var invoiceNumberInput = document.getElementById("invoice_number");
 
     if (qty !== 0 && qty <= prev_qty) {
-      if (invoiceNumberInput.value !== "")
+      if (invoiceNumberInput && invoiceNumberInput.value !== "")
         document.getElementById("sabt").disabled = false;
 
       const code = $(this).prev().attr("code");
@@ -105,7 +105,9 @@ $(document).ready(function () {
       var xqty = xqty - qty;
 
       let totalCount = document.getElementById("totalCount");
-      totalCount.value = Number(totalCount.value) + Number(qty);
+      if (totalCount) {
+        totalCount.value = Number(totalCount.value) + Number(qty);
+      }
 
       $(this).parent().parent().find(".qtybank-first").text(xqty);
       $("#result_box").append(

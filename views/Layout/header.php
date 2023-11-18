@@ -17,14 +17,10 @@ require_once './bootstrap/init.php';
     <link rel="stylesheet" href="./css/assets/select2.css?v=<?php echo (rand()) ?>" />
     <link rel="stylesheet" href="./public/css/mojodi_kala.css?v=<?php echo (rand()) ?>" />
 
-
     <script src="./js/jquery-1.11.3.min.js?v=<?php echo (rand()) ?>"></script>
     <script type="text/javascript" src="./js/assets/table2excel.js?v=<?php echo (rand()) ?>"></script>
     <script src="js/font.min.js?v=<?php echo (rand()) ?>"></script>
     <script src="./js/assets/select2.js?v=<?php echo (rand()) ?>"></script>
-    <script src="./public/js"></script>
-
-
     <?php
     switch (basename($_SERVER['PHP_SELF'])) {
         case 'price.php':
