@@ -108,7 +108,7 @@ function save_new_entrance($info, $stock, $quantity)
     $statement->bindParam(':is_transfered', $is_transfered);
 
     $statement->execute();
-    log_action('khorojKala', $statement->queryString, $_SESSION['id']);
+    log_action('transfer', $statement->queryString, $_SESSION['id']);
     return PDO_CONNECTION->lastInsertId();
 }
 
@@ -126,6 +126,6 @@ function record_transaction($affected_record, $Bank_id, $exit_id, $prev_qty, $qu
     $statement->bindParam(':quantity', $quantity);
 
     $statement->execute();
-    log_action('khorojKala', $statement->queryString, $_SESSION['id']);
+    log_action('transfer', $statement->queryString, $_SESSION['id']);
     return PDO_CONNECTION->lastInsertId();
 }
