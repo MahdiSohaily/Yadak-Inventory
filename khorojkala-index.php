@@ -1,4 +1,4 @@
-<?php include("header.php") ?>
+<?php require_once("./views/Layout/header.php") ?>
 
 <style>
     #formData * {
@@ -171,7 +171,7 @@
                                 </td>
                                 <td>
                                     <select name="getter" id="getter">
-                                        <?php include("php/getter-form.php") ?>
+                                        <?php require_once("php/getter-form.php") ?>
                                     </select>
                                 </td>
                             </tr>
@@ -283,7 +283,7 @@
                 modifiedData.text += '';
 
                 // You can return modified objects from here
-                // This includes matching the `children` how you want in nested data sets
+                // This require_onces matching the `children` how you want in nested data sets
                 return modifiedData;
             }
 
@@ -293,4 +293,4 @@
     });
 </script>
 
-<?php include("footer.php") ?>
+<?php require_once("./views/Layout/footer.php") ?>

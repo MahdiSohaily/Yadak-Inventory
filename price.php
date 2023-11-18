@@ -1,21 +1,10 @@
-<?php include("header.php") ?>
+<?php require_once("./views/Layout/header.php") ?>
 <div>
     <div class="price-page">
 
-
-
-
-
         <form>
-
-            <input  onkeyup="convertToEnglish(this)" class="input-value" type="text" placeholder="کد فنی قطعه را وارد کنید ..." onkeyup="showPrice(this.value),showAnbar(this.value)">
-
-
-
+            <input onkeyup="convertToEnglish(this)" class="input-value" type="text" placeholder="کد فنی قطعه را وارد کنید ..." onkeyup="showPrice(this.value),showAnbar(this.value)">
             <div class="price-table">
-
-
-
                 <table>
                     <tr>
                         <th class="first-th">شماره فنی</th>
@@ -40,10 +29,7 @@
                 </table>
                 <table id="price-txtHint">
 
-
-
                 </table>
-
 
                 <table id="anbarHint-head">
                     <tr>
@@ -58,36 +44,15 @@
                         <th>راهرو</th>
 
                         <th>قفسه</th>
-
-
                     </tr>
 
                 </table>
 
-
                 <table id="anbarHint">
 
-
-
                 </table>
-
-
-
-
             </div>
-
-
         </form>
-
-
-
-
-
-
-
-
-
-
     </div>
 </div>
-<?php include("footer.php") ?>
+<?php require_once("./views/Layout/footer.php") ?>

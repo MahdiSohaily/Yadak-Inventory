@@ -1,4 +1,4 @@
-<?php include("header.php") ?>
+<?php require_once("./views/Layout/header.php") ?>
 <style>
     .custom-header {
         font-size: 20px;
@@ -14,17 +14,17 @@
     <h1 class="custom-header">انتقال اجناس به انبار جدید</h1>
     <form id="khorojkala" method="post" action="php/khorojkala-save.php" autocomplete="off">
         <div class="left-form">
-            <?php include("php/qtybank.php") ?>
+            <?php require_once("php/qtybank.php") ?>
         </div>
         <div class="right-form">
             <input type="hidden" name="action" value="move">
             <label class="" for="getter">تحویل گیرنده</label>
             <select class="" name="getter" id="getter">
-                <?php include("php/getter-form.php") ?>
+                <?php require_once("php/getter-form.php") ?>
             </select>
             <label for="stock">انبار مقصد</label>
-            <select name="stock" id="stock"> 
-                <?php include("php/stock-form.php") ?>
+            <select name="stock" id="stock">
+                <?php require_once("php/stock-form.php") ?>
             </select>
 
             <label for="invoice_time">زمان فاکتور</label>
@@ -45,4 +45,4 @@
     </form>
 </div>
 
-<?php include("footer.php") ?>
+<?php require_once("./views/Layout/footer.php") ?>

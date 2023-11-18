@@ -1,4 +1,4 @@
-<?php include("header.php") ?>
+<?php require_once("./views/Layout/header.php") ?>
 
 
 <div id="Enter-Page">
@@ -34,4 +34,4 @@
 </div>
 
 
-<?php include("footer.php") ?>
+<?php require_once("./views/Layout/footer.php") ?>

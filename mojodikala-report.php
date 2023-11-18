@@ -1,4 +1,4 @@
-﻿<?php include("header.php") ?>
+﻿<?php require_once("./views/Layout/header.php") ?>
 <div>
     <div>
         <div class="search_container">
@@ -21,9 +21,9 @@
             </thead>
             <tbody id="mojodiResult" class="mojodi-table">
                 <script src="./public/js/mojodi_kala.js?v=<?= rand() ?>"></script>
-                <?php include_once './php/mojodikala-report-geter.php'; ?>
+                <?php require_once './php/mojodikala-report-geter.php'; ?>
             </tbody>
         </table>
     </div>
 </div>
-<?php include("footer.php") ?>
+<?php require_once("./views/Layout/footer.php") ?>

@@ -1,5 +1,4 @@
-<?php  require_once("header.php") ?>
-
+<?php require_once("./views/Layout/header.php") ?>
 
 <div>
     <div>
@@ -33,8 +32,8 @@
                 <th>ورود به انبار</th>
                 <th>انبار</th>
                 <th>کاربر</th>
-                <?php if(userRoll() < 3){ ?>
-                <th>قیمت</th>
+                <?php if (userRoll() < 3) { ?>
+                    <th>قیمت</th>
 
                 <?php } ?>
 
@@ -60,5 +59,4 @@
 
 </div>
 
-
-<?php include("footer.php") ?>
+<?php require_once("./views/Layout/footer.php") ?>

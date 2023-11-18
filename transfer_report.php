@@ -1,5 +1,5 @@
 <?php
-require_once("header.php");
+require_once("./views/Layout/header.php");
 require_once './transfer_factor.php';
 if (isset($_GET['interval'])) {
     $interval = $_GET['interval'];
@@ -224,4 +224,4 @@ if (isset($_GET['interval'])) {
 <script src="./public/js/transform_page.js?v=<?= rand() ?>"></script>
 
 
-<?php include("footer.php") ?>
+<?php require_once("./views/Layout/footer.php") ?>

@@ -1,6 +1,6 @@
 <?php
-require_once("header.php");
-include("php/seller-form.php");
+require_once("./views/Layout/header.php");
+require_once("php/seller-form.php");
 
 if (isset($_GET['interval'])) {
     $interval = $_GET['interval'];
@@ -39,7 +39,7 @@ if (isset($_GET['interval'])) {
         <div class="div3">
             <select name="brand" id="brand">
                 <option selected="true" disabled="disabled">انتخاب برند جنس</option>
-                <?php include("php/brand-form.php") ?>
+                <?php require_once("php/brand-form.php") ?>
             </select>
         </div>
 
@@ -54,19 +54,19 @@ if (isset($_GET['interval'])) {
         <div class="div6">
             <select name="stock" id="stock">
                 <option selected="true" disabled="disabled">انتخاب انبار</option>
-                <?php include("php/stock-form.php") ?>
+                <?php require_once("php/stock-form.php") ?>
             </select>
         </div>
 
         <div class="div7">
             <select name="user" id="user">
                 <option selected="true" disabled="disabled">انتخاب کاربر</option>
-                <?php include("php/user-form.php") ?>
+                <?php require_once("php/user-form.php") ?>
             </select>
         </div>
 
         <div class="div8">
-            <input type="number"  onkeyup="convertToEnglish(this)" name="invoice_number" id="invoice_number" placeholder="شماره فاکتور">
+            <input type="number" onkeyup="convertToEnglish(this)" name="invoice_number" id="invoice_number" placeholder="شماره فاکتور">
         </div>
 
         <div class="div9">
@@ -118,7 +118,7 @@ if (isset($_GET['interval'])) {
             </tr>
         </thead>
         <tbody id="resultBox">
-            <?php include("php/vorodkala-report-geter.php") ?>
+            <?php require_once("php/vorodkala-report-geter.php") ?>
         </tbody>
     </table>
 </div>
@@ -321,4 +321,4 @@ if (isset($_GET['interval'])) {
 </script>
 
 
-<?php include("footer.php") ?>
+<?php require_once("./views/Layout/footer.php") ?>
