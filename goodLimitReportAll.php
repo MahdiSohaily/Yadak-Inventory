@@ -1,6 +1,6 @@
 <?php
-include("header.php");
-include './php/all-limit-report-getter.php';
+require_once("./views/Layout/header.php");
+require_once './php/all-limit-report-getter.php';
 ?>
 <style>
     .wrapper {
@@ -208,4 +208,4 @@ include './php/all-limit-report-getter.php';
 
 </div>
 
-<?php include("footer.php") ?>
+<?php require_once("./views/Layout/footer.php") ?>

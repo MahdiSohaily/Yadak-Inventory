@@ -1,5 +1,5 @@
 <?php
-include("header.php");
+include("./views/Layout/header.php");
 include './php/limit-report-getter.php';
 ?>
 <style>
@@ -211,4 +211,4 @@ include './php/limit-report-getter.php';
 
 </div>
 
-<?php include("footer.php") ?>
+<?php include("./views/Layout/footer.php") ?>

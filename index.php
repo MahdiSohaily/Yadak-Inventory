@@ -94,4 +94,4 @@ $dateTime = jdate('Y-m-d') ?>
     }
 </style>
 
-<?php include("footer.php") ?>
+<?php include("./views/Layout/footer.php") ?>

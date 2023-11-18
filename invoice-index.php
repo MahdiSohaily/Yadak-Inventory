@@ -1,16 +1,6 @@
-<?php include("header.php") ?>
-
+<?php require_once("./views/Layout/header.php") ?>
 
 <div id="Invoice-Page">
-
-
-
-
-
-
-
-
-
     <div class="side A-side">
         <label for="customer-inv-select">انتخاب مشتری</label>
         <input type="text" name="customer-inv-select" id="customer-inv-select" onkeyup="selectCustomer(this.value)">
@@ -26,7 +16,6 @@
         <input type="text" name="qty-inv-select" id="qty-inv-select" onkeyup="selectInvQty(this.value)">
         <div class="hint" id="qty-inv-hint">...</div>
     </div>
-
 
     <div class="output-inv">
 
@@ -60,5 +49,4 @@
 
 </div>
 
-
-<?php include("footer.php") ?>
+<?php require_once("./views/Layout/footer.php") ?>

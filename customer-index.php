@@ -73,5 +73,4 @@
 
 </div>
 
-
-<?php include("footer.php") ?>
+<?php include("./views/Layout/footer.php") ?>
