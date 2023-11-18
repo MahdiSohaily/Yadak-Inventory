@@ -89,7 +89,7 @@ if ($stmt->rowCount() > 0) {
 
         <?php
         if ($invoice_number == 0000) {
- 
+
             $invoice_number = $row["invoice_number"];
         }
 
@@ -137,7 +137,6 @@ if ($stmt->rowCount() > 0) {
             <td class="tik-anb-<?php echo $row["anbarenter"] ?>"></td>
             <td class="cell-stock "><?php echo $row["stn"] ?></td>
             <td class="cell-user "><?php echo $row["un"] ?></td>
-
             <?php
             if ($_SESSION["roll"] < 3) { ?>
                 <td class="cell-price "><?php echo (echoRial($row["nprice"], $row["name"])); ?></td>

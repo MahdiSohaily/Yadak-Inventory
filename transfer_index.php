@@ -12,7 +12,6 @@
 </style>
 
 <style>
-
     .add-to-basket {
         padding: 0;
         margin: 0;
@@ -59,6 +58,7 @@
         gap: 15px;
         font-size: 14px !important;
         font-weight: bold;
+        color: black;
     }
 
     .fa-trash {
@@ -94,10 +94,36 @@
 
             <label for="des">توضیحات</label>
             <textarea name="des" id="des"></textarea>
-            <div id="result_box" class="add-to-basket">
+            <div class="add-to-basket">
+                <table class="factor_details">
+                    <thead>
+                        <tr>
+                            <th>مشخصات</th>
+                            <th style="text-align:left">
+                                <i class="fas fa-cog"></i>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="result_box">
+                    </tbody>
+                    <tfoot>
+                        <tr id="error_message">
+                            <td colspan="2">
+                                <p>تعداد درج شده بعضی از اجناس درست نمی باشد</p>
+                            </td>
+                        </tr>
+                        <tr style="background-color: #0c637d; color:white">
+                            <td colspan="2" style=" width:100% !important">
+                                <span> مجموع اقلام
+                                </span>
+                                <input type="number" name="total" id="totalCount" readonly>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
             <div class="bottom-bar">
-                <input type="submit" value="ذخیره" id="">
+                <input type="submit" value="ذخیره" id="sabt">
                 <div class="error"></div>
             </div>
         </div>
