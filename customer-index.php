@@ -1,5 +1,4 @@
-<?php include("header.php") ?>
-
+<?php include("./views/Layout/header.php") ?>
 
 <div id="Customer-Page">
     <div class="right-side">

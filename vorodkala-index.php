@@ -1,4 +1,4 @@
-<?php include("header.php");
+<?php include("./views/Layout/header.php");
 ?>
 
 
@@ -358,12 +358,5 @@
         });
     });
 </script>
-
-
-
-
-
 </div>
-
-
 <?php include("footer.php") ?>
