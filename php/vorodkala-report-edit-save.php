@@ -42,6 +42,7 @@ if (!$result) {
     die();
 } else {
     echo "ویرایش موفقانه صورت گرفت";
+    echo $con->affected_rows;
 }
 
 mysqli_close($con);

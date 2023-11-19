@@ -61,7 +61,7 @@ if (mysqli_num_rows($result) > 0) {
                 <td colspan="20" class="left_right" style="background-color: aquamarine !important;
                                         font-weight: bold; font-size: 18px;
                                         margin-right: 10% !important;">
-                    جمع اقلام : <?php echo $jameitem;
+                    جمع اقلام : <?= $jameitem;
                                 $jameitem = 0; ?>
                 </td>
             </tr>
@@ -76,27 +76,24 @@ if (mysqli_num_rows($result) > 0) {
         $jameitem = $jameitem + $row["qty"];
         ?>
         <tr class="left_right <?= $shakhes == 1 ? 'border_top' : ''; ?>">
-            <td class="cell-shakhes"><?php echo $row['qtyidsss'] ?></td>
-            <td class="cell-code"><?php echo '&nbsp;' . strtoupper($row["partnumber"]) ?></td>
-            <td class="cell-brand cell-brand-<?php echo $row["name"] ?>"><?php echo $row["name"] ?></td>
-            <td class="cell-des"><?php echo $row["des"] ?></td>
-            <td class="cell-qty"><?php echo $row["qty"] ?></td>
-            <td class="cell-pos1"><?php echo $row["pos1"] ?></td>
-            <td class="cell-pos2"><?php echo $row["pos2"] ?></td>
-            <td class="cell-seller cell-seller-<?php echo $row["slid"] ?>"><?php echo $row["sln"] ?></td>
-            <td class="cell-time"><?php echo $jalali_time ?></td>
-            <td class="cell-date"><?php echo $jalali_date ?></td>
-            <td class="cell-dlname"><?php echo $row["dn"] ?></td>
-            <td class="tik-inv-<?php echo $row["invoice"] ?>"></td>
-            <td><?php echo $row["invoice_number"] ?></td>
-            <td class="cell-date"><?php echo substr($row["invoice_date"], 5) ?></td>
-            <td class="tik-anb-<?php echo $row["anbarenter"] ?>"></td>
-            <td class="cell-stock"><?php echo $row["stn"] ?></td>
-            <td class="cell-user"><?php echo $row["un"] ?></td>
-            <?php if ($_SESSION["roll"] < 3) { ?>
-                <td class="cell-price"><?php echo (echoRial($row["nprice"], $row["name"])); ?></td>
-            <?php } ?>
-            <td><a onclick="displayModal(this)" id="<?php echo $row["id"] ?>" class="edit-rec2">ویرایش</a></td>
+            <td class="cell-shakhes"><?= $shakhes ?></td>
+            <td class="cell-code"><?= '&nbsp;' . strtoupper($row["partnumber"]) ?></td>
+            <td class="cell-brand cell-brand-<?= $row["name"] ?>"><?= $row["name"] ?></td>
+            <td class="cell-des"><?= $row["des"] ?></td>
+            <td class="cell-qty"><?= $row["qty"] ?></td>
+            <td class="cell-pos1"><?= $row["pos1"] ?></td>
+            <td class="cell-pos2"><?= $row["pos2"] ?></td>
+            <td class="cell-seller cell-seller-<?= $row["slid"] ?>"><?= $row["sln"] ?></td>
+            <td class="cell-time"><?= $jalali_time ?></td>
+            <td class="cell-date"><?= $jalali_date ?></td>
+            <td class="cell-dlname"><?= $row["dn"] ?></td>
+            <td class="tik-inv-<?= $row["invoice"] ?>"></td>
+            <td><?= $row["invoice_number"] ?></td>
+            <td class="cell-date"><?= substr($row["invoice_date"], 5) ?></td>
+            <td class="tik-anb-<?= $row["anbarenter"] ?>"></td>
+            <td class="cell-stock"><?= $row["stn"] ?></td>
+            <td class="cell-user"><?= $row["un"] ?></td>
+            <td><a onclick="displayModal(this)" id="<?= $row["id"] ?>" class="edit-rec2">ویرایش</a></td>
         </tr>
         <?php
         if (mysqli_num_rows($result) == $counter) :
@@ -105,7 +102,7 @@ if (mysqli_num_rows($result) > 0) {
                 <td colspan="20" class="left_right" style="background-color: aquamarine !important;
                                         font-weight: bold; font-size: 18px;
                                         margin-right: 10% !important;">
-                    جمع اقلام : <?php echo $jameitem;
+                    جمع اقلام : <?= $jameitem;
                                 $jameitem = 0; ?>
                 </td>
             </tr>

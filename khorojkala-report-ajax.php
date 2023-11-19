@@ -2,7 +2,6 @@
 require_once("./php/db.php");
 date_default_timezone_set('Asia/Tehran');
 
-
 $partNumber = $_POST['partNumber'] === 'null' ? null : $_POST['partNumber']; // Assuming you're retrieving the value from a form
 $seller_id = $_POST['seller'] === 'null' ? null : $_POST['seller'];
 $brand_id = $_POST['brand'] === 'null' ? null : $_POST['brand'];
@@ -63,9 +62,9 @@ global $shakhes;
 $shakhes = 1;
 $counter = 1;
 
-if ($stmt->rowCount() > 0) {
+if ($stmt->rowCount() > 0) :
 
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) :
 
         $date = $row["exit_time"];
 
@@ -73,24 +72,24 @@ if ($stmt->rowCount() > 0) {
         list($year, $month, $day) = explode('-', $array[0]);
         list($hour, $minute, $second) = explode(':', $array[1]);
         $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
-
         $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
         $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
 
-        if ($invoice_number == 0000) {
+        if ($invoice_number == 0000) :
             $invoice_number = $row["invoice_number"];
-        }
+        endif;
 
-        if ($invoice_number != $row["invoice_number"]) {
+        if ($invoice_number != $row["invoice_number"]) :
             $invoice_number = $row["invoice_number"];
-            $shakhes = 1;
-?>
+            $shakhes = 1; ?>
+
             <tr class="bill_section" style="border-bottom: 2px solid gray;">
                 <td colspan="20" class="left_right" style="background-color: aquamarine !important;
                                         font-weight: bold; font-size: 18px;
                                         margin-right: 10% !important;">
-                    جمع اقلام : <?php echo $jameitem;
-                                $jameitem = 0; ?>
+                    جمع اقلام : <?= $jameitem;
+                                $jameitem = 0;
+                                ?>
                 </td>
             </tr>
             <tr style="background-color: white !important;">
@@ -101,44 +100,42 @@ if ($stmt->rowCount() > 0) {
             </tr>
 
         <?php
-        }
+        endif;
         $jameitem = $jameitem + $row["extqty"];
-
 
         ?>
         <tr class="left_right <?= $shakhes == 1 ? 'border_top' : ''; ?>">
-            <td class="cell-shakhes "><?php echo $shakhes ?></td>
-            <td class="cell-code "><?php echo '&nbsp;' . strtoupper($row["partnumber"]) ?></td>
-            <td class="cell-brand cell-brand-<?php echo $row["brn"] ?> "><?php echo $row["brn"] ?></td>
-            <td class="cell-des "><?php echo $row["des"] ?></td>
-            <td class="cell-des "><?php echo $row["exdes"] ?></td>
-            <td class="cell-qty "><?php echo $row["extqty"] ?></td>
-            <td class="cell-seller cell-seller-<?php echo $row["slid"] ?>"><?php echo $row["name"] ?></td>
-            <td class="cell-customer "><?php echo $row["customer"] ?></td>
-            <td class="cell-gtname "><?php echo $row["gtn"] ?></td>
-            <td class="cell-gtname "><?php echo $row["jamkon"] ?></td>
-            <td class="cell-time "><?php echo $jalali_time ?></td>
-            <td class="cell-date "><?php echo $jalali_date ?></td>
+            <td class="cell-shakhes "><?= $shakhes ?></td>
+            <td class="cell-code "><?= '&nbsp;' . strtoupper($row["partnumber"]) ?></td>
+            <td class="cell-brand cell-brand-<?= $row["brn"] ?> "><?= $row["brn"] ?></td>
+            <td class="cell-des "><?= $row["des"] ?></td>
+            <td class="cell-des "><?= $row["exdes"] ?></td>
+            <td class="cell-qty "><?= $row["extqty"] ?></td>
+            <td class="cell-seller cell-seller-<?= $row["slid"] ?>"><?= $row["name"] ?></td>
+            <td class="cell-customer "><?= $row["customer"] ?></td>
+            <td class="cell-gtname "><?= $row["gtn"] ?></td>
+            <td class="cell-gtname "><?= $row["jamkon"] ?></td>
+            <td class="cell-time "><?= $jalali_time ?></td>
+            <td class="cell-date "><?= $jalali_date ?></td>
             <td <?php if (empty($row["invoice_number"])) {
                     echo 'class="no-invoice-number"';
-                } ?>><?php echo $row["invoice_number"] ?></td>
-            <td class="cell-date "><?php echo substr($row["invoice_date"], 5) ?></td>
+                } ?>><?= $row["invoice_number"] ?></td>
+            <td class="cell-date "><?= substr($row["invoice_date"], 5) ?></td>
 
-            <td class="tik-anb-<?php echo $row["anbarenter"] ?>"></td>
+            <td class="tik-anb-<?= $row["anbarenter"] ?>"></td>
             <td></td>
             <td></td>
-            <td class="cell-stock "><?php echo $row["stn"] ?></td>
-            <td class="cell-user "><?php echo $row["usn"] ?></td>
-            <td><a onclick="displayModal(this)" id="<?php echo $row["exid"] ?>" class="edit-rec2">ویرایش</a></td>
+            <td class="cell-stock "><?= $row["stn"] ?></td>
+            <td class="cell-user "><?= $row["usn"] ?></td>
+            <td><a onclick="displayModal(this)" id="<?= $row["exid"] ?>" class="edit-rec2">ویرایش</a></td>
         </tr>
         <?php
-        if ($stmt->rowCount() == $counter) :
-        ?>
+        if ($stmt->rowCount() == $counter) : ?>
             <tr class="bill_section" style="border-bottom: 2px solid gray;">
                 <td colspan="20" class="left_right" style="background-color: aquamarine !important;
                                         font-weight: bold; font-size: 18px;
                                         margin-right: 10% !important;">
-                    جمع اقلام : <?php echo $jameitem;
+                    جمع اقلام : <?= $jameitem;
                                 $jameitem = 0; ?>
                 </td>
             </tr>
@@ -152,7 +149,7 @@ if ($stmt->rowCount() > 0) {
         endif;
         $shakhes++;
         $counter++;
-    } // end while
-} else {
+    endwhile; // end while
+else :
     echo '<tr><td colspan="18">متاسفانه نتیجه ای یافت نشد</td></tr>';
-}
+endif;

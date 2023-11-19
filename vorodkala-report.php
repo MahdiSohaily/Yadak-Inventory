@@ -109,11 +109,6 @@ if (isset($_GET['interval'])) {
                 <th>ورود به انبار</th>
                 <th>انبار</th>
                 <th>کاربر</th>
-                <?php if ($_SESSION["roll"] < 3) { ?>
-                    <th>قیمت</th>
-
-                <?php } ?>
-
                 <th>عملیات</th>
             </tr>
         </thead>
