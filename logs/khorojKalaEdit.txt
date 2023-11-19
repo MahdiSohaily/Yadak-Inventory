@@ -1,0 +1,1 @@
+[2023-11-11 13:45:25] Action: UPDATE exitrecord SET getter='2',jamkon='',qty='1',des='',invoice_date='1402/08/16',customer='تعمیرگاه فوق تخصصی سعادت',invoice_number='49219' WHERE id = '16990', User:5
