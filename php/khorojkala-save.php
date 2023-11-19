@@ -114,8 +114,8 @@ function save_new_entrance($info, $stock, $quantity)
 
 function record_transaction($affected_record, $Bank_id, $exit_id, $prev_qty, $quantity, $stock)
 {
-    $statement = PDO_CONNECTION->prepare("INSERT INTO transfer_record (affected_record, qtybanck_id , exit_id, stock, user_id, prev_quantity,quantity)
-    VALUES (:affected_record, :qtybanck_id, :exit_id, :stock, :user_id,:prev_quantity ,:quantity)");
+    $statement = PDO_CONNECTION->prepare("INSERT INTO transfer_record (affected_record, qtybanck_id , exit_id, stock, user_id, prev_quantity, quantity)
+    VALUES (:affected_record, :qtybanck_id, :exit_id, :stock, :user_id, :prev_quantity, :quantity)");
 
     $statement->bindParam(':affected_record', $affected_record);
     $statement->bindParam(':qtybanck_id', $Bank_id);
@@ -125,7 +125,24 @@ function record_transaction($affected_record, $Bank_id, $exit_id, $prev_qty, $qu
     $statement->bindParam(':prev_quantity', $prev_qty);
     $statement->bindParam(':quantity', $quantity);
 
+    // Execute the statement
     $statement->execute();
-    log_action('transfer', $statement->queryString, $_SESSION['id']);
+
+    // Build the query string manually for debugging
+    $bindings = [
+        ':affected_record' => $affected_record,
+        ':qtybanck_id' => $Bank_id,
+        ':exit_id' => $exit_id,
+        ':stock' => $stock,
+        ':user_id' => $_SESSION["id"],
+        ':prev_quantity' => $prev_qty,
+        ':quantity' => $quantity,
+    ];
+
+    $queryString = strtr($statement->queryString, $bindings);
+
+    // Log the action with the query string
+    log_action('transfer', $queryString, $_SESSION['id']);
+
     return PDO_CONNECTION->lastInsertId();
 }
