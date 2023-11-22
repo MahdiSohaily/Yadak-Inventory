@@ -83,11 +83,6 @@ if ($stmt->rowCount() > 0) {
 
         $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
         $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
-
-?>
-
-
-        <?php
         if ($invoice_number == 0000) {
 
             $invoice_number = $row["invoice_number"];
@@ -97,7 +92,7 @@ if ($stmt->rowCount() > 0) {
         if ($invoice_number != $row["invoice_number"]) {
             $invoice_number = $row["invoice_number"];
             $shakhes = 1;
-        ?>
+?>
 
 
             <tr class="bill_section" style="border-bottom: 2px solid gray;">
