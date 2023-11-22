@@ -27,6 +27,7 @@ LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
 LEFT JOIN users ON qtybank.user=users.id
 LEFT JOIN stock ON qtybank.stock_id=stock.id 
 $condition
+AND qtybank.is_transfered = 0
 ORDER BY qtybank.create_time DESC";
 
 global $jameitem;
