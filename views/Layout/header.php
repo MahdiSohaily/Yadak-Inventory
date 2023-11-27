@@ -237,6 +237,7 @@ require_once './bootstrap/init.php';
             padding: 10px;
             background-color: rgb(229 229 229);
             box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+            z-index: 1000000;
         }
 
         ul#main_menu {
@@ -248,33 +249,44 @@ require_once './bootstrap/init.php';
             position: relative;
         }
 
-        .drop_down_menu {
+        .drop_down_menu,
+        .drop_down_menu_aside {
             position: absolute;
-            top: 100%;
-            background-color: rgb(79 70 209);
             display: none;
+            z-index: 10000000000000000000000000000 !important;
+        }
+
+        .drop_down_menu {
+            top: 100%;
             width: 200px;
-            border: 2px solid rgb(79 70 229);
-            z-index: 1000000000000000 !important;
+            background-color: rgb(124 58 237);
+            border: 1px solid rgb(124 58 237);
+        }
+
+        .drop_down_menu_aside {
+            width: 100%;
+            top: 0%;
+            right: 100%;
+            border: 1px solid rgb(139 92 246);
+            background-color: rgb(139 92 246);
         }
 
         .menu_item_dropdown {
             display: block;
             text-decoration: none;
             color: #fff;
-            padding: 10px;
+            padding: 15px 30px;
             transition: all 0.3s ease;
             font-size: 14px;
         }
-
-
 
         .menu_item_dropdown:hover {
             background-color: rgb(109 40 217);
             color: white;
         }
 
-        .dropdown:hover>.drop_down_menu {
+        .dropdown:hover>.drop_down_menu,
+        .dropdown:hover>.drop_down_menu_aside {
             display: block;
         }
 
@@ -287,7 +299,7 @@ require_once './bootstrap/init.php';
             margin-left: -8px;
             border-width: 8px;
             border-style: solid;
-            border-color: transparent transparent rgb(79 70 229) transparent;
+            border-color: transparent transparent rgb(124 58 237) transparent;
         }
 
         .open_menu,
@@ -301,7 +313,7 @@ require_once './bootstrap/init.php';
             text-decoration: none;
             color: white;
             display: inline-block;
-            background-color: rgb(79 70 229);
+            background-color: rgb(124 58 237);
             padding: 10px;
             margin: 5px;
             border-radius: 5px;
@@ -320,10 +332,9 @@ require_once './bootstrap/init.php';
             width: 300px;
             z-index: 1000;
             height: 100vh;
-            padding-block: 30px;
+            padding-block: 20px;
             background-color: rgb(229 229 229);
             transition: all 0.5s ease-in-out;
-            overflow: hidden;
             box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
         }
 
@@ -333,13 +344,21 @@ require_once './bootstrap/init.php';
 
         .aside_item {
             text-decoration: none;
-            padding: 10px 20px;
-            display: inline-block;
-            color: #333
+            padding: 15px 30px;
+            display: block;
+            color: #333;
+        }
+
+        .aside_item:hover {
+            background-color: rgb(139 92 246);
+            color: white;
         }
 
         .close_menu {
             color: red;
+            text-decoration: none;
+            padding: 15px 30px;
+            display: block;
         }
 
         .userImage {
@@ -363,17 +382,17 @@ require_once './bootstrap/init.php';
     </style>
 </head>
 
-<body>
+<body style="padding-block: 80px">
     <nav id="main_nav">
         <ul id="main_menu" style="display:flex;">
             <li>
                 <i class="fas fa-bars open_menu" onclick="toggleSidebar()"></i>
             </li>
             <li><a class="menu_item" href="vorodkala-index.php">
-                    <i class="fa fa-archive" aria-hidden="true"></i>
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
                     ورود کالا </a></li>
             <li><a class="menu_item" href="khorojkala-index.php">
-                    <i class="fa fa-archive" aria-hidden="true"></i>
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
                     خروج کالا
                 </a></li>
             <li class="dropdown">
@@ -435,14 +454,59 @@ require_once './bootstrap/init.php';
             <li><a class="menu_item" target="_blank" href="../callcenter/">
                     <i class="fa fa-phone" aria-hidden="true"></i>
                     مرکز تماس
-                </a></li>
+                </a>
+            </li>
+        </ul>
+        <div class="profile_action">
+            <i class="fa fa-desktop tv_control" aria-hidden="true"></i>
+            <?php
+            $profile = '../userimg/default.png';
+            if (file_exists("../userimg/" . $_SESSION['id'] . ".jpg")) {
+                $profile = "../userimg/" . $_SESSION['id'] . ".jpg";
+            }
+            ?>
+            <img class="userImage mx-2" src="<?= $profile ?>" title="<?= $_SESSION['username'] ?>" alt="userimage">
+            <!-- <a id="active" class="hidden" href="./report/notification.php">
+                <i class="fa fa-bell" aria-hidden="true"></i>
+            </a>
+            <a id="deactive" class="" href="./report/notification.php">
+                <i class="fa fa-bell" aria-hidden="true"></i>
+            </a> -->
+        </div>
+    </nav>
+    <aside id="side_bar">
+        <ul>
+            <li style="display: flex; justify-content: end;">
+                <i class="fa fa-times close_menu" aria-hidden="true" onclick="toggleSidebar()"></i>
+            </li>
+            <li><a class="aside_item" href="file-index.php">
+                    <i class="fa fa-user-secret" aria-hidden="true"></i>
+                    مدیریت فایل </a></li>
+            <li><a class="aside_item" href="shomaresh-index.php">
+                    <i class="fa fa-building" aria-hidden="true"></i>
+                    انبارگردانی</a>
+            </li>
             <li class="dropdown">
-                <a class="menu_item" href="./transfer_index.php">
-                    <i class="fa fa-truck" aria-hidden="true"></i>
-                    انتقال به انبار
+                <a class="aside_item" href="price.php" style="display: flex; justify-content: space-between;">
+                    <span>
+                        <i class="fa fa-cube" aria-hidden="true"></i>
+                        سامانه قیمت
+                    </span>
                     <i class="fa fa-caret-left" aria-hidden="true"></i>
                 </a>
-                <ul class="drop_down_menu">
+                <ul class="drop_down_menu_aside">
+                    <li><a class="menu_item_dropdown" target="_blank" href="https://yadakinfo.com/projects/price/">قیمت موبیز</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="aside_item" href="./transfer_index.php" style="display: flex; justify-content: space-between;">
+                    <span>
+                        <i class="fa fa-truck" aria-hidden="true"></i>
+                        انتقال به انبار
+                    </span>
+                    <i class="fa fa-caret-left" aria-hidden="true"></i>
+                </a>
+                <ul class="drop_down_menu_aside">
                     <li><a class="menu_item_dropdown" href="transfer_report.php">
                             <i class="fa fa-list-alt" aria-hidden="true"></i>
                             گزارش انتقالات</a>
@@ -458,42 +522,10 @@ require_once './bootstrap/init.php';
                 </ul>
             </li>
         </ul>
-        <div class="profile_action">
-            <i class="fa fa-desktop tv_control" aria-hidden="true"></i>
-            <?php
-            $profile = '../userimg/default.png';
-            if (file_exists("../userimg/" . $_SESSION['id'] . ".jpg")) {
-                $profile = "../userimg/" . $_SESSION['id'] . ".jpg";
-            }
-            ?>
-            <img class="userImage mx-2" src="<?= $profile ?>" alt="userimage">
-            <!-- <a id="active" class="hidden" href="./report/notification.php">
-                <i class="fa fa-bell" aria-hidden="true"></i>
-            </a>
-            <a id="deactive" class="" href="./report/notification.php">
-                <i class="fa fa-bell" aria-hidden="true"></i>
-            </a> -->
-        </div>
-    </nav>
-    <aside id="side_bar" class="open">
-        <ul>
-            <li>
-                <i class="fa fa-times aside_item close_menu" aria-hidden="true" onclick="toggleSidebar()"></i>
-            </li>
-            <li><a class="aside_item" href="file-index.php">مدیریت فایل </a></li>
-            <li><a class="aside_item" href="shomaresh-index.php">انبارگردانی</a></li>
-            <li>
-                <a class="aside_item" href="price.php">سامانه قیمت <i class="fas fa-dollar-sign"></i></a>
-                <ul class="drop_down_menu">
-                    <li><a class="aside_item" target="_blank" href="https://yadakinfo.com/projects/price/">قیمت موبیز</a></li>
-                </ul>
-            </li>
-        </ul>
     </aside>
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('side_bar');
-
             sidebar.classList.toggle('open');
         }
     </script>
