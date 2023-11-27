@@ -16,11 +16,11 @@ require_once './bootstrap/init.php';
     <link rel="stylesheet" href="./css/exit_record/exit.css?v=<?php echo rand() ?>" type="text/css" media="all" />
     <link rel="stylesheet" href="./css/assets/select2.css?v=<?php echo (rand()) ?>" />
     <link rel="stylesheet" href="./public/css/mojodi_kala.css?v=<?php echo (rand()) ?>" />
-
     <script src="./js/jquery-1.11.3.min.js?v=<?php echo (rand()) ?>"></script>
     <script type="text/javascript" src="./js/assets/table2excel.js?v=<?php echo (rand()) ?>"></script>
     <script src="js/font.min.js?v=<?php echo (rand()) ?>"></script>
     <script src="./js/assets/select2.js?v=<?php echo (rand()) ?>"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <?php
     switch (basename($_SERVER['PHP_SELF'])) {
         case 'price.php':
@@ -225,74 +225,93 @@ require_once './bootstrap/init.php';
             customInput.value = customText;
         }
     </script>
+    <style>
+        nav#main_nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: rgb(229 229 229);
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+        }
+
+        ul#main_menu {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .menu_item {
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+            background-color: rgb(79 70 229);
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .drop_down_menu {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="page_header" style="position: fixed; z-index:100" class="top-bar">
-        <div class="link">
-            <li><a href="vorodkala-index.php">ورود کالا <i class="fas fa-arrow-circle-right"></i></a></li>
-            <li><a href="khorojkala-index.php">خروج کالا <i class="fas fa-arrow-circle-left"></i></a></li>
-            <li><a href="shomaresh-index.php">انبارگردانی <i class="fas fa-expand-arrows-alt"></i></a></li>
+    <nav id="main_nav">
+        <ul id="main_menu" style="display:flex;">
+            <li><i class="material-icons">apps</i></li>
+            <li><a class="menu_item" href="vorodkala-index.php">ورود کالا </a></li>
+            <li><a class="menu_item" href="khorojkala-index.php">خروج کالا </a></li>
+            <li><a class="menu_item" href="shomaresh-index.php">انبارگردانی</a></li>
             <li>
-                <a href="vorodkala-report.php">گزارش ورود <i class="far fa-caret-square-right"></i></a>
-                <ul class="under-link">
-                    <li><a href="vorodkala-report.php?interval=10">10 روز اخیر</a></li>
-                    <li><a href="vorodkala-report.php?interval=30">30 روز اخیر</a></li>
-                    <li><a href="vorodkala-report.php?interval=60">60 روز اخیر</a></li>
-                    <li><a href="vorodkala-report.php?interval=120">120 روز اخیر</a></li>
+                <a class="menu_item" href="vorodkala-report.php">گزارش ورود </a>
+                <ul class="drop_down_menu">
+                    <li><a class="menu_item" href="vorodkala-report.php?interval=10">10 روز اخیر</a></li>
+                    <li><a class="menu_item" href="vorodkala-report.php?interval=30">30 روز اخیر</a></li>
+                    <li><a class="menu_item" href="vorodkala-report.php?interval=60">60 روز اخیر</a></li>
+                    <li><a class="menu_item" href="vorodkala-report.php?interval=120">120 روز اخیر</a></li>
                 </ul>
             </li>
             <li>
-                <a href="khorojkala-report.php">گزارش خروج <i class="far fa-caret-square-left"></i></a>
-                <ul class="under-link">
-                    <li><a href="khorojkala-report.php?interval=10">10 روز اخیر</a></li>
-                    <li><a href="khorojkala-report.php?interval=30">30 روز اخیر</a></li>
-                    <li><a href="khorojkala-report.php?interval=60">60 روز اخیر</a></li>
-                    <li><a href="khorojkala-report.php?interval=120">120 روز اخیر</a></li>
+                <a class="menu_item" href="khorojkala-report.php">گزارش خروج </a>
+                <ul class="drop_down_menu">
+                    <li><a class="menu_item" href="khorojkala-report.php?interval=10">10 روز اخیر</a></li>
+                    <li><a class="menu_item" href="khorojkala-report.php?interval=30">30 روز اخیر</a></li>
+                    <li><a class="menu_item" href="khorojkala-report.php?interval=60">60 روز اخیر</a></li>
+                    <li><a class="menu_item" href="khorojkala-report.php?interval=120">120 روز اخیر</a></li>
                 </ul>
             </li>
             <li>
-                <a href="mojodikala-report.php">موجودی کالا <i class="fas fa-compress-arrows-alt"></i></a>
-
-                <ul class="under-link">
-                    <li><a href="mojodikala-report-simple.php">موجودی سبک</a></li>
-                </ul>
+                <a class="menu_item" href="mojodikala-report.php">موجودی کالا <i class="fas fa-compress-arrows-alt"></i></a>
             </li>
             <li>
-                <a href="price.php">سامانه قیمت <i class="fas fa-dollar-sign"></i></a>
-                <ul class="under-link">
-                    <li><a target="_blank" href="https://yadakinfo.com/projects/price/">قیمت موبیز</a></li>
-
+                <a class="menu_item" href="price.php">سامانه قیمت <i class="fas fa-dollar-sign"></i></a>
+                <ul class="drop_down_menu">
+                    <li><a class="menu_item" target="_blank" href="https://yadakinfo.com/projects/price/">قیمت موبیز</a></li>
                 </ul>
             </li>
-            <li><a href="file-index.php">مدیریت فایل <i class="fas fa-file-excel"></i></a></li>
-            <li><a target="_blank" href="../callcenter/">مرکز تماس <i class="fas fa-headphones"></i></a></li>
+            <li><a class="menu_item" href="file-index.php">مدیریت فایل </a></li>
+            <li><a class="menu_item" target="_blank" href="../callcenter/">مرکز تماس </a></li>
             <li>
-                <a href="./transfer_index.php">
+                <a class="menu_item" href="./transfer_index.php">
                     انتقال به انبار
-                    <i class="far fa-caret-square-right"></i>
                 </a>
-                <ul class="under-link">
-                    <li><a href="transfer_report.php">گزارش انتقالات</a></li>
-                    <li><a href="goodLimitReport.php"> نیاز به انتقال</a></li>
-                    <li><a href="goodLimitReportAll.php">گزارش کسرات</a></li>
+                <ul class="drop_down_menu">
+                    <li><a class="menu_item" href="transfer_report.php">گزارش انتقالات</a></li>
+                    <li><a class="menu_item" href="goodLimitReport.php"> نیاز به انتقال</a></li>
+                    <li><a class="menu_item" href="goodLimitReportAll.php">گزارش کسرات</a></li>
                 </ul>
             </li>
-            <li class="sale-mali">سال 1402</li>
-        </div>
-        <div class="user-box">
+        </ul>
+        <div>
             <?php echo $_SESSION["username"]; ?>
-            <a href="logout.php">خروج<i class="fas fa-sign-out-alt"></i>
+            <a href="logout.php">خروج
             </a>
 
         </div>
-    </div>
-    <div id="redirect">
-        <div class="alertMessage">
-            <p id='redirectMessage'></p>
-            <div>
-                <button onclick="confirm()" class="btn btn-confirm">تایید</button>
-                <button onclick="decline()" class="btn btn-decline">انصراف</button>
-            </div>
-        </div>
-    </div>
+    </nav>
+    <aside></aside>
