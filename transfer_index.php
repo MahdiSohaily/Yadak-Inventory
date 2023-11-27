@@ -4,7 +4,6 @@
         font-size: 20px;
         font-weight: bold;
         text-align: center;
-        padding-block: 40px;
         margin-inline: 20px;
         background-color: #bbbbbb;
         border-radius: 10px;

@@ -237,7 +237,7 @@ require_once './bootstrap/init.php';
             padding: 10px;
             background-color: rgb(229 229 229);
             box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-            z-index: 1000000;
+            z-index: 100;
         }
 
         ul#main_menu {
@@ -382,7 +382,7 @@ require_once './bootstrap/init.php';
     </style>
 </head>
 
-<body style="padding-block: 80px">
+<body style="padding-block: 40px">
     <nav id="main_nav">
         <ul id="main_menu" style="display:flex;">
             <li>
