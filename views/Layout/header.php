@@ -20,7 +20,7 @@ require_once './bootstrap/init.php';
     <script type="text/javascript" src="./js/assets/table2excel.js?v=<?php echo (rand()) ?>"></script>
     <script src="js/font.min.js?v=<?php echo (rand()) ?>"></script>
     <script src="./js/assets/select2.js?v=<?php echo (rand()) ?>"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <?php
     switch (basename($_SERVER['PHP_SELF'])) {
         case 'price.php':
@@ -225,6 +225,7 @@ require_once './bootstrap/init.php';
             customInput.value = customText;
         }
     </script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         nav#main_nav {
             position: fixed;
@@ -243,6 +244,59 @@ require_once './bootstrap/init.php';
             flex-wrap: wrap;
         }
 
+        .dropdown {
+            position: relative;
+        }
+
+        .drop_down_menu {
+            position: absolute;
+            top: 100%;
+            background-color: rgb(79 70 209);
+            display: none;
+            width: 200px;
+            border: 2px solid rgb(79 70 229);
+            z-index: 1000000000000000 !important;
+        }
+
+        .menu_item_dropdown {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            padding: 10px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+
+
+        .menu_item_dropdown:hover {
+            background-color: rgb(109 40 217);
+            color: white;
+        }
+
+        .dropdown:hover>.drop_down_menu {
+            display: block;
+        }
+
+        .dropdown:hover>.drop_down_menu::after {
+            content: " ";
+            position: absolute;
+            bottom: 100%;
+            /* At the top of the tooltip */
+            left: 80%;
+            margin-left: -8px;
+            border-width: 8px;
+            border-style: solid;
+            border-color: transparent transparent rgb(79 70 229) transparent;
+        }
+
+        .open_menu,
+        .close_menu {
+            font-size: 20px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
         .menu_item {
             text-decoration: none;
             color: white;
@@ -254,8 +308,57 @@ require_once './bootstrap/init.php';
             font-size: 14px;
         }
 
-        .drop_down_menu {
-            display: none;
+        .menu_item:hover {
+            background-color: rgb(109 40 217);
+        }
+
+        aside#side_bar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            right: -500px;
+            width: 300px;
+            z-index: 1000;
+            height: 100vh;
+            padding-block: 30px;
+            background-color: rgb(229 229 229);
+            transition: all 0.5s ease-in-out;
+            overflow: hidden;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+        }
+
+        aside#side_bar.open {
+            right: 0;
+        }
+
+        .aside_item {
+            text-decoration: none;
+            padding: 10px 20px;
+            display: inline-block;
+            color: #333
+        }
+
+        .close_menu {
+            color: red;
+        }
+
+        .userImage {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+
+        .profile_action {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 5px
+        }
+
+        .tv_control {
+            cursor: pointer;
+            font-size: 20px;
+            color: rgb(79 70 229);
         }
     </style>
 </head>
@@ -263,55 +366,134 @@ require_once './bootstrap/init.php';
 <body>
     <nav id="main_nav">
         <ul id="main_menu" style="display:flex;">
-            <li><i class="material-icons">apps</i></li>
-            <li><a class="menu_item" href="vorodkala-index.php">ورود کالا </a></li>
-            <li><a class="menu_item" href="khorojkala-index.php">خروج کالا </a></li>
-            <li><a class="menu_item" href="shomaresh-index.php">انبارگردانی</a></li>
             <li>
-                <a class="menu_item" href="vorodkala-report.php">گزارش ورود </a>
-                <ul class="drop_down_menu">
-                    <li><a class="menu_item" href="vorodkala-report.php?interval=10">10 روز اخیر</a></li>
-                    <li><a class="menu_item" href="vorodkala-report.php?interval=30">30 روز اخیر</a></li>
-                    <li><a class="menu_item" href="vorodkala-report.php?interval=60">60 روز اخیر</a></li>
-                    <li><a class="menu_item" href="vorodkala-report.php?interval=120">120 روز اخیر</a></li>
-                </ul>
+                <i class="fas fa-bars open_menu" onclick="toggleSidebar()"></i>
             </li>
-            <li>
-                <a class="menu_item" href="khorojkala-report.php">گزارش خروج </a>
-                <ul class="drop_down_menu">
-                    <li><a class="menu_item" href="khorojkala-report.php?interval=10">10 روز اخیر</a></li>
-                    <li><a class="menu_item" href="khorojkala-report.php?interval=30">30 روز اخیر</a></li>
-                    <li><a class="menu_item" href="khorojkala-report.php?interval=60">60 روز اخیر</a></li>
-                    <li><a class="menu_item" href="khorojkala-report.php?interval=120">120 روز اخیر</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="menu_item" href="mojodikala-report.php">موجودی کالا <i class="fas fa-compress-arrows-alt"></i></a>
-            </li>
-            <li>
-                <a class="menu_item" href="price.php">سامانه قیمت <i class="fas fa-dollar-sign"></i></a>
-                <ul class="drop_down_menu">
-                    <li><a class="menu_item" target="_blank" href="https://yadakinfo.com/projects/price/">قیمت موبیز</a></li>
-                </ul>
-            </li>
-            <li><a class="menu_item" href="file-index.php">مدیریت فایل </a></li>
-            <li><a class="menu_item" target="_blank" href="../callcenter/">مرکز تماس </a></li>
-            <li>
-                <a class="menu_item" href="./transfer_index.php">
-                    انتقال به انبار
+            <li><a class="menu_item" href="vorodkala-index.php">
+                    <i class="fa fa-archive" aria-hidden="true"></i>
+                    ورود کالا </a></li>
+            <li><a class="menu_item" href="khorojkala-index.php">
+                    <i class="fa fa-archive" aria-hidden="true"></i>
+                    خروج کالا
+                </a></li>
+            <li class="dropdown">
+                <a class="menu_item" href="vorodkala-report.php">
+                    <i class="fa fa-folder-open" aria-hidden="true"></i>
+                    گزارش ورود
+                    <i class="fa fa-caret-left" aria-hidden="true"></i>
                 </a>
                 <ul class="drop_down_menu">
-                    <li><a class="menu_item" href="transfer_report.php">گزارش انتقالات</a></li>
-                    <li><a class="menu_item" href="goodLimitReport.php"> نیاز به انتقال</a></li>
-                    <li><a class="menu_item" href="goodLimitReportAll.php">گزارش کسرات</a></li>
+                    <li><a class="menu_item_dropdown" href="vorodkala-report.php?interval=10">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            10 روز اخیر</a>
+                    </li>
+                    <li><a class="menu_item_dropdown" href="vorodkala-report.php?interval=30">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            30 روز اخیر</a>
+                    </li>
+                    <li><a class="menu_item_dropdown" href="vorodkala-report.php?interval=60">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            60 روز اخیر</a>
+                    </li>
+                    <li><a class="menu_item_dropdown" href="vorodkala-report.php?interval=120">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            120 روز اخیر</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="menu_item" href="khorojkala-report.php">
+                    <i class="fa fa-folder-open" aria-hidden="true"></i>
+                    گزارش خروج
+                    <i class="fa fa-caret-left" aria-hidden="true"></i>
+                </a>
+                <ul class="drop_down_menu">
+                    <li><a class="menu_item_dropdown" href="khorojkala-report.php?interval=10">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            10 روز اخیر</a>
+                    </li>
+                    <li><a class="menu_item_dropdown" href="khorojkala-report.php?interval=30">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            30 روز اخیر</a>
+                    </li>
+                    <li><a class="menu_item_dropdown" href="khorojkala-report.php?interval=60">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            60 روز اخیر</a></li>
+                    <li><a class="menu_item_dropdown" href="khorojkala-report.php?interval=120">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            120 روز اخیر</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a class="menu_item" href="mojodikala-report.php">
+                    <i class="fa fa-university" aria-hidden="true"></i>
+                    موجودی کالا
+                </a>
+            </li>
+
+            <li><a class="menu_item" target="_blank" href="../callcenter/">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    مرکز تماس
+                </a></li>
+            <li class="dropdown">
+                <a class="menu_item" href="./transfer_index.php">
+                    <i class="fa fa-truck" aria-hidden="true"></i>
+                    انتقال به انبار
+                    <i class="fa fa-caret-left" aria-hidden="true"></i>
+                </a>
+                <ul class="drop_down_menu">
+                    <li><a class="menu_item_dropdown" href="transfer_report.php">
+                            <i class="fa fa-list-alt" aria-hidden="true"></i>
+                            گزارش انتقالات</a>
+                    </li>
+                    <li><a class="menu_item_dropdown" href="goodLimitReport.php">
+                            <i class="fa fa-balance-scale" aria-hidden="true"></i>
+                            نیاز به انتقال</a>
+                    </li>
+                    <li><a class="menu_item_dropdown" href="goodLimitReportAll.php">
+                            <i class="fa fa-sticky-note" aria-hidden="true"></i>
+                            گزارش کسرات</a>
+                    </li>
                 </ul>
             </li>
         </ul>
-        <div>
-            <?php echo $_SESSION["username"]; ?>
-            <a href="logout.php">خروج
+        <div class="profile_action">
+            <i class="fa fa-desktop tv_control" aria-hidden="true"></i>
+            <?php
+            $profile = '../userimg/default.png';
+            if (file_exists("../userimg/" . $_SESSION['id'] . ".jpg")) {
+                $profile = "../userimg/" . $_SESSION['id'] . ".jpg";
+            }
+            ?>
+            <img class="userImage mx-2" src="<?= $profile ?>" alt="userimage">
+            <!-- <a id="active" class="hidden" href="./report/notification.php">
+                <i class="fa fa-bell" aria-hidden="true"></i>
             </a>
-
+            <a id="deactive" class="" href="./report/notification.php">
+                <i class="fa fa-bell" aria-hidden="true"></i>
+            </a> -->
         </div>
     </nav>
-    <aside></aside>
+    <aside id="side_bar" class="open">
+        <ul>
+            <li>
+                <i class="fa fa-times aside_item close_menu" aria-hidden="true" onclick="toggleSidebar()"></i>
+            </li>
+            <li><a class="aside_item" href="file-index.php">مدیریت فایل </a></li>
+            <li><a class="aside_item" href="shomaresh-index.php">انبارگردانی</a></li>
+            <li>
+                <a class="aside_item" href="price.php">سامانه قیمت <i class="fas fa-dollar-sign"></i></a>
+                <ul class="drop_down_menu">
+                    <li><a class="aside_item" target="_blank" href="https://yadakinfo.com/projects/price/">قیمت موبیز</a></li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('side_bar');
+
+            sidebar.classList.toggle('open');
+        }
+    </script>
