@@ -396,16 +396,12 @@ require_once './bootstrap/init.php';
                     خروج کالا
                 </a></li>
             <li class="dropdown">
-                <a class="menu_item" href="vorodkala-report.php">
+                <a class="menu_item" href="vorodkala-report.php?interval=10">
                     <i class="fa fa-folder-open" aria-hidden="true"></i>
                     گزارش ورود
                     <i class="fa fa-caret-left" aria-hidden="true"></i>
                 </a>
                 <ul class="drop_down_menu">
-                    <li><a class="menu_item_dropdown" href="vorodkala-report.php?interval=10">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                            10 روز اخیر</a>
-                    </li>
                     <li><a class="menu_item_dropdown" href="vorodkala-report.php?interval=30">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             30 روز اخیر</a>
@@ -418,19 +414,20 @@ require_once './bootstrap/init.php';
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             120 روز اخیر</a>
                     </li>
+                    <li><a class="menu_item_dropdown" href="vorodkala-report.php">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            گزارش کامل
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="dropdown">
-                <a class="menu_item" href="khorojkala-report.php">
+                <a class="menu_item" href="khorojkala-report.php?interval=10">
                     <i class="fa fa-folder-open" aria-hidden="true"></i>
                     گزارش خروج
                     <i class="fa fa-caret-left" aria-hidden="true"></i>
                 </a>
                 <ul class="drop_down_menu">
-                    <li><a class="menu_item_dropdown" href="khorojkala-report.php?interval=10">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                            10 روز اخیر</a>
-                    </li>
                     <li><a class="menu_item_dropdown" href="khorojkala-report.php?interval=30">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             30 روز اخیر</a>
@@ -441,6 +438,11 @@ require_once './bootstrap/init.php';
                     <li><a class="menu_item_dropdown" href="khorojkala-report.php?interval=120">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             120 روز اخیر</a>
+                    </li>
+                    <li><a class="menu_item_dropdown" href="khorojkala-report.php?interval=10">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            گزارش کامل
+                        </a>
                     </li>
                 </ul>
             </li>
