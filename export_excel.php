@@ -65,7 +65,6 @@ $customHeaders = [
 $col = 1;
 foreach ($customHeaders as $header) {
     $sheet->setCellValueByColumnAndRow($col, 1, $header);
-    $sheet->getStyleByColumnAndRow($col, 1)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
     $col++;
 }
 
@@ -75,7 +74,6 @@ while ($row_data = $result->fetch_assoc()) {
     $col = 1;
     foreach ($row_data as $value) {
         $sheet->setCellValueByColumnAndRow($col, $row, $value);
-        $sheet->getStyleByColumnAndRow($col, $row)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
         $col++;
     }
     $row++;
@@ -89,7 +87,7 @@ $conn->close();
 
 // Set the header for the Excel file with today's date and time
 $timestamp = date('Ymd_His');
-$filename = "excel_output_{$timestamp}.xlsx";
+$filename = "vorod_kala_report_{$timestamp}.xlsx";
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment;filename=\"$filename\"");
 header('Cache-Control: max-age=0');
