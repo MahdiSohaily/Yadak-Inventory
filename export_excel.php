@@ -86,7 +86,7 @@ $sheet->freezePane('A2');
 $conn->close();
 
 // Set the header for the Excel file with today's date and time
-$timestamp = date('Ymd_His');
+$timestamp = date('Y-m-d');
 $filename = "vorod_kala_report_{$timestamp}.xlsx";
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment;filename=\"$filename\"");
