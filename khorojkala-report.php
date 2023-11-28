@@ -84,6 +84,10 @@ if (isset($_GET['interval'])) {
                 <i style="padding-inline: 5px;" class="fas fa-file-excel"></i>
                 اکسل
             </a>
+            <a href="./export_khoroj.php" class=" excel">
+                <i style="padding-inline: 5px;" class="fas fa-file-excel"></i>
+                اکسل جدید
+            </a>
         </div>
     </form>
 </div>
