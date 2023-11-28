@@ -23,7 +23,24 @@ if ($conn->connect_error) {
 }
 
 // SQL query to retrieve data from the database
-$sql = "SELECT qtybank.id AS qtyidsss, nisha.partnumber ,nisha.price AS nprice,seller.id AS slid, brand.name , qtybank.des ,qtybank.id, qtybank.qty , qtybank.pos1 , qtybank.pos2 , qtybank.create_time , seller.name AS sln, deliverer.name AS dn , qtybank.anbarenter ,qtybank.invoice , users.username AS un , qtybank.invoice_number,qtybank.invoice_date ,stock.name AS stn
+$sql = "SELECT 
+qtybank.id AS qtyidsss, 
+nisha.partnumber ,
+brand.name as brandname,
+qtybank.des, 
+qtybank.qty, 
+qtybank.pos1, 
+qtybank.pos2,
+seller.name as slavename,
+qtybank.create_time as time,
+qtybank.create_time,
+deliverer.name as delivername,
+qtybank.invoice,
+qtybank.invoice_number,
+qtybank.invoice_date,
+qtybank.anbarenter,
+stock.name,
+users.username
 FROM qtybank
 LEFT JOIN nisha ON qtybank.codeid=nisha.id
 LEFT JOIN brand ON qtybank.brand=brand.id
@@ -31,8 +48,7 @@ LEFT JOIN seller ON qtybank.seller=seller.id
 LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
 LEFT JOIN users ON qtybank.user=users.id
 LEFT JOIN stock ON qtybank.stock_id=stock.id 
-$condition
-AND qtybank.is_transfered = 0
+WHERE qtybank.is_transfered = 0
 ORDER BY qtybank.create_time DESC";
 
 $result = $conn->query($sql);
@@ -40,10 +56,16 @@ $result = $conn->query($sql);
 // Set the active sheet to the first sheet
 $sheet = $spreadsheet->getActiveSheet();
 
-// Set column headers
+// Set custom column headers
+$customHeaders = [
+    '#', 'شماره فنی', 'برند', 'توضیحات', 'تعداد', 'راهرو', 'قفسه', 'فروشنده',
+    'زمان ورود', 'تاریخ ورود', 'تحویل دهنده', 'فاکتور', 'شماره فاکتور',
+    'تاریخ فاکتور', 'ورود به انبار', 'انبار', 'کاربر'
+];
+
 $col = 1;
-foreach (range('A', 'Z') as $letter) {
-    $sheet->setCellValueByColumnAndRow($col, 1, $letter);
+foreach ($customHeaders as $header) {
+    $sheet->setCellValueByColumnAndRow($col, 1, $header);
     $col++;
 }
 
@@ -57,6 +79,9 @@ while ($row_data = $result->fetch_assoc()) {
     }
     $row++;
 }
+
+// Freeze the header row
+$sheet->freezePane('A2');
 
 // Close the database connection
 $conn->close();

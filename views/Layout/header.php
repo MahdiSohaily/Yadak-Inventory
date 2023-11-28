@@ -458,7 +458,7 @@ require_once './bootstrap/init.php';
             </li>
         </ul>
         <div class="profile_action">
-            <i class="fa fa-desktop tv_control" aria-hidden="true"></i>
+            <i onclick="toggleTV()" class="fa fa-desktop tv_control" aria-hidden="true"></i>
             <?php
             $profile = '../userimg/default.png';
             if (file_exists("../userimg/" . $_SESSION['id'] . ".jpg")) {
@@ -527,5 +527,18 @@ require_once './bootstrap/init.php';
         function toggleSidebar() {
             const sidebar = document.getElementById('side_bar');
             sidebar.classList.toggle('open');
+        }
+
+        function toggleTV() {
+            const params = new URLSearchParams();
+            params.append('toggle', 'toggle');
+            axios
+                .post("./app/controller/tvController.php", params)
+                .then(function(response) {
+                    alert(response.data);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
         }
     </script>
