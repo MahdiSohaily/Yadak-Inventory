@@ -358,8 +358,6 @@ require_once './bootstrap/init.php';
 
         .close_menu {
             color: red;
-            font-size: 16px !important;
-            width: 20px !important;
             text-decoration: none;
             padding: 15px 30px;
             display: block;
