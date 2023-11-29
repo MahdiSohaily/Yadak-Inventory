@@ -326,13 +326,15 @@ require_once './bootstrap/init.php';
 
         aside#side_bar {
             position: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             top: 0;
             bottom: 0;
             right: -500px;
             width: 300px;
             z-index: 1000;
-            height: 100vh;
-            padding-block: 20px;
+            padding-top: 20px;
             background-color: rgb(229 229 229);
             transition: all 0.5s ease-in-out;
             box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
@@ -522,6 +524,14 @@ require_once './bootstrap/init.php';
                             گزارش کسرات</a>
                     </li>
                 </ul>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <a class="aside_item" href="./logout.php">
+                    <i class="fa fa-user-secret" aria-hidden="true"></i>
+                    خروج از حساب کاربری
+                </a>
             </li>
         </ul>
     </aside>
