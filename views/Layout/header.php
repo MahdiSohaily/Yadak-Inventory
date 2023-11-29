@@ -358,6 +358,8 @@ require_once './bootstrap/init.php';
 
         .close_menu {
             color: red;
+            font-size: 16px !important;
+            width: 20px !important;
             text-decoration: none;
             padding: 15px 30px;
             display: block;
@@ -529,7 +531,7 @@ require_once './bootstrap/init.php';
         <ul>
             <li>
                 <a class="aside_item" href="./logout.php">
-                    <i class="fa fa-user-secret" aria-hidden="true"></i>
+                    <i class="fa fa-power-off" aria-hidden="true"></i>
                     خروج از حساب کاربری
                 </a>
             </li>

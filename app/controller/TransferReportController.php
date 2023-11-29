@@ -1,6 +1,5 @@
 <?php
-require_once '../../config/db_connect.php';
-
+require_once './config/db_connect.php';
 function getTodayRecords()
 {
     // Create a DateTime object for today

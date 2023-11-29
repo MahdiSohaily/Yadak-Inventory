@@ -5,7 +5,7 @@ if (isset($_GET['interval'])) {
     $interval = $_GET['interval'];
 }
 ?>
-
+ 
 <div>
     <table id="report-table" class="report-table">
         <thead>
