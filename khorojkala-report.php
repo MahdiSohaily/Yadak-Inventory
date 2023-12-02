@@ -158,8 +158,7 @@ if (isset($_GET['interval'])) {
         const user_value = user.value === 'انتخاب کاربر' ? null : user.value;
         const invoice_number_value = invoice_number.value === '' ? null : invoice_number.value;
         const invoice_time_value = invoice_time.value === '' ? null : invoice_time.value;
-        const exit_time_value = exit_time.value === '' ? null : exit_time.value;
-
+        const exit_time_value = exit_time.getAttribute('data-gdate') === '' ? null : exit_time.getAttribute('data-gdate');
         filter(partNumber_value, seller_value, brand_value, pos1_value, customer_value,
             stock_value, user_value, invoice_number_value, invoice_time_value, exit_time_value);
     }
