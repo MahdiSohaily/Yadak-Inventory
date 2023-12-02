@@ -93,7 +93,7 @@ if (mysqli_num_rows($result) > 0) {
             <td class="tik-anb-<?= $row["anbarenter"] ?>"></td>
             <td class="cell-stock"><?= $row["stn"] ?></td>
             <td class="cell-user"><?= $row["un"] ?></td>
-            <td><a onclick="displayModal(this)" id="<?= $row["id"] ?>" class="edit-rec2">ویرایش</a></td>
+            <td style="display: flex; justify-content: center; margin-block: 15px"><a onclick="displayModal(this)" id="<?= $row["id"] ?>" class="edit-rec2"><i class="fa fa-pen" aria-hidden="true"></i></a></td>
         </tr>
         <?php
         if (mysqli_num_rows($result) == $counter) :

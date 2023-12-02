@@ -88,18 +88,6 @@ foreach ($goods as $good) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 function getStockInfo($conn, $codes)
 {
     $statement = $conn->prepare("SELECT * FROM yadakshop1402.nisha WHERE id = ?");
