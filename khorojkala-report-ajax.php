@@ -12,7 +12,6 @@ $user_id = $_POST['user'] === 'null' ? null : $_POST['user'];
 $invoice_number = $_POST['invoice_number'] === 'null' ? null : $_POST['invoice_number'];
 $invoice_date = $_POST['invoice_time'] === 'null' ? null : $_POST['invoice_time'];
 $exit_time = $_POST['exit_time'] === 'null' ? null : $_POST['exit_time']; // Assuming you're retrieving the value from a form
-echo $exit_time;
 
 // Prepare the statement
 $stmt = $pdo->prepare("SELECT
