@@ -35,6 +35,9 @@ if (count($todays_records)) :
             <td class="cell-shakhes" style="width:5px">
                 <input type="checkbox" name="select for print" id="select">
             </td>
+            <td>
+                <a href="./?id =<?= $result['qtybanck_id'] ?>"></a>
+            </td>
         </tr>
 <?php endforeach;
 else :

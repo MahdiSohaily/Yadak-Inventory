@@ -76,7 +76,7 @@ require_once './bootstrap/init.php';
             echo '<link rel="shortcut icon" href="./img/inventory.png" type="image/x-icon">';
             break;
         default:
-            $title = "صفحه اصلی";
+            $title = "سامانه قیمت";
             echo '<link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">';
             break;
     }
@@ -304,9 +304,12 @@ require_once './bootstrap/init.php';
 
         .open_menu,
         .close_menu {
-            font-size: 20px;
-            padding: 10px;
-            cursor: pointer;
+            font-size: 20px !important;
+            margin: 10px !important;
+            cursor: pointer !important;
+            width: 20px !important;
+            height: 20px !important;
+            padding: 0px !important;
         }
 
         .menu_item {
@@ -388,7 +391,7 @@ require_once './bootstrap/init.php';
     <nav id="main_nav">
         <ul id="main_menu" style="display:flex;">
             <li>
-                <i class="fas fa-bars open_menu" onclick="toggleSidebar()"></i>
+                <i id="open_aside_icon" class="fas fa-bars open_menu" onclick="toggleSidebar()"></i>
             </li>
             <li><a class="menu_item" href="vorodkala-index.php">
                     <i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -404,6 +407,10 @@ require_once './bootstrap/init.php';
                     <i class="fa fa-caret-left" aria-hidden="true"></i>
                 </a>
                 <ul class="drop_down_menu">
+                    <li><a class="menu_item_dropdown" href="vorodkala-report.php?interval=10">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            10 روز اخیر</a>
+                    </li>
                     <li><a class="menu_item_dropdown" href="vorodkala-report.php?interval=30">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             30 روز اخیر</a>
@@ -430,6 +437,10 @@ require_once './bootstrap/init.php';
                     <i class="fa fa-caret-left" aria-hidden="true"></i>
                 </a>
                 <ul class="drop_down_menu">
+                    <li><a class="menu_item_dropdown" href="khorojkala-report.php?interval=10">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            10 روز اخیر</a>
+                    </li>
                     <li><a class="menu_item_dropdown" href="khorojkala-report.php?interval=30">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             30 روز اخیر</a>
@@ -481,7 +492,7 @@ require_once './bootstrap/init.php';
     <aside id="side_bar">
         <ul>
             <li style="display: flex; justify-content: end;">
-                <i class="fa fa-times close_menu" aria-hidden="true" onclick="toggleSidebar()"></i>
+                <i id="close_aside_icon" class="fa fa-times close_menu" aria-hidden="true" onclick="toggleSidebar()"></i>
             </li>
             <li><a class="aside_item" href="file-index.php">
                     <i class="fa fa-user-secret" aria-hidden="true"></i>
@@ -499,6 +510,7 @@ require_once './bootstrap/init.php';
                     <i class="fa fa-caret-left" aria-hidden="true"></i>
                 </a>
                 <ul class="drop_down_menu_aside">
+                    <li><a class="menu_item_dropdown" target="_self" href="price.php"> سامانه قیمت</a></li>
                     <li><a class="menu_item_dropdown" target="_blank" href="https://yadakinfo.com/projects/price/">قیمت موبیز</a></li>
                 </ul>
             </li>
@@ -511,6 +523,11 @@ require_once './bootstrap/init.php';
                     <i class="fa fa-caret-left" aria-hidden="true"></i>
                 </a>
                 <ul class="drop_down_menu_aside">
+                    <li><a class="menu_item_dropdown" href="./transfer_index.php">
+                            <i class="fa fa-list-alt" aria-hidden="true"></i>
+                            انتقال به انبار
+                        </a>
+                    </li>
                     <li><a class="menu_item_dropdown" href="transfer_report.php">
                             <i class="fa fa-list-alt" aria-hidden="true"></i>
                             گزارش انتقالات</a>

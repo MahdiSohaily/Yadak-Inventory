@@ -26,20 +26,4 @@
         </table>
     </div>
 </div>
-<script>
-    // Get the reference to your input element
-    var specificInput = document.getElementById('MojodiSearch');
-
-    // Add a keydown event listener to the document
-    document.addEventListener('keydown', function(event) {
-        // Check if Ctrl (or Command) key is pressed and the key is 'F'
-        if ((event.ctrlKey || event.metaKey) && event.key === 'f') {
-            // Prevent the default browser search behavior
-            event.preventDefault();
-
-            // Focus on your specific input element
-            specificInput.focus();
-        }
-    });
-</script>
 <?php require_once("./views/Layout/footer.php") ?>
