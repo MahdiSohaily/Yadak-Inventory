@@ -35,7 +35,9 @@ deliverer.name AS dln,
 exitrecord.exit_time,
 exitrecord.jamkon,
 exitrecord.invoice_number,
+qtybank.invoice_number AS qty_invoice_number,
 exitrecord.invoice_date,
+qtybank.invoice_date AS qty_invoice_date,
 qtybank.anbarenter
 FROM
 qtybank
@@ -157,8 +159,8 @@ if ($stmt->rowCount() > 0) :
             <td class="cell-date "><?= substr($row["invoice_date"], 5) ?></td>
 
             <td class="tik-anb-<?= $row["anbarenter"] ?>"></td>
-            <td></td>
-            <td></td>
+            <td class="cell-time "><?= $row['qty_invoice_number'] ?></td>
+            <td class="cell-time "><?= $row['qty_invoice_date'] ?></td>
             <td class="cell-stock "><?= $row["stn"] ?></td>
             <td class="cell-user "><?= $row["usn"] ?></td>
             <td><a onclick="displayModal(this)" id="<?= $row["exid"] ?>" class="edit-rec2">ویرایش</a></td>
