@@ -19,6 +19,7 @@ if (isset($interval)) {
 }
 
 $sql = "SELECT nisha.partnumber,
+exitrecord.id AS exitrecord_id,
 qtybank.des, 
 nisha.id , 
 users.username AS usn,
@@ -30,7 +31,9 @@ qtybank.qty,
 qtybank.id AS qtyid,exitrecord.qty AS extqty,exitrecord.id AS exid,
 qtybank.qty AS entqty ,exitrecord.customer,exitrecord.des AS exdes,getter.name AS gtn,
 deliverer.name AS dln,exitrecord.exit_time,exitrecord.jamkon,
-exitrecord.invoice_number,exitrecord.invoice_date,qtybank.anbarenter
+exitrecord.invoice_number,exitrecord.invoice_date,qtybank.anbarenter,
+qtybank.invoice_number AS qty_invoice_number,
+qtybank.invoice_date AS qty_invoice_date
 FROM qtybank
 INNER JOIN nisha ON qtybank.codeid=nisha.id
 INNER JOIN exitrecord ON qtybank.id=exitrecord.qtyid
@@ -80,7 +83,7 @@ if (mysqli_num_rows($result) > 0) {
                 <td colspan="20" class="left_right" style="background-color: aquamarine !important;
                                         font-weight: bold; font-size: 18px;
                                         margin-right: 10% !important;">
-                    جمع اقلام : <?php echo $jameitem;
+                    جمع اقلام : <?= $jameitem;
                                 $jameitem = 0; ?>
                 </td>
             </tr>
@@ -93,34 +96,31 @@ if (mysqli_num_rows($result) > 0) {
 
         <?php
         }
-        $jameitem = $jameitem + $row["extqty"];
-
-
-        ?>
+        $jameitem = $jameitem + $row["extqty"]; ?>
         <tr class="left_right <?= $shakhes == 1 ? 'border_top' : ''; ?>">
-            <td class="cell-shakhes "><?php echo $shakhes ?></td>
-            <td class="cell-code "><?php echo '&nbsp;' . strtoupper($row["partnumber"]) ?></td>
-            <td class="cell-brand cell-brand-<?php echo $row["brn"] ?> "><?php echo $row["brn"] ?></td>
-            <td class="cell-des "><?php echo $row["des"] ?></td>
-            <td class="cell-des "><?php echo $row["exdes"] ?></td>
-            <td class="cell-qty "><?php echo $row["extqty"] ?></td>
-            <td class="cell-seller cell-seller-<?php echo $row["slid"] ?>"><?php echo $row["name"] ?></td>
-            <td class="cell-customer "><?php echo $row["customer"] ?></td>
-            <td class="cell-gtname "><?php echo $row["gtn"] ?></td>
-            <td class="cell-gtname "><?php echo $row["jamkon"] ?></td>
-            <td class="cell-time "><?php echo $jalali_time ?></td>
-            <td class="cell-date "><?php echo $jalali_date ?></td>
+            <td class="cell-shakhes "><?= $row['exitrecord_id'] ?></td>
+            <td class="cell-code "><?= '&nbsp;' . strtoupper($row["partnumber"]) ?></td>
+            <td class="cell-brand cell-brand-<?= $row["brn"] ?> "><?= $row["brn"] ?></td>
+            <td class="cell-des "><?= $row["des"] ?></td>
+            <td class="cell-des "><?= $row["exdes"] ?></td>
+            <td class="cell-qty "><?= $row["extqty"] ?></td>
+            <td class="cell-seller cell-seller-<?= $row["slid"] ?>"><?= $row["name"] ?></td>
+            <td class="cell-customer "><?= $row["customer"] ?></td>
+            <td class="cell-gtname "><?= $row["gtn"] ?></td>
+            <td class="cell-gtname "><?= $row["jamkon"] ?></td>
+            <td class="cell-time "><?= $jalali_time ?></td>
+            <td class="cell-date "><?= $jalali_date ?></td>
             <td <?php if (empty($row["invoice_number"])) {
                     echo 'class="no-invoice-number"';
-                } ?>><?php echo $row["invoice_number"] ?></td>
-            <td class="cell-date "><?php echo substr($row["invoice_date"], 5) ?></td>
+                } ?>><?= $row["invoice_number"] ?></td>
+            <td class="cell-date "><?= substr($row["invoice_date"], 5) ?></td>
 
-            <td class="tik-anb-<?php echo $row["anbarenter"] ?>"></td>
-            <td></td>
-            <td></td>
-            <td class="cell-stock "><?php echo $row["stn"] ?></td>
-            <td class="cell-user "><?php echo $row["usn"] ?></td>
-            <td><a onclick="displayModal(this)" id="<?php echo $row["exid"] ?>" class="edit-rec2">ویرایش</a></td>
+            <td class="tik-anb-<?= $row["anbarenter"] ?>"></td>
+            <td class="cell-time "><?= $row['qty_invoice_number'] ?></td>
+            <td class="cell-time "><?= $row['qty_invoice_date'] ?></td>
+            <td class="cell-stock "><?= $row["stn"] ?></td>
+            <td class="cell-user "><?= $row["usn"] ?></td>
+            <td style="display: flex; justify-content: center; margin-block: 15px;"><a onclick="displayModal(this)" id="<?= $row["exid"] ?>" class="edit-rec2"><i class="fa fa-pen" aria-hidden="true"></i></a></td>
         </tr>
         <?php
         if (mysqli_num_rows($result) == $counter) :
@@ -129,7 +129,7 @@ if (mysqli_num_rows($result) > 0) {
                 <td colspan="20" class="left_right" style="background-color: aquamarine !important;
                                         font-weight: bold; font-size: 18px;
                                         margin-right: 10% !important;">
-                    جمع اقلام : <?php echo $jameitem;
+                    جمع اقلام : <?= $jameitem;
                                 $jameitem = 0; ?>
                 </td>
             </tr>

@@ -41,7 +41,7 @@ qtybank.invoice_date AS qty_invoice_date,
 qtybank.anbarenter
 FROM
 qtybank
-LEFT JOIN
+INNER JOIN
 nisha ON qtybank.codeid = nisha.id
 INNER JOIN
 exitrecord ON qtybank.id = exitrecord.qtyid
@@ -163,7 +163,7 @@ if ($stmt->rowCount() > 0) :
             <td class="cell-time "><?= $row['qty_invoice_date'] ?></td>
             <td class="cell-stock "><?= $row["stn"] ?></td>
             <td class="cell-user "><?= $row["usn"] ?></td>
-            <td><a onclick="displayModal(this)" id="<?= $row["exid"] ?>" class="edit-rec2">ویرایش</a></td>
+            <td style="display: flex; justify-content: center; margin-block: 15px;"><a onclick="displayModal(this)" id="<?= $row["exid"] ?>" class="edit-rec2"><i class="fa fa-pen" aria-hidden="true"></i></a></td>
         </tr>
         <?php
         if ($stmt->rowCount() == $counter) : ?>
