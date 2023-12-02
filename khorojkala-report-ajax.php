@@ -6,7 +6,7 @@ $partNumber = $_POST['partNumber'] === 'null' ? null : $_POST['partNumber']; // 
 $seller_id = $_POST['seller'] === 'null' ? null : $_POST['seller'];
 $brand_id = $_POST['brand'] === 'null' ? null : $_POST['brand'];
 $pos1 = $_POST['pos1'] === 'null' ? null : $_POST['pos1'];
-$pos2 = $_POST['pos2'] === 'null' ? null : $_POST['pos2'];
+$customer = $_POST['customer'] === 'null' ? null : $_POST['customer'];
 $stock_id = $_POST['stock'] === 'null' ? null : $_POST['stock'];
 $user_id = $_POST['user'] === 'null' ? null : $_POST['user'];
 $invoice_number = $_POST['invoice_number'] === 'null' ? null : $_POST['invoice_number'];
@@ -28,7 +28,7 @@ $stmt = $pdo->prepare("SELECT nisha.partnumber, qtybank.des, nisha.id, users.use
                         AND (qtybank.seller = :seller_id OR :seller_id IS NULL)
                         AND (brand.id = :brand_id OR :brand_id IS NULL)
                         AND (qtybank.pos1 = :pos1 OR :pos1 IS NULL)
-                        AND (qtybank.pos2 = :pos2 OR :pos2 IS NULL)
+                        AND (exitrecord.customer LIKE :customer OR :customer IS NULL)
                         AND (qtybank.stock_id = :stock_id OR :stock_id IS NULL)
                         AND (exitrecord.user = :user_id OR :user_id IS NULL)
                         AND (exitrecord.invoice_number = :invoice_number OR :invoice_number IS NULL)
@@ -43,13 +43,15 @@ $stmt->bindParam(':seller_id', $seller_id, PDO::PARAM_INT);
 $stmt->bindParam(':brand_id', $brand_id, PDO::PARAM_INT);
 $stmt->bindParam(':invoice_number', $invoice_number, PDO::PARAM_STR);
 $stmt->bindParam(':pos1', $pos1, PDO::PARAM_STR);
-$stmt->bindParam(':pos2', $pos2, PDO::PARAM_STR);
+$customerParam = '%' . $customer . '%';
+$stmt->bindParam(':customer', $customerParam, PDO::PARAM_STR);
 $stmt->bindParam(':stock_id', $stock_id, PDO::PARAM_INT);
 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->bindParam(':invoice_date', $invoice_date, PDO::PARAM_STR);
 $stmt->bindParam(':exit_time', $exit_time, PDO::PARAM_STR);
 
 $stmt->execute();
+
 
 // set the resulting array to associative
 $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);

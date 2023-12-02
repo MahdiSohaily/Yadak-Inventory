@@ -40,7 +40,7 @@ if (isset($_GET['interval'])) {
         </div>
 
         <div class="div4">
-            <input type="text" name="pos2" id="pos2" placeholder="قفسه">
+            <input type="text" name="customer" id="customer" placeholder="خریدار">
         </div>
 
         <div class="div5">
@@ -140,7 +140,7 @@ if (isset($_GET['interval'])) {
     const seller = document.getElementById('seller');
     const brand = document.getElementById('brand');
     const pos1 = document.getElementById('pos1');
-    const pos2 = document.getElementById('pos2');
+    const customer = document.getElementById('customer');
     const stock = document.getElementById('stock');
     const user = document.getElementById('user');
     const invoice_number = document.getElementById('invoice_number');
@@ -153,14 +153,14 @@ if (isset($_GET['interval'])) {
         const seller_value = seller.value === 'انتخاب فروشنده' ? null : seller.value;
         const brand_value = brand.value === 'انتخاب برند جنس' ? null : brand.value;
         const pos1_value = pos1.value === '' ? null : pos1.value;
-        const pos2_value = pos2.value === '' ? null : pos2.value;
+        const customer_value = customer.value === '' ? null : customer.value;
         const stock_value = stock.value === 'انتخاب انبار' ? null : stock.value;
         const user_value = user.value === 'انتخاب کاربر' ? null : user.value;
         const invoice_number_value = invoice_number.value === '' ? null : invoice_number.value;
         const invoice_time_value = invoice_time.value === '' ? null : invoice_time.value;
         const exit_time_value = exit_time.value === '' ? null : exit_time.value;
 
-        filter(partNumber_value, seller_value, brand_value, pos1_value, pos2_value,
+        filter(partNumber_value, seller_value, brand_value, pos1_value, customer_value,
             stock_value, user_value, invoice_number_value, invoice_time_value, exit_time_value);
     }
 
@@ -169,7 +169,7 @@ if (isset($_GET['interval'])) {
         seller.value = 'انتخاب فروشنده';
         brand.value = 'انتخاب برند جنس';
         pos1.value = '';
-        pos2.value = '';
+        customer.value = '';
         stock.value = 'انتخاب انبار';
         user.value = 'انتخاب کاربر';
         invoice_number.value = '';
@@ -289,7 +289,7 @@ if (isset($_GET['interval'])) {
         seller_value = null,
         brand_value = null,
         pos1_value = null,
-        pos2_value = null,
+        customer = null,
         stock_value = null,
         user_value = null,
         invoice_number_value = null,
@@ -302,7 +302,7 @@ if (isset($_GET['interval'])) {
         params.append('seller', seller_value);
         params.append('brand', brand_value);
         params.append('pos1', pos1_value);
-        params.append('pos2', pos2_value);
+        params.append('customer', customer);
         params.append('stock', stock_value);
         params.append('user', user_value);
         params.append('invoice_number', invoice_number_value);
