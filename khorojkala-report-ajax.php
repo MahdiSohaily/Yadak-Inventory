@@ -68,9 +68,7 @@ AND (exitrecord.invoice_number = :invoice_number OR :invoice_number IS NULL)
 AND (exitrecord.invoice_date = :invoice_date OR :invoice_date IS NULL)
 ORDER BY
 exitrecord.exit_time DESC,
-exitrecord.invoice_number DESC
-
-                        ");
+exitrecord.invoice_number DESC");
 
 // Bind the parameters
 $stmt->bindParam(':partNumber', $partNumber, PDO::PARAM_STR);
@@ -86,7 +84,6 @@ $stmt->bindParam(':invoice_date', $invoice_date, PDO::PARAM_STR);
 $stmt->bindParam(':exit_date', $exit_time, PDO::PARAM_STR);
 
 $stmt->execute();
-
 
 // set the resulting array to associative
 $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
