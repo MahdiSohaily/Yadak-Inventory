@@ -349,9 +349,10 @@ require_once './bootstrap/init.php';
 
         .aside_item {
             text-decoration: none;
-            padding: 15px 30px;
+            padding: 20px 30px;
             display: block;
             color: #333;
+            font-size: 14px;
         }
 
         .aside_item:hover {
@@ -494,9 +495,22 @@ require_once './bootstrap/init.php';
             <li style="display: flex; justify-content: end;">
                 <i id="close_aside_icon" class="fa fa-times close_menu" aria-hidden="true" onclick="toggleSidebar()"></i>
             </li>
+            <li>
+                <a class="aside_item" href="../callcenter/report/registerGood.php">
+                <i class="fa fa-folder" aria-hidden="true"></i>
+                    ثبت کدفنی
+                </a>
+            </li>
+             <li>
+                <a class="aside_item" href="../callcenter/report/index.php">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                    جستجوی کدفنی
+                </a>
+            </li>
             <li><a class="aside_item" href="file-index.php">
                     <i class="fa fa-user-secret" aria-hidden="true"></i>
-                    مدیریت فایل </a></li>
+                    مدیریت فایل </a>
+            </li>
             <li><a class="aside_item" href="shomaresh-index.php">
                     <i class="fa fa-building" aria-hidden="true"></i>
                     انبارگردانی</a>
