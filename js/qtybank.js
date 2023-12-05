@@ -112,7 +112,7 @@ $(document).ready(function () {
               <p>${brand}</p>
               <input type="hidden" name="qtyid[]" value="${qtyid}">
               <input type="number" name="qty[]" value="${qty}" id="good_amount" max="${prev_qty}" onchange="validateAmount(this)">
-              <input type="hidden" name="prev_qty" value="${prev_qty}" />
+              <input type="hidden" name="prev_qty[]" value="${prev_qty}" />
             </div>
           </td>
           <td style="text-align:left">

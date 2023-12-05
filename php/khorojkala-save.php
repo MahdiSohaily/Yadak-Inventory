@@ -11,18 +11,20 @@ $invoice_number = isset($_POST['invoice_number']) ? $_POST['invoice_number'] : '
 $description = $_POST['des'];
 $collector = $_POST['jamkon'];
 $invoice_time = $_POST['invoice_time'];
-$prev_qty = $_POST['prev_qty'];
+$prev_qtys = $_POST['prev_qty'];
 $stock = isset($_POST['stock']) ? $_POST['stock'] : 0;
 
 
 $x = 0;
-foreach ($_POST['qty'] as $value) {
-    $qty = $value;
+for ($index = 0; $index < count($_POST['qty']); $index += 1) {
+    $qty = $_POST['qty'][$index];
     $qty_id = $_POST['qtyid'][$x];
     $x++;
 
 
     if ($action == 'move') {
+
+        $prev_qty = $prev_qtys[$index];
 
         $sql = "INSERT INTO exitrecord (customer,getter,qty,qtyid,user,invoice_number,des,jamkon,invoice_date, is_transfered) VALUES ('$customer', '$getter', '$qty', '$qty_id','$id','$invoice_number','$description','$collector','$invoice_time', 1);";
         $result = mysqli_query($con, $sql);
@@ -34,7 +36,6 @@ foreach ($_POST['qty'] as $value) {
         record_transaction($qty_id, $Bank_id, $exit_id, $prev_qty, $qty, $stock);
         log_action('khorojKala', $sql, $_SESSION['id']);
     } else {
-
         $sql = "INSERT INTO exitrecord (customer,getter,qty,qtyid,user,invoice_number,des,jamkon,invoice_date) VALUES ('$customer', '$getter', '$qty', '$qty_id','$id','$invoice_number','$description','$collector','$invoice_time');";
         $result = mysqli_query($con, $sql);
         log_action('khorojKala', $sql, $_SESSION['id']);
@@ -47,6 +48,7 @@ foreach ($_POST['qty'] as $value) {
         $var = 1;
     }
 }
+
 if ($var == 1) {
     echo '<p class="ok"> تعداد <span>' . $x . '</span> آیتم کالا برای خریدار <span>' . $customer . '</span> با موفقیت از انبار خارج شد </p>';
     echo '<script>
