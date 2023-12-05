@@ -76,8 +76,8 @@ function save_new_entrance($info, $stock, $quantity)
     $codeId = $info['codeid'];
     $brand = $info['brand'];
     $quantity = $quantity;
-    $pos1 = $info['pos1'];
-    $pos2 = $info['pos2'];
+    $pos1 = '';
+    $pos2 = '';
     $des = 'انتقال به انبار جدید';
     $seller = $info['seller'];
     $deliverer = $info['deliverer'];
