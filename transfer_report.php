@@ -32,6 +32,17 @@ if (isset($_GET['interval'])) {
         </tbody>
     </table>
 </div>
+<div id="updateModal">
+    <div class="modalContent">
+        <div class="modalHeader">
+            <h2>ویرایش فاکتور ورودی</h2>
+            <i onclick="closeModal()" class="fa fa-times closeModal" aria-hidden="true"></i>
+        </div>
+        <div class="displayPage">
+            <iframe id="updateModalIframe" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
 <div class="action_bar">
     <button class="print-btn" onclick="makePreview()">فاکتور گیری</button>
 </div>

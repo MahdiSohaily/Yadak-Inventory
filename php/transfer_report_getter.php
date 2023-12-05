@@ -36,7 +36,7 @@ if (count($todays_records)) :
                 <input type="checkbox" name="select for print" id="select">
             </td>
             <td>
-                <a href="./?id =<?= $result['qtybanck_id'] ?>">hjghj</a>
+                <a onclick="displayModal(this)" id="<?=  $result['qtybanck_id'] ?>" class="edit-rec2"><i class="fa fa-pen" aria-hidden="true"></i></a>
             </td>
         </tr>
 <?php endforeach;
@@ -81,9 +81,7 @@ if (count($previous_records['display'])) :
                 <input type="checkbox" name="select for print" id="select">
             </td>
             <td>
-                <a href="./?id =<?= $result['qtybanck_id'] ?>">
-                    <i class="fa fa-pen" aria-hidden="true"></i>
-                </a>
+            <a onclick="displayModal(this)" id="<?=  $result['qtybanck_id'] ?>" class="edit-rec2"><i class="fa fa-pen" aria-hidden="true"></i></a>
             </td>
         </tr>
     <?php endforeach;
