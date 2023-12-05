@@ -22,6 +22,9 @@ if (isset($_GET['interval'])) {
                 <th>تاریخ انتقال </th>
                 <th>کاربر</th>
                 <th style="color: red;"> &#10084;</th>
+                <th style="color: red;">
+                    <i class="fa fa-cos" aria-hidden="true"></i>
+                </th>
             </tr>
         </thead>
         <tbody id="resultBox">

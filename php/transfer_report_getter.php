@@ -14,7 +14,7 @@ $previous_records = getPreviousRecords($item_per_page, $page);
 
 ?>
 <tr style="margin-block: 10px !important; background-color: #dae5eb;">
-    <td colspan="13">عملیات روزهای امروز</td>
+    <td colspan="14">عملیات روزهای امروز</td>
 </tr>
 <?php
 if (count($todays_records)) :
@@ -36,13 +36,13 @@ if (count($todays_records)) :
                 <input type="checkbox" name="select for print" id="select">
             </td>
             <td>
-                <a href="./?id =<?= $result['qtybanck_id'] ?>"></a>
+                <a href="./?id =<?= $result['qtybanck_id'] ?>">hjghj</a>
             </td>
         </tr>
 <?php endforeach;
 else :
     echo "<tr style='margin-block: 10px !important; background-color: #;'>
-            <td colspan='13'>
+            <td colspan='14'>
                 <p style='font-size:12px'> موردی پیدا نشد</p>
             </td>
           </tr>";
@@ -52,13 +52,13 @@ endif;
 
 
 <tr style="background-color: transparent;">
-    <td colspan="13"></td>
+    <td colspan="14"></td>
 </tr>
 <tr style="background-color: transparent;">
-    <td colspan="13"></td>
+    <td colspan="14"></td>
 </tr>
 <tr style="margin-block: 10px !important; background-color: #dae5eb;">
-    <td colspan="13">عملیات روزهای قبل</td>
+    <td colspan="14">عملیات روزهای قبل</td>
 </tr>
 <?php
 
@@ -79,6 +79,11 @@ if (count($previous_records['display'])) :
             <td class="cell-user "><?= $result["user_name"] ?></td>
             <td class="cell-shakhes" style="width:5px">
                 <input type="checkbox" name="select for print" id="select">
+            </td>
+            <td>
+                <a href="./?id =<?= $result['qtybanck_id'] ?>">
+                    <i class="fa fa-pen" aria-hidden="true"></i>
+                </a>
             </td>
         </tr>
     <?php endforeach;
@@ -101,7 +106,7 @@ if (count($previous_records['display'])) :
     endif;
 else :
     echo "<tr style='margin-block: 10px !important; background-color: #;'>
-            <td colspan='13'>
+            <td colspan='14'>
                 <p style='font-size:12px'> موردی پیدا نشد</p>
             </td>
           </tr>";
