@@ -122,7 +122,7 @@
                 </table>
             </div>
             <div class="bottom-bar">
-                <input type="submit" value="ذخیره" id="">
+                <input type="submit" value="ذخیره" id="sabt">
                 <div class="error"></div>
             </div>
         </div>

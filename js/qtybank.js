@@ -1,7 +1,7 @@
 const resultBox = document.getElementById("txtHint-khoroj");
 const buttonDisable = document.getElementById("sabt");
 if (buttonDisable) {
-  document.getElementById("sabt").disabled = true;
+  document.getElementById("sabt").disabled = false;
 }
 
 function showQty(str) {
@@ -26,7 +26,6 @@ function showQty(str) {
 function validateAmount(input) {
   var inputs = document.querySelectorAll('input[type="number"][name="qty[]"]');
   var totalCountInput = document.getElementById("totalCount");
-  var invoiceNumberInput = document.getElementById("invoice_number");
   var total = 0;
   var invalidAmount = false;
   var error_message = document.getElementById("error_message");
@@ -50,13 +49,9 @@ function validateAmount(input) {
     document.getElementById("sabt").disabled = true;
     error_message.style.display = "table-row";
   } else {
+    document.getElementById("sabt").disabled = false;
     totalCountInput.value = total;
     error_message.style.display = "none";
-    if (invoiceNumberInput.value == "") {
-      document.getElementById("sabt").disabled = true;
-    } else {
-      document.getElementById("sabt").disabled = false;
-    }
   }
 }
 
@@ -89,9 +84,6 @@ $(document).ready(function () {
     var invoiceNumberInput = document.getElementById("invoice_number");
 
     if (qty !== 0 && qty <= prev_qty) {
-      if (invoiceNumberInput && invoiceNumberInput.value !== "")
-        document.getElementById("sabt").disabled = false;
-
       const code = $(this).prev().attr("code");
       const brand = $(this).prev().attr("brand");
       const seller = $(this).prev().attr("seller");
@@ -119,7 +111,7 @@ $(document).ready(function () {
               <p>${seller}</p>
               <p>${brand}</p>
               <input type="hidden" name="qtyid[]" value="${qtyid}">
-              <input type="number" name="qty[]" value="${qty}" id="good_amount" onchange="validateAmount(this)">
+              <input type="number" name="qty[]" value="${qty}" id="good_amount" max="${prev_qty}" onchange="validateAmount(this)">
               <input type="hidden" name="prev_qty" value="${prev_qty}" />
             </div>
           </td>
