@@ -37,7 +37,7 @@ $stmt = $pdo->prepare("SELECT nisha.partnumber ,nisha.price AS nprice,seller.id 
                         LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
                         LEFT JOIN users ON qtybank.user=users.id
                         LEFT JOIN stock ON qtybank.stock_id=stock.id 
-                        WHERE (nisha.partnumber = :partNumber OR :partNumber IS NULL)
+                        WHERE (nisha.partnumber LIKE :partNumber OR :partNumber IS NULL)
                         AND (qtybank.seller = :seller_id OR :seller_id IS NULL)
                         AND (brand.id = :brand_id OR :brand_id IS NULL)
                         AND (qtybank.pos1 = :pos1 OR :pos1 IS NULL)
@@ -49,7 +49,8 @@ $stmt = $pdo->prepare("SELECT nisha.partnumber ,nisha.price AS nprice,seller.id 
                         ORDER BY qtybank.create_time DESC");
 
 // Bind the parameters
-$stmt->bindParam(':partNumber', $partNumber, PDO::PARAM_STR);
+$parameter = $partNumber . "%";
+$stmt->bindParam(':partNumber', $parameter, PDO::PARAM_STR);
 $stmt->bindParam(':seller_id', $seller_id, PDO::PARAM_INT);
 $stmt->bindParam(':brand_id', $brand_id, PDO::PARAM_INT);
 $stmt->bindParam(':invoice_number', $invoice_number, PDO::PARAM_STR);
