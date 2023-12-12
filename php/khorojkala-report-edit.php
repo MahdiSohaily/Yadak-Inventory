@@ -162,8 +162,8 @@
 
                 <div class="left-form">
                     <label for="customer">خریدار</label>
-                    <input type="text" name="customer-d" id="customer-d" value="<?php echo $row["customer"] ?>" disabled>
-                    <input type="hidden" name="customer" id="customer" value="<?php echo $row["customer"] ?>">
+                    <!-- <input type="text" name="customer-d" id="customer-d" value="<?php echo $row["customer"] ?>" disabled> -->
+                    <input type="text" name="customer" id="customer" value="<?php echo $row["customer"] ?>">
                     <label class="half-label" for="getter">تحویل گیرنده</label>
                     <select class="half-input" name="getter" id="getter" data="<?php echo $gtid ?>">
                         <?php include("getter-form.php") ?>

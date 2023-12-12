@@ -72,7 +72,27 @@ function createDisplay($records)
                     <td class="cell-pos1 "><?= $record["pos1"] ?></td>
                     <td class="cell-pos2 "><?= $record["pos2"] ?></td>
                     <td class="cell-des "><?= $record["des"] ?></td>
-                    <td class="cell-stock "><?= $record["stckname"] ?></td>
+                    <td class="cell-stock ">
+                        <?php
+                        $stock = $record["stckname"];
+                        $theme = '';
+
+                        if ($stock == "خاوران") {
+                            $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:red;"';
+                        } elseif ($stock == 'یدک شاپ') {
+                            $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:green;"';
+                        } elseif ($stock == 'فرشاد') {
+                            $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:blue;"';
+                        } elseif ($stock == 'دوبی') {
+                            $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:black;"';
+                        } elseif ($stock == 'انبار 2') {
+                            $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:skyblue;"';
+                        } elseif ($stock == 'لنتور') {
+                            $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:magnet;"';
+                        }
+                        echo "<p $theme > $stock </p>"
+                        ?>
+                    </td>
                 </tr>
             <?php else :
             ?>
@@ -85,7 +105,27 @@ function createDisplay($records)
                     <td><?= $record["pos1"] ?></td>
                     <td><?= $record["pos2"] ?></td>
                     <td class="cell-des"><?= $record["des"] ?></td>
-                    <td class="cell-stock-move"><?= $record["stckname"] ?></td>
+                    <td class="cell-stock-move">
+                        <?php
+                        $stock = $record["stckname"];
+                        $theme = '';
+
+                        if ($stock == "خاوران") {
+                            $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:red;"';
+                        } elseif ($stock == 'یدک شاپ') {
+                            $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:green;"';
+                        } elseif ($stock == 'فرشاد') {
+                            $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:blue;"';
+                        } elseif ($stock == 'دوبی') {
+                            $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:black;"';
+                        } elseif ($stock == 'انبار 2') {
+                            $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:skyblue;"';
+                        } elseif ($stock == 'لنتور') {
+                            $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:magnet;"';
+                        }
+                        echo "<p $theme > $stock </p>"
+                        ?>
+                    </td>
                 </tr>
         <?php
             endif;

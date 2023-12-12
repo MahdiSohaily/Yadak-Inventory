@@ -81,8 +81,15 @@ if (mysqli_num_rows($result) > 0) {
                                                     $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:red;"';
                                                 } elseif ($stock == 'یدک شاپ') {
                                                     $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:green;"';
+                                                } elseif ($stock == 'فرشاد') {
+                                                    $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:blue;"';
+                                                } elseif ($stock == 'دوبی') {
+                                                    $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:black;"';
+                                                } elseif ($stock == 'انبار 2') {
+                                                    $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:skyblue;"';
+                                                } elseif ($stock == 'لنتور') {
+                                                    $theme = 'style = "padding-block:10px;margin-inline:10px;border-radius:5px;color:white;background-color:magnet;"';
                                                 }
-
                                                 echo "<p $theme > $stock </p>"
                                                 ?></td>
                 </tr>

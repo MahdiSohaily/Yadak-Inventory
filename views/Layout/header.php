@@ -408,6 +408,10 @@ require_once './bootstrap/init.php';
                     <i class="fa fa-caret-left" aria-hidden="true"></i>
                 </a>
                 <ul class="drop_down_menu">
+                    <li><a class="menu_item_dropdown" href="vorodkala-report.php?interval=3">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            3 روز اخیر</a>
+                    </li>
                     <li><a class="menu_item_dropdown" href="vorodkala-report.php?interval=10">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             10 روز اخیر</a>
@@ -438,6 +442,10 @@ require_once './bootstrap/init.php';
                     <i class="fa fa-caret-left" aria-hidden="true"></i>
                 </a>
                 <ul class="drop_down_menu">
+                    <li><a class="menu_item_dropdown" href="khorojkala-report.php?interval=3">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            3 روز اخیر</a>
+                    </li>
                     <li><a class="menu_item_dropdown" href="khorojkala-report.php?interval=10">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             10 روز اخیر</a>
@@ -453,7 +461,7 @@ require_once './bootstrap/init.php';
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             120 روز اخیر</a>
                     </li>
-                    <li><a class="menu_item_dropdown" href="khorojkala-report.php?interval=10">
+                    <li><a class="menu_item_dropdown" href="khorojkala-report.php">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             گزارش کامل
                         </a>
@@ -497,13 +505,13 @@ require_once './bootstrap/init.php';
             </li>
             <li>
                 <a class="aside_item" href="../callcenter/report/registerGood.php">
-                <i class="fa fa-folder" aria-hidden="true"></i>
+                    <i class="fa fa-folder" aria-hidden="true"></i>
                     ثبت کدفنی
                 </a>
             </li>
-             <li>
+            <li>
                 <a class="aside_item" href="../callcenter/report/index.php">
-                <i class="fa fa-search" aria-hidden="true"></i>
+                    <i class="fa fa-search" aria-hidden="true"></i>
                     جستجوی کدفنی
                 </a>
             </li>
