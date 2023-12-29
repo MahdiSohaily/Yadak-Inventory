@@ -225,7 +225,7 @@ require_once './bootstrap/init.php';
             customInput.value = customText;
         }
     </script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="./public/css/material_icons.css" rel="stylesheet">
     <style>
         nav#main_nav {
             position: fixed;
