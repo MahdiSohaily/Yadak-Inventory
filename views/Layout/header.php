@@ -20,7 +20,6 @@ require_once './bootstrap/init.php';
     <script type="text/javascript" src="./js/assets/table2excel.js?v=<?php echo (rand()) ?>"></script>
     <script src="js/font.min.js?v=<?php echo (rand()) ?>"></script>
     <script src="./js/assets/select2.js?v=<?php echo (rand()) ?>"></script>
-
     <?php
     switch (basename($_SERVER['PHP_SELF'])) {
         case 'price.php':
@@ -80,9 +79,7 @@ require_once './bootstrap/init.php';
             echo '<link rel="shortcut icon" href="./img/logo.png" type="image/x-icon">';
             break;
     }
-
     echo "<title>$title</title>";
-
     ?>
     <style>
         /* width */
@@ -522,6 +519,10 @@ require_once './bootstrap/init.php';
             <li><a class="aside_item" href="shomaresh-index.php">
                     <i class="fa fa-building" aria-hidden="true"></i>
                     انبارگردانی</a>
+            </li>
+            <li><a class="aside_item" href="singleItemReport.php">
+            <i class="fa fa-flag-checkered" aria-hidden="true"></i>
+                    بررسی تک آیتم</a>
             </li>
             <li class="dropdown">
                 <a class="aside_item" href="price.php" style="display: flex; justify-content: space-between;">
