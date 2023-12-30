@@ -68,7 +68,7 @@ AND (qtybank.stock_id = :stock_id OR :stock_id IS NULL)
 AND (exitrecord.user = :user_id OR :user_id IS NULL)
 AND (exitrecord.invoice_number = :invoice_number OR :invoice_number IS NULL)
 AND (exitrecord.invoice_date = :invoice_date OR :invoice_date IS NULL)
-AND is_transfered = 0
+AND exitrecord.is_transfered = 0
 ORDER BY
 exitrecord.exit_time DESC,
 exitrecord.invoice_number DESC");

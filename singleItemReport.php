@@ -1,15 +1,19 @@
 <?php
 require_once("./views/Layout/header.php");
 require_once("./app/controller/SingleItemReportController.php");
-$interval = '553113f';
+$interval = '54650C1050';
 if (isset($_GET['interval'])) {
 }
 ?>
 <link rel="stylesheet" href="./public/css/singleItem.css">
 <link rel="stylesheet" href="./public/css/singleItem.css">
-<section class="flex justify-center">
-    <input class="form-controller" type="text" name="code" id="code" onkeyup="convertToEnglish(this); search(this.value)" placeholder="کد مد نظر خود را بصورت کامل وارد کنید">
-</section>
+<div class="flex justify-center">
+    <input class="form-controller" type="text" name="code" id="code" onkeyup="convertToEnglish(this);
+    search(this.value);
+    searchGoods(this.value);
+    filterReport(this.value);
+    " ; placeholder="کد مد نظر خود را بصورت کامل وارد کنید">
+</div>
 
 <section id="price">
     <h2>قیمت قطعه</h2>
@@ -42,15 +46,87 @@ if (isset($_GET['interval'])) {
         </tbody>
     </table>
 </section>
-<section id="import">
+<section id="existing">
     <h2>گزارش ورود</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>شماره فنی</th>
+                <th>برند</th>
+                <th>تعداد موجود</th>
+                <th>فروشنده</th>
+                <th>راهرو</th>
+                <th>قفسه</th>
+                <th>توضیحات</th>
+                <th>انبار</th>
+            </tr>
+        </thead>
+        <tbody id="mojodiResult" class="mojodi-table">
+        </tbody>
+    </table>
 </section>
+<section id="import">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>شماره فنی</th>
+                <th>برند</th>
+                <th>توضیحات</th>
+                <th>تعداد</th>
+                <th>راهرو</th>
+                <th>قفسه</th>
+                <th>فروشنده</th>
+                <th>زمان ورود</th>
+                <th>تاریخ ورود</th>
+                <th>تحویل دهنده</th>
+                <th>فاکتور</th>
+                <th>شماره فاکتور</th>
+                <th>تاریخ فاکتور</th>
+                <th>ورود به انبار</th>
+                <th>انبار</th>
+                <th>کاربر</th>
+            </tr>
+        </thead>
+        <tbody id="resultBox">
+        </tbody>
+</section>
+
 <section id="export">
-    <h2>گزارش خروج</h2>
+    <table style="background-color: white;">
+        <thead>
+            <tr>
+                <th title="">#</th>
+                <th title="شماره فنی">شماره فنی</th>
+                <th title="برند">برند</th>
+                <th title="توضیحات ورود">توضیحات و</th>
+                <th title="توضیحات خروج">توضیحات خ</th>
+                <th title="تعداد">تعداد</th>
+
+                <th title="فروشنده">فروشنده</th>
+                <th title="خریدار">خریدار</th>
+                <th title="تحویل گیرنده">تحویل گیرنده</th>
+                <th title="تاریخ خروج">تاریخ خ</th>
+
+                <th title="شماره فاکتور خروج">ش ف خروج</th>
+                <th title="تاریخ فاکتور خروج">تاریخ ف خ</th>
+
+                <th title="ورود به انبار">ورود به انبار</th>
+
+                <th title="شماره فاکتور ورود">ش ف و</th>
+                <th title="تاریخ فاکتور ورود">تاریخ ف و</th>
+                <th title="انبار">انبار</th>
+                <th title="کاربر">کاربر</th>
+            </tr>
+        </thead>
+        <tbody id="filterExportResultBox">
+        </tbody>
+    </table>
 </section>
+<script src="./public/js/mojodi_kala.js?v=<?= rand() ?>"></script>
 <script>
     let result = null;
-
     const search = (val) => {
         let pattern = val;
         const resultBox = document.getElementById("results");
@@ -82,9 +158,81 @@ if (isset($_GET['interval'])) {
         }
     };
 
+    function filter(partNumber_value = null) {
+        var params = new URLSearchParams();
+        params.append('submit_filter', 'submit_filter');
+        params.append('partNumber', partNumber_value);
+
+        const resultBox = document.getElementById('resultBox');
+        resultBox.innerHTML = `
+                            <tr class='full-page'>
+                                <td colspan='18'>
+                                <img style='width: 60px; margin-block:30px' src='../callcenter/report/public/img/loading.png' alt='google'>
+                                <p class="pt-2 text-gray-500">لطفا صبور باشید</p>
+                                </td>
+                            </tr>`;
+        axios.post("./vorodkala-report-ajax.php", params)
+            .then(function(response) {
+                resultBox.innerHTML = response.data;
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
+
+    function filterExport(partNumber_value = null) {
+        var params = new URLSearchParams();
+        params.append('submit_filter', 'submit_filter');
+        params.append('partNumber', partNumber_value);
+        const resultBox = document.getElementById('filterExportResultBox');
+        resultBox.innerHTML = `
+                            <tr class='full-page'>
+                                <td colspan='18'>
+                                <img style='width: 60px; margin-block:30px' src='../callcenter/report/public/img/loading.png' alt='google'>
+                                <p class="pt-2 text-gray-500">لطفا صبور باشید</p>
+                                </td>
+                            </tr>`;
+        axios.post("./singleExportReport.php", params)
+            .then(function(response) {
+                const data = response.data;
+                resultBox.innerHTML = '';
+                let counter = 1;
+                for (item of data) {
+                    resultBox.innerHTML += `
+                    <tr class="left_right">
+                        <td class="text-center cell-shakhes ">${ counter }</td>
+                        <td class="text-center cell-code ">${ (item.partnumber) }</td>
+                        <td class="text-center cell-brand cell-brand-${ item.brn } ">${ item.brn }</td>
+                        <td class="text-center cell-des ">${ item.des }</td>
+                        <td class="text-center cell-des ">${ item.exdes }</td>
+                        <td class="text-center cell-qty ">${ item.extqty }</td>
+                        <td class="text-center cell-seller" style="width:180px">${ item.name }</td>
+                        <td class="text-center cell-customer ">${ item.customer }</td>
+                        <td class="text-center cell-gtname ">${ item.gtn }</td>
+                        <td class="text-center cell-date ">${ item.exit_time }</td>
+                        <td  class="cell-date " style="width:80px">${item.invoice_number}</td>
+                        <td class="text-center cell-date ">${ item.invoice_date }</td>
+                        <td class="text-center tik-anb-${ item.anbarenter }"></td>
+                        <td class="text-center cell-time ">${ item.qty_invoice_number }</td>
+                        <td class="text-center cell-time ">${ item.qty_invoice_date }</td>
+                        <td class="text-center cell-stock ">${ item.stn }</td>
+                        <td class="text-center cell-user ">${ item.usn }</td>
+                    </tr>
+                    `;
+                    counter++;
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
+
     <?php
     if ($interval) {
-        echo "search('$interval')";
+        echo "search('$interval');";
+        echo "searchGoods('$interval');";
+        // echo "filter('$interval');";
+        echo "filterExport('$interval');";
     }
     ?>
 </script>

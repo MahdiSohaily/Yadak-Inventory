@@ -35,15 +35,15 @@ if (mysqli_num_rows($result) > 0) {
 
             if ($row['is_transfered'] !== '1') : ?>
                 <tr>
-                    <td class="cell-shakhes "><?= $shakhes ?></td>
-                    <td class="cell-code "><?= '&nbsp;' .  strtoupper($row["partnumber"]) ?></td>
-                    <td class="cell-brand  cell-brand-<?= $row["brn"] ?> "><?= $row["brn"] ?></td>
-                    <td class="cell-qty "><?= $finalqty ?></td>
-                    <td class="cell-seller cell-seller-<?= $row["name"] ?>"><?= $row["name"] ?></td>
-                    <td class="cell-pos1 "><?= $row["pos1"] ?></td>
-                    <td class="cell-pos2 "><?= $row["pos2"] ?></td>
-                    <td class="cell-des "><?= $row["des"] ?></td>
-                    <td class="cell-stock "><?php
+                    <td class=" cell-shakhes "><?= $shakhes ?></td>
+                    <td class=" cell-code "><?= '&nbsp;' .  strtoupper($row["partnumber"]) ?></td>
+                    <td class=" cell-brand  cell-brand-<?= $row["brn"] ?> "><?= $row["brn"] ?></td>
+                    <td class=" cell-qty "><?= $finalqty ?></td>
+                    <td class=" cell-seller cell-seller-<?= $row["name"] ?>"><?= $row["name"] ?></td>
+                    <td class=" cell-pos1 "><?= $row["pos1"] ?></td>
+                    <td class=" cell-pos2 "><?= $row["pos2"] ?></td>
+                    <td class=" cell-des "><?= $row["des"] ?></td>
+                    <td class=" cell-stock "><?php
                                             $stock = $row["stckname"];
                                             $theme = '';
 
@@ -65,15 +65,15 @@ if (mysqli_num_rows($result) > 0) {
                 </tr>
             <?php else : ?>
                 <tr class="transfer">
-                    <td class="cell- "><?= $shakhes ?></td>
-                    <td class="bold fs-20"><?= strtoupper($row["partnumber"]) ?></td>
-                    <td class="bold fs-13"><?= $row["brn"] ?></td>
+                    <td class=" cell- "><?= $shakhes ?></td>
+                    <td class=" bold fs-20"><?= strtoupper($row["partnumber"]) ?></td>
+                    <td class=" bold fs-13"><?= $row["brn"] ?></td>
                     <td><?= $finalqty ?></td>
-                    <td class="bold fs-13"><?= $row["name"] ?></td>
+                    <td class=" bold fs-13"><?= $row["name"] ?></td>
                     <td><?= $row["pos1"] ?></td>
                     <td><?= $row["pos2"] ?></td>
-                    <td class="cell-des"><?= $row["des"] ?></td>
-                    <td class="cell-stock-move"><?php
+                    <td class=" cell-des"><?= $row["des"] ?></td>
+                    <td class=" cell-stock-move"><?php
                                                 $stock = $row["stckname"];
                                                 $theme = '';
 

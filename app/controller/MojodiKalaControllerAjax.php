@@ -64,15 +64,15 @@ function createDisplay($records)
         foreach ($records as $record) :
             if ($record['is_transfered'] !== 1) : ?>
                 <tr>
-                    <td class="cell-shakhes "><?= $counter ?></td>
-                    <td class="cell-code "><?= '&nbsp;' .  $record["partnumber"] ?></td>
-                    <td class="cell-brand  cell-brand-<?= $record["brn"] ?> "><?= $record["brn"] ?></td>
-                    <td class="cell-qty "><?= $record["entqty"] ?></td>
-                    <td class="cell-seller cell-seller-<?= $record["name"] ?>"><?= $record["name"] ?></td>
-                    <td class="cell-pos1 "><?= $record["pos1"] ?></td>
-                    <td class="cell-pos2 "><?= $record["pos2"] ?></td>
-                    <td class="cell-des "><?= $record["des"] ?></td>
-                    <td class="cell-stock ">
+                    <td class="text-center cell-shakhes "><?= $counter ?></td>
+                    <td class="text-center cell-code "><?= '&nbsp;' .  $record["partnumber"] ?></td>
+                    <td class="text-center cell-brand  cell-brand-<?= $record["brn"] ?> "><?= $record["brn"] ?></td>
+                    <td class="text-center cell-qty "><?= $record["entqty"] ?></td>
+                    <td class="text-center cell-seller cell-seller-<?= $record["name"] ?>"><?= $record["name"] ?></td>
+                    <td class="text-center cell-pos1 "><?= $record["pos1"] ?></td>
+                    <td class="text-center cell-pos2 "><?= $record["pos2"] ?></td>
+                    <td class="text-center cell-des "><?= $record["des"] ?></td>
+                    <td class="text-center cell-stock ">
                         <?php
                         $stock = $record["stckname"];
                         $theme = '';
@@ -97,15 +97,15 @@ function createDisplay($records)
             <?php else :
             ?>
                 <tr class="transfer">
-                    <td class="cell- "><?= $counter ?></td>
-                    <td class="bold fs-20"><?= $record["partnumber"] ?></td>
-                    <td class="bold fs-13"><?= $record["brn"] ?></td>
+                    <td class="text-center cell- "><?= $counter ?></td>
+                    <td class="text-center bold fs-20"><?= $record["partnumber"] ?></td>
+                    <td class="text-center bold fs-13"><?= $record["brn"] ?></td>
                     <td><?= $record["entqty"] ?></td>
-                    <td class="bold fs-13"><?= $record["name"] ?></td>
+                    <td class="text-center bold fs-13"><?= $record["name"] ?></td>
                     <td><?= $record["pos1"] ?></td>
                     <td><?= $record["pos2"] ?></td>
-                    <td class="cell-des"><?= $record["des"] ?></td>
-                    <td class="cell-stock-move">
+                    <td class="text-center cell-des"><?= $record["des"] ?></td>
+                    <td class="text-center cell-stock-move">
                         <?php
                         $stock = $record["stckname"];
                         $theme = '';
