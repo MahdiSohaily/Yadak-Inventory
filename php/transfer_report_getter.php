@@ -88,7 +88,7 @@ if (count($previous_records['display'])) :
     $pages_count = ceil($previous_records['total'] / $item_per_page);
     if ($pages_count > 1) :
     ?>
-        <tr style="background-color: transparent;">
+        <!-- <tr style="background-color: transparent;">
             <td colspan="14">
                 <div class="pagination">
                     <?php
@@ -99,7 +99,7 @@ if (count($previous_records['display'])) :
                     endfor; ?>
                 </div>
             </td>
-        </tr>
+        </tr> -->
 <?php
     endif;
 else :

@@ -74,12 +74,9 @@ function getPreviousRecords($item_per_page, $page)
         LEFT JOIN getter ON getter.id = exitrecord.getter
         INNER JOIN users ON users.id = transfer_record.user_id
         WHERE transfer_record.transfer_date < :transfer_date
-        ORDER BY transfer_record.transfer_date DESC
-        LIMIT :page_first_result, :results_per_page");
+        ORDER BY transfer_record.transfer_date DESC");
 
     $statement->bindParam(':transfer_date', $yesterday);
-    $statement->bindParam(':page_first_result', $page_first_result, PDO::PARAM_INT);
-    $statement->bindParam(':results_per_page', $item_per_page, PDO::PARAM_INT);
 
 
     $statement->execute();
