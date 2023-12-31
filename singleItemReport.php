@@ -18,8 +18,8 @@ if (isset($_GET['code'])) {
 </div>
 
 <section id="price">
-    <h2 style="font-size: 18px; font-weight: bold; text-align: center;">قیمت قطعه</h2>
-    <table class="">
+    <h2 style="font-size: 18px; font-weight: bold; text-align: center; padding-bottom:10px;">قیمت قطعه</h2>
+    <table class="" style="direction: ltr !important;">
         <thead class="font-medium dark:border-neutral-500">
             <tr class="bg-green-700">
                 <th scope="col" class="px-3 py-3 bg-black text-white w-52 text-center">
@@ -49,7 +49,7 @@ if (isset($_GET['code'])) {
     </table>
 </section>
 <section id="existing">
-    <h2 style="font-size: 18px; font-weight: bold; text-align: center;">گزارش ورود</h2>
+    <h2 style="font-size: 18px; font-weight: bold; text-align: center; padding-bottom:10px;">گزارش ورود</h2>
     <table>
         <thead>
             <tr>
@@ -64,12 +64,12 @@ if (isset($_GET['code'])) {
                 <th>انبار</th>
             </tr>
         </thead>
-        <tbody id="mojodiResult" class="mojodi-table">
+        <tbody id="mojodiResult" style="background-color: white;">
         </tbody>
     </table>
 </section>
 <section id="import">
-    <h2 style="font-size: 18px; font-weight: bold; text-align: center;">گزارش ورود</h2>
+    <h2 style="font-size: 18px; font-weight: bold; text-align: center; padding-bottom:10px;">گزارش ورود</h2>
     <table>
         <thead>
             <tr>
@@ -92,12 +92,12 @@ if (isset($_GET['code'])) {
                 <th>کاربر</th>
             </tr>
         </thead>
-        <tbody id="resultBox">
+        <tbody id="resultBox" style="background-color: white;">
         </tbody>
     </table>
 </section>
 <section id="export">
-    <h2 style="font-size: 18px; font-weight: bold; text-align: center;">گزارش خروج</h2>
+    <h2 style="font-size: 18px; font-weight: bold; text-align: center; padding-bottom:10px;">گزارش خروج</h2>
     <table style="background-color: white;">
         <thead>
             <tr>
@@ -183,23 +183,23 @@ if (isset($_GET['code'])) {
                 for (item of data) {
                     resultBox.innerHTML += `
                     <tr class="left_right">
-                        <td class="cell-shakhes ">${ counter }</td>
-                        <td class="cell-code ">${item.partnumber.toUpperCase() }</td>
-                        <td class="cell-brand cell-brand-${ item.name } ">${ item.name }</td>
-                        <td class="cell-des ">${ item.des }</td>
-                        <td class="cell-qty ">${ item.qty }</td>
-                        <td class="cell-pos1 ">${ item.pos1 }</td>
-                        <td class="cell-pos2 ">${ item.pos2 }</td>
-                        <td class="cell-seller cell-seller-${ item.slid }">${ item.sln }</td>
-                        <td class="cell-time ">${ item.invoice_date }</td>
-                        <td class="cell-date ">${ item.invoice_date }</td>
-                        <td class="cell-dlname ">${ item.dn }</td>
-                        <td class="tik-inv-${ item.invoice }"></td>
+                        <td class="text-center cell-shakhes ">${ counter }</td>
+                        <td class="text-center cell-code ">${item.partnumber.toUpperCase() }</td>
+                        <td class="text-center cell-brand cell-brand-${ item.name } ">${ item.name }</td>
+                        <td class="text-center cell-des ">${ item.des }</td>
+                        <td class="text-center cell-qty ">${ item.qty }</td>
+                        <td class="text-center cell-pos1 ">${ item.pos1 }</td>
+                        <td class="text-center cell-pos2 ">${ item.pos2 }</td>
+                        <td class="text-center cell-seller cell-seller-${ item.slid }">${ item.sln }</td>
+                        <td class="text-center cell-time ">${ item.invoice_date }</td>
+                        <td class="text-center cell-date ">${ item.invoice_date }</td>
+                        <td class="text-center cell-dlname ">${ item.dn }</td>
+                        <td class="text-center tik-inv-${ item.invoice }"></td>
                         <td>${ item.invoice_number }</td>
-                        <td class="cell-date ">${ item.invoice_date }</td>
-                        <td class="tik-anb-${ item.anbarenter }"></td>
-                        <td class="cell-stock ">${ item.stn }</td>
-                        <td class="cell-user ">${ item.un }</td>
+                        <td class="text-center cell-date ">${ item.invoice_date }</td>
+                        <td class="text-center tik-anb-${ item.anbarenter }"></td>
+                        <td class="text-center cell-stock ">${ item.stn }</td>
+                        <td class="text-center cell-user ">${ item.un }</td>
                     </tr>
                     `;
                 }

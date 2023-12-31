@@ -1,8 +1,10 @@
 section {
+    background-color: rgb(227, 227, 227) !important;
     padding-inline: 15px;
     border-radius: 10px;
     padding: 20px;
-    margin: 10px 30px !important;
+    margin-inline: 20px;
+    margin-bottom: 70px !important;
 }
 
 .flex {
@@ -193,7 +195,7 @@ table {
     width: 98% !important;
     margin-inline: auto !important;
     margin-block: 10px;
-    direction: rtl !important;
+    direction: ltr !important;
 }
 
 th {
@@ -235,17 +237,17 @@ thead {
 }
 
 .ml-4 {
-    margin-right: 1rem;
+    margin-left: 1rem;
     /* 16px */
 }
 
 .ml-11 {
-    margin-right: 2.90rem;
+    margin-left: 2.90rem;
     /* 44px */
 }
 
 .pl-12 {
-    padding-right: 4rem;
+    padding-left: 4rem;
     /* 48px */
 }
 
