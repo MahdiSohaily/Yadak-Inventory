@@ -1,8 +1,9 @@
 <?php
 require_once("./views/Layout/header.php");
 require_once("./app/controller/SingleItemReportController.php");
-$interval = '54650C1050';
-if (isset($_GET['interval'])) {
+
+if (isset($_GET['code'])) {
+    $code = $_GET['code'] ?? '';
 }
 ?>
 <link rel="stylesheet" href="./public/css/singleItem.css">
@@ -11,12 +12,13 @@ if (isset($_GET['interval'])) {
     <input class="form-controller" type="text" name="code" id="code" onkeyup="convertToEnglish(this);
     search(this.value);
     searchGoods(this.value);
-    filterReport(this.value);
+    filter(this.value);
+    filterExport(this.value);
     " ; placeholder="کد مد نظر خود را بصورت کامل وارد کنید">
 </div>
 
 <section id="price">
-    <h2>قیمت قطعه</h2>
+    <h2 style="font-size: 18px; font-weight: bold; text-align: center;">قیمت قطعه</h2>
     <table class="">
         <thead class="font-medium dark:border-neutral-500">
             <tr class="bg-green-700">
@@ -47,7 +49,7 @@ if (isset($_GET['interval'])) {
     </table>
 </section>
 <section id="existing">
-    <h2>گزارش ورود</h2>
+    <h2 style="font-size: 18px; font-weight: bold; text-align: center;">گزارش ورود</h2>
     <table>
         <thead>
             <tr>
@@ -67,6 +69,7 @@ if (isset($_GET['interval'])) {
     </table>
 </section>
 <section id="import">
+    <h2 style="font-size: 18px; font-weight: bold; text-align: center;">گزارش ورود</h2>
     <table>
         <thead>
             <tr>
@@ -91,8 +94,10 @@ if (isset($_GET['interval'])) {
         </thead>
         <tbody id="resultBox">
         </tbody>
+    </table>
 </section>
 <section id="export">
+    <h2 style="font-size: 18px; font-weight: bold; text-align: center;">گزارش خروج</h2>
     <table style="background-color: white;">
         <thead>
             <tr>
@@ -132,7 +137,7 @@ if (isset($_GET['interval'])) {
 
 
 
-        if (pattern.length > 6) {
+        if (pattern.length >= 10) {
             pattern = pattern.replace(/\s/g, "");
             pattern = pattern.replace(/-/g, "");
             pattern = pattern.replace(/_/g, "");
@@ -253,11 +258,11 @@ if (isset($_GET['interval'])) {
     }
 
     <?php
-    if ($interval) {
-        echo "search('$interval');";
-        echo "searchGoods('$interval');";
-        echo "filter('$interval');";
-        echo "filterExport('$interval');";
+    if (isset($code)) {
+        echo "search('$code');";
+        echo "searchGoods('$code');";
+        echo "filter('$code');";
+        echo "filterExport('$code');";
     }
     ?>
 </script>
