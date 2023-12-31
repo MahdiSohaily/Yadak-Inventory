@@ -8,7 +8,7 @@ if (isset($_GET['code'])) {
 ?>
 <link rel="stylesheet" href="./public/css/singleItem.css">
 <link rel="stylesheet" href="./public/css/singleItem.css">
-<div class="flex justify-center">
+<div class="flex justify-center" style="margin-bottom: 50px;">
     <input class="form-controller" type="text" name="code" id="code" onkeyup="convertToEnglish(this);
     search(this.value);
     searchGoods(this.value);
