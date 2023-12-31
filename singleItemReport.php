@@ -92,7 +92,6 @@ if (isset($_GET['interval'])) {
         <tbody id="resultBox">
         </tbody>
 </section>
-
 <section id="export">
     <table style="background-color: white;">
         <thead>
@@ -171,9 +170,35 @@ if (isset($_GET['interval'])) {
                                 <p class="pt-2 text-gray-500">لطفا صبور باشید</p>
                                 </td>
                             </tr>`;
-        axios.post("./vorodkala-report-ajax.php", params)
+        axios.post("./singleImportReport.php", params)
             .then(function(response) {
-                resultBox.innerHTML = response.data;
+                const data = response.data;
+                resultBox.innerHTML = '';
+                let counter = 1;
+                for (item of data) {
+                    resultBox.innerHTML += `
+                    <tr class="left_right">
+                        <td class="cell-shakhes ">${ counter }</td>
+                        <td class="cell-code ">${item.partnumber.toUpperCase() }</td>
+                        <td class="cell-brand cell-brand-${ item.name } ">${ item.name }</td>
+                        <td class="cell-des ">${ item.des }</td>
+                        <td class="cell-qty ">${ item.qty }</td>
+                        <td class="cell-pos1 ">${ item.pos1 }</td>
+                        <td class="cell-pos2 ">${ item.pos2 }</td>
+                        <td class="cell-seller cell-seller-${ item.slid }">${ item.sln }</td>
+                        <td class="cell-time ">${ item.invoice_date }</td>
+                        <td class="cell-date ">${ item.invoice_date }</td>
+                        <td class="cell-dlname ">${ item.dn }</td>
+                        <td class="tik-inv-${ item.invoice }"></td>
+                        <td>${ item.invoice_number }</td>
+                        <td class="cell-date ">${ item.invoice_date }</td>
+                        <td class="tik-anb-${ item.anbarenter }"></td>
+                        <td class="cell-stock ">${ item.stn }</td>
+                        <td class="cell-user ">${ item.un }</td>
+                    </tr>
+                    `;
+                }
+                counter++;
             })
             .catch(function(error) {
                 console.log(error);
@@ -231,7 +256,7 @@ if (isset($_GET['interval'])) {
     if ($interval) {
         echo "search('$interval');";
         echo "searchGoods('$interval');";
-        // echo "filter('$interval');";
+        echo "filter('$interval');";
         echo "filterExport('$interval');";
     }
     ?>
