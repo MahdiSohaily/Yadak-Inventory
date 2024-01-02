@@ -134,7 +134,7 @@ function createDisplay($records)
     else :
         ?>
         <tr style="background-color: #f8ad8c; color:white; height:100px">
-            <td colspan="18">متاسفانه نتیجه ای یافت نشد</td>
+            <td colspan="18" class="text-center">متاسفانه نتیجه ای یافت نشد</td>
         </tr>
 
 <?php
