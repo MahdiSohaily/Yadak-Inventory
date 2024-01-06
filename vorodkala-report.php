@@ -57,7 +57,7 @@ if (isset($_GET['interval'])) {
                 <?php require_once("php/stock-form.php") ?>
             </select>
         </div>
-
+        
         <div class="div7">
             <select name="user" id="user">
                 <option selected="true" disabled="disabled">انتخاب کاربر</option>

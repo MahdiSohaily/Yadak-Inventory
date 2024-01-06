@@ -1,7 +1,6 @@
 <?php include("./views/Layout/header.php");
 ?>
 
-
 <style>
     .right-form td {
         padding: 10px !important;
@@ -46,164 +45,162 @@
 </style>
 
 <div id="Enter-Page">
-    <div>
-        <form id="vorodkala" method="post" action="php/vorodkala-save.php" autocomplete="off">
-            <div class="left-form">
-                <?php include("php/codeid.php") ?>
+    <form id="vorodkala" method="post" action="php/vorodkala-save.php" autocomplete="off">
+        <div class="left-form">
+            <?php include("php/codeid.php") ?>
+        </div>
+        <div class="right-form">
+            <input type="hidden" name="brand-box" id="brand-box">
+            <table style="width: 100% !important;">
+                <tbody>
+                    <tr>
+                        <td>
+                            <p for="brand">اصالت</p>
+                        </td>
+                        <td>
+                            <select name="brand" id="esalat">
+                                <?php include("php/brand-form.php") ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>فروشنده</p>
+                        </td>
+                        <td>
+                            <select name="seller" id="seller">
+                                <?php include("php/seller-form.php");
+                                foreach ($data as $key => $value) {
+                                    echo "<option value='$key'>$value</option>";
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            تحویل دهنده
+                        </td>
+                        <td>
+                            <select name="deliverer" id="deliverer">
+                                <?php include("php/deliverer-form.php") ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>تعداد</p>
+                        </td>
+                        <td>
+                            <input required min="0" type="number" name="qty" id="qty">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                قفسه
+                            </p>
+                        </td>
+                        <td>
+                            <input onkeydown="upperCaseF(this)" type="text" name="pos2" id="pos2">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>راهرو</td>
+                        <td>
+                            <input onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>انبار</td>
+                        <td>
+                            <select name="stock" id="stock">
+                                <?php include("php/stock-form.php") ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: middle;">
 
+                            توضیحات
+                        </td>
+                        <td>
+                            <textarea name="des" id="des"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>آیا فاکتور دارد ؟</p>
+                        </td>
+                        <td>
+                            <ul>
+                                <br>
+                                <li style="margin-bottom: 10px;">
+                                    <label for="invoice">
+                                        <input type="radio" name="invoice" data-name="yes" id="invoice" value="1" checked>
+                                        بله
+                                    </label>
+                                </li>
+                                <li style="margin-bottom: 10px;">
+                                    <label for="invoiceNO">
+                                        <input type="radio" name="invoice" data-name="no" id="invoiceNO" value="0">
+                                        خیر
+                                    </label>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="factor_details">
+                        <td>
+                            <p>شماره فاکتور</p>
+                        </td>
+                        <td>
+                            <input type="number" name="invoice_number" id="invoice_number">
+                        </td>
+                    </tr>
+                    <tr class="factor_details">
+                        <td>
+                            <p>زمان فاکتور</p>
+                        </td>
+                        <td>
+                            <input value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>" type="text" name="invoice_time" id="invoice_time">
+                            <span id="span_invoice_time"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>آیا وارد انبار شده ؟</p>
+                        </td>
+                        <td>
+                            <ul>
+                                <li style="margin-bottom: 10px;">
+                                    <label for="anbarenter">
+                                        <input type="radio" name="anbarenter" id="anbarenter" value="0">
+                                        خیر
+                                    </label>
+                                </li>
+                                <li style="margin-bottom: 10px;">
+                                    <label for="anbarenterNo">
+                                        <input type="radio" name="anbarenter" id="anbarenterNo" value="1" checked>
+                                        بله
+                                    </label>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+        </div>
+
+        <div class="bottom-bar">
+            <input type="submit" value="ذخیره" id="">
+            <div class="error">
             </div>
-            <div class="right-form">
-                <input type="hidden" name="brand-box" id="brand-box">
-                <table style="width: 100% !important;">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <p for="brand">اصالت</p>
-                            </td>
-                            <td>
-                                <select name="brand" id="esalat">
-                                    <?php include("php/brand-form.php") ?>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>فروشنده</p>
-                            </td>
-                            <td>
-                                <select name="seller" id="seller">
-                                    <?php include("php/seller-form.php");
-                                    foreach ($data as $key => $value) {
-                                        echo "<option value='$key'>$value</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                تحویل دهنده
-                            </td>
-                            <td>
-                                <select name="deliverer" id="deliverer">
-                                    <?php include("php/deliverer-form.php") ?>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>تعداد</p>
-                            </td>
-                            <td>
-                                <input required min="0" type="number" name="qty" id="qty">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>
-                                    قفسه
-                                </p>
-                            </td>
-                            <td>
-                                <input onkeydown="upperCaseF(this)" type="text" name="pos2" id="pos2">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>راهرو</td>
-                            <td>
-                                <input onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>انبار</td>
-                            <td>
-                                <select name="stock" id="stock">
-                                    <?php include("php/stock-form.php") ?>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: middle;">
+        </div>
 
-                                توضیحات
-                            </td>
-                            <td>
-                                <textarea name="des" id="des"></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>آیا فاکتور دارد ؟</p>
-                            </td>
-                            <td>
-                                <ul>
-                                    <br>
-                                    <li style="margin-bottom: 10px;">
-                                        <label for="invoice">
-                                            <input type="radio" name="invoice" data-name="yes" id="invoice" value="1" checked>
-                                            بله
-                                        </label>
-                                    </li>
-                                    <li style="margin-bottom: 10px;">
-                                        <label for="invoiceNO">
-                                            <input type="radio" name="invoice" data-name="no" id="invoiceNO" value="0">
-                                            خیر
-                                        </label>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr class="factor_details">
-                            <td>
-                                <p>شماره فاکتور</p>
-                            </td>
-                            <td>
-                                <input type="number" name="invoice_number" id="invoice_number">
-                            </td>
-                        </tr>
-                        <tr class="factor_details">
-                            <td>
-                                <p>زمان فاکتور</p>
-                            </td>
-                            <td>
-                                <input value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>" type="text" name="invoice_time" id="invoice_time">
-                                <span id="span_invoice_time"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>آیا وارد انبار شده ؟</p>
-                            </td>
-                            <td>
-                                <ul>
-                                    <li style="margin-bottom: 10px;">
-                                        <label for="anbarenter">
-                                            <input type="radio" name="anbarenter" id="anbarenter" value="0">
-                                            خیر
-                                        </label>
-                                    </li>
-                                    <li style="margin-bottom: 10px;">
-                                        <label for="anbarenterNo">
-                                            <input type="radio" name="anbarenter" id="anbarenterNo" value="1" checked>
-                                            بله
-                                        </label>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-
-            </div>
-
-            <div class="bottom-bar">
-                <input type="submit" value="ذخیره" id="">
-                <div class="error">
-                </div>
-            </div>
-    </div>
     </form>
 </div>
 

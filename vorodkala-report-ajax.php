@@ -29,7 +29,8 @@ $invoice_number = $_POST['invoice_number'] === 'null' ? null : $_POST['invoice_n
 $invoice_date = $_POST['invoice_time'] === 'null' ? null : $_POST['invoice_time']; // Assuming you're retrieving the value from a form
 
 // Prepare the statement
-$stmt = $pdo->prepare("SELECT nisha.partnumber ,nisha.price AS nprice,seller.id AS slid, brand.name , qtybank.des ,qtybank.id, qtybank.qty , qtybank.pos1 , qtybank.pos2 , qtybank.create_time , seller.name AS sln, deliverer.name AS dn , qtybank.anbarenter ,qtybank.invoice , users.username AS un , qtybank.invoice_number,qtybank.invoice_date ,stock.name AS stn
+$stmt = $pdo->prepare("SELECT nisha.partnumber ,
+                            nisha.price AS nprice,seller.id AS slid, brand.name , qtybank.des ,qtybank.id, qtybank.qty , qtybank.pos1 , qtybank.pos2 , qtybank.create_time , seller.name AS sln, deliverer.name AS dn , qtybank.anbarenter ,qtybank.invoice , users.username AS un , qtybank.invoice_number,qtybank.invoice_date ,stock.name AS stn
                         FROM qtybank
                         LEFT JOIN nisha ON qtybank.codeid=nisha.id
                         LEFT JOIN brand ON qtybank.brand=brand.id
@@ -117,7 +118,7 @@ if ($stmt->rowCount() > 0) {
         $jameitem = $jameitem + $row["qty"];
         ?>
         <tr class="left_right <?= $shakhes == 1 ? 'border_top' : ''; ?>">
-            <td class="cell-shakhes "><?= $shakhes ?></td>
+            <td class="cell-shakhes "><?= $row['id'] ?></td>
             <td class="cell-code "><?= '&nbsp;' . strtoupper($row["partnumber"]) ?></td>
             <td class="cell-brand cell-brand-<?= $row["name"] ?> "><?= $row["name"] ?></td>
             <td class="cell-des "><?= $row["des"] ?></td>

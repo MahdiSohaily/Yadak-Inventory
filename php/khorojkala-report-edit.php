@@ -40,24 +40,43 @@
     $q = $_GET['q'];
     require_once("db.php");
 
-    $sql = "SELECT qtybank.id AS qtyid, nisha.partnumber ,qtybank.des, nisha.id, users.username AS usn,
-                    seller.name ,seller.id AS slid, stock.name AS stn ,brand.name AS brn,
-                    qtybank.qty ,qtybank.id AS qtyid,exitrecord.qty AS extqty,exitrecord.id AS exid,
-                    qtybank.qty AS entqty ,exitrecord.customer,exitrecord.des AS exdes,getter.name AS gtn,
-                    getter.id AS gtid,deliverer.name AS dln,exitrecord.exit_time,exitrecord.jamkon,
-                    exitrecord.invoice_number, exitrecord.invoice_date,qtybank.anbarenter,
-                    callcenter.shomarefaktor.kharidar AS customer
+    $sql = "SELECT 
+            qtybank.id AS qtyid,
+            nisha.partnumber,
+            qtybank.des,
+            nisha.id,
+            users.username AS usn,
+            seller.name,
+            seller.id AS slid,
+            stock.name AS stn,
+            brand.name AS brn,
+            qtybank.qty,
+            qtybank.id AS qtyid,
+            exitrecord.qty AS extqty,
+            exitrecord.id AS exid,
+            qtybank.qty AS entqty,
+            exitrecord.customer,
+            exitrecord.des AS exdes,
+            getter.name AS gtn,
+            getter.id AS gtid,
+            deliverer.name AS dln,
+            exitrecord.exit_time,
+            exitrecord.jamkon,
+            exitrecord.invoice_number,
+            exitrecord.invoice_date,
+            qtybank.anbarenter,
+            callcenter.shomarefaktor.kharidar AS customer
             FROM qtybank
-            LEFT JOIN nisha ON qtybank.codeid=nisha.id
-            INNER JOIN exitrecord ON qtybank.id=exitrecord.qtyid
-            LEFT JOIN seller ON qtybank.seller=seller.id
-            LEFT JOIN brand ON qtybank.brand=brand.id
-            LEFT JOIN stock ON qtybank.stock_id=stock.id
-            LEFT JOIN users ON exitrecord.user=users.id
-            LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
-            LEFT JOIN getter ON exitrecord.getter=getter.id
+            INNER JOIN nisha ON qtybank.codeid = nisha.id
+            INNER JOIN exitrecord ON qtybank.id = exitrecord.qtyid
+            LEFT JOIN seller ON qtybank.seller = seller.id
+            LEFT JOIN brand ON qtybank.brand = brand.id
+            LEFT JOIN stock ON qtybank.stock_id = stock.id
+            LEFT JOIN users ON exitrecord.user = users.id
+            LEFT JOIN deliverer ON qtybank.deliverer = deliverer.id
+            LEFT JOIN getter ON exitrecord.getter = getter.id
             LEFT JOIN callcenter.shomarefaktor ON exitrecord.invoice_number = shomarefaktor.shomare
-            WHERE exitrecord.id LIKE '" . $q . "%'";
+            WHERE exitrecord.id = '$q'";
 
     $result = mysqli_query($con, $sql);
     if (mysqli_num_rows($result) > 0) {

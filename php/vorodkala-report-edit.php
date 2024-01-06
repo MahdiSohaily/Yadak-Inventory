@@ -12,7 +12,7 @@
         /* width */
         ::-webkit-scrollbar {
             width: 6px !important;
-            height: 4px !important;
+            height: 4px !important; 
         }
 
         /* Track */
