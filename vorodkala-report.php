@@ -251,12 +251,6 @@ require_once("./app/controller/PurchasedGoodsController.php");
         updateModal.style.display = 'none';
     }
     var modal = document.getElementById("updateModal");
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
 
     $(function() {
         $(".exportToExcel").click(function(e) {

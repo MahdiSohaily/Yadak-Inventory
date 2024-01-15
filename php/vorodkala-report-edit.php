@@ -53,7 +53,7 @@
             LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
             LEFT JOIN users ON qtybank.user=users.id
             LEFT JOIN stock ON qtybank.stock_id=stock.id
-            WHERE qtybank.id = '" . $q . "%'";
+            WHERE qtybank.id = '$q'";
 
     $result = mysqli_query($con, $sql);
     if (mysqli_num_rows($result) > 0) {
