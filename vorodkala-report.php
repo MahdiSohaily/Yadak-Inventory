@@ -24,6 +24,7 @@ require_once("./app/controller/PurchasedGoodsController.php");
         font-weight: bold;
     }
 </style>
+<script src='../callcenter/report/public/js/jalaliMoment.js'></script>
 
 
 <div>
@@ -194,7 +195,31 @@ require_once("./app/controller/PurchasedGoodsController.php");
             <i onclick="closeModal()" class="fa fa-times closeModal" aria-hidden="true"></i>
         </div>
         <div class="displayPage">
-            <iframe id="updateModalIframe" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>شماره فنی</th>
+                        <th>برند</th>
+                        <th>توضیحات</th>
+                        <th>تعداد</th>
+                        <th>راهرو</th>
+                        <th>قفسه</th>
+                        <th>فروشنده</th>
+                        <th>زمان ورود</th>
+                        <th>تاریخ ورود</th>
+                        <th>تحویل دهنده</th>
+                        <th>فاکتور</th>
+                        <th>شماره فاکتور</th>
+                        <th>تاریخ فاکتور</th>
+                        <th>ورود به انبار</th>
+                        <th>انبار</th>
+                        <th>کاربر</th>
+                    </tr>
+                </thead>
+                <tbody id="editResult">
+                    <!-- Selected Record for the edit will be displayed Here -->
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -209,6 +234,7 @@ require_once("./app/controller/PurchasedGoodsController.php");
     const invoice_number = document.getElementById('invoice_number');
     const invoice_time = document.getElementById('invoice_time');
     const updateModal = document.getElementById('updateModal');
+    const editResult = document.getElementById('editResult');
 
     function filterReport() {
         const partNumber_value = partNumber.value === '' ? null : partNumber.value;
@@ -242,9 +268,60 @@ require_once("./app/controller/PurchasedGoodsController.php");
     }
 
     function displayModal(element) {
-        id = element.getAttribute('id');
+        const id = element.getAttribute('id');
         updateModal.style.display = 'flex';
-        updateModalIframe.src = './php/vorodkala-report-edit.php?q=' + id;
+        var params = new URLSearchParams();
+        params.append('getSelectedRecordToEdit', 'getSelectedRecordToEdit');
+        params.append('recordId', id);
+
+        axios.post("./app/controller/PurchaseGoodsAjax.php", params)
+            .then(function(response) {
+                const record = response.data;
+                // Assuming $item is an object with a "purchase_time" property
+
+                let date = record.purchase_time;
+                let array = date.split(' ');
+                let dateArray = array[0].split('-');
+                let timeArray = array[1].split(':');
+
+                let year = parseInt(dateArray[0], 10);
+                let month = parseInt(dateArray[1], 10);
+                let day = parseInt(dateArray[2], 10);
+                let hour = parseInt(timeArray[0], 10);
+                let minute = parseInt(timeArray[1], 10);
+                let second = parseInt(timeArray[2], 10);
+
+                // Create a Date object in JavaScript
+                let timestamp = new Date(year, month - 1, day, hour, minute, second);
+
+                // Convert to Jalali using jalali-moment
+                let jalaliTime = moment(timestamp).format('HH:mm');
+                let jalaliDate = moment(timestamp).locale('fa').format('YYYY/MM/DD');
+
+                editResult.innerHTML = `
+                <tr class="left_right">
+                    <td class="cell-code">${record.partnumber.toUpperCase()}</td>
+                    <td class="cell-brand cell-brand-${record.brand_name}">${record.brand_name}</td>
+                    <td class="cell-des">${record.purchase_description}</td>
+                    <td class="cell-qty">${record.purchase_quantity}</td>
+                    <td class="cell-pos1">${record.purchase_position1}</td>
+                    <td class="cell-pos2">${record.purchase_position2}</td>
+                    <td class="cell-seller cell-seller-${record.seller_id}">${record.seller_name}</td>
+                    <td class="cell-time">${jalaliTime}</td>
+                    <td class="cell-date">${jalaliDate}</td>
+                    <td class="cell-dlname">${record.deliverer_name}</td>
+                    <td class="tik-inv-${record.purchase_hasBill}"></td>
+                    <td>${record.invoice_number}</td>
+                    <td class="cell-date">${record.invoice_date.substr(5)}</td>
+                    <td class="tik-anb-${record.purchase_isEntered}"></td>
+                    <td class="cell-stock">${record.stock_name}</td>
+                    <td class="cell-user">${record.username}</td>
+                </tr>
+                `;
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
     }
 
     function closeModal() {
