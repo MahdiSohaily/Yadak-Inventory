@@ -6,12 +6,22 @@ require_once("./app/controller/PurchasedGoodsController.php");
 
 <style>
     .left_right {
-        border-left: 1px solid gray;
-        border-right: 1px solid gray;
+        border-left: 2px solid lightgray;
+        border-right: 2px solid lightgray;
     }
 
     .border_top {
-        border-top: 1px solid gray !important;
+        border-top: 2px solid lightgray !important;
+    }
+
+    .border_bottom {
+        border-bottom: 2px solid lightgray !important;
+    }
+
+    .bg-black {
+        background-color: #c9c8c3 !important;
+        color: #545452;
+        font-weight: bold;
     }
 </style>
 
@@ -152,11 +162,16 @@ require_once("./app/controller/PurchasedGoodsController.php");
                         </td>
                     </tr>
                     <?php
-                    if ($invoice_number != $item["invoice_number"]) : ?>
-                        <tr class="">
-                            <td colspan="18" >
+                    if ($invoice_number !== $item["invoice_number"]) : ?>
+
+                        <tr class="bg-black left_right">
+                            <td colspan="18">
                                 مجموع اقلام
                                 <?= $billItemsCount ?>
+                            </td>
+                        </tr>
+                        <tr class="border_bottom">
+                            <td colspan="18">
                             </td>
                         </tr>
                 <?php
