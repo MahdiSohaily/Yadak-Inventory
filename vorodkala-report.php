@@ -1,20 +1,17 @@
 <?php
 require_once("./views/Layout/header.php");
 require_once("php/seller-form.php");
-
-if (isset($_GET['interval'])) {
-    $interval = $_GET['interval'];
-}
+require_once("./app/controller/PurchasedGoodsController.php");
 ?>
 
 <style>
     .left_right {
-        border-left: 2px solid gray;
-        border-right: 2px solid gray;
+        border-left: 1px solid gray;
+        border-right: 1px solid gray;
     }
 
     .border_top {
-        border-top: 2px solid gray !important;
+        border-top: 1px solid gray !important;
     }
 </style>
 
@@ -57,7 +54,7 @@ if (isset($_GET['interval'])) {
                 <?php require_once("php/stock-form.php") ?>
             </select>
         </div>
-        
+
         <div class="div7">
             <select name="user" id="user">
                 <option selected="true" disabled="disabled">انتخاب کاربر</option>
@@ -95,7 +92,7 @@ if (isset($_GET['interval'])) {
     </form>
     <table id="report-table" class="report-table">
         <thead>
-            <tr>
+            <tr class="left_right border_top">
                 <th>#</th>
                 <th>شماره فنی</th>
                 <th>برند</th>
@@ -117,7 +114,61 @@ if (isset($_GET['interval'])) {
             </tr>
         </thead>
         <tbody id="resultBox">
-            <?php require_once("php/vorodkala-report-geter.php") ?>
+            <?php
+            $counter = 1;
+            $billItemsCount = 0;
+            if (count($purchaseList) > 0) :
+                $invoice_number = $purchaseList[0]['invoice_number'] ?? 'x';
+                foreach ($purchaseList as $item) :
+                    $date = $item["purchase_time"];
+                    $array = explode(' ', $date);
+                    list($year, $month, $day) = explode('-', $array[0]);
+                    list($hour, $minute, $second) = explode(':', $array[1]);
+                    $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
+                    $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
+                    $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
+                    $billItemsCount += $item["purchase_quantity"];
+            ?>
+                    <tr class="left_right">
+                        <td class="cell-shakhes"><?= $counter ?></td>
+                        <td class="cell-code"><?= '&nbsp;' . strtoupper($item["partnumber"]) ?></td>
+                        <td class="cell-brand cell-brand-<?= $item['brand_name'] ?>"><?= $item["brand_name"] ?></td>
+                        <td class="cell-des"><?= $item["purchase_description"] ?></td>
+                        <td class="cell-qty"><?= $item["purchase_quantity"] ?></td>
+                        <td class="cell-pos1"><?= $item["purchase_position1"] ?></td>
+                        <td class="cell-pos2"><?= $item["purchase_position2"] ?></td>
+                        <td class="cell-seller cell-seller-<?= $item["seller_id"] ?>"><?= $item["seller_name"] ?></td>
+                        <td class="cell-time"><?= $jalali_time ?></td>
+                        <td class="cell-date"><?= $jalali_date ?></td>
+                        <td class="cell-dlname"><?= $item["deliverer_name"] ?></td>
+                        <td class="tik-inv-<?= $item["purchase_hasBill"] ?>"></td>
+                        <td><?= $item["invoice_number"] ?></td>
+                        <td class="cell-date"><?= substr($item["invoice_date"], 5) ?></td>
+                        <td class="tik-anb-<?= $item["purchase_isEntered"] ?>"></td>
+                        <td class="cell-stock"><?= $item["stock_name"] ?></td>
+                        <td class="cell-user"><?= $item["username"] ?></td>
+                        <td style="display: flex; justify-content: center; margin-block: 15px">
+                            <a onclick="displayModal(this)" id="<?= $item["purchase_id"] ?>" class="edit-rec2"><i class="fa fa-pen" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                    <?php
+                    if ($invoice_number != $item["invoice_number"]) : ?>
+                        <tr class="">
+                            <td colspan="18" >
+                                مجموع اقلام
+                                <?= $billItemsCount ?>
+                            </td>
+                        </tr>
+                <?php
+                        $billItemsCount = 0;
+                    endif;
+                    $counter++;
+                endforeach;
+            else : ?>
+                <tr class="">
+                    <td colspan="18" class="cell-shakhes">Null</td>
+                </tr>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>
