@@ -1,5 +1,6 @@
 <?php
 require_once("../../config/db_connect.php");
+require_once("../../utilities/helpers.php");
 require_once("../../php/jdf.php");
 $successfulOperation = false;
 
@@ -212,11 +213,6 @@ if (isset($_POST['selected_record_id'])) {
     <script src="../../js/vorodkala-edit.js?v=<?= (rand()) ?>"></script>
     <script src="../../js/form.js?v=<?= (rand()) ?>"></script>
     <script src="../../js/persianDatepicker.min.js?v=<?= (rand()) ?>"></script>
-    <script>
-        const record = <?= json_encode($selected_record) ?>
-
-        console.log(record);
-    </script>
 </body>
 
 </html>
@@ -261,42 +257,6 @@ function getRecord($record_id)
     $purchaseList = $statement->fetchAll(PDO::FETCH_ASSOC);
 
     return $purchaseList[0];
-}
-
-function getBrands()
-{
-    $statement = DB_CONNECTION->prepare("SELECT * FROM yadakshop1402.brand");
-
-    $statement->execute();
-
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function getSellers()
-{
-    $statement = DB_CONNECTION->prepare("SELECT id, name, latinName FROM yadakshop1402.seller");
-
-    $statement->execute();
-
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function getStocks()
-{
-    $statement = DB_CONNECTION->prepare("SELECT id, name FROM yadakshop1402.stock");
-
-    $statement->execute();
-
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function getDeliverers()
-{
-    $statement = DB_CONNECTION->prepare("SELECT id, name FROM yadakshop1402.deliverer");
-
-    $statement->execute();
-
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function saveChanges($data)
