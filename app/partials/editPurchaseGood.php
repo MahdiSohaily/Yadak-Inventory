@@ -8,6 +8,7 @@ if (isset($_GET['record'])) {
     $brands = getBrands();
     $sellers = getSellers();
     $stocks = getStocks();
+    $deliverers = getDeliverers();
 }
 ?>
 <!DOCTYPE html>
@@ -128,18 +129,18 @@ if (isset($_GET['record'])) {
             <span id="span_invoice_time"></span>
             <fieldset class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2">
                 <legend>آیا فاکتور دارد ؟</legend>
-                <label for="purchase_hasBill">خیر</label>
-                <input type="radio" name="purchase_hasBill" id="purchase_hasBill" value="0" <?= $selected_record["purchase_hasBill"] == 0 ? 'checked' : '' ?>>
-                <label for="nvoice">بله</label>
-                <input type="radio" name="purchase_hasBill" id="purchase_hasBill" value="1" <?= $selected_record["purchase_hasBill"] == 1 ? 'checked' : '' ?>>
+                <label for="purchase_hasBill_false">خیر</label>
+                <input type="radio" name="purchase_hasBill" id="purchase_hasBill_false" value="0" <?= $selected_record["purchase_hasBill"] == 0 ? 'checked' : '' ?>>
+                <label for="purchase_hasBill_false">بله</label>
+                <input type="radio" name="purchase_hasBill" id="purchase_hasBill_true" value="1" <?= $selected_record["purchase_hasBill"] == 1 ? 'checked' : '' ?>>
             </fieldset>
             <fieldset class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2">
                 <legend>آیا وارد انبار شده ؟</legend>
-                <label for="purchase_isEntered">خیر</label>
-                <input type="radio" name="purchase_isEntered" id="purchase_isEntered" value="0" <?= $selected_record["purchase_isEntered"] == 0 ? 'checked' : '' ?>>
+                <label for="purchase_isEntered_false">خیر</label>
+                <input type="radio" name="purchase_isEntered" id="purchase_isEntered_false" value="0" <?= $selected_record["purchase_isEntered"] == 0 ? 'checked' : '' ?>>
 
-                <label for="purchase_isEntered">بله</label>
-                <input type="radio" name="purchase_isEntered" id="purchase_isEntered" value="1" <?= $selected_record["purchase_isEntered"] == 1 ? 'checked' : '' ?>>
+                <label for="purchase_isEntered_true">بله</label>
+                <input type="radio" name="purchase_isEntered" id="purchase_isEntered_true" value="1" <?= $selected_record["purchase_isEntered"] == 1 ? 'checked' : '' ?>>
             </fieldset>
         </div>
 
@@ -151,8 +152,8 @@ if (isset($_GET['record'])) {
                 <?php endforeach; ?>
             </select>
 
-            <label>فروشنده</label>
-            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" name="seller" id="seller">
+            <label for="seller_edit">فروشنده</label>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" name="seller_edit" id="seller_edit">
                 <?php
                 foreach ($sellers as $seller) : ?>
                     <option title="<?= $seller['latinName'] ?>" value="<?= $seller['id'] ?>" <?= $selected_record["seller_id"] == $seller['id'] ? 'selected' : '' ?>>
@@ -171,9 +172,14 @@ if (isset($_GET['record'])) {
                 <?php endforeach; ?>
             </select>
 
-            <label for="deliverer">تحویل دهنده</label>
-            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" name="deliverer" id="deliverer">
-                <?php include("deliverer-form.php") ?>
+            <label for="deliverer_edit">تحویل دهنده</label>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" name="deliverer_edit" id="deliverer_edit">
+                <?php
+                foreach ($deliverers as $deliverer) : ?>
+                    <option value="<?= $deliverer['id'] ?>" <?= $selected_record["delivery_id"] == $deliverer['id'] ? 'selected' : '' ?>>
+                        <?= $deliverer['name'] ?>
+                    </option>
+                <?php endforeach; ?>
             </select>
 
             <label for="message" class="block mb-2 text-sm font-medium text-gray-900">توضیحات</label>
@@ -192,6 +198,11 @@ if (isset($_GET['record'])) {
     <script src="../../js/vorodkala-edit.js?v=<?= (rand()) ?>"></script>
     <script src="../../js/form.js?v=<?= (rand()) ?>"></script>
     <script src="../../js/persianDatepicker.min.js?v=<?= (rand()) ?>"></script>
+    <script>
+        const record = <?= json_encode($selected_record) ?>
+
+        console.log(record);
+    </script>
 </body>
 
 </html>
@@ -215,6 +226,7 @@ function getRecord($record_id)
                                     seller.name AS seller_name,
                                     brand.id AS brand_id,
                                     brand.name AS brand_name,
+                                    deliverer.id AS delivery_id,
                                     deliverer.name AS deliverer_name,
                                     users.username AS username,
                                     stock.id AS stock_id,
@@ -258,6 +270,15 @@ function getSellers()
 function getStocks()
 {
     $statement = DB_CONNECTION->prepare("SELECT id, name FROM yadakshop1402.stock");
+
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getDeliverers()
+{
+    $statement = DB_CONNECTION->prepare("SELECT id, name FROM yadakshop1402.deliverer");
 
     $statement->execute();
 
