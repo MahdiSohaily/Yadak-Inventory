@@ -1,6 +1,7 @@
 <?php
 require_once("../../config/db_connect.php");
 require_once("../../php/jdf.php");
+$successfulOperation = false;
 
 if (isset($_GET['record'])) {
     $record_id = $_GET['record'];
@@ -13,24 +14,8 @@ if (isset($_GET['record'])) {
 
 if (isset($_POST['selected_record_id'])) {
     $record_id = $_POST['selected_record_id'];
-    $purchase_quantity = $_POST['purchase_quantity'];
-    $purchase_position1 = $_POST['purchase_position1'];
-    $purchase_position2 = $_POST['purchase_position2'];
-    $invoice_number_edit = $_POST['invoice_number_edit'];
-    $invoice_time_edit = $_POST['invoice_time_edit'];
-    $purchase_hasBill = $_POST['purchase_hasBill'];
-    $purchase_isEntered = $_POST['purchase_isEntered'];
-    $brand_edit = $_POST['brand_edit'];
-    $seller_edit = $_POST['seller_edit'];
-    $stock_edit = $_POST['stock_edit'];
-    $deliverer_edit = $_POST['deliverer_edit'];
-    $purchase_description = $_POST['purchase_description'];
 
-    echo $purchase_hasBill;
-
-
-
-
+    $successfulOperation = saveChanges($_POST);
     $selected_record = getRecord($record_id);
     $brands = getBrands();
     $sellers = getSellers();
@@ -218,7 +203,9 @@ if (isset($_POST['selected_record_id'])) {
                     <input class="cursor-pointer text-white bg-green-800 rounded px-5 py-2" type="submit" value="ویرایش">
                     <span class="cursor-pointer text-white bg-rose-800 rounded px-5 py-2"> حذف</span>
                 </div>
-                <div class="text-green-900 rounded px-5 py-2" class="error">عملیات موفقانه صورت گرفت</div>
+                <?php if ($successfulOperation) : ?>
+                    <div class="text-green-900 rounded px-5 py-2" class="error">عملیات موفقانه صورت گرفت</div>
+                <?php endif; ?>
             </div>
         </div>
     </form>
@@ -310,4 +297,62 @@ function getDeliverers()
     $statement->execute();
 
     return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function saveChanges($data)
+{
+    $record_id = $data['selected_record_id'];
+    $purchase_quantity = $data['purchase_quantity'];
+    $purchase_position1 = $data['purchase_position1'];
+    $purchase_position2 = $data['purchase_position2'];
+    $invoice_number_edit = $data['invoice_number_edit'];
+    $invoice_time_edit = $data['invoice_time_edit'];
+    $purchase_hasBill = $data['purchase_hasBill'];
+    $purchase_isEntered = $data['purchase_isEntered'];
+    $brand_edit = $data['brand_edit'];
+    $seller_edit = $data['seller_edit'];
+    $stock_edit = $data['stock_edit'];
+    $deliverer_edit = $data['deliverer_edit'];
+    $purchase_description = $data['purchase_description'];
+
+    // Assuming DB_CONNECTION is a PDO instance
+    $statement = DB_CONNECTION->prepare("UPDATE yadakshop1402.qtybank
+        SET brand = :brand,
+        des = :purchase_description,
+        qty = :purchase_quantity,
+        pos1 = :purchase_position1,
+        pos2 = :purchase_position2,
+        seller = :seller_edit,
+        deliverer = :deliverer_edit,
+        invoice = :purchase_isEntered,
+        anbarenter = :purchase_isEntered,
+        invoice_number = :invoice_number_edit,
+        stock_id = :stock_edit,
+        invoice_date = :invoice_time_edit
+        WHERE id = :record_id
+    ");
+
+    // Bind parameters
+    $statement->bindParam(':brand', $brand_edit);
+    $statement->bindParam(':purchase_description', $purchase_description);
+    $statement->bindParam(':purchase_quantity', $purchase_quantity);
+    $statement->bindParam(':purchase_position1', $purchase_position1);
+    $statement->bindParam(':purchase_position2', $purchase_position2);
+    $statement->bindParam(':seller_edit', $seller_edit);
+    $statement->bindParam(':deliverer_edit', $deliverer_edit);
+    $statement->bindParam(':purchase_isEntered', $purchase_isEntered);
+    $statement->bindParam(':invoice_number_edit', $invoice_number_edit);
+    $statement->bindParam(':stock_edit', $stock_edit);
+    $statement->bindParam(':invoice_time_edit', $invoice_time_edit);
+    $statement->bindParam(':record_id', $record_id);
+
+    // Execute the statement
+    $statement->execute();
+
+    // Check for success
+    if ($statement->rowCount() > 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
