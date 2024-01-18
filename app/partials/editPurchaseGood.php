@@ -205,6 +205,7 @@ if (isset($_POST['selected_record_id'])) {
                     <input class="cursor-pointer text-white bg-green-800 rounded px-5 py-2" type="submit" value="ویرایش">
                     <span onclick='deleteRecord(<?= $selected_record["purchase_id"] ?>)' class="cursor-pointer text-white bg-rose-800 rounded px-5 py-2"> حذف</span>
                 </div>
+                <div id='delete_message' class="hidden text-green-900 rounded px-5 py-2" class="error">عملیات موفقانه صورت گرفت</div>
                 <?php if ($successfulOperation) : ?>
                     <div class="text-green-900 rounded px-5 py-2" class="error">عملیات موفقانه صورت گرفت</div>
                 <?php endif; ?>
@@ -224,7 +225,7 @@ if (isset($_POST['selected_record_id'])) {
                 params.append('record_id', record);
                 axios.post("../controller/PurchaseGoodsAjax.php", params)
                     .then(function(response) {
-                        resultBox.innerHTML = response.data;
+                        document.getElementById('delete_message').style.display = 'block';
                     })
                     .catch(function(error) {
                         console.log(error);
