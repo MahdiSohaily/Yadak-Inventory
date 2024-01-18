@@ -4,10 +4,10 @@ require_once("../../php/jdf.php");
 
 if (isset($_GET['record'])) {
     $record_id = $_GET['record'];
-
     $selected_record = getRecord($record_id);
+    $brands = getBrands();
+    $sellers = getSellers();
 }
-
 ?>
 <!DOCTYPE html>
 <html style="margin-top:0">
@@ -15,7 +15,8 @@ if (isset($_GET['record'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' href='../../css/style.css?v=<?php echo (rand()) ?>' type='text/css' media='all' />
+    <link rel='stylesheet' href='../../../callcenter/report/public/css/styles.css?v=<?= rand() ?>' type='text/css' media='all' />
+    <script src="../../../callcenter/report/public/js/index.js?v=<?= rand() ?>"></script>
     <link type="text/css" rel="stylesheet" href="../../css/persianDatepicker.css" />
 
     <script src="../../js/jquery-1.11.3.min.js"></script>
@@ -44,29 +45,26 @@ if (isset($_GET['record'])) {
     </style>
 </head>
 
-<body>
-
-    <table id="report-table" class="report-table">
+<body class="rtl p-3">
+    <table id="report-table" class="report-table w-full mb-5">
         <thead>
-            <tr class="left_right border_top">
-                <th>#</th>
-                <th>شماره فنی</th>
-                <th>برند</th>
-                <th>توضیحات</th>
-                <th>تعداد</th>
-                <th>راهرو</th>
-                <th>قفسه</th>
-                <th>فروشنده</th>
-                <th>زمان ورود</th>
-                <th>تاریخ ورود</th>
-                <th>تحویل دهنده</th>
-                <th>فاکتور</th>
-                <th>شماره فاکتور</th>
-                <th>تاریخ فاکتور</th>
-                <th>ورود به انبار</th>
-                <th>انبار</th>
-                <th>کاربر</th>
-                <th>عملیات</th>
+            <tr class="rtl bg-gray-800">
+                <th class="text-white py-2 px-3 text-right">شماره فنی</th>
+                <th class="text-white py-2 px-3 text-right">برند</th>
+                <th class="text-white py-2 px-3 text-right">توضیحات</th>
+                <th class="text-white py-2 px-3 text-right">تعداد</th>
+                <th class="text-white py-2 px-3 text-right">راهرو</th>
+                <th class="text-white py-2 px-3 text-right">قفسه</th>
+                <th class="text-white py-2 px-3 text-right">فروشنده</th>
+                <th class="text-white py-2 px-3 text-right">زمان ورود</th>
+                <th class="text-white py-2 px-3 text-right">تاریخ ورود</th>
+                <th class="text-white py-2 px-3 text-right">تحویل دهنده</th>
+                <th class="text-white py-2 px-3 text-right">فاکتور</th>
+                <th class="text-white py-2 px-3 text-right">شماره فاکتور</th>
+                <th class="text-white py-2 px-3 text-right">تاریخ فاکتور</th>
+                <th class="text-white py-2 px-3 text-right">ورود به انبار</th>
+                <th class="text-white py-2 px-3 text-right">انبار</th>
+                <th class="text-white py-2 px-3 text-right">کاربر</th>
             </tr>
         </thead>
         <tbody id="resultBox">
@@ -83,23 +81,23 @@ if (isset($_GET['record'])) {
                 $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
                 $billItemsCount += $selected_record["purchase_quantity"];
             ?>
-                <tr class="left_right">
-                    <td class="cell-code"><?= '&nbsp;' . strtoupper($selected_record["partnumber"]) ?></td>
-                    <td class="cell-brand cell-brand-<?= $selected_record['brand_name'] ?>"><?= $selected_record["brand_name"] ?></td>
-                    <td class="cell-des"><?= $selected_record["purchase_description"] ?></td>
-                    <td class="cell-qty"><?= $selected_record["purchase_quantity"] ?></td>
-                    <td class="cell-pos1"><?= $selected_record["purchase_position1"] ?></td>
-                    <td class="cell-pos2"><?= $selected_record["purchase_position2"] ?></td>
-                    <td class="cell-seller cell-seller-<?= $selected_record["seller_id"] ?>"><?= $selected_record["seller_name"] ?></td>
-                    <td class="cell-time"><?= $jalali_time ?></td>
-                    <td class="cell-date"><?= $jalali_date ?></td>
-                    <td class="cell-dlname"><?= $selected_record["deliverer_name"] ?></td>
-                    <td class="tik-inv-<?= $selected_record["purchase_hasBill"] ?>"></td>
-                    <td><?= $selected_record["invoice_number"] ?></td>
-                    <td class="cell-date"><?= substr($selected_record["invoice_date"], 5) ?></td>
-                    <td class="tik-anb-<?= $selected_record["purchase_isEntered"] ?>"></td>
-                    <td class="cell-stock"><?= $selected_record["stock_name"] ?></td>
-                    <td class="cell-user"><?= $selected_record["username"] ?></td>
+                <tr class="bg-gray-100">
+                    <td class="py-2 px-3 bg-blue-300"><?= strtoupper($selected_record["partnumber"]) ?></td>
+                    <td class="py-2 px-3"><?= $selected_record["brand_name"] ?></td>
+                    <td class="py-2 px-3"><?= $selected_record["purchase_description"] ?></td>
+                    <td class="py-2 px-3"><?= $selected_record["purchase_quantity"] ?></td>
+                    <td class="py-2 px-3"><?= $selected_record["purchase_position1"] ?></td>
+                    <td class="py-2 px-3"><?= $selected_record["purchase_position2"] ?></td>
+                    <td class="py-2 px-3 bg-yellow-300"><?= $selected_record["seller_name"] ?></td>
+                    <td class="py-2 px-3"><?= $jalali_time ?></td>
+                    <td class="py-2 px-3"><?= $jalali_date ?></td>
+                    <td class="py-2 px-3"><?= $selected_record["deliverer_name"] ?></td>
+                    <td class="py-2 px-3"><?= $selected_record["purchase_hasBill"] == 0 ? 'خیر' : 'بلی' ?></td>
+                    <td class="py-2 px-3"><?= $selected_record["invoice_number"] ?></td>
+                    <td class="py-2 px-3"><?= substr($selected_record["invoice_date"], 5) ?></td>
+                    <td class="py-2 px-3"><?= $selected_record["purchase_isEntered"] == 0 ? 'خیر' : 'بلی' ?></td>
+                    <td class="py-2 px-3"><?= $selected_record["stock_name"] ?></td>
+                    <td class="py-2 px-3 text-sm "><?= $selected_record["username"] ?></td>
                 </tr>
             <?php else : ?>
                 <tr class="">
@@ -109,63 +107,51 @@ if (isset($_GET['record'])) {
         </tbody>
     </table>
 
-    <form id="vorod-edit" method="get" action="vorodkala-report-edit-save.php" autocomplete="off">
+    <form method="post" action="" class="py-5 w-full grid grid-cols-2">
+        <div class="px-5">
+            <input value="<?= $selected_record["purchase_id"] ?>" type="hidden" name="id">
+            <label for="purchase_quantity">تعداد</label>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="<?= $selected_record["purchase_quantity"] ?>" min="0" type="number" name="purchase_quantity" id="purchase_quantity">
 
+            <label for="purchase_position1">راهرو</label>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="<?= $selected_record["purchase_position1"] ?>" onkeydown="upperCaseF(this)" type="text" name="purchase_position1" id="purchase_position1">
 
-        <div class="right-form">
+            <label for="purchase_position2">قفسه</label>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="<?= $selected_record["purchase_position2"] ?>" onkeydown="upperCaseF(this)" type="text" name="purchase_position2" id="purchase_position2">
 
-            <input value="<?php echo $qtybankID ?>" type="hidden" name="id">
+            <label for="invoice_number_edit">شماره فاکتور</label>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="<?= $selected_record["invoice_number"] ?>" type="number" name="invoice_number_edit" id="invoice_number_edit">
 
-            <label for="qty">تعداد</label>
-            <input value="<?php echo $row["qty"] ?>" min="0" type="number" name="qty" id="qty">
-
-            <label for="pos1">راهرو</label>
-            <input value="<?php echo $row["pos1"] ?>" onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1">
-
-            <label for="pos2">قفسه</label>
-            <input value="<?php echo $row["pos2"] ?>" onkeydown="upperCaseF(this)" type="text" name="pos2" id="pos2">
-
-            <label for="invoice_number">شماره فاکتور</label>
-            <input value="<?php echo $row["invoice_number"] ?>" type="number" name="invoice_number" id="invoice_number">
-
-            <label for="invoice_time">زمان فاکتور</label>
-            <input value="<?php echo $row["invoice_date"] ?>" type="text" name="invoice_time" id="invoice_time">
+            <label for="invoice_time_edit">زمان فاکتور</label>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="<?= $selected_record["invoice_date"] ?>" type="text" name="invoice_time_edit" id="invoice_time_edit">
             <span id="span_invoice_time"></span>
-            <fieldset>
+            <fieldset class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                 <legend>آیا فاکتور دارد ؟</legend>
-                <label for="invoice">خیر</label>
-                <input type="radio" name="invoice" id="invoice" value="0" <?php if ($row["invoice"] == 0) {
-                                                                                echo "checked";
-                                                                            } ?>>
+                <label for="purchase_hasBill">خیر</label>
+                <input type="radio" name="purchase_hasBill" id="purchase_hasBill" value="0" <?= $selected_record["purchase_hasBill"] == 0 ? 'checked' : '' ?>>
                 <label for="nvoice">بله</label>
-                <input type="radio" name="invoice" id="invoice" value="1" <?php if ($row["invoice"] == 1) {
-                                                                                echo "checked";
-                                                                            } ?>>
+                <input type="radio" name="purchase_hasBill" id="purchase_hasBill" value="1" <?= $selected_record["purchase_hasBill"] == 1 ? 'checked' : '' ?>>
             </fieldset>
-            <fieldset>
+            <fieldset class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                 <legend>آیا وارد انبار شده ؟</legend>
+                <label for="purchase_isEntered">خیر</label>
+                <input type="radio" name="purchase_isEntered" id="purchase_isEntered" value="0" <?= $selected_record["purchase_isEntered"] == 0 ? 'checked' : '' ?>>
 
-                <label for="anbarenter">خیر</label>
-                <input type="radio" name="anbarenter" id="anbarenter" value="0" <?php if ($row["anbarenter"] == 0) {
-                                                                                    echo "checked";
-                                                                                } ?>>
-
-                <label for="anbarenter">بله</label>
-                <input type="radio" name="anbarenter" id="anbarenter" value="1" <?php if ($row["anbarenter"] == 1) {
-                                                                                    echo "checked";
-                                                                                } ?>>
-
+                <label for="purchase_isEntered">بله</label>
+                <input type="radio" name="purchase_isEntered" id="purchase_isEntered" value="1" <?= $selected_record["purchase_isEntered"] == 1 ? 'checked' : '' ?>>
             </fieldset>
         </div>
 
-        <div class="left-form">
-
-            <label for="brand">اصالت</label>
-            <select name="brand" id="esalat" data="<?php echo $brnid ?>">
-                <?php include("brand-form.php") ?>
+        <div class="px-5">
+            <label for="brand_edit">اصالت</label>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="brand_edit" id="brand_edit">
+                <?php foreach ($brands as $brand) : ?>
+                    <option <?= $selected_record["brand_id"] == $brand['id'] ? 'selected' : '' ?> value="<?= $brand['id'] ?>"> <?= $brand['name']; ?></option>
+                <?php endforeach; ?>
             </select>
+
             <label>فروشنده</label>
-            <select name="seller" id="seller">
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="seller" id="seller">
                 <?php include("./seller-form.php");
                 foreach ($data as $key => $value) :
                 ?>
@@ -174,29 +160,31 @@ if (isset($_GET['record'])) {
             </select>
 
             <label for="stock">انبار</label>
-            <select name="stock" id="stock" data="<?php echo $stid ?>">
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="stock" id="stock" data="<?= $stid ?>">
                 <?php include("stock-form.php") ?>
             </select>
 
             <label for="deliverer">تحویل دهنده</label>
-            <select name="deliverer" id="deliverer" data="<?php echo $dlid ?>">
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="deliverer" id="deliverer" data="<?= $dlid ?>">
                 <?php include("deliverer-form.php") ?>
             </select>
 
-            <label for="des">توضیحات</label>
-            <textarea name="des" id="des"><?php echo $mydes ?></textarea>
-
+            <label for="message" class="block mb-2 text-sm font-medium text-gray-900">توضیحات</label>
+            <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"><?= $selected_record["purchase_description"] ?></textarea>
         </div>
-        <div class="-bar">
-            <input type="submit" value="ذخیره" id="sabt">
-            <a data="<?php echo $qtybankID ?>" class="del-vorod"> حذف</a>
-            <div class="error"></div>
+        <div class="fixed right-0 left-0 bottom-0 px-5 py-2">
+            <div class="flex justify-between">
+                <div>
+                    <input class="cursor-pointer text-white bg-green-800 rounded px-5 py-2" type="submit" value="ویرایش">
+                    <span class="cursor-pointer text-white bg-rose-800 rounded px-5 py-2" data="<?= $qtybankID ?>"> حذف</span>
+                </div>
+                <div class="text-white bg-green-800 rounded px-5 py-2" class="error">عملیات موفقانه صورت گرفت</div>
+            </div>
         </div>
-
     </form>
-    <script src="../../js/vorodkala-edit.js?v=<?php echo (rand()) ?>"></script>
-    <script src="../../js/form.js?v=<?php echo (rand()) ?>"></script>
-    <script src="../../js/persianDatepicker.min.js?v=<?php echo (rand()) ?>"></script>
+    <script src="../../js/vorodkala-edit.js?v=<?= (rand()) ?>"></script>
+    <script src="../../js/form.js?v=<?= (rand()) ?>"></script>
+    <script src="../../js/persianDatepicker.min.js?v=<?= (rand()) ?>"></script>
 </body>
 
 </html>
@@ -218,6 +206,7 @@ function getRecord($record_id)
                                     nisha.price AS good_price,
                                     seller.id AS seller_id,
                                     seller.name AS seller_name,
+                                    brand.id AS brand_id,
                                     brand.name AS brand_name,
                                     deliverer.name AS deliverer_name,
                                     users.username AS username,
@@ -238,4 +227,22 @@ function getRecord($record_id)
     $purchaseList = $statement->fetchAll(PDO::FETCH_ASSOC);
 
     return $purchaseList[0];
+}
+
+function getBrands()
+{
+    $statement = DB_CONNECTION->prepare("SELECT * FROM yadakshop1402.brand");
+
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getSellers()
+{
+    $statement = DB_CONNECTION->prepare("SELECT * FROM yadakshop1402.seller");
+
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
