@@ -103,7 +103,7 @@ if (isset($_GET['record'])) {
                 </tr>
             <?php else : ?>
                 <tr class="">
-                    <td colspan="18" class="cell-shakhes">Null</td>
+                    <td colspan="18" class="cell-shakhes">شماره اشتباه</td>
                 </tr>
             <?php endif; ?>
         </tbody>
