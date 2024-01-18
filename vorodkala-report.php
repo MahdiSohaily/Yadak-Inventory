@@ -23,6 +23,9 @@ require_once("./app/controller/PurchasedGoodsController.php");
         color: #545452;
         font-weight: bold;
     }
+    #updateModal {
+        align-items: end !important;
+    }
 </style>
 <script src='../callcenter/report/public/js/jalaliMoment.js'></script>
 
@@ -197,7 +200,7 @@ require_once("./app/controller/PurchasedGoodsController.php");
             <i onclick="closeModal()" class="fa fa-times closeModal" aria-hidden="true"></i>
         </div>
         <div class="displayPage">
-            <iframe style="width: 100%; height:70vh !important" id="editPage" src="" frameborder="0"></iframe>
+            <iframe style="width: 100%; height:80vh !important" id="editPage" src="" frameborder="0"></iframe>
         </div>
     </div>
 </div>

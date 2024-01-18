@@ -1,9 +1,9 @@
 <?php
-require_once "./config/db_connect.php";
+require_once "../../config/db_connect.php";
 
 
 if (isset($_POST['delete_record'])) {
-    $record = $_POST['record'];
+    $record = $_POST['record_id'];
 
     echo delete_record($record);
 }
