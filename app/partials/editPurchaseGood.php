@@ -10,6 +10,33 @@ if (isset($_GET['record'])) {
     $stocks = getStocks();
     $deliverers = getDeliverers();
 }
+
+if (isset($_POST['selected_record_id'])) {
+    $record_id = $_POST['selected_record_id'];
+    $purchase_quantity = $_POST['purchase_quantity'];
+    $purchase_position1 = $_POST['purchase_position1'];
+    $purchase_position2 = $_POST['purchase_position2'];
+    $invoice_number_edit = $_POST['invoice_number_edit'];
+    $invoice_time_edit = $_POST['invoice_time_edit'];
+    $purchase_hasBill = $_POST['purchase_hasBill'];
+    $purchase_isEntered = $_POST['purchase_isEntered'];
+    $brand_edit = $_POST['brand_edit'];
+    $seller_edit = $_POST['seller_edit'];
+    $stock_edit = $_POST['stock_edit'];
+    $deliverer_edit = $_POST['deliverer_edit'];
+    $purchase_description = $_POST['purchase_description'];
+
+    echo $purchase_hasBill;
+
+
+
+
+    $selected_record = getRecord($record_id);
+    $brands = getBrands();
+    $sellers = getSellers();
+    $stocks = getStocks();
+    $deliverers = getDeliverers();
+}
 ?>
 <!DOCTYPE html>
 <html style="margin-top:0">
@@ -109,9 +136,9 @@ if (isset($_GET['record'])) {
         </tbody>
     </table>
 
-    <form method="post" action="" class="py-5 w-full grid grid-cols-2">
+    <form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" class="p-5 w-full grid grid-cols-2">
         <div class="px-5">
-            <input value="<?= $selected_record["purchase_id"] ?>" type="hidden" name="id">
+            <input value="<?= $selected_record["purchase_id"] ?>" type="hidden" name="selected_record_id">
             <label for="purchase_quantity">تعداد</label>
             <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["purchase_quantity"] ?>" min="0" type="number" name="purchase_quantity" id="purchase_quantity">
 
@@ -124,8 +151,8 @@ if (isset($_GET['record'])) {
             <label for="invoice_number_edit">شماره فاکتور</label>
             <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["invoice_number"] ?>" type="text" name="invoice_number_edit" id="invoice_number_edit">
 
-            <label for="invoice_time_edit">زمان فاکتور</label>
-            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["invoice_date"] ?>" type="text" name="invoice_time_edit" id="invoice_time_edit">
+            <label for="invoice_time">زمان فاکتور</label>
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["invoice_date"] ?>" type="text" name="invoice_time_edit" id="invoice_time">
             <span id="span_invoice_time"></span>
             <fieldset class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2">
                 <legend>آیا فاکتور دارد ؟</legend>
@@ -182,16 +209,16 @@ if (isset($_GET['record'])) {
                 <?php endforeach; ?>
             </select>
 
-            <label for="message" class="block mb-2 text-sm font-medium text-gray-900">توضیحات</label>
-            <textarea id="message" rows="4" class="block p-2 mb-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"><?= $selected_record["purchase_description"] ?></textarea>
+            <label for="purchase_description" class="block mb-2 text-sm font-medium text-gray-900">توضیحات</label>
+            <textarea id="purchase_description" name="purchase_description" rows="4" class="block p-2 mb-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"><?= $selected_record["purchase_description"] ?></textarea>
         </div>
         <div class="px-5 py-2">
             <div class="flex justify-between">
                 <div>
                     <input class="cursor-pointer text-white bg-green-800 rounded px-5 py-2" type="submit" value="ویرایش">
-                    <span class="cursor-pointer text-white bg-rose-800 rounded px-5 py-2" data="<?= $qtybankID ?>"> حذف</span>
+                    <span class="cursor-pointer text-white bg-rose-800 rounded px-5 py-2"> حذف</span>
                 </div>
-                <div class="text-white bg-green-800 rounded px-5 py-2" class="error">عملیات موفقانه صورت گرفت</div>
+                <div class="text-green-900 rounded px-5 py-2" class="error">عملیات موفقانه صورت گرفت</div>
             </div>
         </div>
     </form>
