@@ -7,6 +7,7 @@ if (isset($_GET['record'])) {
     $selected_record = getRecord($record_id);
     $brands = getBrands();
     $sellers = getSellers();
+    $stocks = getStocks();
 }
 ?>
 <!DOCTYPE html>
@@ -89,8 +90,8 @@ if (isset($_GET['record'])) {
                     <td class="py-2 px-3"><?= $selected_record["purchase_position1"] ?></td>
                     <td class="py-2 px-3"><?= $selected_record["purchase_position2"] ?></td>
                     <td class="py-2 px-3 bg-yellow-300"><?= $selected_record["seller_name"] ?></td>
-                    <td class="py-2 px-3"><?= $jalali_time ?></td>
-                    <td class="py-2 px-3"><?= $jalali_date ?></td>
+                    <td class="py-2 px-3 text-sm"><?= $jalali_time ?></td>
+                    <td class="py-2 px-3 text-sm"><?= $jalali_date ?></td>
                     <td class="py-2 px-3"><?= $selected_record["deliverer_name"] ?></td>
                     <td class="py-2 px-3"><?= $selected_record["purchase_hasBill"] == 0 ? 'خیر' : 'بلی' ?></td>
                     <td class="py-2 px-3"><?= $selected_record["invoice_number"] ?></td>
@@ -111,28 +112,28 @@ if (isset($_GET['record'])) {
         <div class="px-5">
             <input value="<?= $selected_record["purchase_id"] ?>" type="hidden" name="id">
             <label for="purchase_quantity">تعداد</label>
-            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="<?= $selected_record["purchase_quantity"] ?>" min="0" type="number" name="purchase_quantity" id="purchase_quantity">
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["purchase_quantity"] ?>" min="0" type="number" name="purchase_quantity" id="purchase_quantity">
 
             <label for="purchase_position1">راهرو</label>
-            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="<?= $selected_record["purchase_position1"] ?>" onkeydown="upperCaseF(this)" type="text" name="purchase_position1" id="purchase_position1">
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["purchase_position1"] ?>" onkeydown="upperCaseF(this)" type="text" name="purchase_position1" id="purchase_position1">
 
             <label for="purchase_position2">قفسه</label>
-            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="<?= $selected_record["purchase_position2"] ?>" onkeydown="upperCaseF(this)" type="text" name="purchase_position2" id="purchase_position2">
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["purchase_position2"] ?>" onkeydown="upperCaseF(this)" type="text" name="purchase_position2" id="purchase_position2">
 
             <label for="invoice_number_edit">شماره فاکتور</label>
-            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="<?= $selected_record["invoice_number"] ?>" type="number" name="invoice_number_edit" id="invoice_number_edit">
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["invoice_number"] ?>" type="text" name="invoice_number_edit" id="invoice_number_edit">
 
             <label for="invoice_time_edit">زمان فاکتور</label>
-            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="<?= $selected_record["invoice_date"] ?>" type="text" name="invoice_time_edit" id="invoice_time_edit">
+            <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["invoice_date"] ?>" type="text" name="invoice_time_edit" id="invoice_time_edit">
             <span id="span_invoice_time"></span>
-            <fieldset class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            <fieldset class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2">
                 <legend>آیا فاکتور دارد ؟</legend>
                 <label for="purchase_hasBill">خیر</label>
                 <input type="radio" name="purchase_hasBill" id="purchase_hasBill" value="0" <?= $selected_record["purchase_hasBill"] == 0 ? 'checked' : '' ?>>
                 <label for="nvoice">بله</label>
                 <input type="radio" name="purchase_hasBill" id="purchase_hasBill" value="1" <?= $selected_record["purchase_hasBill"] == 1 ? 'checked' : '' ?>>
             </fieldset>
-            <fieldset class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            <fieldset class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2">
                 <legend>آیا وارد انبار شده ؟</legend>
                 <label for="purchase_isEntered">خیر</label>
                 <input type="radio" name="purchase_isEntered" id="purchase_isEntered" value="0" <?= $selected_record["purchase_isEntered"] == 0 ? 'checked' : '' ?>>
@@ -144,35 +145,41 @@ if (isset($_GET['record'])) {
 
         <div class="px-5">
             <label for="brand_edit">اصالت</label>
-            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="brand_edit" id="brand_edit">
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" name="brand_edit" id="brand_edit">
                 <?php foreach ($brands as $brand) : ?>
                     <option <?= $selected_record["brand_id"] == $brand['id'] ? 'selected' : '' ?> value="<?= $brand['id'] ?>"> <?= $brand['name']; ?></option>
                 <?php endforeach; ?>
             </select>
 
             <label>فروشنده</label>
-            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="seller" id="seller">
-                <?php include("./seller-form.php");
-                foreach ($data as $key => $value) :
-                ?>
-                    <option <?= ($key == $seller_id) ? 'selected' : '' ?> value="<?= $key ?>"><?= $value ?></option>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" name="seller" id="seller">
+                <?php
+                foreach ($sellers as $seller) : ?>
+                    <option title="<?= $seller['latinName'] ?>" value="<?= $seller['id'] ?>" <?= $selected_record["seller_id"] == $seller['id'] ? 'selected' : '' ?>>
+                        <?= $seller['name'] ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
 
-            <label for="stock">انبار</label>
-            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="stock" id="stock" data="<?= $stid ?>">
-                <?php include("stock-form.php") ?>
+            <label for="stock_edit">انبار</label>
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" name="stock_edit" id="stock_edit">
+                <?php
+                foreach ($stocks as $stock) : ?>
+                    <option value="<?= $stock['id'] ?>" <?= $selected_record["stock_id"] == $stock['id'] ? 'selected' : '' ?>>
+                        <?= $stock['name'] ?>
+                    </option>
+                <?php endforeach; ?>
             </select>
 
             <label for="deliverer">تحویل دهنده</label>
-            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="deliverer" id="deliverer" data="<?= $dlid ?>">
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" name="deliverer" id="deliverer">
                 <?php include("deliverer-form.php") ?>
             </select>
 
             <label for="message" class="block mb-2 text-sm font-medium text-gray-900">توضیحات</label>
-            <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"><?= $selected_record["purchase_description"] ?></textarea>
+            <textarea id="message" rows="4" class="block p-2 mb-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"><?= $selected_record["purchase_description"] ?></textarea>
         </div>
-        <div class="fixed right-0 left-0 bottom-0 px-5 py-2">
+        <div class="px-5 py-2">
             <div class="flex justify-between">
                 <div>
                     <input class="cursor-pointer text-white bg-green-800 rounded px-5 py-2" type="submit" value="ویرایش">
@@ -210,6 +217,7 @@ function getRecord($record_id)
                                     brand.name AS brand_name,
                                     deliverer.name AS deliverer_name,
                                     users.username AS username,
+                                    stock.id AS stock_id,
                                     stock.name AS stock_name
                                     FROM qtybank
                                     INNER JOIN nisha ON qtybank.codeid = nisha.id
@@ -240,7 +248,16 @@ function getBrands()
 
 function getSellers()
 {
-    $statement = DB_CONNECTION->prepare("SELECT * FROM yadakshop1402.seller");
+    $statement = DB_CONNECTION->prepare("SELECT id, name, latinName FROM yadakshop1402.seller");
+
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getStocks()
+{
+    $statement = DB_CONNECTION->prepare("SELECT id, name FROM yadakshop1402.stock");
 
     $statement->execute();
 
