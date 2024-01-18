@@ -35,6 +35,7 @@ if (isset($_POST['selected_record_id'])) {
     <link type="text/css" rel="stylesheet" href="../../css/persianDatepicker.css" />
 
     <script src="../../js/jquery-1.11.3.min.js"></script>
+    <script src="../../public/js/assets/assets/axios.js"></script>
     <style>
         /* width */
         ::-webkit-scrollbar {
@@ -85,7 +86,7 @@ if (isset($_POST['selected_record_id'])) {
         <tbody id="resultBox">
             <?php
             $billItemsCount = 0;
-            if (count($selected_record) > 0) :
+            if ($selected_record) :
                 $invoice_number = $selected_record['invoice_number'] ?? 'x';
                 $date = $selected_record["purchase_time"];
                 $array = explode(' ', $date);
@@ -202,7 +203,7 @@ if (isset($_POST['selected_record_id'])) {
             <div class="flex justify-between">
                 <div>
                     <input class="cursor-pointer text-white bg-green-800 rounded px-5 py-2" type="submit" value="ویرایش">
-                    <span class="cursor-pointer text-white bg-rose-800 rounded px-5 py-2"> حذف</span>
+                    <span onclick='deleteRecord(<?= $selected_record["purchase_id"] ?>)' class="cursor-pointer text-white bg-rose-800 rounded px-5 py-2"> حذف</span>
                 </div>
                 <?php if ($successfulOperation) : ?>
                     <div class="text-green-900 rounded px-5 py-2" class="error">عملیات موفقانه صورت گرفت</div>
@@ -213,6 +214,24 @@ if (isset($_POST['selected_record_id'])) {
     <script src="../../js/vorodkala-edit.js?v=<?= (rand()) ?>"></script>
     <script src="../../js/form.js?v=<?= (rand()) ?>"></script>
     <script src="../../js/persianDatepicker.min.js?v=<?= (rand()) ?>"></script>
+    <script>
+        function deleteRecord(record) {
+            const result = confirm('آیا مطمئن هستید که این ریکارد حذف شود ؟');
+
+            if (result) {
+                var params = new URLSearchParams();
+                params.append('delete_record', 'delete_record');
+                params.append('record_id', record);
+                axios.post("../controller/PurchaseGoodsAjax.php", params)
+                    .then(function(response) {
+                        resultBox.innerHTML = response.data;
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+            }
+        }
+    </script>
 </body>
 
 </html>
