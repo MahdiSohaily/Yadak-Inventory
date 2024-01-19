@@ -117,9 +117,12 @@ if (isset($_POST['selected_record_id'])) {
                 </tr>
             <?php else : ?>
                 <tr class="">
-                    <td colspan="18" class="cell-shakhes">شماره اشتباه</td>
+                    <td colspan="18" class="text-center bg-rose-400 py-3">
+                        <p class="text-white">ریکارد مد نظر شما در سیستم موجود نمی باشد</p>
+                    </td>
                 </tr>
-            <?php endif; ?>
+            <?php die();
+            endif; ?>
         </tbody>
     </table>
 
@@ -144,17 +147,17 @@ if (isset($_POST['selected_record_id'])) {
             <fieldset class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2">
                 <legend>آیا فاکتور دارد ؟</legend>
                 <label for="purchase_hasBill_false">خیر</label>
-                <input type="radio" name="purchase_hasBill" id="purchase_hasBill_false" value="0" <?= $selected_record["purchase_hasBill"] == 0 ? 'checked' : '' ?>>
-                <label for="purchase_hasBill_false">بله</label>
-                <input type="radio" name="purchase_hasBill" id="purchase_hasBill_true" value="1" <?= $selected_record["purchase_hasBill"] == 1 ? 'checked' : '' ?>>
+                <input class="cursor-pointer" type="radio" name="purchase_hasBill" id="purchase_hasBill_false" value="0" <?= $selected_record["purchase_hasBill"] == 0 ? 'checked' : '' ?>>
+                <label class="mr-5" for="purchase_hasBill_false">بله</label>
+                <input class="cursor-pointer" type="radio" name="purchase_hasBill" id="purchase_hasBill_true" value="1" <?= $selected_record["purchase_hasBill"] == 1 ? 'checked' : '' ?>>
             </fieldset>
             <fieldset class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2">
                 <legend>آیا وارد انبار شده ؟</legend>
                 <label for="purchase_isEntered_false">خیر</label>
-                <input type="radio" name="purchase_isEntered" id="purchase_isEntered_false" value="0" <?= $selected_record["purchase_isEntered"] == 0 ? 'checked' : '' ?>>
+                <input class="cursor-pointer" type="radio" name="purchase_isEntered" id="purchase_isEntered_false" value="0" <?= $selected_record["purchase_isEntered"] == 0 ? 'checked' : '' ?>>
 
-                <label for="purchase_isEntered_true">بله</label>
-                <input type="radio" name="purchase_isEntered" id="purchase_isEntered_true" value="1" <?= $selected_record["purchase_isEntered"] == 1 ? 'checked' : '' ?>>
+                <label class="mr-5" for="purchase_isEntered_true">بله</label>
+                <input class="cursor-pointer" type="radio" name="purchase_isEntered" id="purchase_isEntered_true" value="1" <?= $selected_record["purchase_isEntered"] == 1 ? 'checked' : '' ?>>
             </fieldset>
         </div>
 
@@ -240,43 +243,47 @@ if (isset($_POST['selected_record_id'])) {
 <?php
 function getRecord($record_id)
 {
-    $statement = DB_CONNECTION->prepare("SELECT qtybank.id AS purchase_id,
-                                    qtybank.des As purchase_description,
-                                    qtybank.qty AS purchase_quantity,
-                                    qtybank.pos1 AS purchase_position1,
-                                    qtybank.pos2 AS purchase_position2,
-                                    qtybank.create_time AS purchase_time,
-                                    qtybank.anbarenter AS purchase_isEntered,
-                                    qtybank.invoice AS purchase_hasBill,
-                                    qtybank.invoice_number,
-                                    qtybank.invoice_date,
-                                    nisha.partnumber,
-                                    nisha.price AS good_price,
-                                    seller.id AS seller_id,
-                                    seller.name AS seller_name,
-                                    brand.id AS brand_id,
-                                    brand.name AS brand_name,
-                                    deliverer.id AS delivery_id,
-                                    deliverer.name AS deliverer_name,
-                                    users.username AS username,
-                                    stock.id AS stock_id,
-                                    stock.name AS stock_name
-                                    FROM qtybank
-                                    INNER JOIN nisha ON qtybank.codeid = nisha.id
-                                    INNER JOIN brand ON qtybank.brand = brand.id
-                                    LEFT JOIN seller ON qtybank.seller = seller.id
-                                    LEFT JOIN deliverer ON qtybank.deliverer = deliverer.id
-                                    LEFT JOIN users ON qtybank.user = users.id
-                                    LEFT JOIN stock ON qtybank.stock_id = stock.id
-                                    WHERE qtybank.id = :record_id
-                                    ORDER BY qtybank.create_time DESC");
+    try {
+        $statement = DB_CONNECTION->prepare("SELECT qtybank.id AS purchase_id,
+    qtybank.des As purchase_description,
+    qtybank.qty AS purchase_quantity,
+    qtybank.pos1 AS purchase_position1,
+    qtybank.pos2 AS purchase_position2,
+    qtybank.create_time AS purchase_time,
+    qtybank.anbarenter AS purchase_isEntered,
+    qtybank.invoice AS purchase_hasBill,
+    qtybank.invoice_number,
+    qtybank.invoice_date,
+    nisha.partnumber,
+    nisha.price AS good_price,
+    seller.id AS seller_id,
+    seller.name AS seller_name,
+    brand.id AS brand_id,
+    brand.name AS brand_name,
+    deliverer.id AS delivery_id,
+    deliverer.name AS deliverer_name,
+    users.username AS username,
+    stock.id AS stock_id,
+    stock.name AS stock_name
+    FROM qtybank
+    INNER JOIN nisha ON qtybank.codeid = nisha.id
+    INNER JOIN brand ON qtybank.brand = brand.id
+    LEFT JOIN seller ON qtybank.seller = seller.id
+    LEFT JOIN deliverer ON qtybank.deliverer = deliverer.id
+    LEFT JOIN users ON qtybank.user = users.id
+    LEFT JOIN stock ON qtybank.stock_id = stock.id
+    WHERE qtybank.id = :record_id
+    ORDER BY qtybank.create_time DESC");
 
-    $statement->bindParam(':record_id', $record_id);
-    $statement->execute();
+        $statement->bindParam(':record_id', $record_id);
+        $statement->execute();
 
-    $purchaseList = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $purchaseList = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    return $purchaseList[0];
+        return $purchaseList ? $purchaseList[0] : [];
+    } catch (\Throwable $th) {
+        die('ریکارد مد نظر شما در سیستم موجود نمی باشد.');
+    }
 }
 
 function saveChanges($data)
