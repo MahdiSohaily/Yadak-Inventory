@@ -119,22 +119,19 @@ if (isset($_POST['selected_record_id'])) {
                 </tr>
             </tbody>
         </table>
-        <form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" class="p-5 w-full grid grid-cols-2">
-            <div class="px-5">
+        <form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" class="p-5 w-full flex justify-center">
+            <div class="px-5 w-1/2">
                 <input value="<?= $selected_record["purchase_id"] ?>" type="hidden" name="selected_record_id">
                 <label for="sold_quantity">تعداد</label>
                 <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["sold_quantity"] ?>" min="0" type="number" name="sold_quantity" id="purchase_quantity">
 
                 <label for="invoice_number_edit">شماره فاکتور</label>
-                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["sold_invoice_number"] ?>" type="text" name="invoice_number_edit" id="invoice_number_edit">
 
                 <label for="invoice_time">زمان فاکتور</label>
-                <input  type="text" name="invoice_time" id="invoice_time">
+                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["sold_invoice_date"] ?>" type="text" name="invoice_time_edit" id="invoice_time">
                 <span id="span_invoice_time"></span>
                 <label for="purchase_description" class="block mb-2 text-sm font-medium text-gray-900">توضیحات</label>
                 <textarea id="purchase_description" name="purchase_description" rows="4" class="block p-2 mb-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"><?= $selected_record["purchase_description"] ?></textarea>
-            </div>
-            <div class="px-5 py-2">
                 <div class="flex justify-between">
                     <div>
                         <input class="cursor-pointer text-white bg-green-800 rounded px-5 py-2" type="submit" value="ویرایش">

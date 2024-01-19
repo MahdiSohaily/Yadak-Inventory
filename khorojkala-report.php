@@ -1,10 +1,6 @@
 <?php
 require_once("./views/Layout/header.php");
-require_once("php/seller-form.php");
 require_once "./app/controller/SoldGoodsController.php";
-if (isset($_GET['interval'])) {
-    $interval = $_GET['interval'];
-}
 ?>
 <style>
     .left_right {
