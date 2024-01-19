@@ -7,21 +7,14 @@ $successfulOperation = false;
 if (isset($_GET['record'])) {
     $record_id = $_GET['record'];
     $selected_record = getRecord($record_id);
-    $brands = getBrands();
-    $sellers = getSellers();
-    $stocks = getStocks();
-    $deliverers = getDeliverers();
+    $getters = getGetters();
 }
 
 if (isset($_POST['selected_record_id'])) {
     $record_id = $_POST['selected_record_id'];
-
     $successfulOperation = saveChanges($_POST);
     $selected_record = getRecord($record_id);
-    $brands = getBrands();
-    $sellers = getSellers();
-    $stocks = getStocks();
-    $deliverers = getDeliverers();
+    $getters = getGetters();
 }
 ?>
 <!DOCTYPE html>
@@ -121,17 +114,31 @@ if (isset($_POST['selected_record_id'])) {
         </table>
         <form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" class="p-5 w-full flex justify-center">
             <div class="px-5 w-1/2">
-                <input value="<?= $selected_record["purchase_id"] ?>" type="hidden" name="selected_record_id">
+                <input value="<?= $selected_record["sold_id"] ?>" type="hidden" name="selected_record_id">
                 <label for="sold_quantity">تعداد</label>
                 <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["sold_quantity"] ?>" min="0" type="number" name="sold_quantity" id="purchase_quantity">
 
                 <label for="invoice_number_edit">شماره فاکتور</label>
+                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["sold_invoice_number"] ?>" type="text" name="invoice_number_edit" id="invoice_number_edit">
 
+                <label for="customer">خریدار</label>
+                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["customer"] ?>" type="text" name="customer" id="customer">
+
+                <label for="getter_name">تحویل گیرنده</label>
+                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" name="getter_name" id="getter_name">
+                    <?php
+                    foreach ($getters as $getter) : ?>
+                        <option value="<?= $getter['id'] ?>" <?= $selected_record["getter_id"] == $getter['id'] ? 'selected' : '' ?>>
+                            <?= $getter['name'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
                 <label for="invoice_time">زمان فاکتور</label>
-                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["sold_invoice_date"] ?>" type="text" name="invoice_time_edit" id="invoice_time">
-                <span id="span_invoice_time"></span>
-                <label for="purchase_description" class="block mb-2 text-sm font-medium text-gray-900">توضیحات</label>
-                <textarea id="purchase_description" name="purchase_description" rows="4" class="block p-2 mb-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"><?= $selected_record["purchase_description"] ?></textarea>
+                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["sold_invoice_date"] ?>" type="text" name="invoice_time_edit" id="exit_time">
+                <span id="span_exit_time"></span>
+
+                <label for="sold_description" class="block mb-2 text-sm font-medium text-gray-900">توضیحات</label>
+                <textarea id="sold_description" name="sold_description" rows="4" class="block p-2 mb-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"><?= $selected_record["sold_description"] ?></textarea>
                 <div class="flex justify-between">
                     <div>
                         <input class="cursor-pointer text-white bg-green-800 rounded px-5 py-2" type="submit" value="ویرایش">
@@ -145,6 +152,8 @@ if (isset($_POST['selected_record_id'])) {
             </div>
         </form>
     </main>
+    <script src="../../js/persianDatepicker.min.js"></script>
+    <script src="../../js/form.js"></script>
 </body>
 
 <?php
@@ -177,7 +186,7 @@ function getRecord($record_id)
         getter.name AS getter_name,
         deliverer.id AS deliverer_id,
         deliverer.name AS deliverer_name,
-        callcenter.shomarefaktor.kharidar AS customer
+        exitrecord.customer
         FROM qtybank
         INNER JOIN nisha ON qtybank.codeid = nisha.id
         INNER JOIN exitrecord ON qtybank.id = exitrecord.qtyid
@@ -198,5 +207,56 @@ function getRecord($record_id)
         return $purchaseList ? $purchaseList[0] : [];
     } catch (\Throwable $th) {
         throw $th;
+    }
+}
+
+function getGetters()
+{
+    $statement = DB_CONNECTION->prepare("SELECT * FROM yadakshop1402.getter");
+
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function saveChanges($data)
+{
+    print_r($data);
+    $record_id = $data['selected_record_id'];
+    $sold_quantity = $data['sold_quantity'];
+    $invoice_number_edit = $data['invoice_number_edit'];
+    $invoice_time_edit = $data['invoice_time_edit'];
+    $sold_description = $data['sold_description'];
+    $getter_name = $data['getter_name'];
+    $customer = $data['customer'];
+
+    // Assuming DB_CONNECTION is a PDO instance
+    $statement = DB_CONNECTION->prepare("UPDATE yadakshop1402.exitrecord
+        SET qty = :sold_quantity,
+        customer = :customer,
+        getter = :getter_name,
+        invoice_number = :invoice_number_edit,
+        des = :sold_description,
+        invoice_date = :invoice_time_edit
+        WHERE id = :record_id
+    ");
+
+    // Bind parameters
+    $statement->bindParam(':sold_quantity', $sold_quantity);
+    $statement->bindParam(':customer', $customer);
+    $statement->bindParam(':getter_name', $getter_name);
+    $statement->bindParam(':invoice_number_edit', $invoice_number_edit);
+    $statement->bindParam(':sold_description', $sold_description);
+    $statement->bindParam(':invoice_time_edit', $invoice_time_edit);
+    $statement->bindParam(':record_id', $record_id);
+
+    // Execute the statement
+    $statement->execute();
+
+    // Check for success
+    if ($statement->rowCount() > 0) {
+        return true;
+    } else {
+        return false;
     }
 }
