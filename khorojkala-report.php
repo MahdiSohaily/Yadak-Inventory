@@ -140,9 +140,8 @@ if (isset($_GET['interval'])) {
         $counter = 1; // Assuming $counter is initialized before the loop
 
         $billItemsCount = 0; // Initialize outside the loop
-
+        $invoice_number = $soldItemsList[0]['sold_invoice_number'] ?? 'x';
         foreach ($soldItemsList as $item) :
-            $invoice_number = $soldItemsList[0]['sold_invoice_number'] ?? 'x';
             $date = $item["sold_time"];
             $array = explode(' ', $date);
             list($year, $month, $day) = explode('-', $array[0]);
@@ -151,7 +150,9 @@ if (isset($_GET['interval'])) {
             $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
             $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
             $billItemsCount += $item["sold_quantity"];
+
             if ($invoice_number !== $item["sold_invoice_number"]) :
+                $invoice_number = $item["sold_invoice_number"];
                 if ($counter > 1) : // Display summary only if it's not the first iteration
         ?>
                     <tr class="bg-black left_right">
@@ -199,20 +200,6 @@ if (isset($_GET['interval'])) {
         <?php
             $counter++;
         endforeach;
-
-        // Display the final summary for the last bill
-        if ($billItemsCount > 0) :
-        ?>
-            <tr class="bg-black left_right">
-                <td colspan="20">
-                    مجموع اقلام <?= $billItemsCount ?>
-                </td>
-            </tr>
-            <tr class="border_bottom">
-                <td colspan="20"></td>
-            </tr>
-        <?php
-        endif;
         ?>
 
     </tbody>
