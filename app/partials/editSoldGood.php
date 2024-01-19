@@ -81,35 +81,44 @@ if (isset($_POST['selected_record_id'])) {
             </thead>
             <tbody id="resultBox">
                 <?php
-                $date = $selected_record["sold_time"];
-                $array = explode(' ', $date);
-                list($year, $month, $day) = explode('-', $array[0]);
-                list($hour, $minute, $second) = explode(':', $array[1]);
-                $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
-                $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
-                $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
+                if ($selected_record) :
+                    $date = $selected_record["sold_time"];
+                    $array = explode(' ', $date);
+                    list($year, $month, $day) = explode('-', $array[0]);
+                    list($hour, $minute, $second) = explode(':', $array[1]);
+                    $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
+                    $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
+                    $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
 
                 ?>
-                <tr class="bg-gray-100">
-                    <td class="py-2 px-3 text-center text-white bg-blue-600"><?= strtoupper($selected_record["partnumber"]) ?></td>
-                    <td class="py-2 px-3 text-center"><?= $selected_record["brand_name"] ?></td>
-                    <td class="py-2 px-3 text-center text-sm"><?= $selected_record["purchase_description"] ?></td>
-                    <td class="py-2 px-3 text-center text-sm"><?= $selected_record["sold_description"] ?></td>
-                    <td class="py-2 px-3 text-center bg-cyan-300"><?= $selected_record["sold_quantity"] ?></td>
-                    <td class="py-2 px-3 text-center bg-yellow-400"><?= $selected_record["seller_name"] ?></td>
-                    <td class="py-2 px-3 text-center"><?= $selected_record["customer"] ?></td>
-                    <td class="py-2 px-3 text-center text-sm"><?= $selected_record["getter_name"] ?></td>
-                    <td class="py-2 px-3 text-center text-sm"><?= $selected_record["jamkon"] ?></td>
-                    <td class="py-2 px-3 text-center"><?= $jalali_time ?></td>
-                    <td class="py-2 px-3 text-center"><?= $jalali_date ?></td>
-                    <td class="py-2 px-3 text-center"><?= $selected_record["sold_invoice_number"] ?></td>
-                    <td class="py-2 px-3 text-center"><?= substr($selected_record["sold_invoice_date"], 5) ?></td>
-                    <td class="py-2 px-3 text-center"><?= $selected_record["purchase_isEntered"] == 0 ? 'خیر' : 'بلی' ?></td>
-                    <td class="py-2 px-3 text-center"><?= $selected_record['qty_invoice_number'] ?></td>
-                    <td class="py-2 px-3 text-center text-sm"><?= $selected_record['qty_invoice_date'] ?></td>
-                    <td class="py-2 px-3 text-center"><?= $selected_record["stock_name"] ?></td>
-                    <td class="py-2 px-3 text-center text-sm"><?= $selected_record["username"] ?></td>
-                </tr>
+                    <tr class="bg-gray-100">
+                        <td class="py-2 px-3 text-center text-white bg-blue-600"><?= strtoupper($selected_record["partnumber"]) ?></td>
+                        <td class="py-2 px-3 text-center"><?= $selected_record["brand_name"] ?></td>
+                        <td class="py-2 px-3 text-center text-sm"><?= $selected_record["purchase_description"] ?></td>
+                        <td class="py-2 px-3 text-center text-sm"><?= $selected_record["sold_description"] ?></td>
+                        <td class="py-2 px-3 text-center bg-cyan-300"><?= $selected_record["sold_quantity"] ?></td>
+                        <td class="py-2 px-3 text-center bg-yellow-400"><?= $selected_record["seller_name"] ?></td>
+                        <td class="py-2 px-3 text-center"><?= $selected_record["customer"] ?></td>
+                        <td class="py-2 px-3 text-center text-sm"><?= $selected_record["getter_name"] ?></td>
+                        <td class="py-2 px-3 text-center text-sm"><?= $selected_record["jamkon"] ?></td>
+                        <td class="py-2 px-3 text-center"><?= $jalali_time ?></td>
+                        <td class="py-2 px-3 text-center"><?= $jalali_date ?></td>
+                        <td class="py-2 px-3 text-center"><?= $selected_record["sold_invoice_number"] ?></td>
+                        <td class="py-2 px-3 text-center"><?= substr($selected_record["sold_invoice_date"], 5) ?></td>
+                        <td class="py-2 px-3 text-center"><?= $selected_record["purchase_isEntered"] == 0 ? 'خیر' : 'بلی' ?></td>
+                        <td class="py-2 px-3 text-center"><?= $selected_record['qty_invoice_number'] ?></td>
+                        <td class="py-2 px-3 text-center text-sm"><?= $selected_record['qty_invoice_date'] ?></td>
+                        <td class="py-2 px-3 text-center"><?= $selected_record["stock_name"] ?></td>
+                        <td class="py-2 px-3 text-center text-sm"><?= $selected_record["username"] ?></td>
+                    </tr>
+                <?php else : ?>
+                    <tr class="">
+                        <td colspan="18" class="text-center bg-rose-400 py-3">
+                            <p class="text-white">ریکارد مد نظر شما در سیستم موجود نمی باشد</p>
+                        </td>
+                    </tr>
+                <?php die();
+                endif; ?>
             </tbody>
         </table>
         <form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" class="p-5 w-full flex justify-center">
@@ -141,8 +150,8 @@ if (isset($_POST['selected_record_id'])) {
                 <textarea id="sold_description" name="sold_description" rows="4" class="block p-2 mb-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"><?= $selected_record["sold_description"] ?></textarea>
                 <div class="flex justify-between">
                     <div>
-                        <input class="cursor-pointer text-white bg-green-800 rounded px-5 py-2" type="submit" value="ویرایش">
-                        <span onclick='deleteRecord(<?= $selected_record["purchase_id"] ?>)' class="cursor-pointer text-white bg-rose-800 rounded px-5 py-2"> حذف</span>
+                        <input id="submit_form" class="cursor-pointer text-white bg-green-800 rounded px-5 py-2" type="submit" value="ویرایش">
+                        <span onclick='deleteRecord(<?= $selected_record["sold_id"] ?>)' class="cursor-pointer text-white bg-rose-800 rounded px-5 py-2"> حذف</span>
                     </div>
                     <div id='delete_message' class="hidden text-green-900 rounded px-5 py-2" class="error">عملیات موفقانه صورت گرفت</div>
                     <?php if ($successfulOperation) : ?>
@@ -154,6 +163,29 @@ if (isset($_POST['selected_record_id'])) {
     </main>
     <script src="../../js/persianDatepicker.min.js"></script>
     <script src="../../js/form.js"></script>
+    <script>
+        function deleteRecord(record) {
+            const result = confirm('آیا مطمئن هستید که این ریکارد حذف شود ؟');
+
+            if (result) {
+                var params = new URLSearchParams();
+                params.append('delete_record', 'delete_record');
+                params.append('record_id', record);
+                axios.post("../controller/SoledGoodsAjax.php", params)
+                    .then(function(response) {
+                        document.getElementById('delete_message').style.display = 'block';
+                        document.getElementById('submit_form').disabled = 'block';
+
+                        setTimeout(() => {
+                            document.getElementById('delete_message').style.display = 'none';
+                        }, 1000);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+            }
+        }
+    </script>
 </body>
 
 <?php
@@ -221,7 +253,6 @@ function getGetters()
 
 function saveChanges($data)
 {
-    print_r($data);
     $record_id = $data['selected_record_id'];
     $sold_quantity = $data['sold_quantity'];
     $invoice_number_edit = $data['invoice_number_edit'];
