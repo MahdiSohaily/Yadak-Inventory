@@ -193,7 +193,7 @@ if (isset($_GET['interval'])) {
                 <td class="cell-stock "><?= $item["stock_name"] ?></td>
                 <td class="cell-user "><?= $item["username"] ?></td>
                 <td style="display: flex; justify-content: center; margin-block: 15px;">
-                    <a onclick="displayModal(this)" id="<?= $item["sold_id"] ?>" class="edit-rec2">
+                    <a onclick="displayModal(this)" data-target="<?= $item["sold_id"] ?>" class="edit-rec2">
                         <i class="fa fa-pen" aria-hidden="true"></i>
                     </a>
                 </td>
@@ -271,9 +271,11 @@ if (isset($_GET['interval'])) {
     }
 
     function displayModal(element) {
-        id = element.getAttribute('id');
         updateModal.style.display = 'flex';
-        updateModalIframe.src = './php/khorojkala-report-edit.php?q=' + id;
+        const iframe = document.getElementById('editPage');
+        const targetElement = element.getAttribute('data-target');
+
+        iframe.src = "./app/partials/editSoldGood.php?record=" + targetElement;
     }
 
     function closeModal() {
