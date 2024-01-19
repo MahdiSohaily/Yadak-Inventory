@@ -143,7 +143,25 @@ require_once("./app/controller/PurchasedGoodsController.php");
                     $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
                     $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
                     $billItemsCount += $item["purchase_quantity"];
+
+                    if ($invoice_number !== $item["invoice_number"]) :
+                        $invoice_number = $item["invoice_number"];
+                        if ($counter > 1) : // Display summary only if it's not the first iteration
             ?>
+                            <tr class="bg-black left_right">
+                                <td colspan="20">
+                                    مجموع اقلام <?= $billItemsCount ?>
+                                </td>
+                            </tr>
+                            <tr class="border_bottom">
+                                <td colspan="20"></td>
+                            </tr>
+                    <?php
+                        endif;
+
+                        $billItemsCount = 0; // Reset for the new bill
+                    endif;
+                    ?>
                     <tr class="left_right">
                         <td class="cell-shakhes"><?= $counter ?></td>
                         <td class="cell-code"><?= '&nbsp;' . strtoupper($item["partnumber"]) ?></td>
@@ -168,23 +186,8 @@ require_once("./app/controller/PurchasedGoodsController.php");
                             </a>
                         </td>
                     </tr>
-                    <?php
-                    if ($invoice_number !== $item["invoice_number"]) :
-                        $invoice_number = $item["invoice_number"] ?>
-
-                        <tr class="bg-black left_right">
-                            <td colspan="18">
-                                مجموع اقلام
-                                <?= $billItemsCount ?>
-                            </td>
-                        </tr>
-                        <tr class="border_bottom">
-                            <td colspan="18">
-                            </td>
-                        </tr>
+                   
                 <?php
-                        $billItemsCount = 0;
-                    endif;
                     $counter++;
                 endforeach;
             else : ?>
