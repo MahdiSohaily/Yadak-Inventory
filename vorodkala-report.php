@@ -186,8 +186,17 @@ require_once("./app/controller/PurchasedGoodsController.php");
                             </a>
                         </td>
                     </tr>
-                   
+
+                    <?php
+                    if ($counter == count($purchaseList)) : // Display summary only if it's not the first iteration
+                    ?>
+                        <tr class="bg-black left_right">
+                            <td colspan="20">
+                                مجموع اقلام <?= $billItemsCount ?>
+                            </td>
+                        </tr>
                 <?php
+                    endif;
                     $counter++;
                 endforeach;
             else : ?>
