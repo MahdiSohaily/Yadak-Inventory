@@ -1,18 +1,33 @@
 <?php
 require_once("./views/Layout/header.php");
 require_once("php/seller-form.php");
+require_once "./app/controller/SoldGoodsController.php";
 if (isset($_GET['interval'])) {
     $interval = $_GET['interval'];
 }
 ?>
 <style>
     .left_right {
-        border-left: 2px solid gray;
-        border-right: 2px solid gray;
+        border-left: 2px solid lightgray;
+        border-right: 2px solid lightgray;
     }
 
     .border_top {
-        border-top: 2px solid gray !important;
+        border-top: 2px solid lightgray !important;
+    }
+
+    .border_bottom {
+        border-bottom: 2px solid lightgray !important;
+    }
+
+    .bg-black {
+        background-color: #c9c8c3 !important;
+        color: #545452;
+        font-weight: bold;
+    }
+
+    #updateModal {
+        align-items: end !important;
     }
 </style>
 <div class="">
@@ -121,7 +136,85 @@ if (isset($_GET['interval'])) {
         </tr>
     </thead>
     <tbody id="resultBox">
-        <?php require_once("php/khorojkala-report-geter.php") ?>
+        <?php
+        $counter = 1; // Assuming $counter is initialized before the loop
+
+        $billItemsCount = 0; // Initialize outside the loop
+
+        foreach ($soldItemsList as $item) :
+            $invoice_number = $soldItemsList[0]['sold_invoice_number'] ?? 'x';
+            $date = $item["sold_time"];
+            $array = explode(' ', $date);
+            list($year, $month, $day) = explode('-', $array[0]);
+            list($hour, $minute, $second) = explode(':', $array[1]);
+            $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
+            $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
+            $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
+            $billItemsCount += $item["sold_quantity"];
+            if ($invoice_number !== $item["sold_invoice_number"]) :
+                if ($counter > 1) : // Display summary only if it's not the first iteration
+        ?>
+                    <tr class="bg-black left_right">
+                        <td colspan="20">
+                            مجموع اقلام <?= $billItemsCount ?>
+                        </td>
+                    </tr>
+                    <tr class="border_bottom">
+                        <td colspan="20"></td>
+                    </tr>
+            <?php
+                endif;
+
+                $billItemsCount = 0; // Reset for the new bill
+            endif;
+            ?>
+            <tr class="left_right">
+                <td class="cell-shakhes "><?= $counter ?></td>
+                <td class="cell-code "><?= strtoupper($item["partnumber"]) ?></td>
+                <td class="cell-brand cell-brand-<?= $item["brand_name"] ?> "><?= $item["brand_name"] ?></td>
+                <td class="cell-des "><?= $item["purchase_description"] ?></td>
+                <td class="cell-des "><?= $item["sold_description"] ?></td>
+                <td class="cell-qty "><?= $item["sold_quantity"] ?></td>
+                <td class="cell-seller cell-seller-<?= $item["seller_id"] ?>"><?= $item["seller_name"] ?></td>
+                <td class="cell-customer "><?= $item["customer"] ?></td>
+                <td class="cell-gtname "><?= $item["getter_name"] ?></td>
+                <td class="cell-gtname "><?= $item["jamkon"] ?></td>
+                <td class="cell-time "><?= $jalali_time ?></td>
+                <td class="cell-date "><?= $jalali_date ?></td>
+                <td <?= empty($item["sold_invoice_number"]) ? ' class="no-invoice-number"' : '' ?>>
+                    <?= $item["sold_invoice_number"] ?>
+                </td>
+                <td class="cell-date "><?= substr($item["sold_invoice_date"], 5) ?></td>
+                <td class="tik-anb-<?= $item["purchase_isEntered"] ?>"></td>
+                <td class="cell-time "><?= $item['qty_invoice_number'] ?></td>
+                <td class="cell-time "><?= $item['qty_invoice_date'] ?></td>
+                <td class="cell-stock "><?= $item["stock_name"] ?></td>
+                <td class="cell-user "><?= $item["username"] ?></td>
+                <td style="display: flex; justify-content: center; margin-block: 15px;">
+                    <a onclick="displayModal(this)" id="<?= $item["sold_id"] ?>" class="edit-rec2">
+                        <i class="fa fa-pen" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        <?php
+            $counter++;
+        endforeach;
+
+        // Display the final summary for the last bill
+        if ($billItemsCount > 0) :
+        ?>
+            <tr class="bg-black left_right">
+                <td colspan="20">
+                    مجموع اقلام <?= $billItemsCount ?>
+                </td>
+            </tr>
+            <tr class="border_bottom">
+                <td colspan="20"></td>
+            </tr>
+        <?php
+        endif;
+        ?>
+
     </tbody>
 </table>
 <div id="updateModal">
@@ -131,7 +224,7 @@ if (isset($_GET['interval'])) {
             <i onclick="closeModal()" class="fa fa-times closeModal" aria-hidden="true"></i>
         </div>
         <div class="displayPage">
-            <iframe id="updateModalIframe" src="./php/khorojkala-report-edit.php" frameborder="0"></iframe>
+            <iframe style="width: 100%; height:80vh !important" id="editPage" src="" frameborder="0"></iframe>
         </div>
     </div>
 </div>

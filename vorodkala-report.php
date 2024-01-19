@@ -23,6 +23,7 @@ require_once("./app/controller/PurchasedGoodsController.php");
         color: #545452;
         font-weight: bold;
     }
+
     #updateModal {
         align-items: end !important;
     }
@@ -168,7 +169,8 @@ require_once("./app/controller/PurchasedGoodsController.php");
                         </td>
                     </tr>
                     <?php
-                    if ($invoice_number !== $item["invoice_number"]) : ?>
+                    if ($invoice_number !== $item["invoice_number"]) :
+                        $invoice_number = $item["invoice_number"] ?>
 
                         <tr class="bg-black left_right">
                             <td colspan="18">
