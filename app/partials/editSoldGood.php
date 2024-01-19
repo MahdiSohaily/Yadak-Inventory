@@ -61,33 +61,29 @@ if (isset($_POST['selected_record_id'])) {
     </style>
 </head>
 
-<body>
-    <main>
-        <table id="report-table" class="report-table">
+<body class="rtl">
+    <main class="mx-5">
+        <table class="report-table w-full mb-5">
             <thead>
-                <tr>
-                    <th title="شماره فنی">شماره فنی</th>
-                    <th title="برند">برند</th>
-                    <th title="توضیحات ورود">توضیحات و</th>
-                    <th title="توضیحات خروج">توضیحات خ</th>
-                    <th title="تعداد">تعداد</th>
-
-                    <th title="فروشنده">فروشنده</th>
-                    <th title="خریدار">خریدار</th>
-                    <th title="تحویل گیرنده">تحویل گیرنده</th>
-                    <th title="جمع کننده">جمع کننده</th>
-                    <th title="زمان خروج">زمان خ</th>
-                    <th title="تاریخ خروج">تاریخ خ</th>
-
-                    <th title="شماره فاکتور خروج">ش ف خروج</th>
-                    <th title="تاریخ فاکتور خروج">تاریخ ف خ</th>
-
-                    <th title="ورود به انبار">ورود به انبار</th>
-
-                    <th title="شماره فاکتور ورود">ش ف و</th>
-                    <th title="تاریخ فاکتور ورود">تاریخ ف و</th>
-                    <th title="انبار">انبار</th>
-                    <th title="کاربر">کاربر</th>
+                <tr class="rtl bg-gray-800">
+                    <th class="text-white py-2 px-3 text-center" title="شماره فنی">شماره فنی</th>
+                    <th class="text-white py-2 px-3 text-center" title="برند">برند</th>
+                    <th class="text-white py-2 px-3 text-center" title="توضیحات ورود">توضیحات و</th>
+                    <th class="text-white py-2 px-3 text-center" title="توضیحات خروج">توضیحات خ</th>
+                    <th class="text-white py-2 px-3 text-center" title="تعداد">تعداد</th>
+                    <th class="text-white py-2 px-3 text-center" title="فروشنده">فروشنده</th>
+                    <th class="text-white py-2 px-3 text-center" title="خریدار">خریدار</th>
+                    <th class="text-white py-2 px-3 text-center" title="تحویل گیرنده">تحویل گیرنده</th>
+                    <th class="text-white py-2 px-3 text-center" title="جمع کننده">جمع کننده</th>
+                    <th class="text-white py-2 px-3 text-center" title="زمان خروج">زمان خ</th>
+                    <th class="text-white py-2 px-3 text-center" title="تاریخ خروج">تاریخ خ</th>
+                    <th class="text-white py-2 px-3 text-center" title="شماره فاکتور خروج">ش ف خروج</th>
+                    <th class="text-white py-2 px-3 text-center" title="تاریخ فاکتور خروج">تاریخ ف خ</th>
+                    <th class="text-white py-2 px-3 text-center" title="ورود به انبار">ورود به انبار</th>
+                    <th class="text-white py-2 px-3 text-center" title="شماره فاکتور ورود">ش ف و</th>
+                    <th class="text-white py-2 px-3 text-center" title="تاریخ فاکتور ورود">تاریخ ف و</th>
+                    <th class="text-white py-2 px-3 text-center" title="انبار">انبار</th>
+                    <th class="text-white py-2 px-3 text-center" title="کاربر">کاربر</th>
                 </tr>
             </thead>
             <tbody id="resultBox">
@@ -101,30 +97,56 @@ if (isset($_POST['selected_record_id'])) {
                 $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
 
                 ?>
-                <tr class="left_right">
-                    <td class="cell-code "><?= strtoupper($selected_record["partnumber"]) ?></td>
-                    <td class="cell-brand cell-brand-<?= $selected_record["brand_name"] ?> "><?= $selected_record["brand_name"] ?></td>
-                    <td class="cell-des "><?= $selected_record["purchase_description"] ?></td>
-                    <td class="cell-des "><?= $selected_record["sold_description"] ?></td>
-                    <td class="cell-qty "><?= $selected_record["sold_quantity"] ?></td>
-                    <td class="cell-seller cell-seller-<?= $selected_record["seller_id"] ?>"><?= $selected_record["seller_name"] ?></td>
-                    <td class="cell-customer "><?= $selected_record["customer"] ?></td>
-                    <td class="cell-gtname "><?= $selected_record["getter_name"] ?></td>
-                    <td class="cell-gtname "><?= $selected_record["jamkon"] ?></td>
-                    <td class="cell-time "><?= $jalali_time ?></td>
-                    <td class="cell-date "><?= $jalali_date ?></td>
-                    <td <?= empty($selected_record["sold_invoice_number"]) ? ' class="no-invoice-number"' : '' ?>>
-                        <?= $selected_record["sold_invoice_number"] ?>
-                    </td>
-                    <td class="cell-date "><?= substr($selected_record["sold_invoice_date"], 5) ?></td>
-                    <td class="tik-anb-<?= $selected_record["purchase_isEntered"] ?>"></td>
-                    <td class="cell-time "><?= $selected_record['qty_invoice_number'] ?></td>
-                    <td class="cell-time "><?= $selected_record['qty_invoice_date'] ?></td>
-                    <td class="cell-stock "><?= $selected_record["stock_name"] ?></td>
-                    <td class="cell-user "><?= $selected_record["username"] ?></td>
+                <tr class="bg-gray-100">
+                    <td class="py-2 px-3 text-center text-white bg-blue-600"><?= strtoupper($selected_record["partnumber"]) ?></td>
+                    <td class="py-2 px-3 text-center"><?= $selected_record["brand_name"] ?></td>
+                    <td class="py-2 px-3 text-center text-sm"><?= $selected_record["purchase_description"] ?></td>
+                    <td class="py-2 px-3 text-center text-sm"><?= $selected_record["sold_description"] ?></td>
+                    <td class="py-2 px-3 text-center bg-cyan-300"><?= $selected_record["sold_quantity"] ?></td>
+                    <td class="py-2 px-3 text-center bg-yellow-400"><?= $selected_record["seller_name"] ?></td>
+                    <td class="py-2 px-3 text-center"><?= $selected_record["customer"] ?></td>
+                    <td class="py-2 px-3 text-center text-sm"><?= $selected_record["getter_name"] ?></td>
+                    <td class="py-2 px-3 text-center text-sm"><?= $selected_record["jamkon"] ?></td>
+                    <td class="py-2 px-3 text-center"><?= $jalali_time ?></td>
+                    <td class="py-2 px-3 text-center"><?= $jalali_date ?></td>
+                    <td class="py-2 px-3 text-center"><?= $selected_record["sold_invoice_number"] ?></td>
+                    <td class="py-2 px-3 text-center"><?= substr($selected_record["sold_invoice_date"], 5) ?></td>
+                    <td class="py-2 px-3 text-center"><?= $selected_record["purchase_isEntered"] == 0 ? 'خیر' : 'بلی' ?></td>
+                    <td class="py-2 px-3 text-center"><?= $selected_record['qty_invoice_number'] ?></td>
+                    <td class="py-2 px-3 text-center text-sm"><?= $selected_record['qty_invoice_date'] ?></td>
+                    <td class="py-2 px-3 text-center"><?= $selected_record["stock_name"] ?></td>
+                    <td class="py-2 px-3 text-center text-sm"><?= $selected_record["username"] ?></td>
                 </tr>
             </tbody>
         </table>
+        <form method="post" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" class="p-5 w-full grid grid-cols-2">
+            <div class="px-5">
+                <input value="<?= $selected_record["purchase_id"] ?>" type="hidden" name="selected_record_id">
+                <label for="sold_quantity">تعداد</label>
+                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["sold_quantity"] ?>" min="0" type="number" name="sold_quantity" id="purchase_quantity">
+
+                <label for="invoice_number_edit">شماره فاکتور</label>
+                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 mb-2" value="<?= $selected_record["sold_invoice_number"] ?>" type="text" name="invoice_number_edit" id="invoice_number_edit">
+
+                <label for="invoice_time">زمان فاکتور</label>
+                <input  type="text" name="invoice_time" id="invoice_time">
+                <span id="span_invoice_time"></span>
+                <label for="purchase_description" class="block mb-2 text-sm font-medium text-gray-900">توضیحات</label>
+                <textarea id="purchase_description" name="purchase_description" rows="4" class="block p-2 mb-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"><?= $selected_record["purchase_description"] ?></textarea>
+            </div>
+            <div class="px-5 py-2">
+                <div class="flex justify-between">
+                    <div>
+                        <input class="cursor-pointer text-white bg-green-800 rounded px-5 py-2" type="submit" value="ویرایش">
+                        <span onclick='deleteRecord(<?= $selected_record["purchase_id"] ?>)' class="cursor-pointer text-white bg-rose-800 rounded px-5 py-2"> حذف</span>
+                    </div>
+                    <div id='delete_message' class="hidden text-green-900 rounded px-5 py-2" class="error">عملیات موفقانه صورت گرفت</div>
+                    <?php if ($successfulOperation) : ?>
+                        <div class="text-green-900 rounded px-5 py-2" class="error">عملیات موفقانه صورت گرفت</div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </form>
     </main>
 </body>
 

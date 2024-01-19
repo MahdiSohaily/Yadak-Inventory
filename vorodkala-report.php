@@ -1,6 +1,5 @@
 <?php
 require_once("./views/Layout/header.php");
-require_once("php/seller-form.php");
 require_once("./app/controller/PurchasedGoodsController.php");
 ?>
 
@@ -28,9 +27,6 @@ require_once("./app/controller/PurchasedGoodsController.php");
         align-items: end !important;
     }
 </style>
-<script src='../callcenter/report/public/js/jalaliMoment.js'></script>
-
-
 <div>
     <form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
         <div class="div1">
