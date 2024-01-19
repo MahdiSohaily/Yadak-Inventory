@@ -149,7 +149,7 @@ if (isset($_GET['interval'])) {
             $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
             $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
             $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
-            $billItemsCount += $item["sold_quantity"];
+
 
             if ($invoice_number !== $item["sold_invoice_number"]) :
                 $invoice_number = $item["sold_invoice_number"];
@@ -168,6 +168,7 @@ if (isset($_GET['interval'])) {
 
                 $billItemsCount = 0; // Reset for the new bill
             endif;
+            $billItemsCount += $item["sold_quantity"];
             ?>
             <tr class="left_right">
                 <td class="cell-shakhes "><?= $counter ?></td>
@@ -197,7 +198,16 @@ if (isset($_GET['interval'])) {
                     </a>
                 </td>
             </tr>
+            <?php
+            if ($counter == count($soldItemsList)) : // Display summary only if it's not the first iteration
+            ?>
+                <tr class="bg-black left_right">
+                    <td colspan="20">
+                        مجموع اقلام <?= $billItemsCount ?>
+                    </td>
+                </tr>
         <?php
+            endif;
             $counter++;
         endforeach;
         ?>
