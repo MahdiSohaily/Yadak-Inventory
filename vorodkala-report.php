@@ -142,7 +142,7 @@ require_once("./app/controller/PurchasedGoodsController.php");
                     $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
                     $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
                     $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
-                    $billItemsCount += $item["purchase_quantity"];
+
 
                     if ($invoice_number !== $item["invoice_number"]) :
                         $invoice_number = $item["invoice_number"];
@@ -161,6 +161,7 @@ require_once("./app/controller/PurchasedGoodsController.php");
 
                         $billItemsCount = 0; // Reset for the new bill
                     endif;
+                    $billItemsCount += $item["purchase_quantity"];
                     ?>
                     <tr class="left_right">
                         <td class="cell-shakhes"><?= $counter ?></td>
