@@ -2,6 +2,7 @@
 require_once("./views/Layout/header.php");
 require_once "./php/seller-form.php";
 require_once("./app/controller/PurchasedGoodsController.php");
+require_once "./utilities/helpers.php";
 ?>
 
 <style>
@@ -79,17 +80,18 @@ require_once("./app/controller/PurchasedGoodsController.php");
             <select name="seller" id="seller">
                 <option selected="true" disabled="disabled">انتخاب فروشنده</option>
                 <?php
-                foreach ($data as $key => $value) {
-                    echo "<option value='$key'>$value</option>";
-                }
-                ?>
+                foreach (getSellers() as $seller) : ?>
+                    <option value='<?= $seller["id"] ?>'><?= $seller["name"] ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
 
         <div class="div3">
             <select name="brand" id="brand">
                 <option selected="true" disabled="disabled">انتخاب برند جنس</option>
-                <?php require_once("php/brand-form.php") ?>
+                <?php foreach (getBrands() as $brand) : ?>
+                    <option value='<?= $brand["id"] ?>'><?= $brand["name"] ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
 
@@ -104,7 +106,9 @@ require_once("./app/controller/PurchasedGoodsController.php");
         <div class="div6">
             <select name="stock" id="stock">
                 <option selected="true" disabled="disabled">انتخاب انبار</option>
-                <?php require_once("php/stock-form.php") ?>
+                <?php foreach(getStocks() as $stock) : ?>
+                    <option value='<?= $stock["id"] ?>'><?= $stock["name"] ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
 
