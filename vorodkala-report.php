@@ -1,5 +1,6 @@
 <?php
 require_once("./views/Layout/header.php");
+require_once "./php/seller-form.php";
 require_once("./app/controller/PurchasedGoodsController.php");
 ?>
 
@@ -42,6 +43,7 @@ require_once("./app/controller/PurchasedGoodsController.php");
         .operation {
             display: none !important;
         }
+
         table {
             width: 100% !important;
         }
