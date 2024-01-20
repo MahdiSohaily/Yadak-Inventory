@@ -42,6 +42,9 @@ require_once("./app/controller/PurchasedGoodsController.php");
         .operation {
             display: none !important;
         }
+        table {
+            width: 100% !important;
+        }
 
         body {
             padding: 0 !important;
@@ -54,7 +57,7 @@ require_once("./app/controller/PurchasedGoodsController.php");
 
         td,
         th {
-            padding: 0 !important;
+            padding: 5px !important;
             font-size: 12px !important;
         }
 

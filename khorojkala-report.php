@@ -25,6 +25,47 @@ require_once "./app/controller/SoldGoodsController.php";
     #updateModal {
         align-items: end !important;
     }
+
+    @media print {
+        * {
+            margin: 0 !important;
+            padding: 0 !important;
+            font-size: 12px !important;
+            background-color: transparent !important;
+            color: black !important;
+            font-weight: normal !important;
+        }
+
+        table {
+            width: 100% !important;
+        }
+
+        #main_nav,
+        #parent,
+        .operation {
+            display: none !important;
+        }
+
+        body {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        th {
+            background-color: lightgray !important;
+        }
+
+        td,
+        th {
+            padding: 5px !important;
+            font-size: 12px !important;
+        }
+
+        .total {
+            padding-block: 10px !important;
+        }
+
+    }
 </style>
 <div class="">
     <form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
@@ -99,6 +140,10 @@ require_once "./app/controller/SoldGoodsController.php";
                 <i style="padding-inline: 5px;" class="fas fa-file-excel"></i>
                 اکسل جدید
             </a>
+            <a onclick="window.print()" class="filter">
+                <i style="padding-inline: 5px;" class="fas fa-print"></i>
+                پرینت
+            </a>
         </div>
     </form>
 </div>
@@ -128,7 +173,7 @@ require_once "./app/controller/SoldGoodsController.php";
             <th title="تاریخ فاکتور ورود">تاریخ ف و</th>
             <th title="انبار">انبار</th>
             <th title="کاربر">کاربر</th>
-            <th title="عملیات">عملیات</th>
+            <th class="operation" title="عملیات">عملیات</th>
         </tr>
     </thead>
     <tbody id="resultBox">
@@ -151,7 +196,7 @@ require_once "./app/controller/SoldGoodsController.php";
                 $invoice_number = $item["sold_invoice_number"];
                 if ($counter > 1) : // Display summary only if it's not the first iteration
         ?>
-                    <tr class="bg-black left_right">
+                    <tr class="bg-black left_right ">
                         <td colspan="20">
                             مجموع اقلام <?= $billItemsCount ?>
                         </td>
@@ -188,7 +233,7 @@ require_once "./app/controller/SoldGoodsController.php";
                 <td class="cell-time "><?= $item['qty_invoice_date'] ?></td>
                 <td class="cell-stock "><?= $item["stock_name"] ?></td>
                 <td class="cell-user "><?= $item["username"] ?></td>
-                <td style="display: flex; justify-content: center; margin-block: 15px;">
+                <td style="display: flex; justify-content: center; margin-block: 15px;" class="operation">
                     <a onclick="displayModal(this)" data-target="<?= $item["sold_id"] ?>" class="edit-rec2">
                         <i class="fa fa-pen" aria-hidden="true"></i>
                     </a>
