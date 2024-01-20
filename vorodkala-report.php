@@ -136,6 +136,10 @@ require_once("./app/controller/PurchasedGoodsController.php");
                 <i style="padding-inline: 5px;" class="fas fa-file-excel"></i>
                 اکسل جدید
             </a>
+            <a onclick="window.print()" class="filter">
+                <i style="padding-inline: 5px;" class="fas fa-print"></i>
+                پرینت
+            </a>
         </div>
     </form>
     <table id="report-table" class="report-table">
