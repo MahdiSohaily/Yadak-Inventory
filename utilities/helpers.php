@@ -35,3 +35,12 @@ function getDeliverers()
 
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function getUsers()
+{
+    $statement = DB_CONNECTION->prepare("SELECT id, name, username FROM yadakshop1402.users ORDER BY username ASC");
+
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}

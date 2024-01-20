@@ -106,7 +106,7 @@ require_once "./utilities/helpers.php";
         <div class="div6">
             <select name="stock" id="stock">
                 <option selected="true" disabled="disabled">انتخاب انبار</option>
-                <?php foreach(getStocks() as $stock) : ?>
+                <?php foreach (getStocks() as $stock) : ?>
                     <option value='<?= $stock["id"] ?>'><?= $stock["name"] ?></option>
                 <?php endforeach; ?>
             </select>
@@ -115,7 +115,9 @@ require_once "./utilities/helpers.php";
         <div class="div7">
             <select name="user" id="user">
                 <option selected="true" disabled="disabled">انتخاب کاربر</option>
-                <?php require_once("php/user-form.php") ?>
+                <?php foreach (getUsers() as $user) : ?>
+                    <option value='<?= $user["id"] ?>'><?= $user["username"] ?></option>
+                <?php endforeach; ?>
             </select>
         </div>
 
