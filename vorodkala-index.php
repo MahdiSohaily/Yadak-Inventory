@@ -1,4 +1,5 @@
 <?php include("./views/Layout/header.php");
+require_once "./utilities/helpers.php";
 ?>
 
 <style>
@@ -69,11 +70,11 @@
                         </td>
                         <td>
                             <select name="seller" id="seller">
-                                <?php include("php/seller-form.php");
-                                foreach ($data as $key => $value) {
-                                    echo "<option value='$key'>$value</option>";
-                                }
-                                ?>
+                                <option selected="true" disabled="disabled">انتخاب فروشنده</option>
+                                <?php
+                                foreach (getSellers() as $seller) : ?>
+                                    <option value='<?= $seller["id"] ?>'><?= $seller["name"] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </td>
                     </tr>
