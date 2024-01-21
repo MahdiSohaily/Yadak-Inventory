@@ -16,8 +16,8 @@ if (isset($interval)) {
     $todayDate .= " 23:00:00";
     $previousDate .= " 00:00:00";
 
-    $condition = " WHERE qtybank.create_time >= '$previousDate'
-    AND qtybank.create_time <= '$todayDate'";
+    $condition = " WHERE exitrecord.exit_time >= '$previousDate'
+    AND exitrecord.exit_time <= '$todayDate'";
 } else {
     $condition = 'WHERE 1=1';
 }
@@ -61,6 +61,7 @@ $sql = "SELECT qtybank.id AS purchase_id,
         $condition
         AND exitrecord.is_transfered = 0
         ORDER BY  exitrecord.exit_time DESC";
+        
 $result = $con->query($sql);
 
 $soldItemsList = [];

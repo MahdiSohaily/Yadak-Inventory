@@ -46,7 +46,7 @@ function getPurchaseReport($condition)
             stock.name AS stock_name
             FROM qtybank
             INNER JOIN nisha ON qtybank.codeid = nisha.id
-            LEFT JOIN brand ON qtybank.brand = brand.id
+            INNER JOIN brand ON qtybank.brand = brand.id
             LEFT JOIN seller ON qtybank.seller = seller.id
             LEFT JOIN deliverer ON qtybank.deliverer = deliverer.id
             LEFT JOIN users ON qtybank.user = users.id
