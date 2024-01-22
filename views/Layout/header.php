@@ -7,7 +7,6 @@ require_once './bootstrap/init.php';
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <link rel='stylesheet' href='./css/style.css?v=<?php echo (rand()) ?>' type='text/css' media='all' />
@@ -18,8 +17,6 @@ require_once './bootstrap/init.php';
     <link rel="stylesheet" href="./public/css/mojodi_kala.css?v=<?php echo (rand()) ?>" />
     <link rel="stylesheet" href="./public/css/nav.css?v=<?php echo (rand()) ?>" type="text/css" media="all" />
     <link href="./public/css/material_icons.css" rel="stylesheet">
-
-
 
     <script src=" ./js/jquery-1.11.3.min.js?v=<?php echo (rand()) ?>">
     </script>

@@ -100,7 +100,7 @@ require_once "./utilities/helpers.php";
                     <td class="p-3 text-sm text-white">قفسه</td>
                     <td class="p-3 text-sm text-white">راهرو</td>
                     <td class="p-3 text-sm text-white">توضیحات</td>
-                    <td class="p-3 text-sm text-white"> <img src="./public/img/settings.svg" /></td>
+                    <td class="p-3 text-sm text-white w-16"> <img src="./public/img/settings.svg" /></td>
                 </tr>
                 <tr>
                     <td class="p-3"></td>
@@ -202,7 +202,52 @@ require_once "./utilities/helpers.php";
         is_entered: false
     }
 
-    let factor_items = [];
+    let factor_items = [{
+        partNumber: '1',
+        part_id: '',
+        brand_id: 'brand.getAttribute()',
+        brand: ' brand.value',
+        quantity: 'quantity.value',
+        position1: 'position1.value',
+        position2: 'position2.value',
+        description: 'description.value',
+    }, {
+        partNumber: '2',
+        part_id: '',
+        brand_id: 'brand.getAttribute()',
+        brand: ' brand.value',
+        quantity: 'quantity.value',
+        position1: 'position1.value',
+        position2: 'position2.value',
+        description: 'description.value',
+    }, {
+        partNumber: '3',
+        part_id: '',
+        brand_id: 'brand.getAttribute()',
+        brand: ' brand.value',
+        quantity: 'quantity.value',
+        position1: 'position1.value',
+        position2: 'position2.value',
+        description: 'description.value',
+    }, {
+        partNumber: '4',
+        part_id: '',
+        brand_id: 'brand.getAttribute()',
+        brand: ' brand.value',
+        quantity: 'quantity.value',
+        position1: 'position1.value',
+        position2: 'position2.value',
+        description: 'description.value',
+    }, {
+        partNumber: '5',
+        part_id: '',
+        brand_id: 'brand.getAttribute()',
+        brand: ' brand.value',
+        quantity: 'quantity.value',
+        position1: 'position1.value',
+        position2: 'position2.value',
+        description: 'description.value',
+    }, ];
 
     function searchSellers(pattern = '') {
 
@@ -376,7 +421,7 @@ require_once "./utilities/helpers.php";
     }
 
     function addItem() {
-        if (partNumber.value != '' && brand.value != '' && quantity.value != '') {
+        if (partNumber.getAttribute('data-id') != null && brand.getAttribute('data-id') != null && quantity.value != '') {
             factor_items.push({
                 partNumber: partNumber.value,
                 part_id: partNumber.getAttribute('data-id'),
@@ -387,7 +432,17 @@ require_once "./utilities/helpers.php";
                 position2: position2.value,
                 description: description.value,
             });
+            partNumber.value = null;
+            partNumber.setAttribute('data-id', null);
+            brand.value = null;
+            brand.setAttribute('data-id', null);
+            quantity.value = null;;
+            position1.value = null;
+            position2.value = null;
+            description.value = null;
             displayBill();
+        } else {
+            console.log('problem');
         }
     }
 
@@ -403,7 +458,7 @@ require_once "./utilities/helpers.php";
                     <td class="p-3 text-sm text-white">قفسه</td>
                     <td class="p-3 text-sm text-white">راهرو</td>
                     <td class="p-3 text-sm text-white">توضیحات</td>
-                    <td class="p-3 text-sm text-white"> <img src="./public/img/settings.svg" /></td>
+                    <td class="p-3 text-sm text-white w-16"> <img src="./public/img/settings.svg" /></td>
                 </tr>`;
         let counter = 1;
         for (const item of factor_items) {
@@ -416,11 +471,21 @@ require_once "./utilities/helpers.php";
                     <td class="p-3 text-sm">${item.position1}</td>
                     <td class="p-3 text-sm">${item.position2}</td>
                     <td class="p-3 text-sm">${item.description}</td>
-                    <td class="p-3 text-sm">عملیات</td>
+                    <td class="p-3 text-sm">
+                        <img class="cursor-pointer" onclick=deleteItem('${counter-1}') src="./public/img/delete.svg" />
+                    </td>
                 </tr>`;
             counter++;
         }
     }
+
+    function deleteItem(index) {
+        if (index >= 0 && index < factor_items.length) {
+            factor_items.splice(index, 1);
+            displayBill();
+        }
+    }
+    displayBill();
 </script>
 </div>
 <?php include("./views/Layout/footer.php") ?>
