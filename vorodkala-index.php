@@ -1,7 +1,7 @@
 <?php include("./views/Layout/header.php");
 require_once "./utilities/helpers.php";
 ?>
-
+<script src="../callcenter/report/public/js/index.js"></script>
 <style>
     .right-form td {
         padding: 10px !important;
@@ -45,12 +45,12 @@ require_once "./utilities/helpers.php";
     }
 </style>
 
-<div id="Enter-Page">
+<div class="grid grid-cols-2 px-5">
     <form id="vorodkala" method="post" action="php/vorodkala-save.php" autocomplete="off">
         <div class="left-form">
             <?php include("php/codeid.php") ?>
         </div>
-        <div class="right-form">
+        <div class="right">
             <input type="hidden" name="brand-box" id="brand-box">
             <table style="width: 100% !important;">
                 <tbody>
@@ -203,158 +203,18 @@ require_once "./utilities/helpers.php";
         </div>
 
     </form>
+    <div></div>
 </div>
 
 <script>
-    // Get the radio buttons by their name attribute
-    const invoiceRadioButtons = document.querySelectorAll('input[name="invoice"]');
-
-    // Get the factor_details rows
-    const factorDetailsRows = document.querySelectorAll('.factor_details');
-
-
-    const invoice_time = document.getElementById("invoice_time");
-
-    // Function to toggle the visibility and opacity of factor_details rows
-    function toggleFactorDetailsVisibility(show) {
-        factorDetailsRows.forEach(function(row) {
-            if (show) {
-                row.style.display = 'table-row';
-                setTimeout(function() {
-                    row.style.opacity = 1;
-                }, 10);
-            } else {
-                row.style.opacity = 0;
-                document.querySelector('input#invoice_number').value = null;
-                setTimeout(function() {
-                    row.style.display = 'none';
-                    invoice_time.value = null;
-                }, 500); // Adjust the duration as needed
-            }
-        });
+    let factor_info = {
+        seller: '',
+        date: '',
+        bill_number: '',
+        is_entered: false
     }
 
-    // Initial check and setup based on the radio button's checked status
-    toggleFactorDetailsVisibility(invoiceRadioButtons[0].checked);
-
-    // Add change event listener to the radio buttons
-    invoiceRadioButtons.forEach(function(radio) {
-        radio.addEventListener('change', function() {
-            var isChecked = radio.dataset.name === 'yes';
-            toggleFactorDetailsVisibility(isChecked);
-        });
-    });
-
-    $(document).ready(function() {
-        $('#seller').select2({
-            matcher: function matchCustom(params, data) {
-                // If there are no search terms, return all of the data
-                if ($.trim(params.term) === '') {
-                    return data;
-                }
-
-                // Do not display the item if there is no 'text' property
-                if (typeof data.text === 'undefined') {
-                    return null;
-                }
-
-                // `params.term` should be the term that is used for searching
-                // `data.text` is the text that is displayed for the data object
-                if (data.text.indexOf(params.term.toUpperCase()) > -1) {
-                    var modifiedData = $.extend({}, data, true);
-                    modifiedData.text += '';
-
-                    // You can return modified objects from here
-                    // This includes matching the `children` how you want in nested data sets
-                    return modifiedData;
-                }
-
-                // Return `null` if the term should not be displayed
-                return null;
-            }
-        });
-        $('#esalat').select2({
-            matcher: function matchCustom(params, data) {
-                // If there are no search terms, return all of the data
-                if ($.trim(params.term) === '') {
-                    return data;
-                }
-
-                // Do not display the item if there is no 'text' property
-                if (typeof data.text === 'undefined') {
-                    return null;
-                }
-
-                // `params.term` should be the term that is used for searching
-                // `data.text` is the text that is displayed for the data object
-                if (data.text.indexOf(params.term.toUpperCase()) > -1) {
-                    var modifiedData = $.extend({}, data, true);
-                    modifiedData.text += '';
-
-                    // You can return modified objects from here
-                    // This includes matching the `children` how you want in nested data sets
-                    return modifiedData;
-                }
-
-                // Return `null` if the term should not be displayed
-                return null;
-            }
-        });
-        $('#deliverer').select2({
-            matcher: function matchCustom(params, data) {
-                // If there are no search terms, return all of the data
-                if ($.trim(params.term) === '') {
-                    return data;
-                }
-
-                // Do not display the item if there is no 'text' property
-                if (typeof data.text === 'undefined') {
-                    return null;
-                }
-
-                // `params.term` should be the term that is used for searching
-                // `data.text` is the text that is displayed for the data object
-                if (data.text.indexOf(params.term.toUpperCase()) > -1) {
-                    var modifiedData = $.extend({}, data, true);
-                    modifiedData.text += '';
-
-                    // You can return modified objects from here
-                    // This includes matching the `children` how you want in nested data sets
-                    return modifiedData;
-                }
-
-                // Return `null` if the term should not be displayed
-                return null;
-            }
-        });
-        $('#stock').select2({
-            matcher: function matchCustom(params, data) {
-                // If there are no search terms, return all of the data
-                if ($.trim(params.term) === '') {
-                    return data;
-                }
-
-                // Do not display the item if there is no 'text' property
-                if (typeof data.text === 'undefined') {
-                    return null;
-                }
-
-                // `params.term` should be the term that is used for searching
-                // `data.text` is the text that is displayed for the data object
-                if (data.text.indexOf(params.term.toUpperCase()) > -1) {
-                    var modifiedData = $.extend({}, data, true);
-                    modifiedData.text += '';
-
-                    // You can return modified objects from here
-                    // This includes matching the `children` how you want in nested data sets
-                    return modifiedData;
-                }
-
-                // Return `null` if the term should not be displayed
-                return null;
-            }
-        });
-    });
+    let factor_items = [];
 </script>
 </div>
 <?php include("./views/Layout/footer.php") ?>
