@@ -1,6 +1,5 @@
 <?php
 require_once("./config/db_connect.php");
-
 if (isset($_GET['interval'])) {
     $interval = $_GET['interval'];
     if (isset($interval)) {
@@ -56,19 +55,4 @@ function getPurchaseReport($condition)
 
     $statement->execute();
     return $statement->fetchAll();
-}
-
-if (isset($_POST['searchForSeller'])) {
-    $pattern = $_POST['pattern'];
-
-    echo json_encode(searchForSeller($pattern));
-}
-
-function searchForSeller($pattern)
-{
-    $statement = DB_CONNECTION->prepare("SELECT name FROM yadakshop1402.seller WHERE name LIKE :name");
-    $statement->bindParam(':name', $pattern);
-    $statement->execute();
-
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
 }

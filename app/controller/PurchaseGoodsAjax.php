@@ -22,3 +22,18 @@ function delete_record($record)
         return false;
     }
 }
+
+if (isset($_POST['searchForSeller'])) {
+    $pattern = '%' . $_POST['pattern'] . '%';
+
+    echo json_encode(searchForSeller($pattern));
+}
+
+function searchForSeller($pattern)
+{
+    $statement = DB_CONNECTION->prepare("SELECT id, name FROM yadakshop1402.seller WHERE name LIKE :name");
+    $statement->bindParam(':name', $pattern);
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}

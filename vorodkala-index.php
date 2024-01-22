@@ -229,7 +229,9 @@ require_once "./utilities/helpers.php";
                     </th>
                     <th class="p-3 relative">
                         <input class="p-2 border w-full" type="text" name="seller" id="seller" onkeyup="searchSellers(this.value)">
-                        <div id="seller_container"></div>
+                        <div id="seller_container" style="top:85%" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
+                            <!-- matched sellers will be appended here -->
+                        </div>
                     </th>
                     <th class="text-right p-3 text-sm">
                         <label class="cursor-pointer" for="is_entered">وارد انبار شده؟</label>
@@ -303,14 +305,37 @@ require_once "./utilities/helpers.php";
     let factor_items = [];
 
     function searchSellers(pattern = '') {
-        var params = new URLSearchParams();
-        axios.post("./vorodkala-report-ajax.php", params)
-            .then(function(response) {
-                resultBox.innerHTML = response.data;
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+        const sellerContainer = document.getElementById('seller_container');
+        if (pattern.length >= 3) {
+            var params = new URLSearchParams();
+            params.append('searchForSeller', 'searchForSeller');
+            params.append('pattern', pattern);
+
+            sellerContainer.innerHTML = '';
+            sellerContainer.classList.remove('hidden');
+            axios.post("./app/controller/PurchaseGoodsAjax.php", params)
+                .then(function(response) {
+                    const sellers = response.data;
+
+                    for (const seller of sellers) {
+                        sellerContainer.innerHTML += `
+                            <div class="flex justify-between py-2 my-1 bg-gray-100 px-3" onclick=SelectSeller(this) 
+                            data-id="${seller.id}"
+                            data-name="${seller.name}"
+                            >
+                                <p class="text-xs">${seller.name}</p>
+                                <img src="./public/img/addIcon.svg" />
+                            </div>`;
+                    }
+
+
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        } else {
+            sellerContainer.classList.add('hidden');
+        }
     }
 </script>
 </div>
