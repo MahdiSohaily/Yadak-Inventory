@@ -181,7 +181,8 @@ require_once "./utilities/helpers.php";
     </div>
 
 </div>
-<p id="message" class="fixed text-sm py-3 px-5 rounded right-5 bottom-5 hidden"></p>
+<p id="message" class="fixed text-sm py-3 px-5 rounded left-5 bottom-5 hidden"></p>
+<button onclick="saveFactor()" id="message" class="fixed text-sm py-3 px-5 rounded right-5 bottom-5 bg-blue-500 text-white">ثبت فاکتور</button>
 <script>
     const sellerContainer = document.getElementById('seller_container');
     const part_container = document.getElementById('part_container');
@@ -454,7 +455,29 @@ require_once "./utilities/helpers.php";
     }
 
     function saveFactor() {
-        if (factor_info.seller_id != null && factor_info.bill_number !== null) {
+        if (factor_info.seller_id != null && factor_info.bill_number !== null && factor_items.length > 0) {
+            var params = new URLSearchParams();
+            params.append('saveFactor', 'saveFactor');
+            params.append('factor_info', JSON.stringify(factor_info));
+            params.append('factor_items', JSON.stringify(factor_items));
+
+            axios.post("./app/controller/PurchaseGoodsAjax.php", params)
+                .then(function(response) {
+                    message.classList.remove('hidden');
+                    message.classList.add('bg-green-800');
+                    message.classList.add('text-white');
+                    message.innerHTML = 'فاکتور شما با موفقیت ذخیره شد.';
+
+                    setTimeout(() => {
+                        message.classList.add('hidden');
+                        message.classList.remove('bg-green-800');
+                        message.classList.remove('text-white');
+                        message.innerHTML = '';
+                    }, 3000);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
 
         } else {
             message.classList.remove('hidden');
@@ -470,7 +493,6 @@ require_once "./utilities/helpers.php";
             }, 3000);
         }
     }
-    saveFactor();
 </script>
 </div>
 <?php include("./views/Layout/footer.php") ?>
