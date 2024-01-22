@@ -47,203 +47,44 @@ require_once "./utilities/helpers.php";
 </style>
 
 <div class="flex justify-center px-5">
-    <!-- <form id="vorodkala" method="post" action="php/vorodkala-save.php" autocomplete="off">
-        <div class="left-form">
-            <?php include("php/codeid.php") ?>
-        </div>
-        <div class="right">
-            <input type="hidden" name="brand-box" id="brand-box">
-            <table style="width: 100% !important;">
-                <tbody>
-                    <tr>
-                        <td>
-                            <p for="brand">اصالت</p>
-                        </td>
-                        <td>
-                            <select name="brand" id="esalat">
-                                <?php include("php/brand-form.php") ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>فروشنده</p>
-                        </td>
-                        <td>
-                            <select name="seller" id="seller">
-                                <option selected="true" disabled="disabled">انتخاب فروشنده</option>
-                                <?php
-                                foreach (getSellers() as $seller) : ?>
-                                    <option value='<?= $seller["id"] ?>'><?= $seller["name"] ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            تحویل دهنده
-                        </td>
-                        <td>
-                            <select name="deliverer" id="deliverer">
-                                <?php include("php/deliverer-form.php") ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>تعداد</p>
-                        </td>
-                        <td>
-                            <input required min="0" type="number" name="qty" id="qty">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>
-                                قفسه
-                            </p>
-                        </td>
-                        <td>
-                            <input onkeydown="upperCaseF(this)" type="text" name="pos2" id="pos2">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>راهرو</td>
-                        <td>
-                            <input onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>انبار</td>
-                        <td>
-                            <select name="stock" id="stock">
-                                <?php include("php/stock-form.php") ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="vertical-align: middle;">
-
-                            توضیحات
-                        </td>
-                        <td>
-                            <textarea name="des" id="des"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>آیا فاکتور دارد ؟</p>
-                        </td>
-                        <td>
-                            <ul>
-                                <br>
-                                <li style="margin-bottom: 10px;">
-                                    <label for="invoice">
-                                        <input type="radio" name="invoice" data-name="yes" id="invoice" value="1" checked>
-                                        بله
-                                    </label>
-                                </li>
-                                <li style="margin-bottom: 10px;">
-                                    <label for="invoiceNO">
-                                        <input type="radio" name="invoice" data-name="no" id="invoiceNO" value="0">
-                                        خیر
-                                    </label>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr class="factor_details">
-                        <td>
-                            <p>شماره فاکتور</p>
-                        </td>
-                        <td>
-                            <input type="number" name="invoice_number" id="invoice_number">
-                        </td>
-                    </tr>
-                    <tr class="factor_details">
-                        <td>
-                            <p>زمان فاکتور</p>
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>آیا وارد انبار شده ؟</p>
-                        </td>
-                        <td>
-                            <ul>
-                                <li style="margin-bottom: 10px;">
-                                    <label for="anbarenter">
-                                        <input type="radio" name="anbarenter" id="anbarenter" value="0">
-                                        خیر
-                                    </label>
-                                </li>
-                                <li style="margin-bottom: 10px;">
-                                    <label for="anbarenterNo">
-                                        <input type="radio" name="anbarenter" id="anbarenterNo" value="1" checked>
-                                        بله
-                                    </label>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-
-
-        </div>
-
-        <div class="bottom-bar">
-            <input type="submit" value="ذخیره" id="">
-            <div class="error">
-            </div>
-        </div>
-
-    </form> -->
     <div class="w-1/2">
         <table class="w-full border border-1 border-gray-800">
-            <thead class="bg-gray-100">
+            <thead class="bg-gray-100 border-b border-gray-800">
                 <tr class="bg-gray-800">
-                    <th class="p-3 text-white" colspan="4">فاکتور ورود</th>
+                    <th class="p-3 text-white" colspan="8">فاکتور ورود</th>
                 </tr>
                 <tr>
-                    <th class="text-right p-3 text-sm">
+                    <th colspan="2" class="text-right p-3 text-sm">
                         <label class="cursor-pointer" for="bill_number">شماره فاکتور</label>
                     </th>
-                    <th class="p-3">
+                    <th colspan="2" class="p-3">
                         <input onblur="setBillNumber(this.value)" class="p-2 border w-full" type="text" name="bill_number" id="bill_number">
                     </th>
-                    <th class="text-right p-3 text-sm">
+                    <th colspan="2" class="text-right p-3 text-sm">
                         <label class="cursor-pointer" for="invoice_time">تاریخ</label>
                     </th>
-                    <th class="p-3">
+                    <th colspan="2" class="p-3">
                         <input onchange="setFactorDate(this.value)" class="p-2 w-full h-full" type="text" name="invoice_time" id="invoice_time" value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>">
                         <span id="span_invoice_time"></span>
                     </th>
                 </tr>
                 <tr>
-                    <th class="text-right p-3 text-sm">
+                    <th colspan="2" class="text-right p-3 text-sm">
                         <label class="cursor-pointer" for="seller">فروشنده</label>
                     </th>
-                    <th class="p-3 relative">
+                    <th colspan="2" class="p-3 relative">
                         <input class="p-2 border w-full" type="text" name="seller" id="seller" onkeyup="searchSellers(this.value)">
                         <div id="seller_container" style="top:85%" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
                             <!-- matched sellers will be appended here -->
                         </div>
                     </th>
-                    <th class="text-right p-3 text-sm">
+                    <th colspan="2" class="text-right p-3 text-sm">
                         <label class="cursor-pointer" for="is_entered">وارد انبار شده؟</label>
                     </th>
-                    <th class="p-3 grid grid-cols-2">
-                        <div class="flex gap-0">
+                    <th colspan="2" class="p-3 text-sm">
+                        <div class="flex justify-center">
                             <label class="cursor-pointer" for="is_entered_true">بلی</label>
                             <input checked onclick="setIsEntered(true)" class="p-2 w-full h-full" type="radio" name="is_entered" id="is_entered_true">
-                        </div>
-
-                        <div class="flex gap-0">
                             <label class="cursor-pointer" for="is_entered_false">خیر</label>
                             <input onclick="setIsEntered(false)" class="p-2 w-full h-full" type="radio" name="is_entered" id="is_entered_false">
                         </div>
@@ -251,52 +92,144 @@ require_once "./utilities/helpers.php";
                 </tr>
             </thead>
             <tbody id="bill_items_container" class="m-h-12">
+                <tr class="bg-yellow-200">
+                    <td class="p-3 text-sm">ردیف</td>
+                    <td class="p-3 text-sm">کد فنی</td>
+                    <td class="p-3 text-sm">اصالت</td>
+                    <td class="p-3 text-sm">تعداد</td>
+                    <td class="p-3 text-sm">قفسه</td>
+                    <td class="p-3 text-sm">راهرو</td>
+                    <td class="p-3 text-sm">توضیحات</td>
+                    <td class="p-3 text-sm">عملیات</td>
+                </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                </tr>
+                <tr>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                </tr>
+                <tr>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                </tr>
+                <tr>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                </tr>
+                <tr>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                </tr>
+                <tr>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
+                    <td class="p-3"></td>
                 </tr>
             </tbody>
-            <tfoot class="bg-gray-100">
+            <tfoot class="bg-gray-100 border-t border-gray-800">
                 <tr>
-                    <td class="p-3 text-sm font-bold">کدفنی</td>
-                    <td class="p-3 text-sm font-bold">
-                        <input class="p-2 w-full" type="text" name="" id="">
+                    <td colspan="2" class="p-3 text-sm font-bold">
+                        <label for="partNumber"> کدفنی</label>
+                        <span class="text-red-500">*</span>
                     </td>
-                    <td class="p-3 text-sm font-bold">اصالت</td>
-                    <td class="p-3 text-sm font-bold">
-                        <input class="p-2 w-full" type="text" name="" id="">
+                    <td colspan="2" class="p-3 text-sm font-bold relative">
+                        <input onkeyup="searchParts(this.value)" class="p-2 w-full" type="text" name="partNumber" id="partNumber">
+                        <div id="part_container" style="top:85%" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
+                            <!-- matched sellers will be appended here -->
+                        </div>
+                    </td>
+                    <td colspan="2" class="p-3 text-sm font-bold">
+                        <label for="brand">اصالت</label>
+                        <span class="text-red-500">*</span>
+                    </td>
+                    <td colspan="2" class="p-3 text-sm font-bold">
+                        <input class="p-2 w-full" type="text" name="brand" id="brand">
                     </td>
                 </tr>
                 <tr>
-                    <td class="p-3 text-sm font-bold">تعداد</td>
-                    <td class="p-3 text-sm font-bold">
-                        <input class="p-2 w-full" type="text" name="" id="">
+                    <td colspan="2" class="p-3 text-sm font-bold">
+                        <label for="quantity">تعداد</label>
+                        <span class="text-red-500">*</span>
                     </td>
-                    <td class="p-3 text-sm font-bold">قفسه</td>
-                    <td class="p-3 text-sm font-bold">
-                        <input class="p-2 w-full" type="text" name="" id="">
+                    <td colspan="2" class="p-3 text-sm font-bold">
+                        <input class="p-2 w-full" type="text" name="quantity" id="quantity">
+                    </td>
+                    <td colspan="2" class="p-3 text-sm font-bold">
+                        <label for="position1">قفسه</label>
+                    </td>
+                    <td colspan="2" class="p-3 text-sm font-bold">
+                        <input class="p-2 w-full" type="text" name="position1" id="position1">
                     </td>
                 </tr>
                 <tr>
-                    <td class="p-3 text-sm font-bold">راهرو</td>
-                    <td class="p-3 text-sm font-bold">
-                        <input class="p-2 w-full" type="text" name="" id="">
+                    <td colspan="2" class="p-3 text-sm font-bold">
+                        <label for="position2">راهرو</label>
                     </td>
-                    <td class="p-3 text-sm font-bold">توضیحات</td>
-                    <td class="p-3 text-sm font-bold">
-                        <input class="p-2 w-full" type="text" name="" id="">
+                    <td colspan="2" class="p-3 text-sm font-bold">
+                        <input class="p-2 w-full" type="text" name="position2" id="position2">
+                    </td>
+                    <td colspan="2" class="p-3 text-sm font-bold">
+                        <label for="description">توضیحات</label>
+                    </td>
+                    <td colspan="2" class="p-3 text-sm font-bold">
+                        <textarea name="description" id="description" class="w-full" rows="2"></textarea>
                     </td>
                 </tr>
             </tfoot>
         </table>
-        <span>w</span>
+        <img src="./public/img/addIcon.svg" onclick="addItem()" class="w-8 h-8 cursor-pointer" alt="add item to the bill">
     </div>
 </div>
 
 <script>
     const sellerContainer = document.getElementById('seller_container');
+    const part_container = document.getElementById('part_container');
+
+    const partNumber = document.getElementById('partNumber');
+    const brand = document.getElementById('brand');
+    const quantity = document.getElementById('quantity');
+    const position1 = document.getElementById('position1');
+    const position2 = document.getElementById('position2');
+    const description = document.getElementById('description');
+
+
     let factor_info = {
         seller_id: null,
         seller_name: null,
@@ -351,6 +284,52 @@ require_once "./utilities/helpers.php";
         sellerContainer.classList.add('hidden');
     }
 
+
+    function searchParts(pattern = '') {
+
+        if (pattern.length >= 6) {
+            var params = new URLSearchParams();
+            params.append('searchForPart', 'searchForPart');
+            params.append('pattern', pattern);
+
+            part_container.innerHTML = '';
+            part_container.classList.remove('hidden');
+            axios.post("./app/controller/PurchaseGoodsAjax.php", params)
+                .then(function(response) {
+                    const parts = response.data;
+
+                    for (const part of parts) {
+                        part_container.innerHTML += `
+                            <div class="flex justify-between py-2 my-1 bg-gray-100 px-3 cursor-pointer" onclick=SelectPart(this) 
+                            data-id="${part.id}"
+                            data-name="${part.partnumber}">
+                                <p class="text-xs">${part.partnumber}</p>
+                                <img src="./public/img/addIcon.svg" />
+                            </div>`;
+                    }
+
+
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        } else {
+            part_container.classList.add('hidden');
+        }
+    }
+
+    function SelectPart(element) {
+        const id = element.getAttribute('data-id');
+        const name = element.getAttribute('data-name');
+        SelectPart.value = name;
+
+        factor_info.seller_id = id;
+        factor_info.seller_name = name;
+        sellerContainer.classList.add('hidden');
+    }
+
+
+
     $(function() {
         $("#invoice_time").persianDatepicker({
             months: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"],
@@ -394,6 +373,22 @@ require_once "./utilities/helpers.php";
     function setIsEntered(isEntered) {
         factor_info.is_entered = isEntered;
     }
+
+    function addItem() {
+        if (partNumber.value != '' && brand.value != '' && quantity.value != '') {
+            factor_items.push({
+                partNumber: partNumber.value,
+                brand: brand.value,
+                quantity: quantity.value,
+                position1: position1.value,
+                position2: position2.value,
+                description: description.value,
+            });
+        }
+        console.log(factor_items);
+    }
+
+    function displaybill() {}
 </script>
 </div>
 <?php include("./views/Layout/footer.php") ?>
