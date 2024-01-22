@@ -179,9 +179,9 @@ require_once "./utilities/helpers.php";
         </table>
         <img src="./public/img/addIcon.svg" onclick="addItem()" class="w-8 h-8 cursor-pointer" alt="add item to the bill">
     </div>
-    <p id="message" class="fixed py-3 px-5 rounded bottom-3 hidden"></p>
-</div>
 
+</div>
+<p id="message" class="fixed text-sm py-3 px-5 rounded right-5 bottom-5 hidden"></p>
 <script>
     const sellerContainer = document.getElementById('seller_container');
     const part_container = document.getElementById('part_container');
@@ -452,7 +452,25 @@ require_once "./utilities/helpers.php";
             displayBill();
         }
     }
-    displayBill();
+
+    function saveFactor() {
+        if (factor_info.seller_id != null && factor_info.bill_number !== null) {
+
+        } else {
+            message.classList.remove('hidden');
+            message.classList.add('bg-rose-800');
+            message.classList.add('text-white');
+            message.innerHTML = 'لطفا معلومات فاکتو را بصورت دقیق اضافه نمایید.';
+
+            setTimeout(() => {
+                message.classList.add('hidden');
+                message.classList.remove('bg-rose-800');
+                message.classList.remove('text-white');
+                message.innerHTML = '';
+            }, 3000);
+        }
+    }
+    saveFactor();
 </script>
 </div>
 <?php include("./views/Layout/footer.php") ?>
