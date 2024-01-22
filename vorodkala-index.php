@@ -58,7 +58,7 @@ require_once "./utilities/helpers.php";
                         <label class="cursor-pointer" for="bill_number">شماره فاکتور</label>
                     </th>
                     <th colspan="2" class="p-3">
-                        <input onblur="setBillNumber(this.value)" class="p-2 border w-full" type="text" name="bill_number" id="bill_number">
+                        <input onkeyup="convertToEnglish(this);" onblur="setBillNumber(this.value)" class="p-2 border w-full" type="text" name="bill_number" id="bill_number">
                     </th>
                     <th colspan="2" class="text-right p-3 text-sm">
                         <label class="cursor-pointer" for="invoice_time">تاریخ</label>
@@ -92,55 +92,15 @@ require_once "./utilities/helpers.php";
                 </tr>
             </thead>
             <tbody id="bill_items_container" class="m-h-12">
-                <tr class="bg-yellow-200">
-                    <td class="p-3 text-sm">ردیف</td>
-                    <td class="p-3 text-sm">کد فنی</td>
-                    <td class="p-3 text-sm">اصالت</td>
-                    <td class="p-3 text-sm">تعداد</td>
-                    <td class="p-3 text-sm">قفسه</td>
-                    <td class="p-3 text-sm">راهرو</td>
-                    <td class="p-3 text-sm">توضیحات</td>
-                    <td class="p-3 text-sm">عملیات</td>
-                </tr>
-                <tr>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                </tr>
-                <tr>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                </tr>
-                <tr>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                </tr>
-                <tr>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
+                <tr class="bg-teal-600">
+                    <td class="p-3 text-sm text-white">ردیف</td>
+                    <td class="p-3 text-sm text-white">کد فنی</td>
+                    <td class="p-3 text-sm text-white">اصالت</td>
+                    <td class="p-3 text-sm text-white">تعداد</td>
+                    <td class="p-3 text-sm text-white">قفسه</td>
+                    <td class="p-3 text-sm text-white">راهرو</td>
+                    <td class="p-3 text-sm text-white">توضیحات</td>
+                    <td class="p-3 text-sm text-white"> <img src="./public/img/settings.svg" /></td>
                 </tr>
                 <tr>
                     <td class="p-3"></td>
@@ -170,7 +130,7 @@ require_once "./utilities/helpers.php";
                         <span class="text-red-500">*</span>
                     </td>
                     <td colspan="2" class="p-3 text-sm font-bold relative">
-                        <input onkeyup="searchParts(this.value)" class="p-2 w-full" type="text" name="partNumber" id="partNumber">
+                        <input onkeyup="convertToEnglish(this);searchParts(this.value)" class="p-2 w-full" type="text" name="partNumber" id="partNumber">
                         <div id="part_container" style="top:85%" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
                             <!-- matched sellers will be appended here -->
                         </div>
@@ -179,8 +139,11 @@ require_once "./utilities/helpers.php";
                         <label for="brand">اصالت</label>
                         <span class="text-red-500">*</span>
                     </td>
-                    <td colspan="2" class="p-3 text-sm font-bold">
-                        <input class="p-2 w-full" type="text" name="brand" id="brand">
+                    <td colspan="2" class="p-3 text-sm font-bold relative">
+                        <input onkeyup="convertToEnglish(this);searchBrand(this.value)" class="p-2 w-full" type="text" name="brand" id="brand">
+                        <div id="brand_container" style="top:85%" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
+                            <!-- matched sellers will be appended here -->
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -189,7 +152,7 @@ require_once "./utilities/helpers.php";
                         <span class="text-red-500">*</span>
                     </td>
                     <td colspan="2" class="p-3 text-sm font-bold">
-                        <input class="p-2 w-full" type="text" name="quantity" id="quantity">
+                        <input class="p-2 w-full" type="number" min='1' name="quantity" id="quantity">
                     </td>
                     <td colspan="2" class="p-3 text-sm font-bold">
                         <label for="position1">قفسه</label>
@@ -221,6 +184,7 @@ require_once "./utilities/helpers.php";
 <script>
     const sellerContainer = document.getElementById('seller_container');
     const part_container = document.getElementById('part_container');
+    const brand_container = document.getElementById('brand_container');
 
     const partNumber = document.getElementById('partNumber');
     const brand = document.getElementById('brand');
@@ -321,13 +285,50 @@ require_once "./utilities/helpers.php";
     function SelectPart(element) {
         const id = element.getAttribute('data-id');
         const name = element.getAttribute('data-name');
-        SelectPart.value = name;
-
-        factor_info.seller_id = id;
-        factor_info.seller_name = name;
-        sellerContainer.classList.add('hidden');
+        partNumber.value = name;
+        partNumber.setAttribute('data-id', id);
+        part_container.classList.add('hidden');
     }
 
+    function searchBrand(pattern) {
+        if (pattern.length >= 2) {
+            var params = new URLSearchParams();
+            params.append('searchForBrand', 'searchForBrand');
+            params.append('pattern', pattern.toUpperCase());
+
+            brand_container.innerHTML = '';
+            brand_container.classList.remove('hidden');
+            axios.post("./app/controller/PurchaseGoodsAjax.php", params)
+                .then(function(response) {
+                    const parts = response.data;
+
+                    for (const part of parts) {
+                        brand_container.innerHTML += `
+                            <div class="flex justify-between py-2 my-1 bg-gray-100 px-3 cursor-pointer" onclick=SelectBrand(this) 
+                            data-id="${part.id}"
+                            data-name="${part.name}">
+                                <p class="text-xs">${part.name}</p>
+                                <img src="./public/img/addIcon.svg" />
+                            </div>`;
+                    }
+
+
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        } else {
+            brand_container.classList.add('hidden');
+        }
+    }
+
+    function SelectBrand(element) {
+        const id = element.getAttribute('data-id');
+        const name = element.getAttribute('data-name');
+        brand.value = name;
+        brand.setAttribute('data-id', id);
+        brand_container.classList.add('hidden');
+    }
 
 
     $(function() {
@@ -378,17 +379,48 @@ require_once "./utilities/helpers.php";
         if (partNumber.value != '' && brand.value != '' && quantity.value != '') {
             factor_items.push({
                 partNumber: partNumber.value,
+                part_id: partNumber.getAttribute('data-id'),
+                brand_id: brand.getAttribute('data-id'),
                 brand: brand.value,
                 quantity: quantity.value,
                 position1: position1.value,
                 position2: position2.value,
                 description: description.value,
             });
+            displayBill();
         }
-        console.log(factor_items);
     }
 
-    function displaybill() {}
+    function displayBill() {
+        const bill_items_container = document.getElementById('bill_items_container');
+
+        bill_items_container.innerHTML = `
+                 <tr class="bg-teal-600">
+                    <td class="p-3 text-sm text-white">ردیف</td>
+                    <td class="p-3 text-sm text-white">کد فنی</td>
+                    <td class="p-3 text-sm text-white">اصالت</td>
+                    <td class="p-3 text-sm text-white">تعداد</td>
+                    <td class="p-3 text-sm text-white">قفسه</td>
+                    <td class="p-3 text-sm text-white">راهرو</td>
+                    <td class="p-3 text-sm text-white">توضیحات</td>
+                    <td class="p-3 text-sm text-white"> <img src="./public/img/settings.svg" /></td>
+                </tr>`;
+        let counter = 1;
+        for (const item of factor_items) {
+            bill_items_container.innerHTML += `
+                <tr class="odd:bg-blue-50 even:bg-blue-100">
+                    <td class="p-3 text-sm">${counter}</td>
+                    <td class="p-3 text-sm">${item.partNumber}</td>
+                    <td class="p-3 text-sm">${item.brand}</td>
+                    <td class="p-3 text-sm">${item.quantity}</td>
+                    <td class="p-3 text-sm">${item.position1}</td>
+                    <td class="p-3 text-sm">${item.position2}</td>
+                    <td class="p-3 text-sm">${item.description}</td>
+                    <td class="p-3 text-sm">عملیات</td>
+                </tr>`;
+            counter++;
+        }
+    }
 </script>
 </div>
 <?php include("./views/Layout/footer.php") ?>

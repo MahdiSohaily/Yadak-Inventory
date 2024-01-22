@@ -52,3 +52,18 @@ function searchForPart($pattern)
 
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
+
+if (isset($_POST['searchForBrand'])) {
+    $pattern = '%' . $_POST['pattern'] . '%';
+
+    echo json_encode(searchForBrand($pattern));
+}
+
+function searchForBrand($pattern)
+{
+    $statement = DB_CONNECTION->prepare("SELECT id, name FROM yadakshop1402.brand WHERE name LIKE :pattern");
+    $statement->bindParam(':pattern', $pattern);
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
