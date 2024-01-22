@@ -240,12 +240,12 @@ require_once "./utilities/helpers.php";
                     <th class="p-3 grid grid-cols-2">
                         <div class="flex gap-0">
                             <label class="cursor-pointer" for="is_entered_true">بلی</label>
-                            <input class="p-2 w-full h-full" type="radio" name="is_entered" id="is_entered_true">
+                            <input checked onclick="setIsEntered(true)" class="p-2 w-full h-full" type="radio" name="is_entered" id="is_entered_true">
                         </div>
 
                         <div class="flex gap-0">
                             <label class="cursor-pointer" for="is_entered_false">خیر</label>
-                            <input class="p-2 w-full h-full" type="radio" name="is_entered" id="is_entered_false">
+                            <input onclick="setIsEntered(false)" class="p-2 w-full h-full" type="radio" name="is_entered" id="is_entered_false">
                         </div>
                     </th>
                 </tr>
@@ -298,10 +298,10 @@ require_once "./utilities/helpers.php";
 <script>
     const sellerContainer = document.getElementById('seller_container');
     let factor_info = {
-        seller_id: '',
-        seller_name: '',
+        seller_id: null,
+        seller_name: null,
         date: moment().locale('fa').format('YYYY/MM/DD'),
-        bill_number: '',
+        bill_number: null,
         is_entered: false
     }
 
@@ -389,7 +389,10 @@ require_once "./utilities/helpers.php";
 
     function setBillNumber(billNumber) {
         factor_info.bill_number = billNumber;
-        console.log(factor_info);
+    }
+
+    function setIsEntered(isEntered) {
+        factor_info.is_entered = isEntered;
     }
 </script>
 </div>
