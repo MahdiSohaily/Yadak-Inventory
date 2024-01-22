@@ -2,6 +2,7 @@
 require_once "./utilities/helpers.php";
 ?>
 <script src="../callcenter/report/public/js/index.js"></script>
+<script src="../callcenter/report/public/js/jalaliMoment.js"></script>
 <style>
     .right-form td {
         padding: 10px !important;
@@ -213,13 +214,13 @@ require_once "./utilities/helpers.php";
                         <label class="cursor-pointer" for="bill_number">شماره فاکتور</label>
                     </th>
                     <th class="p-3">
-                        <input class="p-2 border w-full" type="text" name="bill_number" id="bill_number">
+                        <input onblur="setBillNumber(this.value)" class="p-2 border w-full" type="text" name="bill_number" id="bill_number">
                     </th>
                     <th class="text-right p-3 text-sm">
                         <label class="cursor-pointer" for="invoice_time">تاریخ</label>
                     </th>
                     <th class="p-3">
-                        <input class="p-2 w-full h-full" type="text" name="invoice_time" id="invoice_time" value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>">
+                        <input onchange="setFactorDate(this.value)" class="p-2 w-full h-full" type="text" name="invoice_time" id="invoice_time" value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>">
                         <span id="span_invoice_time"></span>
                     </th>
                 </tr>
@@ -295,9 +296,11 @@ require_once "./utilities/helpers.php";
 </div>
 
 <script>
+    const sellerContainer = document.getElementById('seller_container');
     let factor_info = {
-        seller: '',
-        date: '',
+        seller_id: '',
+        seller_name: '',
+        date: moment().locale('fa').format('YYYY/MM/DD'),
         bill_number: '',
         is_entered: false
     }
@@ -305,7 +308,7 @@ require_once "./utilities/helpers.php";
     let factor_items = [];
 
     function searchSellers(pattern = '') {
-        const sellerContainer = document.getElementById('seller_container');
+
         if (pattern.length >= 3) {
             var params = new URLSearchParams();
             params.append('searchForSeller', 'searchForSeller');
@@ -336,6 +339,57 @@ require_once "./utilities/helpers.php";
         } else {
             sellerContainer.classList.add('hidden');
         }
+    }
+
+    function SelectSeller(element) {
+        const id = element.getAttribute('data-id');
+        const name = element.getAttribute('data-name');
+        document.getElementById('seller').value = name;
+
+        factor_info.seller_id = id;
+        factor_info.seller_name = name;
+        sellerContainer.classList.add('hidden');
+    }
+
+    $(function() {
+        $("#invoice_time").persianDatepicker({
+            months: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"],
+            dowTitle: ["شنبه", "یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنج شنبه", "جمعه"],
+            shortDowTitle: ["ش", "ی", "د", "س", "چ", "پ", "ج"],
+            showGregorianDate: !1,
+            persianNumbers: !0,
+            formatDate: "YYYY/MM/DD",
+            selectedBefore: !1,
+            selectedDate: null,
+            startDate: null,
+            endDate: null,
+            prevArrow: '\u25c4',
+            nextArrow: '\u25ba',
+            theme: 'default',
+            alwaysShow: !1,
+            selectableYears: null,
+            selectableMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            cellWidth: 25, // by px
+            cellHeight: 20, // by px
+            fontSize: 13, // by px
+            isRTL: 1,
+            calendarPosition: {
+                x: 0,
+                y: 0,
+            },
+            onShow: function() {},
+            onHide: function() {},
+            onSelect: function() {
+                const date = ($("#invoice_time").val());
+                factor_info.date = date;
+            },
+            onRender: function() {}
+        });
+    });
+
+    function setBillNumber(billNumber) {
+        factor_info.bill_number = billNumber;
+        console.log(factor_info);
     }
 </script>
 </div>
