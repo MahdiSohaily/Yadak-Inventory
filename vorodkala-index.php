@@ -209,25 +209,41 @@ require_once "./utilities/helpers.php";
                     <th class="p-3 text-white" colspan="4">فاکتور ورود</th>
                 </tr>
                 <tr>
-                    <th class="text-right p-3 text-sm">شماره فاکتور</th>
+                    <th class="text-right p-3 text-sm">
+                        <label class="cursor-pointer" for="bill_number">شماره فاکتور</label>
+                    </th>
                     <th class="p-3">
                         <input class="p-2 border w-full" type="text" name="bill_number" id="bill_number">
                     </th>
-                    <th class="text-right p-3 text-sm">تاریخ</th>
+                    <th class="text-right p-3 text-sm">
+                        <label class="cursor-pointer" for="invoice_time">تاریخ</label>
+                    </th>
                     <th class="p-3">
                         <input class="p-2 w-full h-full" type="text" name="invoice_time" id="invoice_time" value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>">
                         <span id="span_invoice_time"></span>
                     </th>
                 </tr>
                 <tr>
-                    <th class="text-right p-3 text-sm">فروشنده</th>
-                    <th class="p-3">
-                        <input class="p-2 border w-full" type="text" name="bill_number" id="bill_number">
+                    <th class="text-right p-3 text-sm">
+                        <label class="cursor-pointer" for="seller">فروشنده</label>
                     </th>
-                    <th class="text-right p-3 text-sm">وارد انبار شده؟</th>
-                    <th class="p-3">
-                        <input class="p-2 w-full h-full" type="checkbox" name="invoice_time" id="invoice_time" value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>">
-                        <span id="span_invoice_time"></span>
+                    <th class="p-3 relative">
+                        <input class="p-2 border w-full" type="text" name="seller" id="seller" onkeyup="searchSellers(this.value)">
+                        <div id="seller_container"></div>
+                    </th>
+                    <th class="text-right p-3 text-sm">
+                        <label class="cursor-pointer" for="is_entered">وارد انبار شده؟</label>
+                    </th>
+                    <th class="p-3 grid grid-cols-2">
+                        <div class="flex gap-0">
+                            <label class="cursor-pointer" for="is_entered_true">بلی</label>
+                            <input class="p-2 w-full h-full" type="radio" name="is_entered" id="is_entered_true">
+                        </div>
+
+                        <div class="flex gap-0">
+                            <label class="cursor-pointer" for="is_entered_false">خیر</label>
+                            <input class="p-2 w-full h-full" type="radio" name="is_entered" id="is_entered_false">
+                        </div>
                     </th>
                 </tr>
             </thead>
@@ -272,6 +288,7 @@ require_once "./utilities/helpers.php";
                 </tr>
             </tfoot>
         </table>
+        <span>w</span>
     </div>
 </div>
 
@@ -284,6 +301,17 @@ require_once "./utilities/helpers.php";
     }
 
     let factor_items = [];
+
+    function searchSellers(pattern = '') {
+        var params = new URLSearchParams();
+        axios.post("./vorodkala-report-ajax.php", params)
+            .then(function(response) {
+                resultBox.innerHTML = response.data;
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+    }
 </script>
 </div>
 <?php include("./views/Layout/footer.php") ?>
