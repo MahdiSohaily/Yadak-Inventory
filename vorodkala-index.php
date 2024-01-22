@@ -1,4 +1,4 @@
-<?php include("./views/Layout/header.php");
+<?php include("./views/Layout/newHeader.php");
 require_once "./utilities/helpers.php";
 ?>
 <script src="../callcenter/report/public/js/index.js"></script>
@@ -45,8 +45,8 @@ require_once "./utilities/helpers.php";
     }
 </style>
 
-<div class="grid grid-cols-2 px-5">
-    <form id="vorodkala" method="post" action="php/vorodkala-save.php" autocomplete="off">
+<div class="flex justify-center px-5">
+    <!-- <form id="vorodkala" method="post" action="php/vorodkala-save.php" autocomplete="off">
         <div class="left-form">
             <?php include("php/codeid.php") ?>
         </div>
@@ -164,8 +164,7 @@ require_once "./utilities/helpers.php";
                             <p>زمان فاکتور</p>
                         </td>
                         <td>
-                            <input value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>" type="text" name="invoice_time" id="invoice_time">
-                            <span id="span_invoice_time"></span>
+
                         </td>
                     </tr>
                     <tr>
@@ -202,8 +201,78 @@ require_once "./utilities/helpers.php";
             </div>
         </div>
 
-    </form>
-    <div></div>
+    </form> -->
+    <div class="w-1/2">
+        <table class="w-full border border-1 border-gray-800">
+            <thead class="bg-gray-100">
+                <tr class="bg-gray-800">
+                    <th class="p-3 text-white" colspan="4">فاکتور ورود</th>
+                </tr>
+                <tr>
+                    <th class="text-right p-3 text-sm">شماره فاکتور</th>
+                    <th class="p-3">
+                        <input class="p-2 border w-full" type="text" name="bill_number" id="bill_number">
+                    </th>
+                    <th class="text-right p-3 text-sm">تاریخ</th>
+                    <th class="p-3">
+                        <input class="p-2 w-full h-full" type="text" name="invoice_time" id="invoice_time" value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>">
+                        <span id="span_invoice_time"></span>
+                    </th>
+                </tr>
+                <tr>
+                    <th class="text-right p-3 text-sm">فروشنده</th>
+                    <th class="p-3">
+                        <input class="p-2 border w-full" type="text" name="bill_number" id="bill_number">
+                    </th>
+                    <th class="text-right p-3 text-sm">وارد انبار شده؟</th>
+                    <th class="p-3">
+                        <input class="p-2 w-full h-full" type="checkbox" name="invoice_time" id="invoice_time" value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>">
+                        <span id="span_invoice_time"></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="bill_items_container" class="m-h-12">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+            <tfoot class="bg-gray-100">
+                <tr>
+                    <td class="p-3 text-sm font-bold">کدفنی</td>
+                    <td class="p-3 text-sm font-bold">
+                        <input class="p-2 w-full" type="text" name="" id="">
+                    </td>
+                    <td class="p-3 text-sm font-bold">اصالت</td>
+                    <td class="p-3 text-sm font-bold">
+                        <input class="p-2 w-full" type="text" name="" id="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-3 text-sm font-bold">تعداد</td>
+                    <td class="p-3 text-sm font-bold">
+                        <input class="p-2 w-full" type="text" name="" id="">
+                    </td>
+                    <td class="p-3 text-sm font-bold">قفسه</td>
+                    <td class="p-3 text-sm font-bold">
+                        <input class="p-2 w-full" type="text" name="" id="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-3 text-sm font-bold">راهرو</td>
+                    <td class="p-3 text-sm font-bold">
+                        <input class="p-2 w-full" type="text" name="" id="">
+                    </td>
+                    <td class="p-3 text-sm font-bold">توضیحات</td>
+                    <td class="p-3 text-sm font-bold">
+                        <input class="p-2 w-full" type="text" name="" id="">
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>
 
 <script>
