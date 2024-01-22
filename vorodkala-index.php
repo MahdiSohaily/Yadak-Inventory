@@ -179,12 +179,14 @@ require_once "./utilities/helpers.php";
         </table>
         <img src="./public/img/addIcon.svg" onclick="addItem()" class="w-8 h-8 cursor-pointer" alt="add item to the bill">
     </div>
+    <p id="message" class="fixed py-3 px-5 rounded bottom-3 hidden"></p>
 </div>
 
 <script>
     const sellerContainer = document.getElementById('seller_container');
     const part_container = document.getElementById('part_container');
     const brand_container = document.getElementById('brand_container');
+    const message = document.getElementById('message');
 
     const partNumber = document.getElementById('partNumber');
     const brand = document.getElementById('brand');
@@ -202,52 +204,7 @@ require_once "./utilities/helpers.php";
         is_entered: false
     }
 
-    let factor_items = [{
-        partNumber: '1',
-        part_id: '',
-        brand_id: 'brand.getAttribute()',
-        brand: ' brand.value',
-        quantity: 'quantity.value',
-        position1: 'position1.value',
-        position2: 'position2.value',
-        description: 'description.value',
-    }, {
-        partNumber: '2',
-        part_id: '',
-        brand_id: 'brand.getAttribute()',
-        brand: ' brand.value',
-        quantity: 'quantity.value',
-        position1: 'position1.value',
-        position2: 'position2.value',
-        description: 'description.value',
-    }, {
-        partNumber: '3',
-        part_id: '',
-        brand_id: 'brand.getAttribute()',
-        brand: ' brand.value',
-        quantity: 'quantity.value',
-        position1: 'position1.value',
-        position2: 'position2.value',
-        description: 'description.value',
-    }, {
-        partNumber: '4',
-        part_id: '',
-        brand_id: 'brand.getAttribute()',
-        brand: ' brand.value',
-        quantity: 'quantity.value',
-        position1: 'position1.value',
-        position2: 'position2.value',
-        description: 'description.value',
-    }, {
-        partNumber: '5',
-        part_id: '',
-        brand_id: 'brand.getAttribute()',
-        brand: ' brand.value',
-        quantity: 'quantity.value',
-        position1: 'position1.value',
-        position2: 'position2.value',
-        description: 'description.value',
-    }, ];
+    let factor_items = [];
 
     function searchSellers(pattern = '') {
 
@@ -442,7 +399,17 @@ require_once "./utilities/helpers.php";
             description.value = null;
             displayBill();
         } else {
-            console.log('problem');
+            message.classList.remove('hidden');
+            message.classList.add('bg-rose-800');
+            message.classList.add('text-white');
+            message.innerHTML = 'لطفا موارد اجباری را بصورت دقیق انتخاب کنید';
+
+            setTimeout(() => {
+                message.classList.add('hidden');
+                message.classList.remove('bg-rose-800');
+                message.classList.remove('text-white');
+                message.innerHTML = '';
+            }, 3000);
         }
     }
 
