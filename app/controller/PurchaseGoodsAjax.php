@@ -68,6 +68,42 @@ function searchForBrand($pattern)
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
+if (isset($_POST['searchForReceiver'])) {
+    $pattern = '%' . $_POST['pattern'] . '%';
+
+    echo json_encode(searchForReceiver($pattern));
+}
+
+function searchForReceiver($pattern)
+{
+    $statement = DB_CONNECTION->prepare("SELECT id, name FROM yadakshop1402.deliverer WHERE name LIKE :pattern");
+    $statement->bindParam(':pattern', $pattern);
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+if (isset($_POST['searchForInventory'])) {
+    $pattern = '%' . $_POST['pattern'] . '%';
+
+    echo json_encode(searchForInventory($pattern));
+}
+
+function searchForInventory($pattern)
+{
+    $statement = DB_CONNECTION->prepare("SELECT id, name FROM yadakshop1402.stock WHERE name LIKE :pattern");
+    $statement->bindParam(':pattern', $pattern);
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+
+
+
+
+
 if (isset($_POST['saveFactor'])) {
     $factor_info = json_decode($_POST['factor_info']);
     $factor_items = json_decode($_POST['factor_items']);
@@ -77,19 +113,25 @@ if (isset($_POST['saveFactor'])) {
 
 function saveFactor($factor_info, $factor_items)
 {
-    
+
     $bill_number = $factor_info['bill_number'];
     $seller_id = $factor_info['seller_id'];
     $date = $factor_info['date'];
     $is_entered = $factor_info['is_entered'];
-    $has_bill = $factor_info['bill_number'] == null ? false : true;
+    $has_bill = $factor_info['bill_number'] == null ? 0 : 1;
 
-    $sql = "INSERT INTO yadakshop1402.qtybank (codeid,brand,qty,pos1,pos2,des,seller,deliverer,invoice,anbarenter,user,invoice_number,stock_id,invoice_date) VALUES ('$value1', '$value2', '$value3', '$value4','$value5','$value6','$value7','$value8','$value9','$value10','$value11','$value12','$value13','$value14');";
+    $statement = DB_CONNECTION->prepare("INSERT INTO yadakshop1402.qtybank (codeid, brand, qty, pos1, pos2, des, seller, deliverer, invoice,
+    anbarenter, user, invoice_number, stock_id, invoice_date) VALUES 
+    (:part_id,  :brand_id, :quantity, :position1, :position2, :description, :seller_id, :deliverer_id, :has_bill,
+    :is_entered, :username, :invoice_number, :stock_id, :date)");
+
+    foreach ($factor_items as $item) {
+
+        $statement->bindParam(':pattern', $pattern);
+        $statement->execute();
+    }
 
 
-    $statement = DB_CONNECTION->prepare("SELECT id, name FROM yadakshop1402.brand WHERE name LIKE :pattern");
-    $statement->bindParam(':pattern', $pattern);
-    $statement->execute();
 
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }

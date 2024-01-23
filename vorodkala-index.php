@@ -51,37 +51,44 @@ require_once "./utilities/helpers.php";
         <table class="w-full border border-1 border-gray-800">
             <thead class="bg-gray-100 border-b border-gray-800">
                 <tr class="bg-gray-800">
-                    <th class="p-3 text-white" colspan="8">فاکتور ورود</th>
+                    <th class="p-3 text-white" colspan="10">فاکتور ورود
+                    </th>
                 </tr>
                 <tr>
                     <th colspan="2" class="text-right p-3 text-sm">
-                        <label class="cursor-pointer" for="bill_number">شماره فاکتور</label>
+                        <label class="cursor-pointer" for="bill_number">شماره فاکتور
+                            <span class="text-red-500">*</span>
+                        </label>
                     </th>
-                    <th colspan="2" class="p-3">
+                    <th colspan="3" class="p-3">
                         <input onkeyup="convertToEnglish(this);" onblur="setBillNumber(this.value)" class="p-2 border w-full" type="text" name="bill_number" id="bill_number">
                     </th>
                     <th colspan="2" class="text-right p-3 text-sm">
-                        <label class="cursor-pointer" for="invoice_time">تاریخ</label>
+                        <label class="cursor-pointer" for="invoice_time">تاریخ
+                            <span class="text-red-500">*</span>
+                        </label>
                     </th>
-                    <th colspan="2" class="p-3">
+                    <th colspan="3" class="p-3">
                         <input onchange="setFactorDate(this.value)" class="p-2 w-full h-full" type="text" name="invoice_time" id="invoice_time" value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>">
                         <span id="span_invoice_time"></span>
                     </th>
                 </tr>
                 <tr>
                     <th colspan="2" class="text-right p-3 text-sm">
-                        <label class="cursor-pointer" for="seller">فروشنده</label>
+                        <label class="cursor-pointer" for="seller">فروشنده
+                            <span class="text-red-500">*</span>
+                        </label>
                     </th>
-                    <th colspan="2" class="p-3 relative">
-                        <input class="p-2 border w-full" type="text" name="seller" id="seller" onkeyup="searchSellers(this.value)">
-                        <div id="seller_container" style="top:85%" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
+                    <th colspan="3" class="p-3 relative">
+                        <input class="p-2 border w-full" type="text" name="seller" id="seller" onkeyup="convertToPersian(this);searchSellers(this.value)">
+                        <div id="seller_container" style="top:85%; z-index:1000000;" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
                             <!-- matched sellers will be appended here -->
                         </div>
                     </th>
                     <th colspan="2" class="text-right p-3 text-sm">
                         <label class="cursor-pointer" for="is_entered">وارد انبار شده؟</label>
                     </th>
-                    <th colspan="2" class="p-3 text-sm">
+                    <th colspan="3" class="p-3 text-sm">
                         <div class="flex justify-center">
                             <label class="cursor-pointer" for="is_entered_true">بلی</label>
                             <input checked onclick="setIsEntered(true)" class="p-2 w-full h-full" type="radio" name="is_entered" id="is_entered_true">
@@ -99,6 +106,8 @@ require_once "./utilities/helpers.php";
                     <td class="p-3 text-sm text-white">تعداد</td>
                     <td class="p-3 text-sm text-white">قفسه</td>
                     <td class="p-3 text-sm text-white">راهرو</td>
+                    <td class="p-3 text-sm text-white">تحوبل دهنده</td>
+                    <td class="p-3 text-sm text-white">انبار</td>
                     <td class="p-3 text-sm text-white">توضیحات</td>
                     <td class="p-3 text-sm text-white w-16"> <img src="./public/img/settings.svg" /></td>
                 </tr>
@@ -129,9 +138,9 @@ require_once "./utilities/helpers.php";
                         <label for="partNumber"> کدفنی</label>
                         <span class="text-red-500">*</span>
                     </td>
-                    <td colspan="2" class="p-3 text-sm font-bold relative">
+                    <td colspan="3" class="p-3 text-sm font-bold relative">
                         <input onkeyup="convertToEnglish(this);searchParts(this.value)" class="p-2 w-full" type="text" name="partNumber" id="partNumber">
-                        <div id="part_container" style="top:85%" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
+                        <div id="part_container" style="top:85%; z-index:1000000;" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
                             <!-- matched sellers will be appended here -->
                         </div>
                     </td>
@@ -139,9 +148,9 @@ require_once "./utilities/helpers.php";
                         <label for="brand">اصالت</label>
                         <span class="text-red-500">*</span>
                     </td>
-                    <td colspan="2" class="p-3 text-sm font-bold relative">
+                    <td colspan="3" class="p-3 text-sm font-bold relative">
                         <input onkeyup="convertToEnglish(this);searchBrand(this.value)" class="p-2 w-full" type="text" name="brand" id="brand">
-                        <div id="brand_container" style="top:85%" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
+                        <div id="brand_container" style="top:85%; z-index:1000000;" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
                             <!-- matched sellers will be appended here -->
                         </div>
                     </td>
@@ -151,27 +160,51 @@ require_once "./utilities/helpers.php";
                         <label for="quantity">تعداد</label>
                         <span class="text-red-500">*</span>
                     </td>
-                    <td colspan="2" class="p-3 text-sm font-bold">
+                    <td colspan="3" class="p-3 text-sm font-bold">
                         <input class="p-2 w-full" type="number" min='1' name="quantity" id="quantity">
                     </td>
                     <td colspan="2" class="p-3 text-sm font-bold">
-                        <label for="position1">قفسه</label>
+                        <label for="receiver">تحویل دهنده</label>
+                        <span class="text-red-500">*</span>
                     </td>
-                    <td colspan="2" class="p-3 text-sm font-bold">
-                        <input class="p-2 w-full" type="text" name="position1" id="position1">
+                    <td colspan="3" class="p-3 text-sm font-bold relative">
+                        <input onkeyup="convertToPersian(this);searchReceiver(this.value)" class="p-2 w-full" type="text" min='1' name="receiver" id="receiver">
+                        <div id="receiver_container" style="top:85%; z-index:1000000;" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
+                            <!-- matched sellers will be appended here -->
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" class="p-3 text-sm font-bold">
-                        <label for="position2">راهرو</label>
+                        <label for="position1">قفسه</label>
+                    </td>
+                    <td colspan="3" class="p-3 text-sm font-bold">
+                        <input class="p-2 w-full" type="text" name="position1" id="position1">
                     </td>
                     <td colspan="2" class="p-3 text-sm font-bold">
+                        <label for="position2">راهرو</label>
+                    </td>
+                    <td colspan="3" class="p-3 text-sm font-bold">
                         <input class="p-2 w-full" type="text" name="position2" id="position2">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="p-3 text-sm font-bold">
+                        <label for="inventory">
+                            انبار
+                            <span class="text-red-500">*</span>
+                        </label>
+                    </td>
+                    <td colspan="3" class="p-3 text-sm font-bold relative">
+                        <input onkeyup="convertToPersian(this);searchInventory(this.value)" class="p-2 w-full" type="text" name="inventory" id="inventory">
+                        <div id="inventory_container" style="top:85%; z-index:1000000;" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
+                            <!-- matched sellers will be appended here -->
+                        </div>
                     </td>
                     <td colspan="2" class="p-3 text-sm font-bold">
                         <label for="description">توضیحات</label>
                     </td>
-                    <td colspan="2" class="p-3 text-sm font-bold">
+                    <td colspan="3" class="p-3 text-sm font-bold">
                         <textarea name="description" id="description" class="w-full" rows="2"></textarea>
                     </td>
                 </tr>
@@ -187,10 +220,14 @@ require_once "./utilities/helpers.php";
     const sellerContainer = document.getElementById('seller_container');
     const part_container = document.getElementById('part_container');
     const brand_container = document.getElementById('brand_container');
+    const receiver_container = document.getElementById('receiver_container');
+    const inventory_container = document.getElementById('inventory_container');
     const message = document.getElementById('message');
 
     const partNumber = document.getElementById('partNumber');
     const brand = document.getElementById('brand');
+    const receiver = document.getElementById('receiver');
+    const inventory = document.getElementById('inventory');
     const quantity = document.getElementById('quantity');
     const position1 = document.getElementById('position1');
     const position2 = document.getElementById('position2');
@@ -253,7 +290,7 @@ require_once "./utilities/helpers.php";
 
 
     function searchParts(pattern = '') {
-
+        part_container.innerHTML = '';
         if (pattern.length >= 6) {
             var params = new URLSearchParams();
             params.append('searchForPart', 'searchForPart');
@@ -264,7 +301,6 @@ require_once "./utilities/helpers.php";
             axios.post("./app/controller/PurchaseGoodsAjax.php", params)
                 .then(function(response) {
                     const parts = response.data;
-
                     for (const part of parts) {
                         part_container.innerHTML += `
                             <div class="flex justify-between py-2 my-1 bg-gray-100 px-3 cursor-pointer" onclick=SelectPart(this) 
@@ -274,8 +310,6 @@ require_once "./utilities/helpers.php";
                                 <img src="./public/img/addIcon.svg" />
                             </div>`;
                     }
-
-
                 })
                 .catch(function(error) {
                     console.log(error);
@@ -333,6 +367,86 @@ require_once "./utilities/helpers.php";
         brand_container.classList.add('hidden');
     }
 
+    function searchReceiver(pattern) {
+        if (pattern.length >= 2) {
+            var params = new URLSearchParams();
+            params.append('searchForReceiver', 'searchForReceiver');
+            params.append('pattern', pattern.toUpperCase());
+
+            receiver_container.innerHTML = '';
+            receiver_container.classList.remove('hidden');
+            axios.post("./app/controller/PurchaseGoodsAjax.php", params)
+                .then(function(response) {
+                    const parts = response.data;
+
+                    for (const part of parts) {
+                        receiver_container.innerHTML += `
+                            <div class="flex justify-between py-2 my-1 bg-gray-100 px-3 cursor-pointer" onclick=SelectReceiver(this) 
+                            data-id="${part.id}"
+                            data-name="${part.name}">
+                                <p class="text-xs">${part.name}</p>
+                                <img src="./public/img/addIcon.svg" />
+                            </div>`;
+                    }
+
+
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        } else {
+            brand_container.classList.add('hidden');
+        }
+    }
+
+    function SelectReceiver(element) {
+        const id = element.getAttribute('data-id');
+        const name = element.getAttribute('data-name');
+        receiver.value = name;
+        receiver.setAttribute('data-id', id);
+        receiver_container.classList.add('hidden');
+    }
+
+    function searchInventory(pattern) {
+        if (pattern.length >= 2) {
+            var params = new URLSearchParams();
+            params.append('searchForInventory', 'searchForInventory');
+            params.append('pattern', pattern.toUpperCase());
+
+            inventory_container.innerHTML = '';
+            inventory_container.classList.remove('hidden');
+            axios.post("./app/controller/PurchaseGoodsAjax.php", params)
+                .then(function(response) {
+                    const parts = response.data;
+
+                    for (const part of parts) {
+                        inventory_container.innerHTML += `
+                            <div class="flex justify-between py-2 my-1 bg-gray-100 px-3 cursor-pointer" onclick=SelectInventory(this) 
+                            data-id="${part.id}"
+                            data-name="${part.name}">
+                                <p class="text-xs">${part.name}</p>
+                                <img src="./public/img/addIcon.svg" />
+                            </div>`;
+                    }
+
+
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+        } else {
+            brand_container.classList.add('hidden');
+        }
+    }
+
+    function SelectInventory(element) {
+        const id = element.getAttribute('data-id');
+        const name = element.getAttribute('data-name');
+        inventory.value = name;
+        inventory.setAttribute('data-id', id);
+        inventory_container.classList.add('hidden');
+    }
+
 
     $(function() {
         $("#invoice_time").persianDatepicker({
@@ -379,21 +493,34 @@ require_once "./utilities/helpers.php";
     }
 
     function addItem() {
-        if (partNumber.getAttribute('data-id') != null && brand.getAttribute('data-id') != null && quantity.value != '') {
+        if (
+            partNumber.getAttribute('data-id') != null &&
+            brand.getAttribute('data-id') != null &&
+            receiver.getAttribute('data-id') != null &&
+            inventory.getAttribute('data-id') != null &&
+            quantity.value != '') {
             factor_items.push({
                 partNumber: partNumber.value,
                 part_id: partNumber.getAttribute('data-id'),
                 brand_id: brand.getAttribute('data-id'),
                 brand: brand.value,
                 quantity: quantity.value,
+                deliverer: receiver.value,
+                deliverer_id: receiver.getAttribute('data-id'),
                 position1: position1.value,
                 position2: position2.value,
+                inventory: inventory.value,
+                inventory_id: inventory.getAttribute('data-id'),
                 description: description.value,
             });
             partNumber.value = null;
             partNumber.setAttribute('data-id', null);
             brand.value = null;
             brand.setAttribute('data-id', null);
+            receiver.value = null;
+            receiver.setAttribute('data-id', null);
+            inventory.value = null;
+            inventory.setAttribute('data-id', null);
             quantity.value = null;;
             position1.value = null;
             position2.value = null;
@@ -418,13 +545,15 @@ require_once "./utilities/helpers.php";
         const bill_items_container = document.getElementById('bill_items_container');
 
         bill_items_container.innerHTML = `
-                 <tr class="bg-teal-600">
+                <tr class="bg-teal-600">
                     <td class="p-3 text-sm text-white">ردیف</td>
                     <td class="p-3 text-sm text-white">کد فنی</td>
                     <td class="p-3 text-sm text-white">اصالت</td>
                     <td class="p-3 text-sm text-white">تعداد</td>
                     <td class="p-3 text-sm text-white">قفسه</td>
                     <td class="p-3 text-sm text-white">راهرو</td>
+                    <td class="p-3 text-sm text-white">تحوبل دهنده</td>
+                    <td class="p-3 text-sm text-white">انبار</td>
                     <td class="p-3 text-sm text-white">توضیحات</td>
                     <td class="p-3 text-sm text-white w-16"> <img src="./public/img/settings.svg" /></td>
                 </tr>`;
@@ -438,6 +567,8 @@ require_once "./utilities/helpers.php";
                     <td class="p-3 text-sm">${item.quantity}</td>
                     <td class="p-3 text-sm">${item.position1}</td>
                     <td class="p-3 text-sm">${item.position2}</td>
+                    <td class="p-3 text-sm">${item.deliverer}</td>
+                    <td class="p-3 text-sm">${item.inventory}</td>
                     <td class="p-3 text-sm">${item.description}</td>
                     <td class="p-3 text-sm">
                         <img class="cursor-pointer" onclick=deleteItem('${counter-1}') src="./public/img/delete.svg" />
