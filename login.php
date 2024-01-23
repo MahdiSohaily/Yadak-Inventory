@@ -9,52 +9,65 @@ require_once "./app/controller/LoginController.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ورود به سیستم</title>
     <link rel="icon" href="./public/img/logo.jpg" sizes="32x32">
-    <link href="./public/css/assets/bootstrap.min.css" rel="stylesheet">
     <script src="../callcenter/report/public/js/index.js"></script>
     <link href="./public/css/material_icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="./public/css/login.css?v=<?= rand() ?>">
+    <style>
+        body {
+            margin-top: 0 !important;
+            background: url('./public/img/loginbg.svg') center center no-repeat;
+            background-size: cover;
+        }
+
+        @font-face {
+            font-family: "IranSans";
+            src: url("./public/fonts/IRANSans-Light-web.woff") format("woff"),
+                url("./public/fonts/IRANSans-Light-web.ttf") format("truetype");
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: "IranSans";
+            src: url("./public/fonts/IRANSans-Bold-web.woff") format("woff"),
+                url("./public/fonts/IRANSans-Bold-web.ttf") format("truetype");
+            font-weight: bold;
+        }
+
+        * {
+            font-family: IranSans, sans-serif;
+            direction: rtl !important;
+        }
+    </style>
 </head>
 
-<body style="direction: rtl;">
-    <div style="height: 100vh !important;" class="container">
-        <div class="row h-100 d-flex justify-content-center align-content-center">
-            <form class="col-md-11" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                <div class="AppForm shadow-lg">
-                    <div class="row">
-                        <div class="col-md-6 d-flex justify-content-center align-content-center">
-                            <div class="AppFormLeft">
-                                <h1> ورود به سیستم</h1>
-                                <p>برای ورود به سیستم اطلاعات کاربری خود را به دقت وارد کنید.</p>
-                                <div class="form-group position-relative mb-4 mt-4">
-                                    <label for="label-contrlller pb-2">اسم کاربری</label>
-                                    <input type="text" name="username" class="form-control border-top-0" id="username" placeholder="اسم کاربری خود را وارد کنید">
-                                    <p class="text-danger small"><?= $username_err ?></p>
-                                </div>
-                                <div class="form-group position-relative mb-4">
-                                    <label for="label-contrlller pb-2">رمز عبور</label>
-                                    <div class="position-relative">
-                                        <span class="material-icons" onclick="togglePass(this)" style="cursor:pointer; position: absolute; left:5px; top: 25%; display:inline !important">remove_red_eye</span>
-                                        <input type="password" name="password" class="form-control " id="password" placeholder="رمز عبور خود را وارد کنید">
-                                        <p class="text-danger small"><?= $password_err ?></p>
-                                    </div>
-                                </div>
-                                <button class="btn btn-success btn-block shadow border-0 py-2 text-uppercase ">
-                                    ورود به سیستم
-                                </button>
-                            </div>
+<body class="rtl">
+    <section class="login_bg rtl">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto min-h-screen lg:py-0">
+            <a href="" class="flex items-center mb-6 text-3xl font-semibold text-white rtl">
+                مجموعه یدک شاپ
+            </a>
+            <div class="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 border-gray-700">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+                        ورود به حساب کاربری
+                    </h1>
+                    <form class="space-y-4 md:space-y-6" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                        <div>
+                            <label for="username" class="block mb-2 text-sm font-medium text-gray-900"> نام کاربری</label>
+                            <input onkeyup="convertToEnglish(this)" type="text" name="username" id="username" minlength="3" maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-400  focus:ring-blue-500 focus:border-blue-500" placeholder="user" required="">
                         </div>
-                        <div class="col-md-6">
-                            <div class="AppFormRight position-relative d-flex justify-content-center flex-column align-content-center text-center p-5 text-white">
-                                <h2 class="position-relative px-4 pb-3 mb-4">خوش آمدید</h2>
-                                <p>مجموعه ی یدک شاپ از سال ١٣٩٣ قطعات و لوازم یدکی کیا را به طور مستقیم از کشور کره جنوبی وارد ایران میکند،یدک شاپ علاوه بر لوازم اصلی خودروهای کیا که با نام کیا جنیون پارت و موبیس شناخته می شوند برای بالا بردن قدرت خرید مشتریان خود بعضی از قطعات کیا را با سایر برند های معتبر کره ای وارد کرده و حق انتخاب وسیع تری برای شما مصرف کنندگان عزیز ایجاد میکند.‌</p>
-                            </div>
+                        <div>
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900">رمز عبور</label>
+                            <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500" required="">
                         </div>
-                    </div>
+                        <div>
+                            <?= !empty($login_err) ? "<p class='text-sm text-red-700'>نام کاربری و یا رمز عبور اشتباه است.</p>" : "" ?>
+                        </div>
+                        <button type="submit" class="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">ورود به حساب</button>
+                    </form>
                 </div>
-
-            </form>
+            </div>
         </div>
-    </div>
+    </section>
     <script>
         function togglePass(element) {
             const target = element.nextElementSibling;

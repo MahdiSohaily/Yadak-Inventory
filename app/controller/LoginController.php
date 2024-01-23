@@ -172,10 +172,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Close connection
     mysqli_close($con);
 }
-?>
-
-<?php
-if (!empty($login_err)) {
-    echo '<div class="alert alert-danger">' . $login_err . '</div>';
-}
-?>
