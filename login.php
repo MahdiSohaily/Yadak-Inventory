@@ -55,8 +55,9 @@ require_once "./app/controller/LoginController.php";
                             <label for="username" class="block mb-2 text-sm font-medium text-gray-900"> نام کاربری</label>
                             <input onkeyup="convertToEnglish(this)" type="text" name="username" id="username" minlength="3" maxlength="20" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-400  focus:ring-blue-500 focus:border-blue-500" placeholder="user" required="">
                         </div>
-                        <div>
+                        <div class="relative">
                             <label for="password" class="block mb-2 text-sm font-medium text-gray-900">رمز عبور</label>
+                            <i onclick="togglePass(this)" class="material-icons cursor-pointer" style="position: absolute; left:5px; top: 50%">remove_red_eye</i>
                             <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500" required="">
                         </div>
                         <div>
