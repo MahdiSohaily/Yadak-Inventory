@@ -114,7 +114,7 @@ if (isset($_POST['saveFactor'])) {
 function saveFactor($factor_info, $factor_items)
 {
 
-    $bill_number = $factor_info['bill_number'];
+    $invoice_number = $factor_info['bill_number'];
     $seller_id = $factor_info['seller_id'];
     $date = $factor_info['date'];
     $is_entered = $factor_info['is_entered'];
@@ -126,12 +126,16 @@ function saveFactor($factor_info, $factor_items)
     :is_entered, :username, :invoice_number, :stock_id, :date)");
 
     foreach ($factor_items as $item) {
+        $part_id = $item['part_id'];
+        $brand_id = $item['brand_id'];
+        $quantity = $item['quantity'];
+        $position1 = $item['position1'];
+        $position2 = $item['position2'];
+        $description = $item['description'];
+        $deliverer_id = $item['deliverer_id'];
+        $username = $_SESSION['user_id'];
+        $stock_id = $item['inventory_id'];
 
-        $statement->bindParam(':pattern', $pattern);
         $statement->execute();
     }
-
-
-
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
