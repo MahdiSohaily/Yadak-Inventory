@@ -56,9 +56,7 @@ require_once "./utilities/helpers.php";
                 </tr>
                 <tr>
                     <th colspan="2" class="text-right p-3 text-sm">
-                        <label class="cursor-pointer" for="bill_number">شماره فاکتور
-                            <span class="text-red-500">*</span>
-                        </label>
+                        <label class="cursor-pointer" for="bill_number">شماره فاکتور</label>
                     </th>
                     <th colspan="3" class="p-3">
                         <input onkeyup="convertToEnglish(this);" onblur="setBillNumber(this.value)" class="p-2 border w-full" type="text" name="bill_number" id="bill_number">
@@ -205,7 +203,7 @@ require_once "./utilities/helpers.php";
                         <label for="description">توضیحات</label>
                     </td>
                     <td colspan="3" class="p-3 text-sm font-bold">
-                        <textarea name="description" id="description" class="w-full" rows="2"></textarea>
+                        <textarea name="description" id="description" class="w-full p-2" rows="2"></textarea>
                     </td>
                 </tr>
             </tfoot>
@@ -239,7 +237,7 @@ require_once "./utilities/helpers.php";
         seller_name: null,
         date: moment().locale('fa').format('YYYY/MM/DD'),
         bill_number: null,
-        is_entered: false
+        is_entered: true
     }
 
     let factor_items = [];
@@ -586,7 +584,7 @@ require_once "./utilities/helpers.php";
     }
 
     function saveFactor() {
-        if (factor_info.seller_id != null && factor_info.bill_number !== null && factor_items.length > 0) {
+        if (factor_info.seller_id != null && factor_items.length > 0) {
             var params = new URLSearchParams();
             params.append('saveFactor', 'saveFactor');
             params.append('factor_info', JSON.stringify(factor_info));
@@ -598,6 +596,7 @@ require_once "./utilities/helpers.php";
                     message.classList.add('bg-green-800');
                     message.classList.add('text-white');
                     message.innerHTML = 'فاکتور شما با موفقیت ذخیره شد.';
+                    clear_form();
 
                     setTimeout(() => {
                         message.classList.add('hidden');
@@ -623,6 +622,30 @@ require_once "./utilities/helpers.php";
                 message.innerHTML = '';
             }, 3000);
         }
+    }
+
+    function clear_form() {
+        actor_info = {
+            seller_id: null,
+            seller_name: null,
+            date: moment().locale('fa').format('YYYY/MM/DD'),
+            bill_number: null,
+            is_entered: true
+        }
+        factor_items = [];
+        partNumber.value = null;
+        partNumber.setAttribute('data-id', null);
+        brand.value = null;
+        brand.setAttribute('data-id', null);
+        receiver.value = null;
+        receiver.setAttribute('data-id', null);
+        inventory.value = null;
+        inventory.setAttribute('data-id', null);
+        quantity.value = null;;
+        position1.value = null;
+        position2.value = null;
+        description.value = null;
+        displayBill();
     }
 </script>
 </div>
