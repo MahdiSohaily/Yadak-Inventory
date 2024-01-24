@@ -1,8 +1,7 @@
-<?php include("./views/Layout/newHeader.php");
+<?php include("./views/Layout/header.php");
 require_once "./utilities/helpers.php";
 ?>
-<script src="../callcenter/report/public/js/index.js"></script>
-<script src="../callcenter/report/public/js/jalaliMoment.js"></script>
+
 <style>
     .right-form td {
         padding: 10px !important;
@@ -46,607 +45,317 @@ require_once "./utilities/helpers.php";
     }
 </style>
 
-<div class="flex justify-center px-5">
-    <div class="w-1/2">
-        <table class="w-full border border-1 border-gray-800">
-            <thead class="bg-gray-100 border-b border-gray-800">
-                <tr class="bg-gray-800">
-                    <th class="p-3 text-white" colspan="10">فاکتور ورود
-                    </th>
-                </tr>
-                <tr>
-                    <th colspan="2" class="text-right p-3 text-sm">
-                        <label class="cursor-pointer" for="bill_number">شماره فاکتور</label>
-                    </th>
-                    <th colspan="3" class="p-3">
-                        <input onkeyup="convertToEnglish(this);" onblur="setBillNumber(this.value)" class="p-2 border w-full" type="text" name="bill_number" id="bill_number">
-                    </th>
-                    <th colspan="2" class="text-right p-3 text-sm">
-                        <label class="cursor-pointer" for="invoice_time">تاریخ
-                            <span class="text-red-500">*</span>
-                        </label>
-                    </th>
-                    <th colspan="3" class="p-3">
-                        <input onchange="setFactorDate(this.value)" class="p-2 w-full h-full" type="text" name="invoice_time" id="invoice_time" value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>">
-                        <span id="span_invoice_time"></span>
-                    </th>
-                </tr>
-                <tr>
-                    <th colspan="2" class="text-right p-3 text-sm">
-                        <label class="cursor-pointer" for="seller">فروشنده
-                            <span class="text-red-500">*</span>
-                        </label>
-                    </th>
-                    <th colspan="3" class="p-3 relative">
-                        <input class="p-2 border w-full" type="text" name="seller" id="seller" onkeyup="convertToPersian(this);searchSellers(this.value)">
-                        <div id="seller_container" style="top:85%; z-index:1000000;" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
-                            <!-- matched sellers will be appended here -->
-                        </div>
-                    </th>
-                    <th colspan="2" class="text-right p-3 text-sm">
-                        <label class="cursor-pointer" for="is_entered">وارد انبار شده؟</label>
-                    </th>
-                    <th colspan="3" class="p-3 text-sm">
-                        <div class="flex justify-center">
-                            <label class="cursor-pointer" for="is_entered_true">بلی</label>
-                            <input checked onclick="setIsEntered(true)" class="p-2 w-full h-full" type="radio" name="is_entered" id="is_entered_true">
-                            <label class="cursor-pointer" for="is_entered_false">خیر</label>
-                            <input onclick="setIsEntered(false)" class="p-2 w-full h-full" type="radio" name="is_entered" id="is_entered_false">
-                        </div>
-                    </th>
-                </tr>
-            </thead>
-            <tbody id="bill_items_container" class="m-h-12">
-                <tr class="bg-teal-600">
-                    <td class="p-3 text-sm text-white">ردیف</td>
-                    <td class="p-3 text-sm text-white">کد فنی</td>
-                    <td class="p-3 text-sm text-white">اصالت</td>
-                    <td class="p-3 text-sm text-white">تعداد</td>
-                    <td class="p-3 text-sm text-white">قفسه</td>
-                    <td class="p-3 text-sm text-white">راهرو</td>
-                    <td class="p-3 text-sm text-white">تحوبل دهنده</td>
-                    <td class="p-3 text-sm text-white">انبار</td>
-                    <td class="p-3 text-sm text-white">توضیحات</td>
-                    <td class="p-3 text-sm text-white w-16"> <img src="./public/img/settings.svg" /></td>
-                </tr>
-                <tr>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                </tr>
-                <tr>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                    <td class="p-3"></td>
-                </tr>
-            </tbody>
-            <tfoot class="bg-gray-100 border-t border-gray-800">
-                <tr>
-                    <td colspan="2" class="p-3 text-sm font-bold">
-                        <label for="partNumber"> کدفنی</label>
-                        <span class="text-red-500">*</span>
-                    </td>
-                    <td colspan="3" class="p-3 text-sm font-bold relative">
-                        <input onkeyup="convertToEnglish(this);searchParts(this.value)" class="p-2 w-full" type="text" name="partNumber" id="partNumber">
-                        <div id="part_container" style="top:85%; z-index:1000000;" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
-                            <!-- matched sellers will be appended here -->
-                        </div>
-                    </td>
-                    <td colspan="2" class="p-3 text-sm font-bold">
-                        <label for="brand">اصالت</label>
-                        <span class="text-red-500">*</span>
-                    </td>
-                    <td colspan="3" class="p-3 text-sm font-bold relative">
-                        <input onkeyup="convertToEnglish(this);searchBrand(this.value)" class="p-2 w-full" type="text" name="brand" id="brand">
-                        <div id="brand_container" style="top:85%; z-index:1000000;" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
-                            <!-- matched sellers will be appended here -->
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="p-3 text-sm font-bold">
-                        <label for="quantity">تعداد</label>
-                        <span class="text-red-500">*</span>
-                    </td>
-                    <td colspan="3" class="p-3 text-sm font-bold">
-                        <input class="p-2 w-full" type="number" min='1' name="quantity" id="quantity">
-                    </td>
-                    <td colspan="2" class="p-3 text-sm font-bold">
-                        <label for="receiver">تحویل دهنده</label>
-                        <span class="text-red-500">*</span>
-                    </td>
-                    <td colspan="3" class="p-3 text-sm font-bold relative">
-                        <input onkeyup="convertToPersian(this);searchReceiver(this.value)" class="p-2 w-full" type="text" min='1' name="receiver" id="receiver">
-                        <div id="receiver_container" style="top:85%; z-index:1000000;" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
-                            <!-- matched sellers will be appended here -->
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="p-3 text-sm font-bold">
-                        <label for="position1">قفسه</label>
-                    </td>
-                    <td colspan="3" class="p-3 text-sm font-bold">
-                        <input class="p-2 w-full" type="text" name="position1" id="position1">
-                    </td>
-                    <td colspan="2" class="p-3 text-sm font-bold">
-                        <label for="position2">راهرو</label>
-                    </td>
-                    <td colspan="3" class="p-3 text-sm font-bold">
-                        <input class="p-2 w-full" type="text" name="position2" id="position2">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="p-3 text-sm font-bold">
-                        <label for="inventory">
-                            انبار
-                            <span class="text-red-500">*</span>
-                        </label>
-                    </td>
-                    <td colspan="3" class="p-3 text-sm font-bold relative">
-                        <input onkeyup="convertToPersian(this);searchInventory(this.value)" class="p-2 w-full" type="text" name="inventory" id="inventory">
-                        <div id="inventory_container" style="top:85%; z-index:1000000;" class="hidden absolute shadow-lg mx-3 bg-white right-0 left-0 max-h-80 p-3 rounded border  overflow-y-auto">
-                            <!-- matched sellers will be appended here -->
-                        </div>
-                    </td>
-                    <td colspan="2" class="p-3 text-sm font-bold">
-                        <label for="description">توضیحات</label>
-                    </td>
-                    <td colspan="3" class="p-3 text-sm font-bold">
-                        <textarea name="description" id="description" class="w-full p-2" rows="2"></textarea>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-        <img src="./public/img/addIcon.svg" onclick="addItem()" class="w-8 h-8 cursor-pointer" alt="add item to the bill">
-    </div>
+<div id="Enter-Page">
+    <a href="./vorodkala-index_nex.php" style="background-color: skyblue;color:white; text-decoration: none; margin-inline:10px; padding :10px; border-radius: 5px;">ورود کالای جدید</a>
+    <form id="vorodkala" method="post" action="php/vorodkala-save.php" autocomplete="off">
+        <div class="left-form">
+            <?php include("php/codeid.php") ?>
+        </div>
+        <div class="right-form">
+            <input type="hidden" name="brand-box" id="brand-box">
+            <table style="width: 100% !important;">
+                <tbody>
+                    <tr>
+                        <td>
+                            <p for="brand">اصالت</p>
+                        </td>
+                        <td>
+                            <select name="brand" id="esalat">
+                                <?php include("php/brand-form.php") ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>فروشنده</p>
+                        </td>
+                        <td>
+                            <select name="seller" id="seller">
+                                <option selected="true" disabled="disabled">انتخاب فروشنده</option>
+                                <?php
+                                foreach (getSellers() as $seller) : ?>
+                                    <option value='<?= $seller["id"] ?>'><?= $seller["name"] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            تحویل دهنده
+                        </td>
+                        <td>
+                            <select name="deliverer" id="deliverer">
+                                <?php include("php/deliverer-form.php") ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>تعداد</p>
+                        </td>
+                        <td>
+                            <input required min="0" type="number" name="qty" id="qty">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                قفسه
+                            </p>
+                        </td>
+                        <td>
+                            <input onkeydown="upperCaseF(this)" type="text" name="pos2" id="pos2">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>راهرو</td>
+                        <td>
+                            <input onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>انبار</td>
+                        <td>
+                            <select name="stock" id="stock">
+                                <?php include("php/stock-form.php") ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: middle;">
 
+                            توضیحات
+                        </td>
+                        <td>
+                            <textarea name="des" id="des"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>آیا فاکتور دارد ؟</p>
+                        </td>
+                        <td>
+                            <ul>
+                                <br>
+                                <li style="margin-bottom: 10px;">
+                                    <label for="invoice">
+                                        <input type="radio" name="invoice" data-name="yes" id="invoice" value="1" checked>
+                                        بله
+                                    </label>
+                                </li>
+                                <li style="margin-bottom: 10px;">
+                                    <label for="invoiceNO">
+                                        <input type="radio" name="invoice" data-name="no" id="invoiceNO" value="0">
+                                        خیر
+                                    </label>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="factor_details">
+                        <td>
+                            <p>شماره فاکتور</p>
+                        </td>
+                        <td>
+                            <input type="number" name="invoice_number" id="invoice_number">
+                        </td>
+                    </tr>
+                    <tr class="factor_details">
+                        <td>
+                            <p>زمان فاکتور</p>
+                        </td>
+                        <td>
+                            <input value="<?php echo (jdate("Y/m/d", time(), "", "Asia/Tehran", "en")) ?>" type="text" name="invoice_time" id="invoice_time">
+                            <span id="span_invoice_time"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>آیا وارد انبار شده ؟</p>
+                        </td>
+                        <td>
+                            <ul>
+                                <li style="margin-bottom: 10px;">
+                                    <label for="anbarenter">
+                                        <input type="radio" name="anbarenter" id="anbarenter" value="0">
+                                        خیر
+                                    </label>
+                                </li>
+                                <li style="margin-bottom: 10px;">
+                                    <label for="anbarenterNo">
+                                        <input type="radio" name="anbarenter" id="anbarenterNo" value="1" checked>
+                                        بله
+                                    </label>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+        </div>
+
+        <div class="bottom-bar">
+            <input type="submit" value="ذخیره" id="">
+            <div class="error">
+            </div>
+        </div>
+
+    </form>
 </div>
-<p id="message" class="fixed text-sm py-3 px-5 rounded left-5 bottom-5 hidden"></p>
-<button onclick="saveFactor()" id="message" class="fixed text-sm py-3 px-5 rounded right-5 bottom-5 bg-blue-500 text-white">ثبت فاکتور</button>
+
 <script>
-    const sellerContainer = document.getElementById('seller_container');
-    const part_container = document.getElementById('part_container');
-    const brand_container = document.getElementById('brand_container');
-    const receiver_container = document.getElementById('receiver_container');
-    const inventory_container = document.getElementById('inventory_container');
-    const message = document.getElementById('message');
+    // Get the radio buttons by their name attribute
+    const invoiceRadioButtons = document.querySelectorAll('input[name="invoice"]');
 
-    const partNumber = document.getElementById('partNumber');
-    const brand = document.getElementById('brand');
-    const receiver = document.getElementById('receiver');
-    const inventory = document.getElementById('inventory');
-    const quantity = document.getElementById('quantity');
-    const position1 = document.getElementById('position1');
-    const position2 = document.getElementById('position2');
-    const description = document.getElementById('description');
+    // Get the factor_details rows
+    const factorDetailsRows = document.querySelectorAll('.factor_details');
 
 
-    let factor_info = {
-        seller_id: null,
-        seller_name: null,
-        date: moment().locale('fa').format('YYYY/MM/DD'),
-        bill_number: null,
-        is_entered: true
+    const invoice_time = document.getElementById("invoice_time");
+
+    // Function to toggle the visibility and opacity of factor_details rows
+    function toggleFactorDetailsVisibility(show) {
+        factorDetailsRows.forEach(function(row) {
+            if (show) {
+                row.style.display = 'table-row';
+                setTimeout(function() {
+                    row.style.opacity = 1;
+                }, 10);
+            } else {
+                row.style.opacity = 0;
+                document.querySelector('input#invoice_number').value = null;
+                setTimeout(function() {
+                    row.style.display = 'none';
+                    invoice_time.value = null;
+                }, 500); // Adjust the duration as needed
+            }
+        });
     }
 
-    let factor_items = [];
+    // Initial check and setup based on the radio button's checked status
+    toggleFactorDetailsVisibility(invoiceRadioButtons[0].checked);
 
-    function searchSellers(pattern = '') {
-
-        if (pattern.length >= 3) {
-            var params = new URLSearchParams();
-            params.append('searchForSeller', 'searchForSeller');
-            params.append('pattern', pattern);
-
-            sellerContainer.innerHTML = '';
-            sellerContainer.classList.remove('hidden');
-            axios.post("./app/controller/PurchaseGoodsAjax.php", params)
-                .then(function(response) {
-                    const sellers = response.data;
-
-                    for (const seller of sellers) {
-                        sellerContainer.innerHTML += `
-                            <div class="flex justify-between py-2 my-1 bg-gray-100 px-3" onclick=SelectSeller(this) 
-                            data-id="${seller.id}"
-                            data-name="${seller.name}"
-                            >
-                                <p class="text-xs">${seller.name}</p>
-                                <img src="./public/img/addIcon.svg" />
-                            </div>`;
-                    }
-
-
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
-        } else {
-            sellerContainer.classList.add('hidden');
-        }
-    }
-
-    function SelectSeller(element) {
-        const id = element.getAttribute('data-id');
-        const name = element.getAttribute('data-name');
-        document.getElementById('seller').value = name;
-
-        factor_info.seller_id = id;
-        factor_info.seller_name = name;
-        sellerContainer.classList.add('hidden');
-    }
-
-
-    function searchParts(pattern = '') {
-        part_container.innerHTML = '';
-        if (pattern.length >= 6) {
-            var params = new URLSearchParams();
-            params.append('searchForPart', 'searchForPart');
-            params.append('pattern', pattern);
-
-            part_container.innerHTML = '';
-            part_container.classList.remove('hidden');
-            axios.post("./app/controller/PurchaseGoodsAjax.php", params)
-                .then(function(response) {
-                    const parts = response.data;
-                    for (const part of parts) {
-                        part_container.innerHTML += `
-                            <div class="flex justify-between py-2 my-1 bg-gray-100 px-3 cursor-pointer" onclick=SelectPart(this) 
-                            data-id="${part.id}"
-                            data-name="${part.partnumber}">
-                                <p class="text-xs">${part.partnumber}</p>
-                                <img src="./public/img/addIcon.svg" />
-                            </div>`;
-                    }
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
-        } else {
-            part_container.classList.add('hidden');
-        }
-    }
-
-    function SelectPart(element) {
-        const id = element.getAttribute('data-id');
-        const name = element.getAttribute('data-name');
-        partNumber.value = name;
-        partNumber.setAttribute('data-id', id);
-        part_container.classList.add('hidden');
-    }
-
-    function searchBrand(pattern) {
-        if (pattern.length >= 2) {
-            var params = new URLSearchParams();
-            params.append('searchForBrand', 'searchForBrand');
-            params.append('pattern', pattern.toUpperCase());
-
-            brand_container.innerHTML = '';
-            brand_container.classList.remove('hidden');
-            axios.post("./app/controller/PurchaseGoodsAjax.php", params)
-                .then(function(response) {
-                    const parts = response.data;
-
-                    for (const part of parts) {
-                        brand_container.innerHTML += `
-                            <div class="flex justify-between py-2 my-1 bg-gray-100 px-3 cursor-pointer" onclick=SelectBrand(this) 
-                            data-id="${part.id}"
-                            data-name="${part.name}">
-                                <p class="text-xs">${part.name}</p>
-                                <img src="./public/img/addIcon.svg" />
-                            </div>`;
-                    }
-
-
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
-        } else {
-            brand_container.classList.add('hidden');
-        }
-    }
-
-    function SelectBrand(element) {
-        const id = element.getAttribute('data-id');
-        const name = element.getAttribute('data-name');
-        brand.value = name;
-        brand.setAttribute('data-id', id);
-        brand_container.classList.add('hidden');
-    }
-
-    function searchReceiver(pattern) {
-        if (pattern.length >= 2) {
-            var params = new URLSearchParams();
-            params.append('searchForReceiver', 'searchForReceiver');
-            params.append('pattern', pattern.toUpperCase());
-
-            receiver_container.innerHTML = '';
-            receiver_container.classList.remove('hidden');
-            axios.post("./app/controller/PurchaseGoodsAjax.php", params)
-                .then(function(response) {
-                    const parts = response.data;
-
-                    for (const part of parts) {
-                        receiver_container.innerHTML += `
-                            <div class="flex justify-between py-2 my-1 bg-gray-100 px-3 cursor-pointer" onclick=SelectReceiver(this) 
-                            data-id="${part.id}"
-                            data-name="${part.name}">
-                                <p class="text-xs">${part.name}</p>
-                                <img src="./public/img/addIcon.svg" />
-                            </div>`;
-                    }
-
-
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
-        } else {
-            brand_container.classList.add('hidden');
-        }
-    }
-
-    function SelectReceiver(element) {
-        const id = element.getAttribute('data-id');
-        const name = element.getAttribute('data-name');
-        receiver.value = name;
-        receiver.setAttribute('data-id', id);
-        receiver_container.classList.add('hidden');
-    }
-
-    function searchInventory(pattern) {
-        if (pattern.length >= 2) {
-            var params = new URLSearchParams();
-            params.append('searchForInventory', 'searchForInventory');
-            params.append('pattern', pattern.toUpperCase());
-
-            inventory_container.innerHTML = '';
-            inventory_container.classList.remove('hidden');
-            axios.post("./app/controller/PurchaseGoodsAjax.php", params)
-                .then(function(response) {
-                    const parts = response.data;
-
-                    for (const part of parts) {
-                        inventory_container.innerHTML += `
-                            <div class="flex justify-between py-2 my-1 bg-gray-100 px-3 cursor-pointer" onclick=SelectInventory(this) 
-                            data-id="${part.id}"
-                            data-name="${part.name}">
-                                <p class="text-xs">${part.name}</p>
-                                <img src="./public/img/addIcon.svg" />
-                            </div>`;
-                    }
-
-
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
-        } else {
-            brand_container.classList.add('hidden');
-        }
-    }
-
-    function SelectInventory(element) {
-        const id = element.getAttribute('data-id');
-        const name = element.getAttribute('data-name');
-        inventory.value = name;
-        inventory.setAttribute('data-id', id);
-        inventory_container.classList.add('hidden');
-    }
-
-
-    $(function() {
-        $("#invoice_time").persianDatepicker({
-            months: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"],
-            dowTitle: ["شنبه", "یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنج شنبه", "جمعه"],
-            shortDowTitle: ["ش", "ی", "د", "س", "چ", "پ", "ج"],
-            showGregorianDate: !1,
-            persianNumbers: !0,
-            formatDate: "YYYY/MM/DD",
-            selectedBefore: !1,
-            selectedDate: null,
-            startDate: null,
-            endDate: null,
-            prevArrow: '\u25c4',
-            nextArrow: '\u25ba',
-            theme: 'default',
-            alwaysShow: !1,
-            selectableYears: null,
-            selectableMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-            cellWidth: 25, // by px
-            cellHeight: 20, // by px
-            fontSize: 13, // by px
-            isRTL: 1,
-            calendarPosition: {
-                x: 0,
-                y: 0,
-            },
-            onShow: function() {},
-            onHide: function() {},
-            onSelect: function() {
-                const date = ($("#invoice_time").val());
-                factor_info.date = date;
-            },
-            onRender: function() {}
+    // Add change event listener to the radio buttons
+    invoiceRadioButtons.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            var isChecked = radio.dataset.name === 'yes';
+            toggleFactorDetailsVisibility(isChecked);
         });
     });
 
-    function setBillNumber(billNumber) {
-        factor_info.bill_number = billNumber;
-    }
+    $(document).ready(function() {
+        $('#seller').select2({
+            matcher: function matchCustom(params, data) {
+                // If there are no search terms, return all of the data
+                if ($.trim(params.term) === '') {
+                    return data;
+                }
 
-    function setIsEntered(isEntered) {
-        factor_info.is_entered = isEntered;
-    }
+                // Do not display the item if there is no 'text' property
+                if (typeof data.text === 'undefined') {
+                    return null;
+                }
 
-    function addItem() {
-        if (
-            partNumber.getAttribute('data-id') != null &&
-            brand.getAttribute('data-id') != null &&
-            receiver.getAttribute('data-id') != null &&
-            inventory.getAttribute('data-id') != null &&
-            quantity.value != '') {
-            factor_items.push({
-                partNumber: partNumber.value,
-                part_id: partNumber.getAttribute('data-id'),
-                brand_id: brand.getAttribute('data-id'),
-                brand: brand.value,
-                quantity: quantity.value,
-                deliverer: receiver.value,
-                deliverer_id: receiver.getAttribute('data-id'),
-                position1: position1.value,
-                position2: position2.value,
-                inventory: inventory.value,
-                inventory_id: inventory.getAttribute('data-id'),
-                description: description.value,
-            });
-            partNumber.value = null;
-            partNumber.setAttribute('data-id', null);
-            brand.value = null;
-            brand.setAttribute('data-id', null);
-            receiver.value = null;
-            receiver.setAttribute('data-id', null);
-            inventory.value = null;
-            inventory.setAttribute('data-id', null);
-            quantity.value = null;;
-            position1.value = null;
-            position2.value = null;
-            description.value = null;
-            displayBill();
-        } else {
-            message.classList.remove('hidden');
-            message.classList.add('bg-rose-800');
-            message.classList.add('text-white');
-            message.innerHTML = 'لطفا موارد اجباری را بصورت دقیق انتخاب کنید';
+                // `params.term` should be the term that is used for searching
+                // `data.text` is the text that is displayed for the data object
+                if (data.text.indexOf(params.term.toUpperCase()) > -1) {
+                    var modifiedData = $.extend({}, data, true);
+                    modifiedData.text += '';
 
-            setTimeout(() => {
-                message.classList.add('hidden');
-                message.classList.remove('bg-rose-800');
-                message.classList.remove('text-white');
-                message.innerHTML = '';
-            }, 3000);
-        }
-    }
+                    // You can return modified objects from here
+                    // This includes matching the `children` how you want in nested data sets
+                    return modifiedData;
+                }
 
-    function displayBill() {
-        const bill_items_container = document.getElementById('bill_items_container');
+                // Return `null` if the term should not be displayed
+                return null;
+            }
+        });
+        $('#esalat').select2({
+            matcher: function matchCustom(params, data) {
+                // If there are no search terms, return all of the data
+                if ($.trim(params.term) === '') {
+                    return data;
+                }
 
-        bill_items_container.innerHTML = `
-                <tr class="bg-teal-600">
-                    <td class="p-3 text-sm text-white">ردیف</td>
-                    <td class="p-3 text-sm text-white">کد فنی</td>
-                    <td class="p-3 text-sm text-white">اصالت</td>
-                    <td class="p-3 text-sm text-white">تعداد</td>
-                    <td class="p-3 text-sm text-white">قفسه</td>
-                    <td class="p-3 text-sm text-white">راهرو</td>
-                    <td class="p-3 text-sm text-white">تحوبل دهنده</td>
-                    <td class="p-3 text-sm text-white">انبار</td>
-                    <td class="p-3 text-sm text-white">توضیحات</td>
-                    <td class="p-3 text-sm text-white w-16"> <img src="./public/img/settings.svg" /></td>
-                </tr>`;
-        let counter = 1;
-        for (const item of factor_items) {
-            bill_items_container.innerHTML += `
-                <tr class="odd:bg-blue-50 even:bg-blue-100">
-                    <td class="p-3 text-sm">${counter}</td>
-                    <td class="p-3 text-sm">${item.partNumber}</td>
-                    <td class="p-3 text-sm">${item.brand}</td>
-                    <td class="p-3 text-sm">${item.quantity}</td>
-                    <td class="p-3 text-sm">${item.position1}</td>
-                    <td class="p-3 text-sm">${item.position2}</td>
-                    <td class="p-3 text-sm">${item.deliverer}</td>
-                    <td class="p-3 text-sm">${item.inventory}</td>
-                    <td class="p-3 text-sm">${item.description}</td>
-                    <td class="p-3 text-sm">
-                        <img class="cursor-pointer" onclick=deleteItem('${counter-1}') src="./public/img/delete.svg" />
-                    </td>
-                </tr>`;
-            counter++;
-        }
-    }
+                // Do not display the item if there is no 'text' property
+                if (typeof data.text === 'undefined') {
+                    return null;
+                }
 
-    function deleteItem(index) {
-        if (index >= 0 && index < factor_items.length) {
-            factor_items.splice(index, 1);
-            displayBill();
-        }
-    }
+                // `params.term` should be the term that is used for searching
+                // `data.text` is the text that is displayed for the data object
+                if (data.text.indexOf(params.term.toUpperCase()) > -1) {
+                    var modifiedData = $.extend({}, data, true);
+                    modifiedData.text += '';
 
-    function saveFactor() {
-        if (factor_info.seller_id != null && factor_items.length > 0) {
-            var params = new URLSearchParams();
-            params.append('saveFactor', 'saveFactor');
-            params.append('factor_info', JSON.stringify(factor_info));
-            params.append('factor_items', JSON.stringify(factor_items));
+                    // You can return modified objects from here
+                    // This includes matching the `children` how you want in nested data sets
+                    return modifiedData;
+                }
 
-            axios.post("./app/controller/PurchaseGoodsAjax.php", params)
-                .then(function(response) {
-                    message.classList.remove('hidden');
-                    message.classList.add('bg-green-800');
-                    message.classList.add('text-white');
-                    message.innerHTML = 'فاکتور شما با موفقیت ذخیره شد.';
-                    clear_form();
+                // Return `null` if the term should not be displayed
+                return null;
+            }
+        });
+        $('#deliverer').select2({
+            matcher: function matchCustom(params, data) {
+                // If there are no search terms, return all of the data
+                if ($.trim(params.term) === '') {
+                    return data;
+                }
 
-                    setTimeout(() => {
-                        message.classList.add('hidden');
-                        message.classList.remove('bg-green-800');
-                        message.classList.remove('text-white');
-                        message.innerHTML = '';
-                    }, 3000);
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
+                // Do not display the item if there is no 'text' property
+                if (typeof data.text === 'undefined') {
+                    return null;
+                }
 
-        } else {
-            message.classList.remove('hidden');
-            message.classList.add('bg-rose-800');
-            message.classList.add('text-white');
-            message.innerHTML = 'لطفا معلومات فاکتو را بصورت دقیق اضافه نمایید.';
+                // `params.term` should be the term that is used for searching
+                // `data.text` is the text that is displayed for the data object
+                if (data.text.indexOf(params.term.toUpperCase()) > -1) {
+                    var modifiedData = $.extend({}, data, true);
+                    modifiedData.text += '';
 
-            setTimeout(() => {
-                message.classList.add('hidden');
-                message.classList.remove('bg-rose-800');
-                message.classList.remove('text-white');
-                message.innerHTML = '';
-            }, 3000);
-        }
-    }
+                    // You can return modified objects from here
+                    // This includes matching the `children` how you want in nested data sets
+                    return modifiedData;
+                }
 
-    function clear_form() {
-        actor_info = {
-            seller_id: null,
-            seller_name: null,
-            date: moment().locale('fa').format('YYYY/MM/DD'),
-            bill_number: null,
-            is_entered: true
-        }
-        factor_items = [];
-        partNumber.value = null;
-        partNumber.setAttribute('data-id', null);
-        brand.value = null;
-        brand.setAttribute('data-id', null);
-        receiver.value = null;
-        receiver.setAttribute('data-id', null);
-        inventory.value = null;
-        inventory.setAttribute('data-id', null);
-        quantity.value = null;;
-        position1.value = null;
-        position2.value = null;
-        description.value = null;
-        displayBill();
-    }
+                // Return `null` if the term should not be displayed
+                return null;
+            }
+        });
+        $('#stock').select2({
+            matcher: function matchCustom(params, data) {
+                // If there are no search terms, return all of the data
+                if ($.trim(params.term) === '') {
+                    return data;
+                }
+
+                // Do not display the item if there is no 'text' property
+                if (typeof data.text === 'undefined') {
+                    return null;
+                }
+
+                // `params.term` should be the term that is used for searching
+                // `data.text` is the text that is displayed for the data object
+                if (data.text.indexOf(params.term.toUpperCase()) > -1) {
+                    var modifiedData = $.extend({}, data, true);
+                    modifiedData.text += '';
+
+                    // You can return modified objects from here
+                    // This includes matching the `children` how you want in nested data sets
+                    return modifiedData;
+                }
+
+                // Return `null` if the term should not be displayed
+                return null;
+            }
+        });
+    });
 </script>
 </div>
 <?php include("./views/Layout/footer.php") ?>

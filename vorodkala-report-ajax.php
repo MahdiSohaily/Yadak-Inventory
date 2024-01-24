@@ -86,7 +86,7 @@ if ($stmt->rowCount() > 0) {
         $billItemsCount += $item["purchase_quantity"];
 ?>
         <tr class="left_right">
-            <td class="cell-shakhes"><?= $counter ?></td>
+            <td class="cell-shakhes"><?= $item['purchase_id'] ?></td>
             <td class="cell-code"><?= '&nbsp;' . strtoupper($item["partnumber"]) ?></td>
             <td class="cell-brand cell-brand-<?= $item['brand_name'] ?>"><?= $item["brand_name"] ?></td>
             <td class="cell-des"><?= $item["purchase_description"] ?></td>

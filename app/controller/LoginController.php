@@ -24,7 +24,7 @@ function sendAjaxRequest($id, $username)
     flex-direction:column;
     display:flex; justify-content:center; align-items:center;background-color:white'>
     <p>لطفا صبور باشید</p>
-    <img src='./img/loading.gif' alt='' srcset=''>
+    <img src='./public/img/loading.png' style='width:100px; height:100px;margin:20px;' alt='' srcset=''>
     </div>";
     echo '<script src="./js/assets/axios.js"></script>
         <script>
