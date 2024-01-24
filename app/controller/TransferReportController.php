@@ -54,36 +54,13 @@ function getPreviousRecords($item_per_page, $page)
         WHERE transfer_record.transfer_date < :transfer_date
         ORDER BY transfer_record.transfer_date DESC");
     $statement->bindParam(':transfer_date', $yesterday);
-    $statement->execute();
-
-    // set the resulting array to associative
-    $statement->setFetchMode(PDO::FETCH_ASSOC);
-    $results =  $statement->fetchAll();
-
-    $page_first_result = ($page - 1) * $item_per_page;
-
-    $statement = DB_CONNECTION->prepare("SELECT transfer_record.*, qtybank.qty AS previous_amount,
-        nisha.partnumber, brand.name As brand_name, seller.name AS seller_name, getter.name AS getter_name,
-        users.name AS user_name, qtybank.stock_id, exitrecord.des
-        FROM transfer_record
-        INNER JOIN qtybank ON qtybank.id =  transfer_record.affected_record
-        INNER JOIN nisha ON nisha.id = qtybank.codeid
-        INNER JOIN exitrecord ON exitrecord.id  = transfer_record.exit_id
-        LEFT JOIN brand ON brand.id = qtybank.brand
-        LEFT JOIN seller ON seller.id = qtybank.seller
-        LEFT JOIN getter ON getter.id = exitrecord.getter
-        INNER JOIN users ON users.id = transfer_record.user_id
-        WHERE transfer_record.transfer_date < :transfer_date
-        ORDER BY transfer_record.transfer_date DESC");
-
-    $statement->bindParam(':transfer_date', $yesterday);
 
 
     $statement->execute();
     $statement->setFetchMode(PDO::FETCH_ASSOC);
     $display =  $statement->fetchAll();
 
-    return ['total' => count($results), 'display' => $display];
+    return ['total' => count($display), 'display' => $display];
 }
 
 
