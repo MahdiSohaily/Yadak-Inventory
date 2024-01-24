@@ -139,14 +139,14 @@
             <div style="display:flex; gap:20px; padding: 20px; min-height:83vh">
                 <div class="card">
                     <div class="card_items">
-                        <input type="search" style="direction: ltr; text-alignl" name="codeid" id="codeid" onkeyup="convertToEnglish(this); showQty(this.value); " placeholder="کد فنی">
+                        <input type="search" style="direction: ltr; text-align:left;" name="codeid" id="codeid" onkeyup="convertToEnglish(this); showQty(this.value); " placeholder="کد فنی">
                         <div id="txtHint-khoroj">
                             <p>...</p>
                         </div>
                     </div>
                 </div>
                 <div class="card" id="formData">
-                    <table style="align-self:flex-start">
+                    <table class="align-start">
                         <tbody>
                             <tr>
                                 <td>

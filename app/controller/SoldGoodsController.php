@@ -46,8 +46,7 @@ $sql = "SELECT qtybank.id AS purchase_id,
         getter.id AS getter_id,
         getter.name AS getter_name,
         deliverer.id AS deliverer_id,
-        deliverer.name AS deliverer_name,
-        callcenter.shomarefaktor.kharidar AS customer
+        deliverer.name AS deliverer_name
         FROM qtybank
         INNER JOIN nisha ON qtybank.codeid = nisha.id
         INNER JOIN exitrecord ON qtybank.id = exitrecord.qtyid
@@ -57,7 +56,6 @@ $sql = "SELECT qtybank.id AS purchase_id,
         LEFT JOIN users ON exitrecord.user = users.id
         LEFT JOIN deliverer ON qtybank.deliverer = deliverer.id
         LEFT JOIN getter ON exitrecord.getter = getter.id
-        LEFT JOIN callcenter.shomarefaktor ON exitrecord.invoice_number = shomarefaktor.shomare
         $condition
         AND exitrecord.is_transfered = 0
         ORDER BY  exitrecord.exit_time DESC";

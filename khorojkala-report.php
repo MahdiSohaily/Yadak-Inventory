@@ -225,7 +225,7 @@ require_once "./utilities/helpers.php";
                 <td class="cell-des "><?= $item["sold_description"] ?></td>
                 <td class="cell-qty "><?= $item["sold_quantity"] ?></td>
                 <td class="cell-seller cell-seller-<?= $item["seller_id"] ?>"><?= $item["seller_name"] ?></td>
-                <td class="cell-customer "><?= $item["customer"] ?></td>
+                <td class="cell-customer "><?= $item["sold_customer"] ?></td>
                 <td class="cell-gtname "><?= $item["getter_name"] ?></td>
                 <td class="cell-gtname "><?= $item["jamkon"] ?></td>
                 <td class="cell-time "><?= $jalali_time ?></td>
