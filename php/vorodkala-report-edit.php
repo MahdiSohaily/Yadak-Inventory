@@ -4,15 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' href='../css/style.css?v=<?php echo (rand()) ?>' type='text/css' media='all' />
+    <link rel='stylesheet' href='../css/style.css?v=<?= (rand()) ?>' type='text/css' media='all' />
     <link type="text/css" rel="stylesheet" href="../css/persianDatepicker.css" />
 
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="../js/jquery-1.11.3.min.js"></script>
     <style>
         /* width */
         ::-webkit-scrollbar {
             width: 6px !important;
-            height: 4px !important; 
+            height: 4px !important;
         }
 
         /* Track */
@@ -39,14 +39,16 @@
     require_once("db.php");
 
     $sql = "SELECT qtybank.id AS qtybankID, nisha.partnumber ,brand.id AS brnid, brand.name ,
-            qtybank.des , qtybank.qty , qtybank.id , qtybank.pos1 ,
-            qtybank.invoice_date, qtybank.pos2 , qtybank.create_time ,
+            transfer_record.exit_id,
+            qtybank.des, qtybank.qty, qtybank.id, qtybank.pos1,
+            qtybank.invoice_date, qtybank.pos2, qtybank.create_time,
             seller.name AS sln, 
             seller.id AS slid, 
             deliverer.name AS dn ,deliverer.id AS dlid,
             qtybank.anbarenter ,qtybank.invoice , users.username AS un ,
             qtybank.invoice_number ,stock.name AS stn,stock.id AS stid
             FROM qtybank
+            INNER JOIN transfer_record ON qtybank.id = transfer_record.qtybanck_id
             LEFT JOIN nisha ON qtybank.codeid=nisha.id
             LEFT JOIN brand ON qtybank.brand=brand.id
             LEFT JOIN seller ON qtybank.seller=seller.id
@@ -65,6 +67,7 @@
             $stid  = $row["stid"];
             $dlid  = $row["dlid"];
             $date = $row["create_time"];
+            $exit_id = $row["exit_id"];
 
             $array = explode(' ', $date);
             list($year, $month, $day) = explode('-', $array[0]);
@@ -97,25 +100,25 @@
                     <th>کاربر</th>
                 </tr>
                 <tr>
-                    <td class="cell-code "><?php echo $row["partnumber"] ?></td>
-                    <td class="cell-brand cell-brand-<?php echo $row["name"] ?> "><?php echo $row["name"] ?></td>
-                    <td class="cell-des "><?php echo $row["des"] ?></td>
-                    <td class="cell-qty "><?php echo $row["qty"] ?></td>
-                    <td class="cell-pos1 "><?php echo $row["pos1"] ?></td>
-                    <td class="cell-pos2 "><?php echo $row["pos2"] ?></td>
-                    <td class="cell-seller cell-seller-<?php echo $seller_id; ?>"><?php echo $row["sln"] ?></td>
-                    <td class="cell-time "><?php echo $jalali_time ?></td>
-                    <td class="cell-date "><?php echo $jalali_date ?></td>
+                    <td class="cell-code "><?= $row["partnumber"] ?></td>
+                    <td class="cell-brand cell-brand-<?= $row["name"] ?> "><?= $row["name"] ?></td>
+                    <td class="cell-des "><?= $row["des"] ?></td>
+                    <td class="cell-qty "><?= $row["qty"] ?></td>
+                    <td class="cell-pos1 "><?= $row["pos1"] ?></td>
+                    <td class="cell-pos2 "><?= $row["pos2"] ?></td>
+                    <td class="cell-seller cell-seller-<?= $seller_id; ?>"><?= $row["sln"] ?></td>
+                    <td class="cell-time "><?= $jalali_time ?></td>
+                    <td class="cell-date "><?= $jalali_date ?></td>
 
-                    <td class="cell-dlname "><?php echo $row["dn"] ?></td>
-                    <td class="tik-inv-<?php echo $row["invoice"] ?>"></td>
-                    <td><?php echo $row["invoice_number"] ?></td>
-                    <td class="cell-date "><?php echo substr($row["invoice_date"], 5) ?></td>
+                    <td class="cell-dlname "><?= $row["dn"] ?></td>
+                    <td class="tik-inv-<?= $row["invoice"] ?>"></td>
+                    <td><?= $row["invoice_number"] ?></td>
+                    <td class="cell-date "><?= substr($row["invoice_date"], 5) ?></td>
 
-                    <td class="tik-anb-<?php echo $row["anbarenter"] ?>"></td>
+                    <td class="tik-anb-<?= $row["anbarenter"] ?>"></td>
 
-                    <td class="cell-stock "><?php echo $row["stn"] ?></td>
-                    <td class="cell-user "><?php echo $row["un"] ?></td>
+                    <td class="cell-stock "><?= $row["stn"] ?></td>
+                    <td class="cell-user "><?= $row["un"] ?></td>
                 </tr>
             </table>
 
@@ -124,22 +127,22 @@
 
                 <div class="right-form">
 
-                    <input value="<?php echo $qtybankID ?>" type="hidden" name="id">
+                    <input value="<?= $qtybankID ?>" type="hidden" name="id">
 
                     <label for="qty">تعداد</label>
-                    <input value="<?php echo $row["qty"] ?>" min="0" type="number" name="qty" id="qty">
+                    <input value="<?= $row["qty"] ?>" min="0" type="number" name="qty" id="qty">
 
                     <label for="pos1">راهرو</label>
-                    <input value="<?php echo $row["pos1"] ?>" onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1">
+                    <input value="<?= $row["pos1"] ?>" onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1">
 
                     <label for="pos2">قفسه</label>
-                    <input value="<?php echo $row["pos2"] ?>" onkeydown="upperCaseF(this)" type="text" name="pos2" id="pos2">
+                    <input value="<?= $row["pos2"] ?>" onkeydown="upperCaseF(this)" type="text" name="pos2" id="pos2">
 
                     <label for="invoice_number">شماره فاکتور</label>
-                    <input value="<?php echo $row["invoice_number"] ?>" type="number" name="invoice_number" id="invoice_number">
+                    <input value="<?= $row["invoice_number"] ?>" type="number" name="invoice_number" id="invoice_number">
 
                     <label for="invoice_time">زمان فاکتور</label>
-                    <input value="<?php echo $row["invoice_date"] ?>" type="text" name="invoice_time" id="invoice_time">
+                    <input value="<?= $row["invoice_date"] ?>" type="text" name="invoice_time" id="invoice_time">
                     <span id="span_invoice_time"></span>
                     <fieldset>
                         <legend>آیا فاکتور دارد ؟</legend>
@@ -171,35 +174,35 @@
                 <div class="left-form">
 
                     <label for="brand">اصالت</label>
-                    <select name="brand" id="esalat" data="<?php echo $brnid ?>">
+                    <select name="brand" id="esalat" data="<?= $brnid ?>">
                         <?php include("brand-form.php") ?>
                     </select>
                     <label>فروشنده</label>
                     <select name="seller" id="seller">
                         <?php include("./seller-form.php");
-                        foreach ($data as $key => $value) :
+                        foreach ($data as $seller) :
                         ?>
-                            <option <?= ($key == $seller_id) ? 'selected' : '' ?> value="<?= $key ?>"><?= $value ?></option>
+                            <option <?= ($seller['id'] == $seller_id) ? 'selected' : '' ?> value="<?= $seller['id'] ?>"><?= $seller['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
 
                     <label for="stock">انبار</label>
-                    <select name="stock" id="stock" data="<?php echo $stid ?>">
+                    <select name="stock" id="stock" data="<?= $stid ?>">
                         <?php include("stock-form.php") ?>
                     </select>
 
                     <label for="deliverer">تحویل دهنده</label>
-                    <select name="deliverer" id="deliverer" data="<?php echo $dlid ?>">
+                    <select name="deliverer" id="deliverer" data="<?= $dlid ?>">
                         <?php include("deliverer-form.php") ?>
                     </select>
 
                     <label for="des">توضیحات</label>
-                    <textarea name="des" id="des"><?php echo $mydes ?></textarea>
+                    <textarea name="des" id="des"><?= $mydes ?></textarea>
 
                 </div>
                 <div class="-bar">
                     <input type="submit" value="ذخیره" id="sabt">
-                    <a data="<?php echo $qtybankID ?>" class="del-vorod"> حذف</a>
+                    <a style="display:inline-block; float: right; background-color: black;color:white; padding: 9px 30px; margin-top:10px; border-radius: 5px;" data="<?= $qtybankID ?>" exit="<?= $exit_id ?>" class="delete_transfer"> حذف</a>
                     <div class="error"></div>
                 </div>
 
@@ -212,9 +215,27 @@
     mysqli_close($con);
     ?>
 
-    <script src="../js/vorodkala-edit.js?v=<?php echo (rand()) ?>"></script>
-    <script src="../js/form.js?v=<?php echo (rand()) ?>"></script>
-    <script src="../js/persianDatepicker.min.js?v=<?php echo (rand()) ?>"></script>
+    <script src="../js/vorodkala-edit.js?v=<?= (rand()) ?>"></script>
+    <script src="../js/form.js?v=<?= (rand()) ?>"></script>
+    <script src="../js/persianDatepicker.min.js?v=<?= (rand()) ?>"></script>
+    <script>
+        $(".delete_transfer").click(function() {
+            const str = $(this).attr("data");
+            const exit = $(this).attr("exit");
+            const r = confirm("آیا از حذف این رکورد مطمئن هستید؟");
+            if (r == true) {
+                const xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        $(".error").text(this.responseText);
+                    }
+                };
+                xmlhttp.open("GET", "vorodkala-report-edit-del.php?q=" + str + '&d=' + exit, true);
+
+                xmlhttp.send();
+            }
+        });
+    </script>
 </body>
 
 </html>
