@@ -46,7 +46,9 @@ require_once "./utilities/helpers.php";
 </style>
 
 <div id="Enter-Page">
-    <a href="./vorodkala-index_nex.php" style="background-color: skyblue;color:white; text-decoration: none; margin-inline:10px; padding :10px; border-radius: 5px;">ورود کالای جدید</a>
+    <a href="./vorodkala-index_nex.php" 
+    style="background-color: skyblue;color:white; text-decoration: none; margin-inline:10px; padding :10px; border-radius: 5px;"
+    >ورود کالای جدید</a>
     <form id="vorodkala" method="post" action="php/vorodkala-save.php" autocomplete="off">
         <div class="left-form">
             <?php include("php/codeid.php") ?>
