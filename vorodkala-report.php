@@ -71,88 +71,91 @@ require_once "./utilities/helpers.php";
     }
 </style>
 <div>
-    <form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
-        <div class="div1">
-            <input type="text" onkeyup="convertToEnglish(this)" name="partNumber" id="partNumber" placeholder="کد فنی">
-        </div>
+    <details>
+        <summary style="padding-inline:10px; cursor:pointer;">اعمال فیلتر</summary>
+        <form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
+            <div class="div1">
+                <input type="text" onkeyup="convertToEnglish(this)" name="partNumber" id="partNumber" placeholder="کد فنی">
+            </div>
 
-        <div class="div2">
-            <select name="seller" id="seller">
-                <option selected="true" disabled="disabled">انتخاب فروشنده</option>
-                <?php
-                foreach (getSellers() as $seller) : ?>
-                    <option value='<?= $seller["id"] ?>'><?= $seller["name"] ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+            <div class="div2">
+                <select name="seller" id="seller">
+                    <option selected="true" disabled="disabled">انتخاب فروشنده</option>
+                    <?php
+                    foreach (getSellers() as $seller) : ?>
+                        <option value='<?= $seller["id"] ?>'><?= $seller["name"] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <div class="div3">
-            <select name="brand" id="brand">
-                <option selected="true" disabled="disabled">انتخاب برند جنس</option>
-                <?php foreach (getBrands() as $brand) : ?>
-                    <option value='<?= $brand["id"] ?>'><?= $brand["name"] ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+            <div class="div3">
+                <select name="brand" id="brand">
+                    <option selected="true" disabled="disabled">انتخاب برند جنس</option>
+                    <?php foreach (getBrands() as $brand) : ?>
+                        <option value='<?= $brand["id"] ?>'><?= $brand["name"] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <div class="div4">
-            <input type="text" name="pos2" id="pos2" placeholder="قفسه">
-        </div>
+            <div class="div4">
+                <input type="text" name="pos2" id="pos2" placeholder="قفسه">
+            </div>
 
-        <div class="div5">
-            <input onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1" placeholder="راهرو">
-        </div>
+            <div class="div5">
+                <input onkeydown="upperCaseF(this)" type="text" name="pos1" id="pos1" placeholder="راهرو">
+            </div>
 
-        <div class="div6">
-            <select name="stock" id="stock">
-                <option selected="true" disabled="disabled">انتخاب انبار</option>
-                <?php foreach (getStocks() as $stock) : ?>
-                    <option value='<?= $stock["id"] ?>'><?= $stock["name"] ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+            <div class="div6">
+                <select name="stock" id="stock">
+                    <option selected="true" disabled="disabled">انتخاب انبار</option>
+                    <?php foreach (getStocks() as $stock) : ?>
+                        <option value='<?= $stock["id"] ?>'><?= $stock["name"] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <div class="div7">
-            <select name="user" id="user">
-                <option selected="true" disabled="disabled">انتخاب کاربر</option>
-                <?php foreach (getUsers() as $user) : ?>
-                    <option value='<?= $user["id"] ?>'><?= $user["username"] ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+            <div class="div7">
+                <select name="user" id="user">
+                    <option selected="true" disabled="disabled">انتخاب کاربر</option>
+                    <?php foreach (getUsers() as $user) : ?>
+                        <option value='<?= $user["id"] ?>'><?= $user["username"] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <div class="div8">
-            <input type="number" onkeyup="convertToEnglish(this)" name="invoice_number" id="invoice_number" placeholder="شماره فاکتور">
-        </div>
+            <div class="div8">
+                <input type="number" onkeyup="convertToEnglish(this)" name="invoice_number" id="invoice_number" placeholder="شماره فاکتور">
+            </div>
 
-        <div class="div9">
-            <input type="text" name="invoice_time" id="invoice_time" placeholder="زمان فاکتور">
-        </div>
-        <div class="div10">
-        </div>
-        <div style="display: flex;">
-            <button class="filter" type="submit">
-                <i style="padding-inline: 5px;" class="fa fa-filter" aria-hidden="true"></i>
-                فیلتر
-            </button>
-            <a class="removeFilter" onclick="clearFilter()">
-                <i style="padding-inline: 5px;" class="fa fa-trash" aria-hidden="true"></i>
-                حذف فیلتر
-            </a>
-            <a class="exportToExcel excel">
-                <i style="padding-inline: 5px;" class="fas fa-file-excel"></i>
-                اکسل
-            </a>
-            <a href="./export_excel.php" class=" excel">
-                <i style="padding-inline: 5px;" class="fas fa-file-excel"></i>
-                اکسل جدید
-            </a>
-            <a onclick="window.print()" class="filter">
-                <i style="padding-inline: 5px;" class="fas fa-print"></i>
-                پرینت
-            </a>
-        </div>
-    </form>
+            <div class="div9">
+                <input type="text" name="invoice_time" id="invoice_time" placeholder="زمان فاکتور">
+            </div>
+            <div class="div10">
+            </div>
+            <div style="display: flex;">
+                <button class="filter" type="submit">
+                    <i style="padding-inline: 5px;" class="fa fa-filter" aria-hidden="true"></i>
+                    فیلتر
+                </button>
+                <a class="removeFilter" onclick="clearFilter()">
+                    <i style="padding-inline: 5px;" class="fa fa-trash" aria-hidden="true"></i>
+                    حذف فیلتر
+                </a>
+                <a class="exportToExcel excel">
+                    <i style="padding-inline: 5px;" class="fas fa-file-excel"></i>
+                    اکسل
+                </a>
+                <a href="./export_excel.php" class=" excel">
+                    <i style="padding-inline: 5px;" class="fas fa-file-excel"></i>
+                    اکسل جدید
+                </a>
+                <a onclick="window.print()" class="filter">
+                    <i style="padding-inline: 5px;" class="fas fa-print"></i>
+                    پرینت
+                </a>
+            </div>
+        </form>
+    </details>
     <table id="report-table" class="report-table">
         <thead>
             <tr class="left_right border_top">

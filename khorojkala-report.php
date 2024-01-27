@@ -68,7 +68,8 @@ require_once "./utilities/helpers.php";
 
     }
 </style>
-<div class="">
+<details >
+    <summary style="padding-inline:10px; cursor:pointer;">اعمال فیلتر</summary>
     <form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
         <div class="div1">
             <input type="text" onkeyup="convertToEnglish(this)" name="partNumber" id="partNumber" placeholder="کد فنی">
@@ -152,7 +153,7 @@ require_once "./utilities/helpers.php";
             </a>
         </div>
     </form>
-</div>
+</details>
 <table id="report-table" class="report-table">
     <thead>
         <tr>
