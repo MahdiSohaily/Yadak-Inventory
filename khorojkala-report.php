@@ -68,7 +68,7 @@ require_once "./utilities/helpers.php";
 
     }
 </style>
-<details >
+<details>
     <summary style="padding-inline:10px; cursor:pointer;">اعمال فیلتر</summary>
     <form id="parent" method="post" onsubmit="event.preventDefault(); filterReport(); return false" autocomplete="off">
         <div class="div1">
@@ -125,10 +125,10 @@ require_once "./utilities/helpers.php";
         </div>
 
         <div class="div9">
-            <input type="text" name="invoice_time" id="invoice_time" placeholder="زمان فاکتور">
+            <input type="text" name="invoice_time" id="invoice_time" placeholder="شروع">
         </div>
         <div class="div10">
-            <input type="text" name="exit_time" id="exit_time" placeholder="زمان خروج">
+            <input type="text" name="exit_time" id="exit_time" placeholder="ختم">
         </div>
         <div style="display: flex;">
             <button class="filter" type="submit">

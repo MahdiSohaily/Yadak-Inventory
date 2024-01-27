@@ -14,81 +14,158 @@ $invoice_date = $_POST['invoice_time'] === 'null' ? null : $_POST['invoice_time'
 $exit_time = $_POST['exit_time'] === 'null' ? null : $_POST['exit_time']; // Assuming you're retrieving the value from a form
 
 // Prepare the statement
-$stmt = $pdo->prepare("SELECT
-nisha.partnumber,
-qtybank.des,
-nisha.id,
-users.username AS usn,
-seller.name,
-seller.id AS slid,
-stock.name AS stn,
-brand.name AS brn,
-qtybank.qty,
-qtybank.id AS qtyid,
-exitrecord.qty AS extqty,
-exitrecord.id AS exid,
-qtybank.qty AS entqty,
-exitrecord.customer,
-exitrecord.des AS exdes,
-getter.name AS gtn,
-deliverer.name AS dln,
-exitrecord.exit_time,
-exitrecord.jamkon,
-exitrecord.invoice_number,
-qtybank.invoice_number AS qty_invoice_number,
-exitrecord.invoice_date,
-qtybank.invoice_date AS qty_invoice_date,
-qtybank.anbarenter
-FROM
-qtybank
-INNER JOIN
-nisha ON qtybank.codeid = nisha.id
-INNER JOIN
-exitrecord ON qtybank.id = exitrecord.qtyid
-LEFT JOIN
-seller ON qtybank.seller = seller.id
-LEFT JOIN
-brand ON qtybank.brand = brand.id
-LEFT JOIN
-stock ON qtybank.stock_id = stock.id
-LEFT JOIN
-users ON exitrecord.user = users.id
-LEFT JOIN
-deliverer ON qtybank.deliverer = deliverer.id
-LEFT JOIN
-getter ON exitrecord.getter = getter.id
-WHERE
-(nisha.partnumber LIKE :partNumber OR :partNumber IS NULL)
-AND (qtybank.seller = :seller_id OR :seller_id IS NULL)
-AND (brand.id = :brand_id OR :brand_id IS NULL)
-AND (qtybank.pos1 = :pos1 OR :pos1 IS NULL)
-AND (DATE_FORMAT(exitrecord.exit_time, '%Y/%m/%d') = :exit_date OR :exit_date IS NULL)
-AND (exitrecord.customer LIKE :customer OR :customer IS NULL)
-AND (qtybank.stock_id = :stock_id OR :stock_id IS NULL)
-AND (exitrecord.user = :user_id OR :user_id IS NULL)
-AND (exitrecord.invoice_number = :invoice_number OR :invoice_number IS NULL)
-AND (exitrecord.invoice_date = :invoice_date OR :invoice_date IS NULL)
-AND exitrecord.is_transfered = 0
-ORDER BY
-exitrecord.exit_time DESC,
-exitrecord.invoice_number DESC");
+$stmt = null;
 
-// Bind the parameters
-$parameter = $partNumber . "%";
-$stmt->bindParam(':partNumber', $parameter, PDO::PARAM_STR);
-$stmt->bindParam(':seller_id', $seller_id, PDO::PARAM_INT);
-$stmt->bindParam(':brand_id', $brand_id, PDO::PARAM_INT);
-$stmt->bindParam(':invoice_number', $invoice_number, PDO::PARAM_STR);
-$stmt->bindParam(':pos1', $pos1, PDO::PARAM_STR);
-$customerParam = '%' . $customer . '%';
-$stmt->bindParam(':customer', $customerParam, PDO::PARAM_STR);
-$stmt->bindParam(':stock_id', $stock_id, PDO::PARAM_INT);
-$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-$stmt->bindParam(':invoice_date', $invoice_date, PDO::PARAM_STR);
-$stmt->bindParam(':exit_date', $exit_time, PDO::PARAM_STR);
+if ($invoice_date && $exit_time) {
+    $stmt = $pdo->prepare("SELECT
+        nisha.partnumber,
+        qtybank.des,
+        nisha.id,
+        users.username AS usn,
+        seller.name,
+        seller.id AS slid,
+        stock.name AS stn,
+        brand.name AS brn,
+        qtybank.qty,
+        qtybank.id AS qtyid,
+        exitrecord.qty AS extqty,
+        exitrecord.id AS exid,
+        qtybank.qty AS entqty,
+        exitrecord.customer,
+        exitrecord.des AS exdes,
+        getter.name AS gtn,
+        deliverer.name AS dln,
+        exitrecord.exit_time,
+        exitrecord.jamkon,
+        exitrecord.invoice_number,
+        qtybank.invoice_number AS qty_invoice_number,
+        exitrecord.invoice_date,
+        qtybank.invoice_date AS qty_invoice_date,
+        qtybank.anbarenter
+        FROM
+        qtybank
+        INNER JOIN
+        nisha ON qtybank.codeid = nisha.id
+        INNER JOIN
+        exitrecord ON qtybank.id = exitrecord.qtyid
+        LEFT JOIN
+        seller ON qtybank.seller = seller.id
+        LEFT JOIN
+        brand ON qtybank.brand = brand.id
+        LEFT JOIN
+        stock ON qtybank.stock_id = stock.id
+        LEFT JOIN
+        users ON exitrecord.user = users.id
+        LEFT JOIN
+        deliverer ON qtybank.deliverer = deliverer.id
+        LEFT JOIN
+        getter ON exitrecord.getter = getter.id
+        WHERE
+        (nisha.partnumber LIKE :partNumber OR :partNumber IS NULL)
+        AND (qtybank.seller = :seller_id OR :seller_id IS NULL)
+        AND (brand.id = :brand_id OR :brand_id IS NULL)
+        AND (qtybank.pos1 = :pos1 OR :pos1 IS NULL)
+        AND (exitrecord.customer LIKE :customer OR :customer IS NULL)
+        AND (qtybank.stock_id = :stock_id OR :stock_id IS NULL)
+        AND (exitrecord.user = :user_id OR :user_id IS NULL)
+        AND (exitrecord.invoice_number = :invoice_number OR :invoice_number IS NULL)
+        AND (exitrecord.invoice_date >= :invoice_date AND exitrecord.invoice_date <= :exit_date)
+        AND exitrecord.is_transfered = 0
+        ORDER BY
+        exitrecord.exit_time DESC,
+        exitrecord.invoice_number DESC");
 
-$stmt->execute();
+    // Bind the parameters
+    $parameter = $partNumber . "%";
+    $stmt->bindParam(':partNumber', $parameter, PDO::PARAM_STR);
+    $stmt->bindParam(':seller_id', $seller_id, PDO::PARAM_INT);
+    $stmt->bindParam(':brand_id', $brand_id, PDO::PARAM_INT);
+    $stmt->bindParam(':invoice_number', $invoice_number, PDO::PARAM_STR);
+    $stmt->bindParam(':pos1', $pos1, PDO::PARAM_STR);
+    $customerParam = '%' . $customer . '%';
+    $stmt->bindParam(':customer', $customerParam, PDO::PARAM_STR);
+    $stmt->bindParam(':stock_id', $stock_id, PDO::PARAM_INT);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindParam(':invoice_date', $invoice_date, PDO::PARAM_STR);
+    $stmt->bindParam(':exit_date', $exit_time, PDO::PARAM_STR);
 
+    $stmt->execute();
+} else {
+    $stmt = $pdo->prepare("SELECT
+        nisha.partnumber,
+        qtybank.des,
+        nisha.id,
+        users.username AS usn,
+        seller.name,
+        seller.id AS slid,
+        stock.name AS stn,
+        brand.name AS brn,
+        qtybank.qty,
+        qtybank.id AS qtyid,
+        exitrecord.qty AS extqty,
+        exitrecord.id AS exid,
+        qtybank.qty AS entqty,
+        exitrecord.customer,
+        exitrecord.des AS exdes,
+        getter.name AS gtn,
+        deliverer.name AS dln,
+        exitrecord.exit_time,
+        exitrecord.jamkon,
+        exitrecord.invoice_number,
+        qtybank.invoice_number AS qty_invoice_number,
+        exitrecord.invoice_date,
+        qtybank.invoice_date AS qty_invoice_date,
+        qtybank.anbarenter
+        FROM
+        qtybank
+        INNER JOIN
+        nisha ON qtybank.codeid = nisha.id
+        INNER JOIN
+        exitrecord ON qtybank.id = exitrecord.qtyid
+        LEFT JOIN
+        seller ON qtybank.seller = seller.id
+        LEFT JOIN
+        brand ON qtybank.brand = brand.id
+        LEFT JOIN
+        stock ON qtybank.stock_id = stock.id
+        LEFT JOIN
+        users ON exitrecord.user = users.id
+        LEFT JOIN
+        deliverer ON qtybank.deliverer = deliverer.id
+        LEFT JOIN
+        getter ON exitrecord.getter = getter.id
+        WHERE
+        (nisha.partnumber LIKE :partNumber OR :partNumber IS NULL)
+        AND (qtybank.seller = :seller_id OR :seller_id IS NULL)
+        AND (brand.id = :brand_id OR :brand_id IS NULL)
+        AND (qtybank.pos1 = :pos1 OR :pos1 IS NULL)
+        AND (DATE_FORMAT(exitrecord.exit_time, '%Y/%m/%d') = :exit_date OR :exit_date IS NULL)
+        AND (exitrecord.customer LIKE :customer OR :customer IS NULL)
+        AND (qtybank.stock_id = :stock_id OR :stock_id IS NULL)
+        AND (exitrecord.user = :user_id OR :user_id IS NULL)
+        AND (exitrecord.invoice_number = :invoice_number OR :invoice_number IS NULL)
+        AND (exitrecord.invoice_date = :invoice_date OR :invoice_date IS NULL)
+        AND exitrecord.is_transfered = 0
+        ORDER BY
+        exitrecord.exit_time DESC,
+        exitrecord.invoice_number DESC");
+
+    // Bind the parameters
+    $parameter = $partNumber . "%";
+    $stmt->bindParam(':partNumber', $parameter, PDO::PARAM_STR);
+    $stmt->bindParam(':seller_id', $seller_id, PDO::PARAM_INT);
+    $stmt->bindParam(':brand_id', $brand_id, PDO::PARAM_INT);
+    $stmt->bindParam(':invoice_number', $invoice_number, PDO::PARAM_STR);
+    $stmt->bindParam(':pos1', $pos1, PDO::PARAM_STR);
+    $customerParam = '%' . $customer . '%';
+    $stmt->bindParam(':customer', $customerParam, PDO::PARAM_STR);
+    $stmt->bindParam(':stock_id', $stock_id, PDO::PARAM_INT);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindParam(':invoice_date', $invoice_date, PDO::PARAM_STR);
+    $stmt->bindParam(':exit_date', $exit_time, PDO::PARAM_STR);
+
+    $stmt->execute();
+}
 // set the resulting array to associative
 $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
