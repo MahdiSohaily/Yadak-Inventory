@@ -18,30 +18,30 @@ $stmt = null;
 
 if ($invoice_date && $exit_time) {
     $stmt = $pdo->prepare("SELECT
-        nisha.partnumber,
-        qtybank.des,
-        nisha.id,
-        users.username AS usn,
-        seller.name,
-        seller.id AS slid,
-        stock.name AS stn,
-        brand.name AS brn,
-        qtybank.qty,
-        qtybank.id AS qtyid,
-        exitrecord.qty AS extqty,
-        exitrecord.id AS exid,
-        qtybank.qty AS entqty,
-        exitrecord.customer,
-        exitrecord.des AS exdes,
-        getter.name AS gtn,
-        deliverer.name AS dln,
-        exitrecord.exit_time,
-        exitrecord.jamkon,
-        exitrecord.invoice_number,
+       qtybank.des AS purchase_description,
+        qtybank.qty AS purchase_quantity,
+        qtybank.anbarenter AS purchase_isEntered,
         qtybank.invoice_number AS qty_invoice_number,
-        exitrecord.invoice_date,
         qtybank.invoice_date AS qty_invoice_date,
-        qtybank.anbarenter
+        nisha.id AS partNumber_id,
+        nisha.partnumber,
+        users.username AS username,
+        seller.id AS seller_id,
+        seller.name AS seller_name,
+        stock.name AS stock_name,
+        brand.name AS brand_name,
+        exitrecord.qty AS sold_quantity,
+        exitrecord.id AS sold_id,
+        exitrecord.customer AS sold_customer,
+        exitrecord.des AS sold_description,
+        exitrecord.exit_time AS sold_time,
+        exitrecord.jamkon,
+        exitrecord.invoice_number AS sold_invoice_number,
+        exitrecord.invoice_date AS sold_invoice_date,
+        getter.id AS getter_id,
+        getter.name AS getter_name,
+        deliverer.id AS deliverer_id,
+        deliverer.name AS deliverer_name
         FROM
         qtybank
         INNER JOIN
@@ -92,30 +92,30 @@ if ($invoice_date && $exit_time) {
     $stmt->execute();
 } else {
     $stmt = $pdo->prepare("SELECT
-        nisha.partnumber,
-        qtybank.des,
-        nisha.id,
-        users.username AS usn,
-        seller.name,
-        seller.id AS slid,
-        stock.name AS stn,
-        brand.name AS brn,
-        qtybank.qty,
-        qtybank.id AS qtyid,
-        exitrecord.qty AS extqty,
-        exitrecord.id AS exid,
-        qtybank.qty AS entqty,
-        exitrecord.customer,
-        exitrecord.des AS exdes,
-        getter.name AS gtn,
-        deliverer.name AS dln,
-        exitrecord.exit_time,
-        exitrecord.jamkon,
-        exitrecord.invoice_number,
+        qtybank.des AS purchase_description,
+        qtybank.qty AS purchase_quantity,
+        qtybank.anbarenter AS purchase_isEntered,
         qtybank.invoice_number AS qty_invoice_number,
-        exitrecord.invoice_date,
         qtybank.invoice_date AS qty_invoice_date,
-        qtybank.anbarenter
+        nisha.id AS partNumber_id,
+        nisha.partnumber,
+        users.username AS username,
+        seller.id AS seller_id,
+        seller.name AS seller_name,
+        stock.name AS stock_name,
+        brand.name AS brand_name,
+        exitrecord.qty AS sold_quantity,
+        exitrecord.id AS sold_id,
+        exitrecord.customer AS sold_customer,
+        exitrecord.des AS sold_description,
+        exitrecord.exit_time AS sold_time,
+        exitrecord.jamkon,
+        exitrecord.invoice_number AS sold_invoice_number,
+        exitrecord.invoice_date AS sold_invoice_date,
+        getter.id AS getter_id,
+        getter.name AS getter_name,
+        deliverer.id AS deliverer_id,
+        deliverer.name AS deliverer_name
         FROM
         qtybank
         INNER JOIN
@@ -168,103 +168,78 @@ if ($invoice_date && $exit_time) {
 }
 // set the resulting array to associative
 $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+$soldItemsList = $stmt->fetchAll();
 
-global $jameitem;
-$jameitem = 0;
-global $invoice_number;
-$invoice_number = 0000;
-global $shakhes;
-$shakhes = 1;
-$counter = 1;
+$counter = 1; // Assuming $counter is initialized before the loop
+$billItemsCount = 0; // Initialize outside the loop
+$invoice_number = $soldItemsList[0]['sold_invoice_number'] ?? 'x';
+foreach ($soldItemsList as $item) :
+    $date = $item["sold_time"];
+    $array = explode(' ', $date);
+    list($year, $month, $day) = explode('-', $array[0]);
+    list($hour, $minute, $second) = explode(':', $array[1]);
+    $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
+    $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
+    $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
 
-if ($stmt->rowCount() > 0) :
 
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) :
-
-        $date = $row["exit_time"];
-
-        $array = explode(' ', $date);
-        list($year, $month, $day) = explode('-', $array[0]);
-        list($hour, $minute, $second) = explode(':', $array[1]);
-        $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
-        $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
-        $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
-
-        if ($invoice_number == 0000) :
-            $invoice_number = $row["invoice_number"];
-        endif;
-
-        if ($invoice_number != $row["invoice_number"]) :
-            $invoice_number = $row["invoice_number"];
-            $shakhes = 1; ?>
-
-            <tr class="bill_section" style="border-bottom: 2px solid gray;">
-                <td colspan="20" class="left_right" style="background-color: aquamarine !important;
-                                        font-weight: bold; font-size: 18px;
-                                        margin-right: 10% !important;">
-                    جمع اقلام : <?= $jameitem;
-                                $jameitem = 0;
-                                ?>
+    if ($invoice_number !== $item["sold_invoice_number"]) :
+        $invoice_number = $item["sold_invoice_number"];
+        if ($counter > 1) : // Display summary only if it's not the first iteration
+?>
+            <tr class="bg-black left_right ">
+                <td colspan="20">
+                    مجموع اقلام <?= $billItemsCount ?>
                 </td>
             </tr>
-            <tr style="background-color: white !important;">
+            <tr class="border_bottom">
                 <td colspan="20"></td>
             </tr>
-            <tr style="background-color: white !important;">
-                <td colspan="20"></td>
-            </tr>
-
-        <?php
+    <?php
         endif;
-        $jameitem = $jameitem + $row["extqty"];
 
-        ?>
-        <tr class="left_right <?= $shakhes == 1 ? 'border_top' : ''; ?>">
-            <td class="cell-shakhes "><?= $shakhes ?></td>
-            <td class="cell-code "><?= '&nbsp;' . strtoupper($row["partnumber"]) ?></td>
-            <td class="cell-brand cell-brand-<?= $row["brn"] ?> "><?= $row["brn"] ?></td>
-            <td class="cell-des "><?= $row["des"] ?></td>
-            <td class="cell-des "><?= $row["exdes"] ?></td>
-            <td class="cell-qty "><?= $row["extqty"] ?></td>
-            <td class="cell-seller cell-seller-<?= $row["slid"] ?>"><?= $row["name"] ?></td>
-            <td class="cell-customer "><?= $row["customer"] ?></td>
-            <td class="cell-gtname "><?= $row["gtn"] ?></td>
-            <td class="cell-gtname "><?= $row["jamkon"] ?></td>
-            <td class="cell-time "><?= $jalali_time ?></td>
-            <td class="cell-date "><?= $jalali_date ?></td>
-            <td <?php if (empty($row["invoice_number"])) {
-                    echo 'class="no-invoice-number"';
-                } ?>><?= $row["invoice_number"] ?></td>
-            <td class="cell-date "><?= substr($row["invoice_date"], 5) ?></td>
-
-            <td class="tik-anb-<?= $row["anbarenter"] ?>"></td>
-            <td class="cell-time "><?= $row['qty_invoice_number'] ?></td>
-            <td class="cell-time "><?= $row['qty_invoice_date'] ?></td>
-            <td class="cell-stock "><?= $row["stn"] ?></td>
-            <td class="cell-user "><?= $row["usn"] ?></td>
-            <td style="display: flex; justify-content: center; margin-block: 15px;"><a onclick="displayModal(this)" id="<?= $row["exid"] ?>" class="edit-rec2"><i class="fa fa-pen" aria-hidden="true"></i></a></td>
+        $billItemsCount = 0; // Reset for the new bill
+    endif;
+    $billItemsCount += $item["sold_quantity"];
+    ?>
+    <tr class="left_right">
+        <td class="cell-shakhes "><?= $counter ?></td>
+        <td class="cell-code "><?= strtoupper($item["partnumber"]) ?></td>
+        <td class="cell-brand cell-brand-<?= $item["brand_name"] ?> "><?= $item["brand_name"] ?></td>
+        <td class="cell-des "><?= $item["purchase_description"] ?></td>
+        <td class="cell-des "><?= $item["sold_description"] ?></td>
+        <td class="cell-qty "><?= $item["sold_quantity"] ?></td>
+        <td class="cell-seller cell-seller-<?= $item["seller_id"] ?>"><?= $item["seller_name"] ?></td>
+        <td class="cell-customer "><?= $item["sold_customer"] ?></td>
+        <td class="cell-gtname "><?= $item["getter_name"] ?></td>
+        <td class="cell-gtname "><?= $item["jamkon"] ?></td>
+        <td class="cell-time "><?= $jalali_time ?></td>
+        <td class="cell-date "><?= $jalali_date ?></td>
+        <td <?= empty($item["sold_invoice_number"]) ? ' class="no-invoice-number"' : '' ?>>
+            <?= $item["sold_invoice_number"] ?>
+        </td>
+        <td class="cell-date "><?= substr($item["sold_invoice_date"], 5) ?></td>
+        <td class="tik-anb-<?= $item["purchase_isEntered"] ?>"></td>
+        <td class="cell-time "><?= $item['qty_invoice_number'] ?></td>
+        <td class="cell-time "><?= $item['qty_invoice_date'] ?></td>
+        <td class="cell-stock "><?= $item["stock_name"] ?></td>
+        <td class="cell-user "><?= $item["username"] ?></td>
+        <td style="display: flex; justify-content: center; margin-block: 15px;" class="operation">
+            <a onclick="displayModal(this)" data-target="<?= $item["sold_id"] ?>" class="edit-rec2">
+                <i class="fa fa-pen" aria-hidden="true"></i>
+            </a>
+        </td>
+    </tr>
+    <?php
+    if ($counter == count($soldItemsList)) : // Display summary only if it's not the first iteration
+    ?>
+        <tr class="bg-black left_right">
+            <td colspan="20">
+                مجموع اقلام <?= $billItemsCount ?>
+            </td>
         </tr>
-        <?php
-        if ($stmt->rowCount() == $counter) : ?>
-            <tr class="bill_section" style="border-bottom: 2px solid gray;">
-                <td colspan="20" class="left_right" style="background-color: aquamarine !important;
-                                        font-weight: bold; font-size: 18px;
-                                        margin-right: 10% !important;">
-                    جمع اقلام : <?= $jameitem;
-                                $jameitem = 0; ?>
-                </td>
-            </tr>
-            <tr style="background-color: white !important;">
-                <td colspan="20"></td>
-            </tr>
-            <tr style="background-color: white !important;">
-                <td colspan="20"></td>
-            </tr>
 <?php
-        endif;
-        $shakhes++;
-        $counter++;
-    endwhile; // end while
-else :
-    echo '<tr><td colspan="18">متاسفانه نتیجه ای یافت نشد</td></tr>';
-endif;
+    endif;
+    $counter++;
+endforeach;
+?>

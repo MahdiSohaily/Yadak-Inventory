@@ -255,7 +255,7 @@ require_once "./utilities/helpers.php";
                 endforeach;
             else : ?>
                 <tr class="">
-                    <td colspan="18" class="cell-shakhes">Null</td>
+                    <td colspan="18" class="cell-shakhes">متاسفانه موردی پیدا نشد</td>
                 </tr>
             <?php endif; ?>
         </tbody>
