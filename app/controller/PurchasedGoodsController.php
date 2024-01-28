@@ -2,26 +2,26 @@
 require_once("./config/db_connect.php");
 if (isset($_GET['interval'])) {
     $interval = $_GET['interval'];
-    if (isset($interval)) {
-        date_default_timezone_set('Asia/Tehran');
-        // Get today's date
-        $todayDate = date('Y-m-d');
-
-        // Calculate the date from 10 days ago
-        $previousDate = date('Y-m-d', strtotime('-' . $interval . ' days'));
-
-        $todayDate .= " 23:00:00";
-        $previousDate .= " 00:00:00";
-
-        $condition = " WHERE qtybank.create_time >= '$previousDate'
-        AND qtybank.create_time <= '$todayDate'";
-    } else {
-        $condition = 'WHERE 1=1';
-    }
-
-    $purchaseList = getPurchaseReport($condition);
 }
 
+if (isset($interval)) {
+    date_default_timezone_set('Asia/Tehran');
+    // Get today's date
+    $todayDate = date('Y-m-d');
+
+    // Calculate the date from 10 days ago
+    $previousDate = date('Y-m-d', strtotime('-' . $interval . ' days'));
+
+    $todayDate .= " 23:00:00";
+    $previousDate .= " 00:00:00";
+
+    $condition = " WHERE qtybank.create_time >= '$previousDate'
+    AND qtybank.create_time <= '$todayDate'";
+} else {
+    $condition = 'WHERE 1=1';
+}
+
+$purchaseList = getPurchaseReport($condition);
 function getPurchaseReport($condition)
 {
     $statement = DB_CONNECTION->prepare("SELECT qtybank.id AS purchase_id,
