@@ -127,13 +127,13 @@ if ($invoice_date && $exit_time) {
 // set the resulting array to associative
 $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-$purchase_list = [];
+$purchaseList = $stmt->fetchAll();
 
 $counter = 1;
 $billItemsCount = 0;
-if ($stmt->rowCount() > 0) {
-    while ($item = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $invoice_number = $purchaseList[0]['invoice_number'] ?? 'x';
+if (count($purchaseList) > 0) :
+    $invoice_number = $purchaseList[0]['invoice_number'] ?? 'x';
+    foreach ($purchaseList as $item) :
         $date = $item["purchase_time"];
         $array = explode(' ', $date);
         list($year, $month, $day) = explode('-', $array[0]);
@@ -141,10 +141,29 @@ if ($stmt->rowCount() > 0) {
         $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
         $jalali_time = jdate("H:i", $timestamp, "", "Asia/Tehran", "en");
         $jalali_date = jdate("Y/m/d", $timestamp, "", "Asia/Tehran", "en");
-        $billItemsCount += $item["purchase_quantity"];
+
+
+        if ($invoice_number !== $item["invoice_number"]) :
+            $invoice_number = $item["invoice_number"];
+            if ($counter > 1) : // Display summary only if it's not the first iteration
 ?>
+                <tr class="bg-black left_right total">
+                    <td colspan="20">
+                        مجموع اقلام <?= $billItemsCount ?>
+                    </td>
+                </tr>
+                <tr class="border_bottom">
+                    <td colspan="20"></td>
+                </tr>
+        <?php
+            endif;
+
+            $billItemsCount = 0; // Reset for the new bill
+        endif;
+        $billItemsCount += $item["purchase_quantity"];
+        ?>
         <tr class="left_right">
-            <td class="cell-shakhes"><?= $item['purchase_id'] ?></td>
+            <td class="cell-shakhes"><?= $counter ?></td>
             <td class="cell-code"><?= '&nbsp;' . strtoupper($item["partnumber"]) ?></td>
             <td class="cell-brand cell-brand-<?= $item['brand_name'] ?>"><?= $item["brand_name"] ?></td>
             <td class="cell-des"><?= $item["purchase_description"] ?></td>
@@ -161,30 +180,27 @@ if ($stmt->rowCount() > 0) {
             <td class="tik-anb-<?= $item["purchase_isEntered"] ?>"></td>
             <td class="cell-stock"><?= $item["stock_name"] ?></td>
             <td class="cell-user"><?= $item["username"] ?></td>
-            <td style="display: flex; justify-content: center; margin-block: 15px">
-                <a onclick="displayModal(this)" id="<?= $item["purchase_id"] ?>" class="edit-rec2"><i class="fa fa-pen" aria-hidden="true"></i></a>
+            <td style="display: flex; justify-content: center; margin-block: 15px" class="operation">
+                <a onclick="displayModal(this)" data-target="<?= $item["purchase_id"] ?>" class="edit-rec2">
+                    <i class="fa fa-pen" aria-hidden="true"></i>
+                </a>
             </td>
         </tr>
-        <?php
-        if ($invoice_number !== $item["invoice_number"]) : ?>
 
-            <tr class="bg-black left_right">
-                <td colspan="18">
-                    مجموع اقلام
-                    <?= $billItemsCount ?>
+        <?php
+        if ($counter == count($purchaseList)) : // Display summary only if it's not the first iteration
+        ?>
+            <tr class="bg-black left_right total">
+                <td colspan="20">
+                    مجموع اقلام <?= $billItemsCount ?>
                 </td>
             </tr>
-            <tr class="border_bottom">
-                <td colspan="18">
-                </td>
-            </tr>
-<?php
-            $billItemsCount = 0;
+    <?php
         endif;
         $counter++;
-    } // end while
-} else {
-    echo '<tr class="">
-            <td colspan="18" class="cell-shakhes">Null</td>
-        </tr>';
-}
+    endforeach;
+else : ?>
+    <tr class="">
+        <td colspan="18" class="cell-shakhes">Null</td>
+    </tr>
+<?php endif; ?>
