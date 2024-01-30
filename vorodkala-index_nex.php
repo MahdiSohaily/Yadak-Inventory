@@ -210,8 +210,10 @@ require_once "./utilities/helpers.php";
         </table>
         <img src="./public/img/addIcon.svg" onclick="addItem()" class="w-8 h-8 cursor-pointer" alt="add item to the bill">
     </div>
-
 </div>
+<p class="text-center text-gray-400 text-sm">موارد فوق را به دقت وارد نموده سپس بروی علامت + کلیک نمایید تا به فاکتورد اضافه شود.</p>
+<br>
+<p class="text-center text-gray-400 text-sm">سرانجام با زدن دکمه ثبت فاکتور میتوانید همه موارد اضافه شده را به یکباره ثبت نمایید.</p>
 <p id="message" class="fixed text-sm py-3 px-5 rounded left-5 bottom-5 hidden"></p>
 <button onclick="saveFactor()" id="message" class="fixed text-sm py-3 px-5 rounded right-5 bottom-5 bg-blue-500 text-white">ثبت فاکتور</button>
 <script>
