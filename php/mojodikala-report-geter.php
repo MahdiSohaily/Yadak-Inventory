@@ -66,10 +66,10 @@ if (mysqli_num_rows($result) > 0) {
             <?php else : ?>
                 <tr class="transfer">
                     <td class=" cell- "><?= $shakhes ?></td>
-                    <td class=" bold fs-20"><?= strtoupper($row["partnumber"]) ?></td>
-                    <td class=" bold fs-13"><?= $row["brn"] ?></td>
-                    <td><?= $finalqty ?></td>
-                    <td class=" bold fs-13"><?= $row["name"] ?></td>
+                    <td class=" cell-code "><?= '&nbsp;' .  strtoupper($row["partnumber"]) ?></td>
+                    <td class=" cell-brand  cell-brand-<?= $row["brn"] ?> "><?= $row["brn"] ?></td>
+                    <td class=" cell-qty "><?= $finalqty ?></td>
+                    <td class=" cell-seller cell-seller-<?= $row["name"] ?>"><?= $row["name"] ?></td>
                     <td><?= $row["pos1"] ?></td>
                     <td><?= $row["pos2"] ?></td>
                     <td class=" cell-des"><?= $row["des"] ?></td>

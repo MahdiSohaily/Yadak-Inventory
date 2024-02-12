@@ -96,12 +96,12 @@ function createDisplay($records)
                 </tr>
             <?php else :
             ?>
-                <tr class="transfer">
-                    <td class="text-center cell- "><?= $counter ?></td>
-                    <td class="text-center bold fs-20"><?= $record["partnumber"] ?></td>
-                    <td class="text-center bold fs-13"><?= $record["brn"] ?></td>
-                    <td><?= $record["entqty"] ?></td>
-                    <td class="text-center bold fs-13"><?= $record["name"] ?></td>
+                <tr style="background-color: #f8ad8c;">
+                    <td class="text-center" style="background-color: #f8ad8c; color:white"><?= $counter ?></td>
+                    <td class="text-center cell-code "><?= '&nbsp;' .  $record["partnumber"] ?></td>
+                    <td class="text-center cell-brand  cell-brand-<?= $record["brn"] ?> "><?= $record["brn"] ?></td>
+                    <td class="text-center cell-qty "><?= $record["entqty"] ?></td>
+                    <td class="text-center cell-seller cell-seller-<?= $record["name"] ?>"><?= $record["name"] ?></td>
                     <td><?= $record["pos1"] ?></td>
                     <td><?= $record["pos2"] ?></td>
                     <td class="text-center cell-des"><?= $record["des"] ?></td>
