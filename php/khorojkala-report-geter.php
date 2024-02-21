@@ -108,7 +108,7 @@ if (mysqli_num_rows($result) > 0) {
         $jameitem = $jameitem + $row["extqty"]; ?>
         <tr class="left_right <?= $shakhes == 1 ? 'border_top' : ''; ?>">
             <td class="cell-shakhes "><?= $shakhes ?></td>
-            <td class="cell-code ">'<?= strtoupper($item["partnumber"]) ?>'</td>
+            <td class="cell-code " style="mso-number-format:\@;"><?= "&#8203;" . strtoupper($item["partnumber"]) ?></td>
             <td class="cell-brand cell-brand-<?= $row["brn"] ?> "><?= $row["brn"] ?></td>
             <td class="cell-des "><?= $row["des"] ?></td>
             <td class="cell-des "><?= $row["exdes"] ?></td>

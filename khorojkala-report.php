@@ -217,7 +217,7 @@ require_once "./utilities/helpers.php";
             ?>
             <tr class="left_right">
                 <td class="cell-shakhes "><?= $counter ?></td>
-                <td class="cell-code " style="mso-number-format:\@;"><?= strtoupper($item["partnumber"]) ?></td>
+                <td class="cell-code " style="mso-number-format:\@;"><?= "&#8203;" . strtoupper($item["partnumber"]) ?></td>
                 <td class="cell-brand cell-brand-<?= $item["brand_name"] ?> "><?= $item["brand_name"] ?></td>
                 <td class="cell-des "><?= $item["purchase_description"] ?></td>
                 <td class="cell-des "><?= $item["sold_description"] ?></td>
