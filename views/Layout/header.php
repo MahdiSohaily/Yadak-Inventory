@@ -88,7 +88,7 @@ require_once './bootstrap/init.php';
     <script src="./public/js/helper.js"></script>
 </head>
 
-<body style="padding-block: 40px">
+<body style="padding-block: 10px">
     <nav id="main_nav">
         <ul id="main_menu" style="display:flex;">
             <li>
