@@ -217,7 +217,7 @@ require_once "./utilities/helpers.php";
             ?>
             <tr class="left_right">
                 <td class="cell-shakhes "><?= $counter ?></td>
-                <td class="cell-code "><?= strtoupper($item["partnumber"]) ?></td>
+                <td class="cell-code " style="mso-number-format:\@;"><?= strtoupper($item["partnumber"]) ?></td>
                 <td class="cell-brand cell-brand-<?= $item["brand_name"] ?> "><?= $item["brand_name"] ?></td>
                 <td class="cell-des "><?= $item["purchase_description"] ?></td>
                 <td class="cell-des "><?= $item["sold_description"] ?></td>
@@ -231,7 +231,7 @@ require_once "./utilities/helpers.php";
                 <td <?= empty($item["sold_invoice_number"]) ? ' class="no-invoice-number"' : '' ?>>
                     <?= $item["sold_invoice_number"] ?>
                 </td>
-                <td class="cell-date ">'<?= strtoupper($item["partnumber"]) ?>'</td>
+                <td class="cell-date "><?= strtoupper($item["sold_invoice_date"]) ?></td>
                 <td class="tik-anb-<?= $item["purchase_isEntered"] ?>"></td>
                 <td class="cell-time "><?= $item['qty_invoice_number'] ?></td>
                 <td class="cell-time "><?= $item['qty_invoice_date'] ?></td>
