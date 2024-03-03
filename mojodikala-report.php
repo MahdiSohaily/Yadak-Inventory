@@ -1,11 +1,14 @@
 ﻿<?php require_once("./views/Layout/header.php") ?>
 <div>
     <div>
-        <div class="search_container">
-            <span for="MojodiSearch">جستجو</span>
-            <input id="MojodiSearch" onkeyup="convertToEnglish(this); searchGoods(this.value)" type="text" placeholder="جستجو به اساس کدفنی">
+        <div class="search_container" style="display: flex; justify-content: space-between;">
+            <div>
+                <span for="MojodiSearch">جستجو</span>
+                <input id="MojodiSearch" onkeyup="convertToEnglish(this); searchGoods(this.value)" type="text" placeholder="جستجو به اساس کدفنی">
+            </div>
+            <a href="./existing_excel.php" class="excel">اکسل</a>
         </div>
-        <table class="report-table">
+        <table style="width: 98%;" class="report-table">
             <thead>
                 <tr>
                     <th>#</th>
