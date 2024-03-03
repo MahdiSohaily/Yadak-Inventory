@@ -23,32 +23,15 @@ if ($conn->connect_error) {
 }
 
 // SQL query to retrieve data from the database
-$sql = "SELECT
-    nisha.partnumber ,
-    brand.name as brandname,
-    qtybank.des, 
-    qtybank.qty, 
-    qtybank.pos1, 
-    qtybank.pos2,
-    seller.name as slavename,
-    qtybank.create_time as time,
-    qtybank.create_time,
-    deliverer.name as delivername,
-    qtybank.invoice,
-    qtybank.invoice_number,
-    qtybank.invoice_date,
-    qtybank.anbarenter,
-    stock.name,
-    users.username
-    FROM qtybank
-    LEFT JOIN nisha ON qtybank.codeid=nisha.id
-    LEFT JOIN brand ON qtybank.brand=brand.id
-    LEFT JOIN seller ON qtybank.seller=seller.id
-    LEFT JOIN deliverer ON qtybank.deliverer=deliverer.id
-    LEFT JOIN users ON qtybank.user=users.id
-    LEFT JOIN stock ON qtybank.stock_id=stock.id 
-    WHERE qtybank.is_transfered = 0
-    ORDER BY qtybank.create_time DESC";
+$sql = "SELECT nisha.partnumber , nisha.id, qtybank.id as qid ,stock.name AS stckname ,nisha.price AS nprice,
+seller.name , brand.name AS brn , qtybank.qty,qtybank.pos1,qtybank.pos2 ,
+qtybank.des,qtybank.id AS qtyid,  qtybank.qty AS entqty, qtybank.is_transfered
+FROM qtybank
+LEFT JOIN nisha ON qtybank.codeid=nisha.id
+LEFT JOIN seller ON qtybank.seller = seller.id
+LEFT JOIN brand ON qtybank.brand = brand.id
+LEFT JOIN stock ON qtybank.stock_id = stock.id
+ORDER BY nisha.partnumber DESC";
 
 $result = $conn->query($sql);
 
@@ -57,9 +40,7 @@ $sheet = $spreadsheet->getActiveSheet();
 
 // Set custom column headers
 $customHeaders = [
-    'شماره فنی', 'برند', 'توضیحات', 'تعداد', 'راهرو', 'قفسه', 'فروشنده',
-    'زمان ورود', 'تاریخ ورود', 'تحویل دهنده', 'فاکتور', 'شماره فاکتور',
-    'تاریخ فاکتور', 'ورود به انبار', 'انبار', 'کاربر'
+    'شماره فنی', 'برند', 'تعداد', 'فروشنده', 'راهرو', 'قفسه', 'توضیحات', 'انبار'
 ];
 
 $col = 1;
@@ -87,7 +68,7 @@ $conn->close();
 
 // Set the header for the Excel file with today's date and time
 $timestamp = date('Y-m-d');
-$filename = "vorod_kala_report_{$timestamp}.xlsx";
+$filename = "existing_goods_report_{$timestamp}.xlsx";
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment;filename=\"$filename\"");
 header('Cache-Control: max-age=0');
