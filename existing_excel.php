@@ -35,15 +35,33 @@ ORDER BY nisha.partnumber DESC";
 
 $result = $conn->query($sql);
 
-
+$sanitizedData = [];
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
-        $finalqty = $row["entqty"];
-        $sql2 = " SELECT qty FROM exitrecord WHERE qtyid = '" . $row["qtyid"] . "'";
-        $result2 = $conn->query($sql2);
-        if (mysqli_num_rows($result2) > 0) {
-            while ($record = mysqli_fetch_assoc($result2)) {
-                $finalqty =  $finalqty - $record["qty"];
+        $finalQuantity = $row["entqty"];
+
+        $exit_sql = " SELECT qty FROM exitrecord WHERE qtyid = '" . $row["qtyid"] . "'";
+
+        $exitResult = $conn->query($exit_sql);
+
+        if (mysqli_num_rows($exitResult) > 0) {
+            while ($record = mysqli_fetch_assoc($exitResult)) {
+                $finalQuantity =  $finalQuantity - $record["qty"];
+            }
+        }
+
+        if ($finalQuantity > 0) {
+            if ($row['is_transfered'] !== '1') {
+                $sanitizedData[] = [
+                    'partnumber' => strtoupper($row["partnumber"]),
+                    'brand' => $row["brn"],
+                    'quantity' => $finalQuantity,
+                    'seller' => $row["name"],
+                    'pos1' => $row["pos1"],
+                    'pos2' => $row["pos2"],
+                    'description' => $row["des"],
+                    'stock' => $row["stckname"]
+                ];
             }
         }
     }
@@ -65,10 +83,15 @@ foreach ($customHeaders as $header) {
 
 // Set data from the database query result
 $row = 2;
-while ($row_data = $result->fetch_assoc()) {
+foreach ($sanitizedData as $row_data) {
     $col = 1;
-    foreach ($row_data as $value) {
-        $sheet->setCellValueByColumnAndRow($col, $row, $value);
+    foreach ($row_data as $key => $value) {
+        // Set the cell format to Text for the "partnumber" column
+        if ($key === 'partnumber') {
+            $sheet->getCellByColumnAndRow($col, $row)->setValueExplicit($value, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+        } else {
+            $sheet->setCellValueByColumnAndRow($col, $row, $value);
+        }
         $col++;
     }
     $row++;
@@ -93,3 +116,4 @@ ob_clean();
 // Create Excel file
 $writer = new Xlsx($spreadsheet);
 $writer->save('php://output');
+?>
