@@ -35,6 +35,20 @@ ORDER BY nisha.partnumber DESC";
 
 $result = $conn->query($sql);
 
+
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $finalqty = $row["entqty"];
+        $sql2 = " SELECT qty FROM exitrecord WHERE qtyid = '" . $row["qtyid"] . "'";
+        $result2 = $conn->query($sql2);
+        if (mysqli_num_rows($result2) > 0) {
+            while ($record = mysqli_fetch_assoc($result2)) {
+                $finalqty =  $finalqty - $record["qty"];
+            }
+        }
+    }
+}
+
 // Set the active sheet to the first sheet
 $sheet = $spreadsheet->getActiveSheet();
 
